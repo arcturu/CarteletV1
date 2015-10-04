@@ -4,6 +4,7 @@ _xmsgs
 *.xmsgs
 *.cmd
 *.wdb
+*.swp
 
 # https://github.com/github/gitignore/blob/master/Global/XilinxISE.gitignore
 # intermediate build files
