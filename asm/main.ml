@@ -142,17 +142,17 @@ let remove_comment str =
 
 let assemble asms tag_dict mode =
     let asms = List.filter (fun (_, x) -> not (Str.string_match (Str.regexp "[\t ]*$") x 0)) (List.rev_map (fun (line, str) -> (line, remove_comment str)) asms) in
-    if mode = "a" then
+    if mode = "hexstr" then
         List.fold_left (fun acc (line, asm) -> acc ^ asm_to_hex line asm tag_dict) "" asms
     else
         List.fold_left (fun acc (line, asm) -> acc ^ "x\"" ^ asm_to_hex line asm tag_dict ^ "\",\n") "" asms
 
 let () =
     if Array.length Sys.argv < 2 then
-        Printf.printf "%s [input file] [a/b]" Sys.argv.(0)
+        Printf.printf "%s [list/hexstr] [input file]\n" Sys.argv.(0)
     else
-        let file = Sys.argv.(1) in
-        let mode = Sys.argv.(2) in
+        let mode = Sys.argv.(1) in
+        let file = Sys.argv.(2) in
         let ic = open_in file in
         let asms = ref [] in
         let line = ref 1 in

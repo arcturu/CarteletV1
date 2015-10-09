@@ -26,6 +26,7 @@ architecture struct of CPU is
 
     type cpu_state_type is (ready, running, ploading, dloading);
     type sram_state_type is (idle, write, read);
+    type data_source_type is (src_alu, src_fpu, src_sram, src_direct);
     type registers_type is array (31 downto 0) of std_logic_vector (31 downto 0);
     type fetch_readreg_reg_type is record
         pc : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
@@ -47,7 +48,7 @@ architecture struct of CPU is
     type ex_wb_reg_type is record
         pc : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
         dest_num : std_logic_vector (4 downto 0);
-        use_alu : std_logic;
+        data_source : data_source_type;
         sram_state : sram_state_type;
         sram_data_to_be_written : std_logic_vector (31 downto 0);
         write : std_logic;
@@ -110,7 +111,7 @@ architecture struct of CPU is
         ex_wb_reg => (
             pc => (others => '0'),
             dest_num => (others => '0'),
-            use_alu => '0',
+            data_source => src_direct,
             sram_state => idle,
             sram_data_to_be_written => (others => '0'),
             write => '0',
@@ -184,6 +185,8 @@ begin
         variable cpu_ex_go : std_logic := '0';
         variable cpu_ex_sram_we : std_logic := '0';
         variable cpu_ex_sram_dout : std_logic_vector (31 downto 0) := (others => 'Z');
+        variable cpu_ex_sram_addr : std_logic_vector (19 downto 0) := (others => 'Z');
+        variable tmp_data : std_logic_vector (31 downto 0);
         variable flush_read : std_logic := '0';
         variable inst : std_logic_vector (31 downto 0) := (others => '0');
     begin
@@ -241,37 +244,46 @@ begin
                 cpu_ex_sram_dout := (others => 'Z');
                 pmem_we <= (others => '0');
 
-                -- memory read
-                case r.wb_mem_reg.sram_state is
-                    when write =>
-                        cpu_ex_sram_dout := r.wb_mem_reg.sram_data_to_be_written;
-                        v.forwarder_file(1).valid := '1';
-                    when read =>
-                        v.regs (to_integer(unsigned(r.wb_mem_reg.dest_num))) := cpu_in.sram_din;
-                        v.forwarder_file(1).valid := '1';
-                        v.forwarder_file(1).reg_num := r.wb_mem_reg.dest_num;
-                        v.forwarder_file(1).value := cpu_in.sram_din;
-                    when others =>
-                        v.forwarder_file(1).valid := '0';
-                end case;
+--                -- memory read
+--                case r.wb_mem_reg.sram_state is
+--                    when write =>
+--                        cpu_ex_sram_dout := r.wb_mem_reg.sram_data_to_be_written;
+--                        v.forwarder_file(1).valid := '1';
+--                    when read =>
+--                        v.regs (to_integer(unsigned(r.wb_mem_reg.dest_num))) := cpu_in.sram_din;
+--                        v.forwarder_file(1).valid := '1';
+--                        v.forwarder_file(1).reg_num := r.wb_mem_reg.dest_num;
+--                        v.forwarder_file(1).value := cpu_in.sram_din;
+--                    when others =>
+--                        v.forwarder_file(1).valid := '0';
+--                end case;
 
                 -- write back
-                if r.ex_wb_reg.write = '1' then
-                    if r.ex_wb_reg.use_alu = '1' then
-                        v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := alu_out.data;
+                if r.bubble_counter = x"0" then
+                    if r.ex_wb_reg.write = '1' then
+                        case v.ex_wb_reg.data_source is
+                            when src_alu =>
+                                tmp_data := alu_out.data;
+                            when src_fpu =>
+                                v.forwarder_file(0).valid := '0';
+                            when src_sram =>
+                                tmp_data := cpu_in.sram_din;
+                            when src_direct =>
+                                tmp_data := r.ex_wb_reg.data;
+                        end case;
+                        v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
+                        v.forwarder_file(0).reg_num := r.ex_wb_reg.dest_num;
+                        v.forwarder_file(0).valid := '1';
+                        v.forwarder_file(0).value := tmp_data;
+                    else
+                        v.forwarder_file(0).valid := '0';
                     end if;
-                    v.forwarder_file(0).reg_num := r.ex_wb_reg.dest_num;
-                    v.forwarder_file(0).valid := '1';
-                    v.forwarder_file(0).value := alu_out.data;
-                else
-                    v.forwarder_file(0).valid := '0';
+--                    v.wb_mem_reg.sram_state := r.ex_wb_reg.sram_state;
+--                    v.wb_mem_reg.sram_data_to_be_written := r.ex_wb_reg.sram_data_to_be_written;
+--                    v.wb_mem_reg.dest_num := r.ex_wb_reg.dest_num;
                 end if;
-                v.wb_mem_reg.sram_state := r.ex_wb_reg.sram_state;
-                v.wb_mem_reg.sram_data_to_be_written := r.ex_wb_reg.sram_data_to_be_written;
-                v.wb_mem_reg.dest_num := r.ex_wb_reg.dest_num;
 
                 -- execute
-                v.ex_wb_reg.pc := r.readreg_ex_reg.pc;
                 ex_lhs_value := r.readreg_ex_reg.lhs_value;
                 ex_rhs_value := r.readreg_ex_reg.rhs_value;
                 ex_dest_value := r.readreg_ex_reg.dest_value;
@@ -286,67 +298,76 @@ begin
                         ex_dest_value := v.forwarder_file(0).value;
                     end if;
                 end if;
-                if v.forwarder_file(1).valid = '1' then
-                    if r.readreg_ex_reg.lhs_num = v.forwarder_file(1).reg_num then
-                        ex_lhs_value := v.forwarder_file(1).value;
-                    end if;
-                    if r.readreg_ex_reg.rhs_num = v.forwarder_file(1).reg_num then
-                        ex_rhs_value := v.forwarder_file(1).value;
-                    end if;
-                    if r.readreg_ex_reg.dest_num = v.forwarder_file(1).reg_num then
-                        ex_dest_value := v.forwarder_file(1).value;
-                    end if;
-                end if;
+--                if v.forwarder_file(1).valid = '1' then
+--                    if r.readreg_ex_reg.lhs_num = v.forwarder_file(1).reg_num then
+--                        ex_lhs_value := v.forwarder_file(1).value;
+--                    end if;
+--                    if r.readreg_ex_reg.rhs_num = v.forwarder_file(1).reg_num then
+--                        ex_rhs_value := v.forwarder_file(1).value;
+--                    end if;
+--                    if r.readreg_ex_reg.dest_num = v.forwarder_file(1).reg_num then
+--                        ex_dest_value := v.forwarder_file(1).value;
+--                    end if;
+--                end if;
 
-                v.ex_wb_reg.write := '0';
-                v.ex_wb_reg.sram_state := idle;
                 flush_read := '0';
+                if r.bubble_counter = x"0" then
+                    v.ex_wb_reg.pc := r.readreg_ex_reg.pc;
+                    v.ex_wb_reg.write := '0';
+                    v.ex_wb_reg.sram_state := idle;
+                end if;
                 case r.readreg_ex_reg.ex_op is
                     when OP_ADD =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.use_alu := '1';
+                        v.ex_wb_reg.data_source := src_alu;
                         alu_in.command <= ALU_ADD;
                         alu_in.lhs <= ex_lhs_value;
                         alu_in.rhs <= ex_rhs_value;
                     when OP_ADDI =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.use_alu := '1';
+                        v.ex_wb_reg.data_source := src_alu;
                         alu_in.command <= ALU_ADD;
                         alu_in.lhs <= ex_lhs_value;
                         alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
                     when OP_SUB =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.use_alu := '1';
+                        v.ex_wb_reg.data_source := src_alu;
                         alu_in.command <= ALU_SUB;
                         alu_in.lhs <= ex_lhs_value;
                         alu_in.rhs <= ex_rhs_value;
                     when OP_SUBI =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.use_alu := '1';
+                        v.ex_wb_reg.data_source := src_alu;
                         alu_in.command <= ALU_SUB;
                         alu_in.lhs <= ex_lhs_value;
                         alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
                     when OP_ST =>
+--                        v.ex_wb_reg.sram_data_to_be_written := ex_lhs_value;
+--                        cpu_out.sram_addr <= ex_dest_value (19 downto 0);
                         v.ex_wb_reg.sram_state := write;
-                        v.ex_wb_reg.sram_data_to_be_written := ex_lhs_value;
-                        cpu_out.sram_addr <= ex_dest_value (19 downto 0);
+                        cpu_ex_sram_addr := ex_dest_value (19 downto 0);
                         cpu_ex_sram_we := '1';
+                        cpu_ex_sram_dout := ex_lhs_value;
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"1";
+                        v.bubble_counter := x"2";
                     when OP_LD =>
+--                        cpu_out.sram_addr <= ex_dest_value (19 downto 0);
                         v.ex_wb_reg.sram_state := read;
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
-                        cpu_out.sram_addr <= ex_dest_value (19 downto 0);
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_sram;
+                        cpu_ex_sram_addr := ex_dest_value (19 downto 0);
+                        cpu_ex_sram_we := '0';
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"1";
+                        v.bubble_counter := x"2";
                     when OP_BEQ =>
                         if ex_dest_value = ex_lhs_value then
                             ex_tmp_pc := "00" & r.readreg_ex_reg.pc;
@@ -354,7 +375,8 @@ begin
 
                             v.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
 
-                            v.fetch_readreg_reg2.fetched := '1';
+                            v.fetch_readreg_reg2.pc := v.pc;
+                            v.fetch_readreg_reg2.fetched := '0';
                             v.fetch_readreg_reg2.data := (others => '0');
                             flush_read := '1';
                         end if;
@@ -365,7 +387,8 @@ begin
 
                             v.pc := std_logic_vector(ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0));
 
-                            v.fetch_readreg_reg2.fetched := '1';
+                            v.fetch_readreg_reg2.pc := v.pc;
+                            v.fetch_readreg_reg2.fetched := '0';
                             v.fetch_readreg_reg2.data := (others => '0');
                             flush_read := '1';
                         end if;
@@ -373,13 +396,14 @@ begin
 
                         v.pc := ex_dest_value ((PMEM_ADDR_WIDTH - 1) downto 0);
 
-                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.pc := v.pc;
+                        v.fetch_readreg_reg2.fetched := '0';
                         v.fetch_readreg_reg2.data := (others => '0');
                         flush_read := '1';
                     when OP_JAL =>
                         v.ex_wb_reg.dest_num := "11111";
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.use_alu := '0';
+                        v.ex_wb_reg.data_source := src_direct;
                         v.ex_wb_reg.data := std_logic_vector(unsigned(r.readreg_ex_reg.pc) + 1);
 
                         ex_tmp_pc := "00" & r.readreg_ex_reg.pc;
@@ -387,7 +411,8 @@ begin
 
                         v.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
 
-                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.pc := v.pc;
+                        v.fetch_readreg_reg2.fetched := '0';
                         v.fetch_readreg_reg2.data := (others => '0');
                         flush_read := '1';
                     when OP_SEND =>
@@ -398,7 +423,7 @@ begin
                     when others =>
                 end case;
                 if v.bubble_counter = x"0" and flush_read = '0' then
-                    v.pc := std_logic_vector(unsigned(r.pc) + 1);
+                    v.pc := std_logic_vector(unsigned(v.pc) + 1);
                 end if;
 
                 -- read and decode
@@ -429,33 +454,33 @@ begin
                             v.readreg_ex_reg.dest_value := v.forwarder_file(0).value;
                         end if;
                     end if;
-                    if v.forwarder_file(1).valid = '1' then
-                        if v.readreg_ex_reg.lhs_num = v.forwarder_file(1).reg_num then
-                            v.readreg_ex_reg.lhs_value := v.forwarder_file(1).value;
-                        end if;
-                        if v.readreg_ex_reg.rhs_num = v.forwarder_file(1).reg_num then
-                            v.readreg_ex_reg.rhs_value := v.forwarder_file(1).value;
-                        end if;
-                        if v.readreg_ex_reg.dest_num = v.forwarder_file(1).reg_num then
-                            v.readreg_ex_reg.dest_value := v.forwarder_file(1).value;
-                        end if;
-                    end if;
+--                    if v.forwarder_file(1).valid = '1' then
+--                        if v.readreg_ex_reg.lhs_num = v.forwarder_file(1).reg_num then
+--                            v.readreg_ex_reg.lhs_value := v.forwarder_file(1).value;
+--                        end if;
+--                        if v.readreg_ex_reg.rhs_num = v.forwarder_file(1).reg_num then
+--                            v.readreg_ex_reg.rhs_value := v.forwarder_file(1).value;
+--                        end if;
+--                        if v.readreg_ex_reg.dest_num = v.forwarder_file(1).reg_num then
+--                            v.readreg_ex_reg.dest_value := v.forwarder_file(1).value;
+--                        end if;
+--                    end if;
                 else
                     v.readreg_ex_reg := reg_init.readreg_ex_reg;
                 end if;
 
                 -- dummy fetch
-                pmem_addr <= r.pc;
+                pmem_addr <= v.pc;
                 if v.bubble_counter = x"0" and flush_read = '0' then -- v なのは意図的です
 --                    v.fetch_readreg_reg2.pc := r.fetch_readreg_reg.pc;
-                    v.fetch_readreg_reg2.pc := r.pc;
+                    v.fetch_readreg_reg2.pc := v.pc;
                     v.fetch_readreg_reg2.fetched := '0';
                 end if;
 
                 -- fetch
---                pmem_addr <= r.pc;
+--                pmem_addr <= v.pc;
 --                if v.bubble_counter = x"0" and flush_read = '0' then
---                    v.fetch_readreg_reg.pc := r.pc;
+--                    v.fetch_readreg_reg.pc := v.pc;
 --                end if;
 
 
@@ -465,6 +490,7 @@ begin
 
                 cpu_out.ex_go <= cpu_ex_go;
                 cpu_out.sram_we <= cpu_ex_sram_we;
+                cpu_out.sram_addr <= cpu_ex_sram_addr;
                 cpu_out.sram_dout <= cpu_ex_sram_dout;
             when others =>
                 pmem_we <= (others => '0');

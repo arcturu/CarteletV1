@@ -8,7 +8,7 @@
 
   ENTITY testbench IS
       generic (
-          wtime : std_logic_vector (15 downto 0) := x"00ff"
+          wtime : std_logic_vector (15 downto 0) := x"0100"
       );
   END testbench;
 
@@ -17,7 +17,8 @@
   -- Component Declaration
           COMPONENT TOP
           generic (
-              wtime : std_logic_vector (15 downto 0) := x"1ADB"
+--              wtime : std_logic_vector (15 downto 0) := x"1ADB"
+              wtime : std_logic_vector (15 downto 0) := x"0D6D"
           );
           PORT(
                   MCLK1 : in std_logic;
@@ -127,7 +128,7 @@
 
 x"01000026",
 x"0bc00001",
-x"0820000a",
+x"08200005",
 x"0be00024",
 x"0bde0001",
 x"23df0000",
@@ -168,21 +169,20 @@ x"03000000",
 x"00000000"
 
 
---            x"01000006",
---            x"08200005",
---            x"0840000f",
---            x"20220000",
---            x"24230000",
---            x"80600000",
---            x"84000000",
---            x"03000000",
---            x"00000000"
+--x"01000005",
+--x"082003e8",
+--x"20010000",
+--x"24020000",
+--x"80400000",
+--x"84000000",
+--x"03000000",
+--x"00000000"
         );
 
   BEGIN
 
   -- Component Instantiation
-          uut: TOP generic map (wtime) PORT MAP(
+          uut: TOP generic map (x"0100") PORT MAP(
             MCLK1 => clk,
             RS_RX => rs_rx,
             RS_TX => rs_tx,
@@ -239,9 +239,9 @@ x"00000000"
      tb : PROCESS
      BEGIN
         clk <= '0';
-        wait for 1 ns;
+        wait for 7.26 ns;
         clk <= '1';
-        wait for 1 ns;
+        wait for 7.26 ns;
      END PROCESS tb;
 
      process (clk)

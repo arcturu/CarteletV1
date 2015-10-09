@@ -11,8 +11,10 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
+at 235950 ps(8), Instance /testbench/sram/sram_sim_clock/DCM_ADV_INST/ : Warning:  Warning : Input Clock Period Jitter on instance   exceeds 1 ns Locked CLKIN Period =  14.52 ns Current CLKIN Period =  32.67 ns
+# run 1.00us
+# run 7.00ms
+at 322728780 ps(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
 ISim P.49d (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -21,120 +23,6 @@ This is a Lite version of ISim.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run all
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-Stopped at time : 279823 ns : File "/home/sseki/ise/Cartelet/v1/top.vhd" Line 78
-# run 1.00ms
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-# run 1.00ms
-Stopped at time : 1409205 ns : File "/home/sseki/ise/Cartelet/v1/top.vhd" Line 79
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-ISim P.49d (signature 0xfbc00daa)
-WARNING: A WEBPACK license was found.
-WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
-WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
-This is a Lite version of ISim.
-# run 1000 ns
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-# run 1.00ms
-at 44279 ns(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
-# exit 0
+at 235950 ps(8), Instance /testbench/sram/sram_sim_clock/DCM_ADV_INST/ : Warning:  Warning : Input Clock Period Jitter on instance   exceeds 1 ns Locked CLKIN Period =  14.52 ns Current CLKIN Period =  32.67 ns
+# run 7.00ms
+at 322728780 ps(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).

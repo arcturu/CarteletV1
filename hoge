@@ -1,0 +1,204 @@
+=== 1st architecture : Cartelet v1 ===
+
+<table class="wikitable">
+<tr>
+    <th rowspan="2">通番</th>
+    <th colspan="2">進捗</th>
+
+    <th rowspan="2">命令</th>
+    <th rowspan="2">opcode</th>
+    <th rowspan="2">構文</th>
+    <th rowspan="2">操作</th>
+    <th rowspan="2">意味</th>
+    <th rowspan="2">備考</th>
+</tr>
+<tr><th>コア</th><th>シミュ</th></tr>
+<tr>
+    <td>1</td>
+    <td>×</td>
+    <td></td>
+    <td>nop</td>
+    <td></td>
+    <td>nop</td>
+    <td></td>
+    <td>no operation</td>
+    <td></td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>○</td>
+    <td></td>
+    <td>add</td>
+    <td></td>
+    <td>add r1 r2 r3</td>
+    <td>r1 &lt;- r2 + r3</td>
+    <td>add</td>
+    <td></td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>○</td>
+    <td></td>
+    <td>addi</td>
+    <td></td>
+    <td>addi r1 r2 imm</td>
+    <td>r1 &lt;- r2 + s32(imm)</td>
+    <td>add immediate</td>
+    <td></td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>○</td>
+    <td></td>
+    <td>sub</td>
+    <td></td>
+    <td>sub r1 r2 r3</td>
+    <td>r1 &lt;- r2 - r3</td>
+    <td>subtract</td>
+    <td></td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>○</td>
+    <td></td>
+    <td>subi</td>
+    <td></td>
+    <td>subi r1 r2 imm</td>
+    <td>r1 &lt;- r2 - s32(imm)</td>
+    <td>subtract immediate</td>
+    <td></td>
+</tr>
+<tr>
+    <td>6</td>
+    <td>○</td>
+    <td></td>
+    <td>beq</td>
+    <td></td>
+    <td>beq r1 r2 addr</td>
+    <td>if r1 = r2 then pc &lt;- addr + 1 else pc &lt;- pc + 1</td>
+    <td>branch on equal</td>
+    <td></td>
+</tr>
+<tr>
+    <td>7</td>
+    <td>○</td>
+    <td></td>
+    <td>st</td>
+    <td></td>
+    <td>st r1 r2</td>
+    <td>mem[r1] &lt;- r2</td>
+    <td>store</td>
+    <td></td>
+</tr>
+<tr>
+    <td>8</td>
+    <td>○</td>
+    <td></td>
+    <td>ld</td>
+    <td></td>
+    <td>ld r1 r2</td>
+    <td>r2 &lt;- mem[r1]</td>
+    <td>load</td>
+    <td></td>
+</tr>
+<tr>
+    <td>9</td>
+    <td>○</td>
+    <td></td>
+    <td>jr</td>
+    <td></td>
+    <td>jr r1</td>
+    <td>pc &lt;- r1</td>
+    <td>jump register</td>
+    <td></td>
+</tr>
+<tr>
+    <td>10</td>
+    <td>△</td>
+    <td></td>
+    <td>jal</td>
+    <td></td>
+    <td>jal addr</td>
+    <td>pc &lt;- addr; r30 <- pc + 1</td>
+    <td>jump and link</td>
+    <td></td>
+</tr>
+<tr>
+    <td>11</td>
+    <td>○</td>
+    <td></td>
+    <td>send</td>
+    <td></td>
+    <td>send r1</td>
+    <td></td>
+    <td>レジスタの内容を rs232c で送信</td>
+    <td></td>
+</tr>
+<tr>
+    <td>12</td>
+    <td>○</td>
+    <td></td>
+    <td>halt</td>
+    <td></td>
+    <td>halt</td>
+    <td></td>
+    <td>停止</td>
+    <td></td>
+</tr>
+<tr>
+    <td>13</td>
+    <td>×</td>
+    <td></td>
+    <td>sll</td>
+    <td></td>
+    <td>sll r1 r2 r3</td>
+    <td>r1 &lt;- r2 &lt;&lt; r3</td>
+    <td>shift left logically</td>
+    <td></td>
+</tr>
+<tr>
+    <td>14</td>
+    <td>×</td>
+    <td></td>
+    <td>srl</td>
+    <td></td>
+    <td>srl r1 r2 r3</td>
+    <td>r1 &lt;- r2 &gt;&gt; r3</td>
+    <td>shift right logically</td>
+    <td></td>
+</tr>
+<tr>
+    <td>15</td>
+    <td>×</td>
+    <td></td>
+    <td>fadd</td>
+    <td></td>
+    <td>fadd r1 r2 r3</td>
+    <td>r1 &lt;- r2 + r3</td>
+    <td></td>
+    <td>nearest even</td>
+</tr>
+<tr>
+    <td>16</td>
+    <td>×</td>
+    <td></td>
+    <td>fmul</td>
+    <td></td>
+    <td>fmul r1 r2 r3</td>
+    <td>r1 &lt;- r2 * r3</td>
+    <td></td>
+    <td>nearest even</td>
+</tr>
+<tr>
+    <td>17</td>
+    <td>×</td>
+    <td></td>
+    <td>finv</td>
+    <td></td>
+    <td>finv r1 r2</td>
+    <td>r1 &lt;- 1/r2</td>
+    <td></td>
+    <td>nearest even</td>
+</tr>
+</table>
+

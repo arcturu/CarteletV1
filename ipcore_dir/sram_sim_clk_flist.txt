@@ -1,0 +1,2 @@
+# Output products list for <sram_sim_clk>
+sram_sim_clk_flist.txt
