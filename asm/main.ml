@@ -81,6 +81,12 @@ let asm_to_bin line str tag_dict =
     | "subi" -> "000100" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            imm_to_bin (List.nth tokens 3)
+    | "sll"  -> "000101" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
+    | "srl"  -> "000110" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
     | "st"   -> "001000" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "ld"   -> "001001" ^ reg_to_bin (List.nth tokens 1) ^

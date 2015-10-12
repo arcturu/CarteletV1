@@ -117,6 +117,8 @@ package types is
     constant OP_ADDI : std_logic_vector (5 downto 0) := "000010";
     constant OP_SUB  : std_logic_vector (5 downto 0) := "000011";
     constant OP_SUBI : std_logic_vector (5 downto 0) := "000100";
+    constant OP_SLL  : std_logic_vector (5 downto 0) := "000101";
+    constant OP_SRL  : std_logic_vector (5 downto 0) := "000110";
     constant OP_ST   : std_logic_vector (5 downto 0) := "001000";
     constant OP_LD   : std_logic_vector (5 downto 0) := "001001";
     constant OP_BEQ  : std_logic_vector (5 downto 0) := "010000";
@@ -129,4 +131,6 @@ package types is
     constant ALU_NOP : std_logic_vector (3 downto 0) := "0000";
     constant ALU_ADD : std_logic_vector (3 downto 0) := "0001";
     constant ALU_SUB : std_logic_vector (3 downto 0) := "0010";
+    constant ALU_SLL : std_logic_vector (3 downto 0) := "0011";
+    constant ALU_SRL : std_logic_vector (3 downto 0) := "0100";
 end package;

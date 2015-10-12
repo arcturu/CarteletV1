@@ -11,10 +11,10 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-at 235950 ps(8), Instance /testbench/sram/sram_sim_clock/DCM_ADV_INST/ : Warning:  Warning : Input Clock Period Jitter on instance   exceeds 1 ns Locked CLKIN Period =  14.52 ns Current CLKIN Period =  32.67 ns
-# run 1.00us
-# run 7.00ms
+at 237424 ps(8), Instance /testbench/sram/sram_sim_clock/DCM_ADV_INST/ : Warning:  Warning : Input Clock Period Jitter on instance   exceeds 1 ns Locked CLKIN Period =  14.52 ns Current CLKIN Period =  34.144 ns
+# run 1.00ms
 at 322728780 ps(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
+# run 1.00ms
 ISim P.49d (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -23,6 +23,7 @@ This is a Lite version of ISim.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-at 235950 ps(8), Instance /testbench/sram/sram_sim_clock/DCM_ADV_INST/ : Warning:  Warning : Input Clock Period Jitter on instance   exceeds 1 ns Locked CLKIN Period =  14.52 ns Current CLKIN Period =  32.67 ns
-# run 7.00ms
+at 237424 ps(8), Instance /testbench/sram/sram_sim_clock/DCM_ADV_INST/ : Warning:  Warning : Input Clock Period Jitter on instance   exceeds 1 ns Locked CLKIN Period =  14.52 ns Current CLKIN Period =  34.144 ns
+# run 1.00ms
 at 322728780 ps(3): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/testbench/uut/cpu_1/pmem/U0/native_mem_module/mem_module/).
+# run 1.00ms

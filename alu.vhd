@@ -22,6 +22,7 @@ architecture struct of ALU is
 begin
     comb : process (alu_in, r)
         variable v : reg_type := reg_init;
+        variable tmp : std_logic_vector (31 downto 0);
     begin
         v := r;
         case alu_in.command is
@@ -29,6 +30,48 @@ begin
                 v.data := std_logic_vector(signed(alu_in.lhs) + signed(alu_in.rhs));
             when ALU_SUB =>
                 v.data := std_logic_vector(signed(alu_in.lhs) - signed(alu_in.rhs));
+            when ALU_SLL =>
+                tmp := alu_in.lhs;
+                if alu_in.rhs (0) = '1' then
+                    tmp := tmp (30 downto 0) & '0';
+                end if;
+                if alu_in.rhs (1) = '1' then
+                    tmp := tmp (29 downto 0) & "00";
+                end if;
+                if alu_in.rhs (2) = '1' then
+                    tmp := tmp (27 downto 0) & "0000";
+                end if;
+                if alu_in.rhs (3) = '1' then
+                    tmp := tmp (23 downto 0) & "00000000";
+                end if;
+                if alu_in.rhs (4) = '1' then
+                    tmp := tmp (15 downto 0) & "0000000000000000";
+                end if;
+                if alu_in.rhs (31 downto 5) /= "000000000000000000000000000" then
+                    tmp := (others => '0');
+                end if;
+                v.data := tmp;
+            when ALU_SRL =>
+                tmp := alu_in.lhs;
+                if alu_in.rhs (0) = '1' then
+                    tmp := '0' & tmp (31 downto 1);
+                end if;
+                if alu_in.rhs (1) = '1' then
+                    tmp := "00" & tmp (31 downto 2);
+                end if;
+                if alu_in.rhs (2) = '1' then
+                    tmp := "0000" & tmp (31 downto 4);
+                end if;
+                if alu_in.rhs (3) = '1' then
+                    tmp := "00000000" & tmp (31 downto 8);
+                end if;
+                if alu_in.rhs (4) = '1' then
+                    tmp := "0000000000000000" & tmp (31 downto 16);
+                end if;
+                if alu_in.rhs (31 downto 5) /= "000000000000000000000000000" then
+                    tmp := (others => '0');
+                end if;
+                v.data := tmp;
             when others =>
                 v.data := (others => '0');
         end case;

@@ -17,8 +17,8 @@ Parsing VHDL file "/home/sseki/ise/Cartelet/v1/sram_sim.vhd" into library work
 Parsing VHDL file "/home/sseki/ise/Cartelet/v1/top_tb.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 123476 KB
-Fuse CPU Usage: 1130 ms
+Fuse Memory Usage: 123460 KB
+Fuse CPU Usage: 1200 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package numeric_std
@@ -59,6 +59,6 @@ Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
 Compiled 59 VHDL Units
 Built simulation executable /home/sseki/ise/Cartelet/v1/testbench_isim_beh.exe
-Fuse Memory Usage: 1243076 KB
-Fuse CPU Usage: 1630 ms
-GCC CPU Usage: 90 ms
+Fuse Memory Usage: 1243056 KB
+Fuse CPU Usage: 1700 ms
+GCC CPU Usage: 150 ms

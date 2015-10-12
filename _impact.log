@@ -1,6 +1,6 @@
 iMPACT Version: 14.4
 
-iMPACT log file Started on Fri Oct  9 19:35:47 2015
+iMPACT log file Started on Mon Oct 12 12:35:27 2015
 
 Welcome to iMPACT
 iMPACT Version: 14.4
@@ -32,7 +32,7 @@ Elapsed time =      1 sec.
 Type = 0x0004.
 ESN option: 0000117DD2DC01.
 Attempting to identify devices in the boundary-scan chain configuration...
-INFO:iMPACT - Current time: 15/10/09 19:35
+INFO:iMPACT - Current time: 15/10/12 12:35
 // *** BATCH CMD : Identify -inferir 
 PROGRESS_START - Starting Operation.
 Identifying chain contents...'0': : Manufacturer's ID = Xilinx xc5vlx50t, Version : 8
@@ -58,7 +58,34 @@ UserID read from the bitstream file = 0xFFFFFFFF.
 ----------------------------------------------------------------------
 INFO:iMPACT:501 - '2': Added Device xc5vlx50t successfully.
 ----------------------------------------------------------------------
-INFO:iMPACT - Current time: 15/10/09 19:36
+INFO:iMPACT - Current time: 15/10/12 12:35
+// *** BATCH CMD : Program -p 2 
+Maximum TCK operating frequency for this device chain: 15000000.
+Validating chain...
+Boundary-scan chain validated successfully.
+2: Device Temperature: Current Reading: -273.00 C
+2: VCCINT Supply: Current Reading:   0.000 V
+2: VCCAUX Supply: Current Reading:   0.000 V
+PROGRESS_START - Starting Operation.
+'2': Programming device...
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1111 0011 1110 0000 1011 1100 0000 
+INFO:iMPACT:579 - '2': Completed downloading bit file to device.
+INFO:iMPACT:188 - '2': Programming completed successfully.
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+INFO:iMPACT - '2': Checking done pin....done.
+'2': Programmed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      4 sec.
+INFO:iMPACT - Current time: 15/10/12 12:36
 // *** BATCH CMD : Program -p 2 
 Maximum TCK operating frequency for this device chain: 15000000.
 Validating chain...

@@ -7,7 +7,7 @@
 -- \   \   \/     Version : 14.4
 --  \   \         Application : xaw2vhdl
 --  /   /         Filename : sram_clk.vhd
--- /___/   /\     Timestamp : 10/09/2015 21:01:03
+-- /___/   /\     Timestamp : 10/12/2015 12:03:35
 -- \   \  /  \ 
 --  \___\/\___\ 
 --
@@ -53,7 +53,7 @@ begin
             CLKFX_DIVIDE => 1,
             CLKFX_MULTIPLY => 4,
             CLKIN_DIVIDE_BY_2 => FALSE,
-            CLKIN_PERIOD => 10.560,
+            CLKIN_PERIOD => 14.520,
             CLKOUT_PHASE_SHIFT => "FIXED",
             DCM_AUTOCALIBRATION => TRUE,
             DCM_PERFORMANCE_MODE => "MAX_SPEED",

@@ -8,9 +8,9 @@ use work.types.all;
 
 entity TOP is
     generic (
-        wtime : std_logic_vector (15 downto 0) := x"24ED" -- 90MHz 9600
+--        wtime : std_logic_vector (15 downto 0) := x"24ED" -- 90MHz 9600
 --        wtime : std_logic_vector (15 downto 0) := x"2847" -- 99MHz 9600
---        wtime : std_logic_vector (15 downto 0) := x"1ADB" -- 66MHz 9600
+        wtime : std_logic_vector (15 downto 0) := x"1ADB" -- 66MHz 9600
 --        wtime : std_logic_vector (15 downto 0) := x"313C" -- 121MHz 9600
 --        wtime : std_logic_vector (15 downto 0) := x"0D6D" -- 133MHz 38400
     );
