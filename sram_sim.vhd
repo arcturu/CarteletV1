@@ -26,30 +26,30 @@ architecture behaviour of sram_sim is
     signal mem : mem_type;
     type data_type is array (1 downto 0) of std_logic_vector (31 downto 0);
     type addr_type is array (3 downto 0) of std_logic_vector (19 downto 0);
-    signal xwab : std_logic_vector (3 downto 0);
-    signal zdbi : data_type;
-    signal zab  : addr_type;
-    component SRAM_SIM_CLK is
-        port (
-            CLKIN_IN : in std_logic;
-            RST_IN : in std_logic;
-            CLK0_OUT : out std_logic;
-            LOCKED_OUT : out std_logic
-        );
-    end component;
+    signal xwab : std_logic_vector (3 downto 0) := (others => '1');
+    signal zdbi : data_type := (others => (others => '0'));
+    signal zab  : addr_type := (others => (others => '0'));
+--    component SRAM_SIM_CLK is
+--        port (
+--            CLKIN_IN : in std_logic;
+--            RST_IN : in std_logic;
+--            CLK0_OUT : out std_logic;
+--            LOCKED_OUT : out std_logic
+--        );
+--    end component;
     signal clk : std_logic;
     signal rst : std_logic := '0';
 begin
-    sram_sim_clock : SRAM_SIM_CLK port map (
-        CLKIN_IN => ZCLKMA (0),
-        RST_IN => rst,
-        CLK0_OUT => clk
-    );
+--    sram_sim_clock : SRAM_SIM_CLK port map (
+--        CLKIN_IN => ZCLKMA (0),
+--        RST_IN => rst,
+--        CLK0_OUT => clk
+--    );
 
-    process (clk)
+    process (ZCLKMA(0), ZD, ZA, xwab, zab)
         variable zdbo : std_logic_vector (31 downto 0);
     begin
-        if rising_edge(clk) then
+        if rising_edge(ZCLKMA(0)) then
             xwab(1) <= XWA;
             xwab(2) <= xwab(1);
             xwab(3) <= xwab(2);
@@ -59,22 +59,24 @@ begin
             zab(1)  <= ZA;
             zab(2)  <= zab(1);
             zab(3)  <= zab(2);
-            zdbo := (others => 'U');
-            if zab(2)(0) = '1' or zab(2)(0) = '0' then
-                if xwab(2) = '0' then
-                    zdbo := (others => 'Z');
+            zdbo := (others => 'Z');
+            if xwab (2 downto 1) = "01" then
+                if zab(2)(0) = '1' or zab(2)(0) = '0' then
                     mem(to_integer(unsigned(zab(2)))) <= ZD;
-                else
-                    zdbo := mem(to_integer(unsigned(zab(2))));
+                    zdbo := ZD;
+                end if;
+            elsif xwab (2 downto 1) = "11" then
+                if zab(1)(0) = '1' or zab(1)(0) = '0' then
+                    zdbo := mem(to_integer(unsigned(zab(1))));
                 end if;
             else
-                zdbo := (others => 'U');
+                if zab(2)(0) = '1' or zab(2)(0) = '0' then
+                    mem(to_integer(unsigned(zab(2)))) <= ZD;
+                    zdbo := (others => 'Z');
+                end if;
             end if;
-            if xwab(1) = '0' then
-                zdbo := (others => 'Z');
-            end if;
+
             ZD <= zdbo;
         end if;
     end process;
-
 end behaviour;

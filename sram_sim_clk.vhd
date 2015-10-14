@@ -7,7 +7,7 @@
 -- \   \   \/     Version : 14.4
 --  \   \         Application : xaw2vhdl
 --  /   /         Filename : sram_sim_clk.vhd
--- /___/   /\     Timestamp : 10/12/2015 12:26:46
+-- /___/   /\     Timestamp : 10/12/2015 16:18:15
 -- \   \  /  \ 
 --  \___\/\___\ 
 --
@@ -54,7 +54,7 @@ begin
             CLKFX_MULTIPLY => 4,
             CLKIN_DIVIDE_BY_2 => FALSE,
             CLKIN_PERIOD => 10.560,
-            CLKOUT_PHASE_SHIFT => "NONE",
+            CLKOUT_PHASE_SHIFT => "FIXED",
             DCM_AUTOCALIBRATION => TRUE,
             DCM_PERFORMANCE_MODE => "MAX_SPEED",
             DESKEW_ADJUST => "SYSTEM_SYNCHRONOUS",
@@ -62,7 +62,7 @@ begin
             DLL_FREQUENCY_MODE => "LOW",
             DUTY_CYCLE_CORRECTION => TRUE,
             FACTORY_JF => x"F0F0",
-            PHASE_SHIFT => 0,
+            PHASE_SHIFT => -5,
             STARTUP_WAIT => FALSE,
             SIM_DEVICE => "VIRTEX5")
       port map (CLKFB=>CLKFB_IN,

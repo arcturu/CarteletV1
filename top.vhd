@@ -11,6 +11,7 @@ entity TOP is
 --        wtime : std_logic_vector (15 downto 0) := x"24ED" -- 90MHz 9600
 --        wtime : std_logic_vector (15 downto 0) := x"2847" -- 99MHz 9600
         wtime : std_logic_vector (15 downto 0) := x"1ADB" -- 66MHz 9600
+--        wtime : std_logic_vector (15 downto 0) := x"2CC2" -- 110MHz (5/3) 9600
 --        wtime : std_logic_vector (15 downto 0) := x"313C" -- 121MHz 9600
 --        wtime : std_logic_vector (15 downto 0) := x"0D6D" -- 133MHz 38400
     );
@@ -45,18 +46,18 @@ architecture struct of TOP is
             LOCKED_OUT : out std_logic
         );
     end component;
-    component SRAM_CLK is
-        port (
-            CLKIN_IN : in std_logic;
-            RST_IN : in std_logic;
-            CLK0_OUT : out std_logic;
-            LOCKED_OUT : out std_logic
-        );
-    end component;
+--    component SRAM_CLK is
+--        port (
+--            CLKIN_IN : in std_logic;
+--            RST_IN : in std_logic;
+--            CLK0_OUT : out std_logic;
+--            LOCKED_OUT : out std_logic
+--        );
+--    end component;
 
     signal clk : std_logic;
     signal iclk : std_logic;
-    signal sclk : std_logic;
+--    signal sclk : std_logic;
     signal rst : std_logic := '0';
 
     signal sender_in    : sender_in_type    := sender_in_init;
@@ -67,11 +68,13 @@ architecture struct of TOP is
     signal cpu_out      : cpu_out_type      := cpu_out_init;
 
     type sram_addrs_type is array (2 downto 0) of std_logic_vector (19 downto 0);
-    signal sram_addrs : sram_addrs_type;
+    signal sram_addrs : sram_addrs_type := (others => (others => '0'));
     type sram_zds_type is array (2 downto 0) of std_logic_vector (31 downto 0);
-    signal sram_zds : sram_zds_type;
+    signal sram_zds : sram_zds_type := (others => (others => '0'));
     type sram_was_type is array (2 downto 0) of std_logic;
-    signal sram_was : sram_was_type;
+    signal sram_was : sram_was_type := (others => '0');
+
+    signal sram_cache : sram_cache_type := sram_cache_init;
 begin
 --    ib : IBUFG port map (
 --        i => MCLK1,
@@ -83,11 +86,11 @@ begin
         RST_IN => rst,
         CLKFX_OUT => clk
     );
-    sram_clock : SRAM_CLK port map (
-        CLKIN_IN => clk,
-        RST_IN => rst,
-        CLK0_OUT => sclk
-    );
+--    sram_clock : SRAM_CLK port map (
+--        CLKIN_IN => clk,
+--        RST_IN => rst,
+--        CLK0_OUT => sclk
+--    );
     sender_1 : sender generic map (wtime) port map (clk, rst, sender_in, sender_out);
     receiver_1 : receiver generic map (wtime) port map (clk, rst, receiver_in, receiver_out);
     cpu_1 : cpu port map (clk, rst, cpu_in, cpu_out);
@@ -108,7 +111,8 @@ begin
     ZA <= sram_addrs (0);
     sram_zds (0) <= cpu_out.sram_dout;
     ZD <= sram_zds (2) when sram_was (2) = '1' else (others => 'Z');
-    sram_manager_sub1 : process (clk)
+    cpu_in.sram_din <= ZD;
+    sram_manager_sub1 : process (clk, sram_was, sram_addrs, sram_zds)
     begin
         if rising_edge(clk) then
             sram_was (1) <= sram_was (0);
@@ -122,14 +126,18 @@ begin
         end if;
     end process;
 
-    sram_manager_sub2 : process (sclk) -- read 用
-    begin
-        if rising_edge(sclk) then
-            if sram_was (2) = '0' then
-                cpu_in.sram_din <= ZD;
-            end if;
-        end if;
-    end process;
+--    sram_manager_sub2 : process (sclk) -- read 用
+--    begin
+--        if rising_edge(sclk) then
+--            if sram_addrs(2)(0) = '1' or sram_addrs(2)(0) = '0' then
+--                if sram_was(2) = '0' then
+--                    sram_cache(to_integer(unsigned(sram_addrs(2) (3 downto 0)))).valid <= '1';
+--                    sram_cache(to_integer(unsigned(sram_addrs(2) (3 downto 0)))).tag <= sram_addrs(2);
+--                    sram_cache(to_integer(unsigned(sram_addrs(2) (3 downto 0)))).value <= ZD;
+--                end if;
+--            end if;
+--        end if;
+--    end process;
 
 
     XE1 <= '0';
@@ -142,7 +150,7 @@ begin
     ZZA <= '0';
     XFT <= '1';
     XZBE <= "0000";
-    ZCLKMA (0) <= sclk;
-    ZCLKMA (1) <= sclk;
+    ZCLKMA (0) <= clk;
+    ZCLKMA (1) <= clk;
 end struct;
 

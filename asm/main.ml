@@ -97,6 +97,8 @@ let asm_to_bin line str tag_dict =
     | "bneq" -> "010001" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            tag_to_bin (List.nth tokens 3) line tag_dict
+    | "jal"  -> "010011" ^ repeat "0" 10 ^
+                           tag_to_bin (List.nth tokens 1) line tag_dict
     | "jr"   -> "010010" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "send" -> "100000" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "halt" -> "100001" ^ repeat "0" 26
