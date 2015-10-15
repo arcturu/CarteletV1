@@ -1,5 +1,5 @@
 *.exe
-ise.log
+*.log
 _xmsgs
 *.xmsgs
 *.cmd
