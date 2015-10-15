@@ -1,6 +1,46 @@
 
 module TagDict = Map.Make(String)
 
+let half_byte_to_hex hb =
+    match hb with
+    | "0000" -> "0"
+    | "0001" -> "1"
+    | "0010" -> "2"
+    | "0011" -> "3"
+    | "0100" -> "4"
+    | "0101" -> "5"
+    | "0110" -> "6"
+    | "0111" -> "7"
+    | "1000" -> "8"
+    | "1001" -> "9"
+    | "1010" -> "a"
+    | "1011" -> "b"
+    | "1100" -> "c"
+    | "1101" -> "d"
+    | "1110" -> "e"
+    | "1111" -> "f"
+    | _ -> raise (Failure "matching failed in half_byte_to_hex")
+
+let hex_to_half_byte hex =
+    match hex with
+    | "0" -> "0000"
+    | "1" -> "0001"
+    | "2" -> "0010"
+    | "3" -> "0011"
+    | "4" -> "0100"
+    | "5" -> "0101"
+    | "6" -> "0110"
+    | "7" -> "0111"
+    | "8" -> "1000"
+    | "9" -> "1001"
+    | "a" -> "1010"
+    | "b" -> "1011"
+    | "c" -> "1100"
+    | "d" -> "1101"
+    | "e" -> "1110"
+    | "f" -> "1111"
+    | _ -> raise (Failure "matching failed in hex_to_half_byte")
+
 let rec to_bin dec =
     let half = dec / 2 in
     if dec mod 2 = 0 then
@@ -18,6 +58,7 @@ let rec not' binstr =
         match car with
         | "0" -> "1" ^ not' cdr
         | "1" -> "0" ^ not' cdr
+        | _ -> raise (Failure "matching failed in not'")
     else
         ""
 
@@ -47,12 +88,27 @@ let rec repeat str num =
         str ^ repeat str (num - 1)
     else ""
 
-let imm_to_bin' str =
+let dec_imm_to_bin str =
     let car = String.sub str 0 1 in
     let cdr = String.sub str 1 (String.length str - 1) in
     match car with
     | "-" -> neg (zfill (to_bin (int_of_string cdr)) 16)
     | _   -> zfill (to_bin (int_of_string str)) 16
+
+(* hex をそのまま bin にするだけ (符号は非対応) *)
+let rec hex_imm_to_bin str =
+    if String.length str > 0 then
+        let car = String.sub str 0 1 in
+        let cdr = String.sub str 1 (String.length str - 1) in
+        hex_to_half_byte car ^ hex_imm_to_bin cdr
+    else
+        ""
+
+let imm_to_bin' str =
+    if String.length str > 2 &&  String.sub str 0 2 = "0x" then
+        hex_imm_to_bin (String.sub str 2 (String.length str - 2))
+    else
+        dec_imm_to_bin str
 
 let imm_to_bin str =
     let res = imm_to_bin' str in
@@ -99,9 +155,38 @@ let asm_to_bin line str tag_dict =
                            tag_to_bin (List.nth tokens 3) line tag_dict
     | "jal"  -> "010011" ^ repeat "0" 10 ^
                            tag_to_bin (List.nth tokens 1) line tag_dict
+    | "slt"  -> "010100" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
+    | "bclt" -> "010101" ^ repeat "0" 10 ^
+                           tag_to_bin (List.nth tokens 1) line tag_dict
+    | "bclf" -> "010110" ^ repeat "0" 10 ^
+                           tag_to_bin (List.nth tokens 1) line tag_dict
     | "jr"   -> "010010" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "send" -> "100000" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "halt" -> "100001" ^ repeat "0" 26
+    | "fadd" -> "110000" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
+    | "fmul" -> "110001" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
+    | "finv" -> "110010" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
+    | "fneg" -> "110011" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fabs" -> "110100" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fst"  -> "110101" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fld"  -> "110110" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fseq" -> "110111" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fslt" -> "111000" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | _ -> raise (Failure "matching failed in asm_to_bin")
 
 let rec split_by_num str num =
     let l = String.length str in
@@ -109,25 +194,6 @@ let rec split_by_num str num =
         String.sub str 0 num :: split_by_num (String.sub str num (l - num)) num
     else
         [str]
-
-let half_byte_to_hex hb =
-    match hb with
-    | "0000" -> "0"
-    | "0001" -> "1"
-    | "0010" -> "2"
-    | "0011" -> "3"
-    | "0100" -> "4"
-    | "0101" -> "5"
-    | "0110" -> "6"
-    | "0111" -> "7"
-    | "1000" -> "8"
-    | "1001" -> "9"
-    | "1010" -> "a"
-    | "1011" -> "b"
-    | "1100" -> "c"
-    | "1101" -> "d"
-    | "1110" -> "e"
-    | "1111" -> "f"
 
 let bin_to_hex str =
     let str = (
@@ -156,7 +222,7 @@ let assemble asms tag_dict mode =
         List.fold_left (fun acc (line, asm) -> acc ^ "x\"" ^ asm_to_hex line asm tag_dict ^ "\",\n") "" asms
 
 let () =
-    if Array.length Sys.argv < 2 then
+    if Array.length Sys.argv <= 2 then
         Printf.printf "%s [list/hexstr] [input file]\n" Sys.argv.(0)
     else
         let mode = Sys.argv.(1) in

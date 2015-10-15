@@ -158,6 +158,9 @@ package types is
     constant OP_BNEQ : std_logic_vector (5 downto 0) := "010001";
     constant OP_JR   : std_logic_vector (5 downto 0) := "010010";
     constant OP_JAL  : std_logic_vector (5 downto 0) := "010011";
+    constant OP_SLT  : std_logic_vector (5 downto 0) := "010100";
+    constant OP_BCLT : std_logic_vector (5 downto 0) := "010101";
+    constant OP_BCLF : std_logic_vector (5 downto 0) := "010110";
     constant OP_SEND : std_logic_vector (5 downto 0) := "100000";
     constant OP_HALT : std_logic_vector (5 downto 0) := "100001";
     constant OP_FADD : std_logic_vector (5 downto 0) := "110000";
@@ -167,6 +170,8 @@ package types is
     constant OP_FABS : std_logic_vector (5 downto 0) := "110100";
     constant OP_FST  : std_logic_vector (5 downto 0) := "110101";
     constant OP_FLD  : std_logic_vector (5 downto 0) := "110110";
+    constant OP_FSEQ : std_logic_vector (5 downto 0) := "110111";
+    constant OP_FSLT : std_logic_vector (5 downto 0) := "111000";
 
     constant ALU_NOP : std_logic_vector (3 downto 0) := "0000";
     constant ALU_ADD : std_logic_vector (3 downto 0) := "0001";
