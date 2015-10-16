@@ -400,7 +400,7 @@ begin
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"2";
+                        v.bubble_counter := x"3";
                     when OP_FST =>
                         v.ex_wb_reg.sram_state := write;
                         cpu_ex_sram_addr := ex_dest_value (19 downto 0);
@@ -409,7 +409,7 @@ begin
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"2";
+                        v.bubble_counter := x"3";
                     when OP_LD =>
                         v.ex_wb_reg.sram_state := read;
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
@@ -508,6 +508,17 @@ begin
                         cpu_ex_go := '1';
                     when OP_HALT =>
                         v.cpu_state := ready;
+                    when OP_FADD =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_fpu;
+                        fpu_in.command <= FPU_ADD;
+                        fpu_in.lhs <= ex_lhs_value;
+                        fpu_in.rhs <= ex_rhs_value;
+
+                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.data := pmem_dout;
+                        v.bubble_counter := x"3";
                     when OP_FNEG =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';

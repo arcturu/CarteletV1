@@ -19,13 +19,30 @@ architecture struct of FPU is
     constant reg_init : reg_type := (
         data => (others => '0'));
     signal r, rin : reg_type := reg_init;
+    component FADD is
+        Port (
+             input1  : in  STD_LOGIC_VECTOR (31 downto 0);
+             input2  : in  STD_LOGIC_VECTOR (31 downto 0);
+             output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal fadd_lhs : std_logic_vector (31 downto 0) := (others => '0');
+    signal fadd_rhs : std_logic_vector (31 downto 0) := (others => '0');
+    signal fadd_result : std_logic_vector (31 downto 0) := (others => '0');
 begin
+    FADD1 : FADD port map (
+        input1 => fadd_lhs,
+        input2 => fadd_rhs,
+        output => fadd_result);
     comb : process (fpu_in, r)
         variable v : reg_type := reg_init;
         variable tmp : std_logic_vector (31 downto 0);
     begin
         v := r;
         case fpu_in.command is
+            when FPU_ADD =>
+                fadd_lhs <= fpu_in.lhs;
+                fadd_rhs <= fpu_in.rhs;
+                v.data := fadd_result;
             when FPU_NEG =>
                 if fpu_in.lhs (31) = '1' then
                     v.data := '0' & fpu_in.lhs (30 downto 0);

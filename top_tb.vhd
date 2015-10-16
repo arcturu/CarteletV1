@@ -77,23 +77,29 @@
           signal receiver_out : receiver_out_type;
           signal sender_in : sender_in_type;
           signal sender_out : sender_out_type;
-          signal counter : std_logic_vector (7 downto 0) := x"10";
-          type inst_list_type is array (16 downto 0) of std_logic_vector (31 downto 0);
+          signal counter : std_logic_vector (7 downto 0) := x"16";
+          type inst_list_type is array (22 downto 0) of std_logic_vector (31 downto 0);
           signal inst_list : inst_list_type := (
-x"0100000e",
-x"0820ffff",
-x"08400010",
-x"14211000",
+x"01000014",
+x"08207f7f",
+x"0a000010",
+x"14218000",
 x"0821ffff",
-x"08600001",
+x"08407f00",
+x"14428000",
+x"08420001",
+x"08600009",
+x"0880000a",
 x"20610000",
+x"08630001",
+x"20620000",
+x"d8620000",
+x"10630001",
 x"d8610000",
-x"cc610000",
-x"08a0000c",
-x"dc630000",
-x"54000001",
-x"08a003e8",
-x"80a00000",
+x"c0211000",
+x"d4810000",
+x"24890000",
+x"81200000",
 x"84000000",
 x"03000000",
 x"00000000"
