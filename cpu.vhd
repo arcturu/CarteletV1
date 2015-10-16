@@ -200,6 +200,8 @@ begin
         variable read_dest_value : std_logic_vector (31 downto 0) := (others => '0');
         variable ex_tmp_pc : std_logic_vector (15 downto 0) := (others => '0');
         variable cpu_ex_go : std_logic := '0';
+        variable cpu_ex_go8 : std_logic := '0';
+        variable cpu_ex_pop8 : std_logic := '0';
         variable cpu_ex_sram_we : std_logic := '0';
         variable cpu_ex_sram_dout : std_logic_vector (31 downto 0) := (others => 'Z');
         variable cpu_ex_sram_addr : std_logic_vector (19 downto 0) := (others => 'Z');
@@ -258,6 +260,8 @@ begin
                 pmem_we <= (others => '0');
             when running =>
                 cpu_ex_go := '0';
+                cpu_ex_go8 := '0';
+                cpu_ex_pop8 := '0';
                 cpu_ex_sram_we := '0';
                 cpu_ex_sram_dout := (others => 'Z');
                 pmem_we <= (others => '0');
@@ -508,6 +512,13 @@ begin
                         cpu_ex_go := '1';
                     when OP_HALT =>
                         v.cpu_state := ready;
+                    when OP_SEND8 =>
+                        cpu_out.ex_data8 <= ex_dest_value (7 downto 0);
+                        cpu_ex_go8 := '1';
+                    when OP_RECV8 =>
+                        cpu_out.ex_data8 <= ex_dest_value (7 downto 0);
+                        cpu_ex_pop8 := '1';
+                        cpu_ex_go8 := '1';
                     when OP_FADD =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -654,6 +665,8 @@ begin
                 v.sram_in_buf := cpu_in.sram_din;
 
                 cpu_out.ex_go <= cpu_ex_go;
+                cpu_out.ex_go8 <= cpu_ex_go8;
+                cpu_out.ex_pop8 <= cpu_ex_pop8;
                 cpu_out.sram_we <= cpu_ex_sram_we;
                 cpu_out.sram_addr <= cpu_ex_sram_addr;
                 cpu_out.sram_dout <= cpu_ex_sram_dout;

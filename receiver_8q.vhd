@@ -4,53 +4,61 @@ use ieee.numeric_std.all;
 
 use work.types.all;
 
-entity RECEIVER is
+entity RECEIVER_Q8 is
     generic (
         wtime : std_logic_vector (15 downto 0) := x"1ADB"
     );
     port (
         clk : in std_logic;
         rst : in std_logic;
-        receiver_in : in receiver_in_type;
-        receiver_out : out receiver_out_type);
-end RECEIVER;
+        receiver_q8_in : in receiver_q8_in_type;
+        receiver_q8_out : out receiver_q8_out_type);
+end RECEIVER_Q8;
 
-architecture struct of RECEIVER is
+architecture struct of RECEIVER_Q8 is
     type st_type is (ready, first_zero, receiving, wait_next_zero);
+    type queue_type is array (1024 downto 0) of std_logic_vector (7 downto 0);
+    signal queue : queue_type := (others => (others => '0'));
     type reg_type is record
-        valids : std_logic_vector (1 downto 0);
-        bytes_buff : std_logic_vector (31 downto 0);
         bytes : std_logic_vector (2 downto 0);
         bits_buff : std_logic_vector (7 downto 0);
+        output_bits_buff : std_logic_vector (7 downto 0);
         bits : std_logic_vector (3 downto 0);
         counter : std_logic_vector (15 downto 0);
         rs_rxb : std_logic;
         st : st_type;
+        qhd : std_logic_vector (9 downto 0);
+        qtl : std_logic_vector (9 downto 0);
     end record;
     signal r, rin : reg_type := (
-        valids => (others => '0'),
-        bytes_buff => (others => '0'),
-        bytes => "100",
+        bytes => "001",
         bits_buff => (others => '0'),
-        bits => "1000",
+        output_bits_buff => (others => '0'),
+        bits => "1001",
         counter => (others => '0'),
         rs_rxb => '1',
-        st => ready);
+        st => ready,
+        qhd => (others => '0'),
+        qtl => (others => '0'));
 begin
-    comb : process (receiver_in, r)
+    comb : process (receiver_q8_in, r)
         variable v : reg_type;
     begin
         v := r;
-        v.valids (1) := r.valids (0);
-        v.rs_rxb := receiver_in.RS_RX;
+        v.rs_rxb := receiver_q8_in.RS_RX;
+
+        if receiver_q8_in.pop = '1' then
+            if r.qhd /= r.qtl then
+                v.qhd := std_logic_vector(unsigned(r.qhd) + 1);
+            end if;
+        end if;
         case r.st is
             when ready =>
                 if r.rs_rxb = '0' then
-                    v.valids (0) := '0';
                     v.st := first_zero;
                     v.counter := '0' & wtime (15 downto 1);
                     v.bits := "1001";
-                    v.bytes := "100";
+                    v.bytes := "001";
                 end if;
             when first_zero =>
                 v.counter := std_logic_vector(unsigned(r.counter) - 1);
@@ -63,13 +71,15 @@ begin
                 if v.counter = x"0000" then
                     v.bits := std_logic_vector(unsigned(r.bits) - 1);
                     v.counter := wtime;
-                    if v.bits = "0000" then
+                    if v.bits = "0000" then -- received one byte
                         v.bytes := std_logic_vector(unsigned(r.bytes) - 1);
                         v.bits := "1001";
-                        v.bytes_buff := r.bytes_buff (23 downto 0) & r.bits_buff;
+                        if r.qhd /= std_logic_vector(unsigned(r.qtl) + 1) then -- 溢れたら捨てられる
+                            v.qtl := std_logic_vector(unsigned(r.qtl) + 1);
+                            queue (v.qtl) <= r.bits_buff;
+                        end if;
                         if v.bytes = "000" then
                             v.st := ready;
-                            v.valids (0) := '1';
                         else
                             v.st := wait_next_zero;
                         end if;
@@ -84,13 +94,14 @@ begin
                 end if;
         end case;
 
-        receiver_out.valid <= v.valids (0);
-        if v.valids = "01" then
-            receiver_out.fresh <= '1';
+        if r.qhd = r.qtl then
+            receiver_q8_out.valid <= '0'
         else
-            receiver_out.fresh <= '0';
+            receiver_q8_out.valid <= '1';
         end if;
-        receiver_out.data <= v.bytes_buff;
+
+        v.output_bits_buff := queue (r.qhd);
+        receiver_q8_out.data <= r.output_bits_buff;
         rin <= v;
     end process;
 

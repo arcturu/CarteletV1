@@ -128,6 +128,31 @@ package types is
             receiver_out : out receiver_out_type);
     end component;
 
+    type receiver_q8_in_type is record
+        RS_RX : std_logic;
+    end record;
+    constant receiver_q8_in_init : receiver_q8_in_type := (
+        RS_RX => '0');
+    type receiver_q8_out_type is record
+        data  : std_logic_vector (7 downto 0);
+        valid : std_logic;
+        pop : std_logic;
+    end record;
+    constant receiver_q8_out_init : receiver_q8_out_type := (
+        data  => (others => '0'),
+        valid => '0',
+        pop => '0');
+    component receiver_q8 is
+        generic (
+            wtime : std_logic_vector (15 downto 0) := x"1ADB"
+        );
+        port (
+            clk          : in std_logic;
+            rst          : in std_logic;
+            receiver_q8_in  : in receiver_q8_in_type;
+            receiver_q8_out : out receiver_q8_out_type);
+    end component;
+
     type sram_cache_slot_type is record
         valid : std_logic;
         tag : std_logic_vector (19 downto 0);
@@ -145,33 +170,35 @@ package types is
     constant CMD_DLOAD : std_logic_vector (7 downto 0) := x"02";
     constant CMD_EXEC  : std_logic_vector (7 downto 0) := x"03";
 
-    constant OP_NOP  : std_logic_vector (5 downto 0) := "000000";
-    constant OP_ADD  : std_logic_vector (5 downto 0) := "000001";
-    constant OP_ADDI : std_logic_vector (5 downto 0) := "000010";
-    constant OP_SUB  : std_logic_vector (5 downto 0) := "000011";
-    constant OP_SUBI : std_logic_vector (5 downto 0) := "000100";
-    constant OP_SLL  : std_logic_vector (5 downto 0) := "000101";
-    constant OP_SRL  : std_logic_vector (5 downto 0) := "000110";
-    constant OP_ST   : std_logic_vector (5 downto 0) := "001000";
-    constant OP_LD   : std_logic_vector (5 downto 0) := "001001";
-    constant OP_BEQ  : std_logic_vector (5 downto 0) := "010000";
-    constant OP_BNEQ : std_logic_vector (5 downto 0) := "010001";
-    constant OP_JR   : std_logic_vector (5 downto 0) := "010010";
-    constant OP_JAL  : std_logic_vector (5 downto 0) := "010011";
-    constant OP_SLT  : std_logic_vector (5 downto 0) := "010100";
-    constant OP_BCLT : std_logic_vector (5 downto 0) := "010101";
-    constant OP_BCLF : std_logic_vector (5 downto 0) := "010110";
-    constant OP_SEND : std_logic_vector (5 downto 0) := "100000";
-    constant OP_HALT : std_logic_vector (5 downto 0) := "100001";
-    constant OP_FADD : std_logic_vector (5 downto 0) := "110000";
-    constant OP_FMUL : std_logic_vector (5 downto 0) := "110001";
-    constant OP_FINV : std_logic_vector (5 downto 0) := "110010";
-    constant OP_FNEG : std_logic_vector (5 downto 0) := "110011";
-    constant OP_FABS : std_logic_vector (5 downto 0) := "110100";
-    constant OP_FST  : std_logic_vector (5 downto 0) := "110101";
-    constant OP_FLD  : std_logic_vector (5 downto 0) := "110110";
-    constant OP_FSEQ : std_logic_vector (5 downto 0) := "110111";
-    constant OP_FSLT : std_logic_vector (5 downto 0) := "111000";
+    constant OP_NOP   : std_logic_vector (5 downto 0) := "000000";
+    constant OP_ADD   : std_logic_vector (5 downto 0) := "000001";
+    constant OP_ADDI  : std_logic_vector (5 downto 0) := "000010";
+    constant OP_SUB   : std_logic_vector (5 downto 0) := "000011";
+    constant OP_SUBI  : std_logic_vector (5 downto 0) := "000100";
+    constant OP_SLL   : std_logic_vector (5 downto 0) := "000101";
+    constant OP_SRL   : std_logic_vector (5 downto 0) := "000110";
+    constant OP_ST    : std_logic_vector (5 downto 0) := "001000";
+    constant OP_LD    : std_logic_vector (5 downto 0) := "001001";
+    constant OP_BEQ   : std_logic_vector (5 downto 0) := "010000";
+    constant OP_BNEQ  : std_logic_vector (5 downto 0) := "010001";
+    constant OP_JR    : std_logic_vector (5 downto 0) := "010010";
+    constant OP_JAL   : std_logic_vector (5 downto 0) := "010011";
+    constant OP_SLT   : std_logic_vector (5 downto 0) := "010100";
+    constant OP_BCLT  : std_logic_vector (5 downto 0) := "010101";
+    constant OP_BCLF  : std_logic_vector (5 downto 0) := "010110";
+    constant OP_SEND  : std_logic_vector (5 downto 0) := "100000";
+    constant OP_HALT  : std_logic_vector (5 downto 0) := "100001";
+    constant OP_SEND8 : std_logic_vector (5 downto 0) := "100010";
+    constant OP_RECV8 : std_logic_vector (5 downto 0) := "100011";
+    constant OP_FADD  : std_logic_vector (5 downto 0) := "110000";
+    constant OP_FMUL  : std_logic_vector (5 downto 0) := "110001";
+    constant OP_FINV  : std_logic_vector (5 downto 0) := "110010";
+    constant OP_FNEG  : std_logic_vector (5 downto 0) := "110011";
+    constant OP_FABS  : std_logic_vector (5 downto 0) := "110100";
+    constant OP_FST   : std_logic_vector (5 downto 0) := "110101";
+    constant OP_FLD   : std_logic_vector (5 downto 0) := "110110";
+    constant OP_FSEQ  : std_logic_vector (5 downto 0) := "110111";
+    constant OP_FSLT  : std_logic_vector (5 downto 0) := "111000";
 
     constant ALU_NOP : std_logic_vector (3 downto 0) := "0000";
     constant ALU_ADD : std_logic_vector (3 downto 0) := "0001";
