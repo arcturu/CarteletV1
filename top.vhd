@@ -77,7 +77,7 @@ architecture struct of TOP is
     type sram_was_type is array (2 downto 0) of std_logic;
     signal sram_was : sram_was_type := (others => '0');
 
-    signal sram_cache : sram_cache_type := sram_cache_init;
+--    signal sram_cache : sram_cache_type := sram_cache_init;
 begin
 --    ib : IBUFG port map (
 --        i => MCLK1,
