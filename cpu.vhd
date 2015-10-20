@@ -571,10 +571,6 @@ begin
                         fpu_in.command <= FPU_ADD;
                         fpu_in.lhs <= ex_lhs_value;
                         fpu_in.rhs <= ex_rhs_value;
-
-                        v.fetch_readreg_reg2.fetched := '1';
-                        v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"3";
                     when OP_FNEG =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';

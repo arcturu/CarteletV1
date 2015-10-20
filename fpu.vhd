@@ -33,9 +33,8 @@ begin
         input1 => fadd_lhs,
         input2 => fadd_rhs,
         output => fadd_result);
-    comb : process (fpu_in, r)
+    comb : process (fpu_in, r, fadd_lhs, fadd_rhs, fadd_result)
         variable v : reg_type := reg_init;
-        variable tmp : std_logic_vector (31 downto 0);
     begin
         v := r;
         case fpu_in.command is
@@ -52,7 +51,6 @@ begin
             when FPU_ABS =>
                 v.data := '0' & fpu_in.lhs (30 downto 0);
             when others =>
-                v.data := (others => '0');
         end case;
 
         fpu_out.data <= r.data;
