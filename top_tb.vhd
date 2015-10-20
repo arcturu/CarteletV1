@@ -77,33 +77,28 @@
           signal receiver_out : receiver_out_type;
           signal sender_in : sender_in_type;
           signal sender_out : sender_out_type;
-          signal counter : std_logic_vector (7 downto 0) := x"16";
-          type inst_list_type is array (22 downto 0) of std_logic_vector (31 downto 0);
+          signal counter : std_logic_vector (7 downto 0) := x"09";
+          type inst_list_type is array (9 downto 0) of std_logic_vector (31 downto 0);
           signal inst_list : inst_list_type := (
-x"01000014",
-x"08207f7f",
-x"0a000010",
-x"14218000",
-x"0821ffff",
-x"08407f00",
-x"14428000",
-x"08420001",
-x"08600009",
-x"0880000a",
-x"20610000",
-x"08630001",
-x"20620000",
-x"d8620000",
-x"10630001",
-x"d8610000",
-x"c0211000",
-x"d4810000",
-x"24890000",
-x"81200000",
+x"01000007",
+x"0820cafe",
+x"08400004",
+x"8c200000",
+x"14211000",
+x"8c200000",
+x"80200000",
 x"84000000",
 x"03000000",
 x"00000000"
-        );
+          );
+          signal din_counter : std_logic_vector (31 downto 0) := x"00000002";
+          type din_list_type is array (3 downto 0) of std_logic_vector (7 downto 0);
+          signal din_list : din_list_type := (
+x"de",
+x"ad",
+x"be",
+x"ef"
+          );
 
   BEGIN
 
@@ -175,13 +170,25 @@ x"00000000"
          variable sending : std_logic := '0';
      begin
          if rising_edge(clk) then
-             if sender_out.busy = '0' and sending = '0' and unsigned(counter) /= 0 then
-                 counter <= std_logic_vector (unsigned(counter) - 1);
-                 sender_in.data <= inst_list (to_integer(unsigned(counter)));
-                 sender_in.go <= '1';
-                 sending := '1';
+             if sender_out.busy = '0' and sending = '0' then
+                 if unsigned(counter) /= 0 then
+                     counter <= std_logic_vector (unsigned(counter) - 1);
+                     sender_in.data <= inst_list (to_integer(unsigned(counter)));
+                     sender_in.go <= '1';
+                     sending := '1';
+                 elsif unsigned(din_counter) /= 0 then
+                     din_counter <= std_logic_vector (unsigned(din_counter) - 1);
+                     sender_in.data <= x"000000" & din_list (to_integer(unsigned(din_counter)));
+                     sender_in.go8  <= '1';
+                     sending := '1';
+                 else
+                     sender_in.go <= '0';
+                     sender_in.go8 <= '0';
+                     sending := '0';
+                 end if;
              else
                  sender_in.go <= '0';
+                 sender_in.go8 <= '0';
                  sending := '0';
              end if;
          end if;

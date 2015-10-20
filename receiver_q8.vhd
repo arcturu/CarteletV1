@@ -17,7 +17,7 @@ end RECEIVER_Q8;
 
 architecture struct of RECEIVER_Q8 is
     type st_type is (ready, first_zero, receiving, wait_next_zero);
-    type queue_type is array (1024 downto 0) of std_logic_vector (7 downto 0);
+    type queue_type is array (15 downto 0) of std_logic_vector (7 downto 0);
     signal queue : queue_type := (others => (others => '0'));
     type reg_type is record
         bytes : std_logic_vector (2 downto 0);
@@ -27,8 +27,8 @@ architecture struct of RECEIVER_Q8 is
         counter : std_logic_vector (15 downto 0);
         rs_rxb : std_logic;
         st : st_type;
-        qhd : std_logic_vector (9 downto 0);
-        qtl : std_logic_vector (9 downto 0);
+        qhd : std_logic_vector (3 downto 0);
+        qtl : std_logic_vector (3 downto 0);
     end record;
     signal r, rin : reg_type := (
         bytes => "001",
@@ -46,6 +46,11 @@ begin
     begin
         v := r;
         v.rs_rxb := receiver_q8_in.RS_RX;
+
+        if rst = '1' then
+            v.qhd := (others => '0');
+            v.qtl := (others => '0');
+        end if;
 
         if receiver_q8_in.pop = '1' then
             if r.qhd /= r.qtl then
@@ -74,9 +79,9 @@ begin
                     if v.bits = "0000" then -- received one byte
                         v.bytes := std_logic_vector(unsigned(r.bytes) - 1);
                         v.bits := "1001";
-                        if r.qhd /= std_logic_vector(unsigned(r.qtl) + 1) then -- 溢れたら捨てられる
+                        if r.qhd /= std_logic_vector(unsigned(r.qtl) + 1) then -- 溢れたら溢れたぶんは捨てられる
+                            queue (to_integer(unsigned(v.qtl))) <= r.bits_buff;
                             v.qtl := std_logic_vector(unsigned(r.qtl) + 1);
-                            queue (v.qtl) <= r.bits_buff;
                         end if;
                         if v.bytes = "000" then
                             v.st := ready;
@@ -95,13 +100,12 @@ begin
         end case;
 
         if r.qhd = r.qtl then
-            receiver_q8_out.valid <= '0'
+            receiver_q8_out.valid <= '0';
         else
             receiver_q8_out.valid <= '1';
         end if;
 
-        v.output_bits_buff := queue (r.qhd);
-        receiver_q8_out.data <= r.output_bits_buff;
+        receiver_q8_out.data <= queue (to_integer(unsigned(r.qhd)));
         rin <= v;
     end process;
 

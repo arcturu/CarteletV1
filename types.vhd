@@ -2,27 +2,42 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 package types is
+    type cpu_state_type is (ready, running, ploading, dloading);
     type cpu_in_type is record
         ex_data : std_logic_vector (31 downto 0);
+        ex_data8 : std_logic_vector (7 downto 0);
         ex_fresh : std_logic;
         ex_valid : std_logic;
+        ex_valid8 : std_logic;
         sram_din : std_logic_vector (31 downto 0);
     end record;
     constant cpu_in_init : cpu_in_type := (
         ex_data => (others => '0'),
+        ex_data8 => (others => '0'),
         ex_fresh => '0',
         ex_valid => '0',
+        ex_valid8 => '0',
         sram_din => (others => '0'));
     type cpu_out_type is record
         ex_data : std_logic_vector (31 downto 0);
+        ex_data8 : std_logic_vector (7 downto 0);
         ex_go : std_logic;
+        ex_go8 : std_logic;
+        ex_pop8 : std_logic;
+        ex_rst8 : std_logic;
+        state : cpu_state_type;
         sram_dout : std_logic_vector (31 downto 0);
         sram_addr : std_logic_vector (19 downto 0);
         sram_we : std_logic;
     end record;
     constant cpu_out_init : cpu_out_type := (
         ex_data => (others => '0'),
+        ex_data8 => (others => '0'),
         ex_go => '0',
+        ex_go8 => '0',
+        ex_pop8 => '0',
+        ex_rst8 => '0',
+        state => ready,
         sram_dout => (others => '0'),
         sram_addr => (others => '0'),
         sram_we => '0');
@@ -81,10 +96,12 @@ package types is
     type sender_in_type is record
         data : std_logic_vector (31 downto 0);
         go   : std_logic;
+        go8  : std_logic;
     end record;
     constant sender_in_init : sender_in_type := (
         data => (others => '0'),
-        go   => '0');
+        go   => '0',
+        go8  => '0');
     type sender_out_type is record
         RS_TX : std_logic;
         busy  : std_logic;
@@ -130,18 +147,18 @@ package types is
 
     type receiver_q8_in_type is record
         RS_RX : std_logic;
+        pop : std_logic;
     end record;
     constant receiver_q8_in_init : receiver_q8_in_type := (
-        RS_RX => '0');
+        RS_RX => '0',
+        pop => '0');
     type receiver_q8_out_type is record
         data  : std_logic_vector (7 downto 0);
         valid : std_logic;
-        pop : std_logic;
     end record;
     constant receiver_q8_out_init : receiver_q8_out_type := (
         data  => (others => '0'),
-        valid => '0',
-        pop => '0');
+        valid => '0');
     component receiver_q8 is
         generic (
             wtime : std_logic_vector (15 downto 0) := x"1ADB"

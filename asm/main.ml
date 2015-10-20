@@ -165,6 +165,8 @@ let asm_to_bin line str tag_dict =
     | "jr"   -> "010010" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "send" -> "100000" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "halt" -> "100001" ^ repeat "0" 26
+    | "send8"-> "100010" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
+    | "recv8"-> "100011" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "fadd" -> "110000" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            reg_to_bin (List.nth tokens 3) ^ repeat "0" 11

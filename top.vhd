@@ -64,6 +64,9 @@ architecture struct of TOP is
     signal sender_out   : sender_out_type   := sender_out_init;
     signal receiver_in  : receiver_in_type  := receiver_in_init;
     signal receiver_out : receiver_out_type := receiver_out_init;
+    signal receiver_q8_rst : std_logic := '0';
+    signal receiver_q8_in  : receiver_q8_in_type  := receiver_q8_in_init;
+    signal receiver_q8_out : receiver_q8_out_type := receiver_q8_out_init;
     signal cpu_in       : cpu_in_type       := cpu_in_init;
     signal cpu_out      : cpu_out_type      := cpu_out_init;
 
@@ -93,15 +96,20 @@ begin
 --    );
     sender_1 : sender generic map (wtime) port map (clk, rst, sender_in, sender_out);
     receiver_1 : receiver generic map (wtime) port map (clk, rst, receiver_in, receiver_out);
+    receiver_q8_1 : receiver_q8 generic map (wtime) port map (clk, receiver_q8_rst, receiver_q8_in, receiver_q8_out);
     cpu_1 : cpu port map (clk, rst, cpu_in, cpu_out);
 
-    receiver_in.RS_RX <= RS_RX;
+    receiver_in.RS_RX <= RS_RX when cpu_out.state /= running else '1';
+    receiver_q8_in.RS_RX <= RS_RX when cpu_out.state = running else '1';
+    receiver_q8_rst <= cpu_out.ex_rst8;
+    receiver_q8_in.pop <= cpu_out.ex_pop8;
     RS_TX <= sender_out.RS_TX;
-    cpu_in.ex_data <= receiver_out.data;
-    cpu_in.ex_valid <= receiver_out.valid;
+    cpu_in.ex_valid <= receiver_q8_out.valid when cpu_out.state = running else receiver_out.valid;
+    cpu_in.ex_data <= x"000000" & receiver_q8_out.data when cpu_out.state = running else receiver_out.data;
     cpu_in.ex_fresh <= receiver_out.fresh;
     sender_in.data <= cpu_out.ex_data;
     sender_in.go <= cpu_out.ex_go;
+    sender_in.go8 <= cpu_out.ex_go8;
 
 
     -- sram controller (わける？)

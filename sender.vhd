@@ -49,6 +49,13 @@ begin
                     v.counter := wtime;
                     v.rem_bits := x"a";
                     v.rem_bytes := "100";
+                elsif sender_in.go8 = '1' then
+                    v.buff := sender_in.data;
+                    v.sending_buff := v.buff (7 downto 0) & '0';
+                    v.st := sending_a_bit;
+                    v.counter := wtime;
+                    v.rem_bits := x"a";
+                    v.rem_bytes := "001";
                 end if;
             when sending_a_bit =>
                 if r.counter = x"0000" then
