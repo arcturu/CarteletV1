@@ -212,6 +212,7 @@ begin
         variable no_fetch : std_logic := '0';
         variable inst : std_logic_vector (31 downto 0) := (others => '0');
         variable is_floating_inst : std_logic := '0';
+        variable tmp_sram_addr : std_logic_vector (31 downto 0) := (others => '0');
     begin
         v := r;
         cpu_ex_rst8 := '0';
@@ -373,7 +374,11 @@ begin
                         v.ex_wb_reg.data_source := src_alu;
                         alu_in.command <= ALU_ADD;
                         alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                        if r.readreg_ex_reg.imm (15) = '1' then
+                            alu_in.rhs <= x"ffff" & r.readreg_ex_reg.imm;
+                        else
+                            alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                        end if;
                     when OP_SUB =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -381,13 +386,17 @@ begin
                         alu_in.command <= ALU_SUB;
                         alu_in.lhs <= ex_lhs_value;
                         alu_in.rhs <= ex_rhs_value;
-                    when OP_SUBI =>
+                    when OP_SUBI => -- deprecated
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
                         alu_in.command <= ALU_SUB;
                         alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                        if r.readreg_ex_reg.imm (15) = '1' then
+                            alu_in.rhs <= x"ffff" & r.readreg_ex_reg.imm;
+                        else
+                            alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                        end if;
                     when OP_SLL =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -404,7 +413,8 @@ begin
                         alu_in.rhs <= ex_rhs_value;
                     when OP_ST =>
                         v.ex_wb_reg.sram_state := write;
-                        cpu_ex_sram_addr := ex_dest_value (19 downto 0);
+                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
                         cpu_ex_sram_we := '1';
                         cpu_ex_sram_dout := ex_lhs_value;
 
@@ -413,7 +423,8 @@ begin
                         v.bubble_counter := x"3";
                     when OP_FST =>
                         v.ex_wb_reg.sram_state := write;
-                        cpu_ex_sram_addr := ex_dest_value (19 downto 0);
+                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
                         cpu_ex_sram_we := '1';
                         cpu_ex_sram_dout := ex_lhs_value;
 
@@ -425,7 +436,8 @@ begin
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_sram;
-                        cpu_ex_sram_addr := ex_dest_value (19 downto 0);
+                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
                         cpu_ex_sram_we := '0';
 
                         v.fetch_readreg_reg2.fetched := '1';
@@ -436,7 +448,8 @@ begin
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_fsram;
-                        cpu_ex_sram_addr := ex_dest_value (19 downto 0);
+                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
                         cpu_ex_sram_we := '0';
 
                         v.fetch_readreg_reg2.fetched := '1';
