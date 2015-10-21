@@ -50,6 +50,8 @@ begin
                 end if;
             when FPU_ABS =>
                 v.data := '0' & fpu_in.lhs (30 downto 0);
+            when FPU_NOP =>
+                v.data := fpu_in.lhs;
             when others =>
         end case;
 

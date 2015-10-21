@@ -164,6 +164,9 @@ let asm_to_bin line str tag_dict =
                            tag_to_bin (List.nth tokens 1) line tag_dict
     | "bclf" -> "010110" ^ repeat "0" 10 ^
                            tag_to_bin (List.nth tokens 1) line tag_dict
+    | "addiu"-> "010111" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^
+                           imm_to_bin (List.nth tokens 3)
     | "jr"   -> "010010" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "send" -> "100000" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "halt" -> "100001" ^ repeat "0" 26
@@ -191,6 +194,8 @@ let asm_to_bin line str tag_dict =
     | "fseq" -> "110111" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "fslt" -> "111000" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fmov" -> "111001" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | _ -> raise (Failure "matching failed in asm_to_bin")
 

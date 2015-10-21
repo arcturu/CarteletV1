@@ -209,6 +209,7 @@ begin
         variable ex_lhs_value : std_logic_vector (31 downto 0) := (others => '0');
         variable ex_rhs_value : std_logic_vector (31 downto 0) := (others => '0');
         variable ex_dest_value : std_logic_vector (31 downto 0) := (others => '0');
+        variable ex_floating_inst : std_logic := '0';
         variable read_lhs_value : std_logic_vector (31 downto 0) := (others => '0');
         variable read_rhs_value : std_logic_vector (31 downto 0) := (others => '0');
         variable read_dest_value : std_logic_vector (31 downto 0) := (others => '0');
@@ -347,31 +348,35 @@ begin
                 end if;
 
                 -- execute
+
+                --      forwarding
                 ex_lhs_value := r.readreg_ex_reg.lhs_value;
                 ex_rhs_value := r.readreg_ex_reg.rhs_value;
                 ex_dest_value := r.readreg_ex_reg.dest_value;
+                if r.readreg_ex_reg.ex_op (5 downto 4) = "11" then
+                    ex_floating_inst := '1';
+                else
+                    ex_floating_inst := '0';
+                end if;
                 if v.forwarder_file(0).valid = '1' then
-                    if r.readreg_ex_reg.lhs_num = v.forwarder_file(0).reg_num then
+                    if r.readreg_ex_reg.lhs_num = v.forwarder_file(0).reg_num and
+                       ex_floating_inst = v.forwarder_file(0).floating then
                         ex_lhs_value := v.forwarder_file(0).value;
                     end if;
-                    if r.readreg_ex_reg.rhs_num = v.forwarder_file(0).reg_num then
+                    if r.readreg_ex_reg.rhs_num = v.forwarder_file(0).reg_num and
+                       ex_floating_inst = v.forwarder_file(0).floating then
                         ex_rhs_value := v.forwarder_file(0).value;
                     end if;
                     if r.readreg_ex_reg.dest_num = v.forwarder_file(0).reg_num then
-                        ex_dest_value := v.forwarder_file(0).value;
+                        if r.readreg_ex_reg.ex_op = OP_FLD or r.readreg_ex_reg.ex_op = OP_FST then
+                            if v.forwarder_file(0).floating = '0' then
+                                ex_dest_value := v.forwarder_file(0).value;
+                            end if;
+                        elsif ex_floating_inst = v.forwarder_file(0).floating then
+                            ex_dest_value := v.forwarder_file(0).value;
+                        end if;
                     end if;
                 end if;
---                if v.forwarder_file(1).valid = '1' then
---                    if r.readreg_ex_reg.lhs_num = v.forwarder_file(1).reg_num then
---                        ex_lhs_value := v.forwarder_file(1).value;
---                    end if;
---                    if r.readreg_ex_reg.rhs_num = v.forwarder_file(1).reg_num then
---                        ex_rhs_value := v.forwarder_file(1).value;
---                    end if;
---                    if r.readreg_ex_reg.dest_num = v.forwarder_file(1).reg_num then
---                        ex_dest_value := v.forwarder_file(1).value;
---                    end if;
---                end if;
 
                 flush_read := '0';
                 if r.bubble_counter = x"0" then
@@ -398,6 +403,13 @@ begin
                         else
                             alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
                         end if;
+                    when OP_ADDIU =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_alu;
+                        alu_in.command <= ALU_ADD;
+                        alu_in.lhs <= ex_lhs_value;
+                        alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
                     when OP_SUB =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -440,10 +452,10 @@ begin
                         v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid := '1';
                         v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data := ex_lhs_value;
                         v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag := tmp_sram_addr (19 downto 0);
-
-                        v.fetch_readreg_reg2.fetched := '1';
-                        v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"3";
+--
+--                        v.fetch_readreg_reg2.fetched := '1';
+--                        v.fetch_readreg_reg2.data := pmem_dout;
+--                        v.bubble_counter := x"3";
                     when OP_FST =>
                         v.ex_wb_reg.sram_state := write;
                         tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
@@ -454,10 +466,10 @@ begin
                         v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid := '1';
                         v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data := ex_lhs_value;
                         v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag := tmp_sram_addr (19 downto 0);
-
-                        v.fetch_readreg_reg2.fetched := '1';
-                        v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"3";
+--
+--                        v.fetch_readreg_reg2.fetched := '1';
+--                        v.fetch_readreg_reg2.data := pmem_dout;
+--                        v.bubble_counter := x"3";
                     when OP_LD =>
                         v.ex_wb_reg.sram_state := read;
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
@@ -655,6 +667,11 @@ begin
                                 v.fpcond := '0';
                             end if;
                         end if;
+                    when OP_FMOV =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_fdirect;
+                        v.ex_wb_reg.data := ex_lhs_value;
                     when others =>
                 end case;
                 if v.bubble_counter = x"0" and flush_read = '0' and v.repeat = '0' and no_fetch = '0' then
