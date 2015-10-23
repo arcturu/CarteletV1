@@ -582,15 +582,45 @@ begin
                         v.fetch_readreg_reg2.data := (others => '0');
                         flush_read := '1';
                     when OP_SEND =>
-                        cpu_out.ex_data <= ex_dest_value;
-                        cpu_ex_go8 := '0';
-                        cpu_ex_go := '1';
+                        if cpu_in.ex_sender_busy = '0' then
+                            cpu_out.ex_data <= ex_dest_value;
+                            cpu_ex_go8 := '0';
+                            cpu_ex_go := '1';
+
+                            v.repeat := '0';
+                            no_fetch := '1';
+                        else
+                            -- 命令を差し戻してデータが来るまで待つ
+                            ex_tmp_pc := "00" & r.readreg_ex_reg.pc;
+                            ex_tmp_pc := std_logic_vector(signed(ex_tmp_pc) + 1);
+                            v.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
+
+                            v.fetch_readreg_reg2.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
+                            v.fetch_readreg_reg2.fetched := '1';
+                            v.fetch_readreg_reg2.data := pmem_dout;
+                            v.repeat := '1';
+                        end if;
                     when OP_HALT =>
                         v.cpu_state := ready;
                     when OP_SEND8 =>
-                        cpu_out.ex_data <= ex_dest_value;
-                        cpu_ex_go := '0';
-                        cpu_ex_go8 := '1';
+                        if cpu_in.ex_sender_busy = '0' then
+                            cpu_out.ex_data <= ex_dest_value;
+                            cpu_ex_go8 := '1';
+                            cpu_ex_go := '0';
+
+                            v.repeat := '0';
+                            no_fetch := '1';
+                        else
+                            -- 命令を差し戻してデータが来るまで待つ
+                            ex_tmp_pc := "00" & r.readreg_ex_reg.pc;
+                            ex_tmp_pc := std_logic_vector(signed(ex_tmp_pc) + 1);
+                            v.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
+
+                            v.fetch_readreg_reg2.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
+                            v.fetch_readreg_reg2.fetched := '1';
+                            v.fetch_readreg_reg2.data := pmem_dout;
+                            v.repeat := '1';
+                        end if;
                     when OP_RECV8 =>
                         if cpu_in.ex_valid = '1' then
                             v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;

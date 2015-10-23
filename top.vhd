@@ -107,6 +107,7 @@ begin
     cpu_in.ex_valid <= receiver_q8_out.valid when cpu_out.state = running else receiver_out.valid;
     cpu_in.ex_data <= x"000000" & receiver_q8_out.data when cpu_out.state = running else receiver_out.data;
     cpu_in.ex_fresh <= receiver_out.fresh;
+    cpu_in.ex_sender_busy <= sender_out.busy;
     sender_in.data <= cpu_out.ex_data;
     sender_in.go <= cpu_out.ex_go;
     sender_in.go8 <= cpu_out.ex_go8;

@@ -1,4 +1,3 @@
-
 module TagDict = Map.Make(String)
 
 let half_byte_to_hex hb =
@@ -33,12 +32,12 @@ let hex_to_half_byte hex =
     | "7" -> "0111"
     | "8" -> "1000"
     | "9" -> "1001"
-    | "a" -> "1010"
-    | "b" -> "1011"
-    | "c" -> "1100"
-    | "d" -> "1101"
-    | "e" -> "1110"
-    | "f" -> "1111"
+    | "A" | "a" -> "1010"
+    | "B" | "b" -> "1011"
+    | "C" | "c" -> "1100"
+    | "D" | "d" -> "1101"
+    | "E" | "e" -> "1110"
+    | "F" | "f" -> "1111"
     | _ -> raise (Failure "matching failed in hex_to_half_byte")
 
 let rec to_bin dec =
@@ -80,7 +79,7 @@ let rec zfill str num =
         str
 
 let reg_to_bin str =
-    let num = int_of_string (String.sub str 1 (String.length str - 1)) in
+    let num = int_of_string (String.sub str 2 (String.length str - 2)) in (* %r とかを読み飛ばす*)
     zfill (to_bin num) 5
 
 let rec repeat str num =
@@ -107,10 +106,19 @@ let rec hex_imm_to_bin str =
 let imm_to_bin' str =
     if String.length str > 2 &&  String.sub str 0 2 = "0x" then
         hex_imm_to_bin (String.sub str 2 (String.length str - 2))
+    else if String.length str > 2 &&  String.sub str 0 2 = "0b" then
+        zfill (String.sub str 2 (String.length str - 2)) 16
     else
         dec_imm_to_bin str
 
 let imm_to_bin str =
+    let res = imm_to_bin' (String.sub str 1 (String.length str - 1)) in
+    if String.length res <= 16 then
+        res
+    else
+        raise (Failure "immediate overflow")
+
+let dsp_to_bin str =
     let res = imm_to_bin' str in
     if String.length res <= 16 then
         res
@@ -119,10 +127,10 @@ let imm_to_bin str =
 
 let tag_to_bin str line tag_dict =
     let target_line = TagDict.find str tag_dict in
-    imm_to_bin (string_of_int (target_line - line - 1))
+    dsp_to_bin (string_of_int (target_line - line - 1))
 
 let asm_to_bin line str tag_dict =
-    let tokens = Str.split (Str.regexp "[ \t]+") str in
+    let tokens = Str.split (Str.regexp "[ \t()]+") str in
     match List.hd tokens with
     | "nop"  -> repeat "0" 32
     | "add"  -> "000001" ^ reg_to_bin (List.nth tokens 1) ^
@@ -143,12 +151,12 @@ let asm_to_bin line str tag_dict =
     | "srl"  -> "000110" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
-    | "st"   -> "001000" ^ reg_to_bin (List.nth tokens 1) ^
-                           reg_to_bin (List.nth tokens 2) ^
-                           imm_to_bin (List.nth tokens 3)
-    | "ld"   -> "001001" ^ reg_to_bin (List.nth tokens 1) ^
-                           reg_to_bin (List.nth tokens 2) ^
-                           imm_to_bin (List.nth tokens 3)
+    | "st"   -> "001000" ^ reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^
+                           dsp_to_bin (List.nth tokens 1)
+    | "ld"   -> "001001" ^ reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^
+                           dsp_to_bin (List.nth tokens 1)
     | "beq"  -> "010000" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            tag_to_bin (List.nth tokens 3) line tag_dict
@@ -185,12 +193,12 @@ let asm_to_bin line str tag_dict =
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "fabs" -> "110100" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
-    | "fst"  -> "110101" ^ reg_to_bin (List.nth tokens 1) ^
-                           reg_to_bin (List.nth tokens 2) ^
-                           imm_to_bin (List.nth tokens 3)
-    | "fld"  -> "110110" ^ reg_to_bin (List.nth tokens 1) ^
-                           reg_to_bin (List.nth tokens 2) ^
-                           imm_to_bin (List.nth tokens 3)
+    | "fst"  -> "110101" ^ reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^
+                           dsp_to_bin (List.nth tokens 1)
+    | "fld"  -> "110110" ^ reg_to_bin (List.nth tokens 2) ^
+                           reg_to_bin (List.nth tokens 3) ^
+                           dsp_to_bin (List.nth tokens 1)
     | "fseq" -> "110111" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "fslt" -> "111000" ^ reg_to_bin (List.nth tokens 1) ^
@@ -232,35 +240,201 @@ let assemble asms tag_dict mode =
     else
         List.fold_left (fun acc (line, asm) -> acc ^ "x\"" ^ asm_to_hex line asm tag_dict ^ "\",\n") "" asms
 
-let () =
-    if Array.length Sys.argv <= 2 then
-        Printf.printf "%s [list/hexstr] [input file]\n" Sys.argv.(0)
+let rec extract_data' data asms =
+    match asms with
+    | [] -> data
+    | (_, asm) :: asms' when asm = ".text" -> data
+    | lineasm :: asms' -> extract_data' (data @ [lineasm]) asms'
+
+let extract_data asms =
+    extract_data' [] asms
+
+let rec extract_text asms =
+    match asms with
+    | [] -> []
+    | (_, asm) :: asms' when asm = ".text" -> asms'
+    | _ :: asms' -> extract_text asms'
+
+let rec trim_spaces_forward str =
+    if String.length str > 0 then
+        let car = String.sub str 0 1 in
+        let cdr = String.sub str 1 (String.length str - 1) in
+        match car with
+        | "\t" | " " -> trim_spaces_forward cdr
+        | _ -> str
     else
-        let mode = Sys.argv.(1) in
-        let file = Sys.argv.(2) in
-        let ic = open_in file in
-        let asms = ref [] in
-        let line = ref 1 in
-        let tag_dict = ref TagDict.empty in
-        try
-            while true do
-                let asm = input_line ic in
-                let len = String.length asm in
-                if len > 0 then
-                    let lst = Str.split (Str.regexp ":") asm in
-                    if List.length lst = 1 && Str.string_match (Str.regexp ".*:.*") asm 0 then
-                        tag_dict := TagDict.add (List.hd lst) !line !tag_dict
-                    else if List.length lst > 1 then
-                        (tag_dict := TagDict.add (List.hd lst) !line !tag_dict;
-                        asms := (!line, List.hd (List.tl lst)) :: !asms; (* reverse me later *)
-                        line := !line + 1)
-                    else
-                        (asms := (!line, asm) :: !asms; (* reverse me later *)
-                        line := !line + 1)
-                else
-                    ()
-            done
-        with End_of_file ->
-            Printf.printf "%d\n" (!line - 1);
-            Printf.printf "%s\n" (assemble !asms !tag_dict mode);
-            close_in ic
+        str
+
+let rec trim_spaces_backward str =
+    if String.length str > 0 then
+        let tl = String.sub str (String.length str - 1) 1 in
+        let hd = String.sub str 0 (String.length str - 1) in
+        match tl with
+        | "\t" | " " -> trim_spaces_backward hd
+        | _ -> str
+    else
+        str
+
+let rec trim_comment asms =
+    if asms = [] then
+        []
+    else
+        let (line, asm) = List.hd asms in
+        if Str.string_match (Str.regexp "^[\t ]*$") asm 0 then
+            trim_comment (List.tl asms)
+        else if Str.string_match (Str.regexp "^[\t ]*#.*$") asm 0 then
+            trim_comment (List.tl asms)
+        else
+            let asm = (try
+                String.sub asm 0 (String.index asm '#')
+            with Not_found -> asm) in
+            let asm = trim_spaces_forward (trim_spaces_backward asm) in
+            (line, asm) :: trim_comment (List.tl asms)
+
+let optimize text = (* TODO *)
+    text
+
+let is_tag_def str =
+    Str.string_match (Str.regexp "^.*:$") str 0
+
+let has_tag_def str =
+    Str.string_match (Str.regexp "^.*:") str 0
+
+let get_tag_def str = (* raises Not_found exception *)
+    String.sub str 0 (String.index str ':')
+
+let remove_tag_def str =
+    try
+        let index = String.index str ':' in
+        trim_spaces_forward (String.sub str (index + 1) (String.length str - index - 1))
+    with Not_found -> str
+
+let rec attach_logical_line_num' num text =
+    match text with
+    | [] -> []
+    | (line, asm) :: asms' when is_tag_def asm -> (num, line, asm) :: attach_logical_line_num' num asms'
+    | (line, asm) :: asms' -> (num, line, asm) :: attach_logical_line_num' (num + 1) asms'
+
+let attach_logical_line_num text =
+    attach_logical_line_num' 0 text
+
+let rec create_tag_dict' tag_dict text =
+    match text with
+    | [] -> tag_dict
+    | (lline, pline, asm) :: asms' when has_tag_def asm -> create_tag_dict' (TagDict.add (get_tag_def asm) lline tag_dict) asms'
+    | asm :: asms' -> create_tag_dict' tag_dict asms'
+
+let create_tag_dict text =
+    create_tag_dict' TagDict.empty text
+
+let rec strip_tag_def asms =
+    match asms with
+    | [] -> []
+    | (lline, pline, asm) :: asms' when is_tag_def asm -> strip_tag_def asms'
+    | (lline, pline, asm) :: asms' when has_tag_def asm -> (lline, pline, remove_tag_def asm) :: strip_tag_def asms'
+    | asm :: asms' -> asm :: strip_tag_def asms'
+
+let has_globl str =
+    Str.string_match (Str.regexp "[.]globl") str 0
+
+let get_globl_tag str =
+    let tokens = Str.split (Str.regexp "[ \t]+") str in
+    List.nth tokens 1
+
+let rec get_entry_point text =
+    match text with
+    | [] -> raise (Failure "entry point not found")
+    | (_, asm) :: asms' when has_globl asm -> get_globl_tag asm
+    | asm :: asms' -> get_entry_point asms'
+
+let rec remove_entry_point_mark text =
+    match text with
+    | [] -> []
+    | (_, asm) :: asms' when has_globl asm -> asms'
+    | asm :: asms' -> asm :: remove_entry_point_mark asms'
+
+let rec print_str_list l =
+    match l with
+    | [] -> ()
+    | e :: l' -> Printf.printf "%s\n" e; print_str_list l'
+
+let rec print_triple_list xs =
+    match xs with
+    | [] -> ()
+    | (i1, i2, str) :: xs' -> Printf.printf "(%d, %d, %s)\n" i1 i2 str; print_triple_list xs'
+
+let output_format = ref "h" (* Hexstr Simulator Object Binary *)
+
+let rec output_format_sim prog =
+    match prog with
+    | [] -> ()
+    | l :: prog' -> Printf.printf "\"%s\",\n" l; output_format_sim prog'
+
+let rec output_format_hex prog =
+    match prog with
+    | [] -> ()
+    | l :: prog' -> Printf.printf "%s" (bin_to_hex l); output_format_hex prog'
+
+let rec int32_of_bin' i32 bin =
+    if String.length bin > 0 then
+        let car = String.sub bin 0 1 in
+        let cdr = String.sub bin 1 (String.length bin - 1) in
+        let two = Int32.add Int32.one Int32.one in
+        match car with
+        | "0" -> int32_of_bin' (Int32.mul i32 two) cdr
+        | "1" -> int32_of_bin' (Int32.add (Int32.mul i32 two) Int32.one) cdr
+        | _ -> raise (Failure "matching failed in int32_of_bin'")
+    else
+        i32
+
+let int32_of_bin bin =
+    int32_of_bin' Int32.zero bin
+
+let output_int32 i =
+    output_byte stdout (Int32.to_int (Int32.shift_right i 24));
+    output_byte stdout (Int32.to_int (Int32.shift_right i 16));
+    output_byte stdout (Int32.to_int (Int32.shift_right i 8));
+    output_byte stdout (Int32.to_int i)
+
+let rec output_format_obj prog =
+    match prog with
+    | [] -> ()
+    | l :: prog' -> output_int32 (int32_of_bin l); output_format_obj prog'
+
+let main' asms = (* TODO: data *)
+    let asms = trim_comment asms in
+    let data = extract_data asms in
+    let text = extract_text asms in
+    let entry_point = get_entry_point text in
+    let text = remove_entry_point_mark text in
+    let text = optimize text in
+    let text = (-1, "beq %r0 %r0 " ^ entry_point) :: text in
+    let text' = attach_logical_line_num text in
+    let tag_dict = create_tag_dict text' in
+    let text' = strip_tag_def text' in
+    let prog = List.map (fun (lline, _, asm) -> asm_to_bin lline asm tag_dict) text' in
+    let prog = ("00000001" ^ zfill (to_bin (List.length prog)) 24) :: prog @
+        ["00000011000000000000000000000000"] in
+    match !output_format with
+    | "s" -> output_format_sim prog
+    | "h" -> output_format_hex prog; Printf.printf "\n"
+    | "o" -> output_format_obj prog
+    | _ -> raise (Failure (Printf.sprintf "Unknown output format: %s" !output_format))
+
+let () =
+    Arg.parse
+        [("-format", Arg.String(fun s -> output_format := s), "output format (h, s, o, b)")]
+        (fun file ->
+            let ic = open_in file in
+            let asms = ref [] in
+            let line = ref 1 in
+            try
+                while true do
+                    let asm = input_line ic in
+                    asms := !asms @ [(!line, asm)];
+                    line := !line + 1
+                done
+            with End_of_file ->
+                main' !asms;
+                close_in ic)
+        (Printf.sprintf "Cartelet V1 assembler\nusage: %s [-format h,s,o,b] filename" Sys.argv.(0))

@@ -9,6 +9,7 @@ package types is
         ex_fresh : std_logic;
         ex_valid : std_logic;
         ex_valid8 : std_logic;
+        ex_sender_busy : std_logic;
         sram_din : std_logic_vector (31 downto 0);
     end record;
     constant cpu_in_init : cpu_in_type := (
@@ -17,6 +18,7 @@ package types is
         ex_fresh => '0',
         ex_valid => '0',
         ex_valid8 => '0',
+        ex_sender_busy => '0',
         sram_din => (others => '0'));
     type cpu_out_type is record
         ex_data : std_logic_vector (31 downto 0);
