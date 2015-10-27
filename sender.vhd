@@ -82,7 +82,7 @@ begin
         end if;
         case r.st is
             when ready =>
-                if r.qhd /= r.qtl and r.read(0) = '0' and r.read(1) = '0' then
+                if r.qhd /= r.qtl and r.read(0) = '0' and r.read(1) = '0' and ex_mem_we = '0' then
                     v.buff := mem_dout (31 downto 0);
                     v.sending_buff := v.buff (31 downto 24) & '0';
                     v.st := sending_a_bit;

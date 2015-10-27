@@ -129,6 +129,16 @@ let tag_to_bin str line tag_dict =
     let target_line = TagDict.find str tag_dict in
     dsp_to_bin (string_of_int (target_line - line - 1))
 
+let abs_tag_to_bin str line tag_dict =
+    let target_line = TagDict.find str tag_dict in
+    dsp_to_bin (string_of_int (target_line))
+
+let imm_or_abs_tag_to_bin str line tag_dict =
+    if TagDict.exists (fun key _ -> key = str) tag_dict then
+        abs_tag_to_bin str line tag_dict
+    else
+        imm_to_bin str
+
 let asm_to_bin line str tag_dict =
     let tokens = Str.split (Str.regexp "[ \t()]+") str in
     match List.hd tokens with
@@ -138,7 +148,7 @@ let asm_to_bin line str tag_dict =
                            reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
     | "addi" -> "000010" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
-                           imm_to_bin (List.nth tokens 3)
+                           imm_or_abs_tag_to_bin (List.nth tokens 3) line tag_dict
     | "sub"  -> "000011" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
@@ -174,7 +184,7 @@ let asm_to_bin line str tag_dict =
                            tag_to_bin (List.nth tokens 1) line tag_dict
     | "addiu"-> "010111" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
-                           imm_to_bin (List.nth tokens 3)
+                           imm_or_abs_tag_to_bin (List.nth tokens 3) line tag_dict
     | "jr"   -> "010010" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "send" -> "100000" ^ reg_to_bin (List.nth tokens 1) ^ repeat "0" 21
     | "halt" -> "100001" ^ repeat "0" 26
@@ -416,7 +426,7 @@ let main' asms = (* TODO: data *)
     let prog = ("00000001" ^ zfill (to_bin (List.length prog)) 24) :: prog @
         ["00000011000000000000000000000000"] in
     match !output_format with
-    | "s" -> output_format_sim prog
+    | "s" -> Printf.printf "%d, %s\n" (List.length prog) (bin_to_hex (to_bin (List.length prog))); output_format_sim prog
     | "h" -> output_format_hex prog; Printf.printf "\n"
     | "o" -> output_format_obj prog
     | _ -> raise (Failure (Printf.sprintf "Unknown output format: %s" !output_format))

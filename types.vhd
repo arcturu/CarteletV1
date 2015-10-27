@@ -24,7 +24,7 @@ package types is
         ex_data : std_logic_vector (31 downto 0);
         ex_data8 : std_logic_vector (7 downto 0);
         ex_go : std_logic;
-        ex_go8 : std_logic;
+--        ex_go8 : std_logic;
         ex_pop8 : std_logic;
         ex_rst8 : std_logic;
         state : cpu_state_type;
@@ -36,7 +36,7 @@ package types is
         ex_data => (others => '0'),
         ex_data8 => (others => '0'),
         ex_go => '0',
-        ex_go8 => '0',
+--        ex_go8 => '0',
         ex_pop8 => '0',
         ex_rst8 => '0',
         state => ready,
@@ -120,6 +120,31 @@ package types is
             rst        : in std_logic;
             sender_in  : in sender_in_type;
             sender_out : out sender_out_type);
+    end component;
+
+    type sender8_in_type is record
+        data : std_logic_vector (7 downto 0);
+        go   : std_logic;
+    end record;
+    constant sender8_in_init : sender8_in_type := (
+        data => (others => '0'),
+        go  => '0');
+    type sender8_out_type is record
+        RS_TX : std_logic;
+        busy  : std_logic;
+    end record;
+    constant sender8_out_init : sender8_out_type := (
+        RS_TX => '0',
+        busy  => '0');
+    component sender8 is
+        generic (
+            wtime : std_logic_vector (15 downto 0) := x"1ADB"
+        );
+        port (
+            clk        : in std_logic;
+            rst        : in std_logic;
+            sender_in  : in sender8_in_type;
+            sender_out : out sender8_out_type);
     end component;
 
     type receiver_in_type is record

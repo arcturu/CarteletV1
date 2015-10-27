@@ -60,8 +60,8 @@ architecture struct of TOP is
 --    signal sclk : std_logic;
     signal rst : std_logic := '0';
 
-    signal sender_in    : sender_in_type    := sender_in_init;
-    signal sender_out   : sender_out_type   := sender_out_init;
+    signal sender_in    : sender8_in_type    := sender8_in_init;
+    signal sender_out   : sender8_out_type   := sender8_out_init;
     signal receiver_in  : receiver_in_type  := receiver_in_init;
     signal receiver_out : receiver_out_type := receiver_out_init;
     signal receiver_q8_rst : std_logic := '0';
@@ -94,7 +94,7 @@ begin
 --        RST_IN => rst,
 --        CLK0_OUT => sclk
 --    );
-    sender_1 : sender generic map (wtime) port map (clk, rst, sender_in, sender_out);
+    sender_1 : sender8 generic map (wtime) port map (clk, rst, sender_in, sender_out);
     receiver_1 : receiver generic map (wtime) port map (clk, rst, receiver_in, receiver_out);
     receiver_q8_1 : receiver_q8 generic map (wtime) port map (clk, receiver_q8_rst, receiver_q8_in, receiver_q8_out);
     cpu_1 : cpu port map (clk, rst, cpu_in, cpu_out);
@@ -108,9 +108,8 @@ begin
     cpu_in.ex_data <= x"000000" & receiver_q8_out.data when cpu_out.state = running else receiver_out.data;
     cpu_in.ex_fresh <= receiver_out.fresh;
     cpu_in.ex_sender_busy <= sender_out.busy;
-    sender_in.data <= cpu_out.ex_data;
+    sender_in.data <= cpu_out.ex_data (31 downto 24);
     sender_in.go <= cpu_out.ex_go;
-    sender_in.go8 <= cpu_out.ex_go8;
 
 
     -- sram controller (わける？)

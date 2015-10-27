@@ -215,7 +215,7 @@ begin
         variable read_dest_value : std_logic_vector (31 downto 0) := (others => '0');
         variable ex_tmp_pc : std_logic_vector (15 downto 0) := (others => '0');
         variable cpu_ex_go : std_logic := '0';
-        variable cpu_ex_go8 : std_logic := '0';
+--        variable cpu_ex_go8 : std_logic := '0';
         variable cpu_ex_pop8 : std_logic := '0';
         variable cpu_ex_rst8 : std_logic := '0';
         variable cpu_ex_sram_we : std_logic := '0';
@@ -231,7 +231,7 @@ begin
         v := r;
         cpu_ex_rst8 := '0';
         cpu_ex_go := '0';
-        cpu_ex_go8 := '0';
+--        cpu_ex_go8 := '0';
         no_fetch := '0';
         case r.cpu_state is
             when ready =>
@@ -357,6 +357,25 @@ begin
                     ex_floating_inst := '1';
                 else
                     ex_floating_inst := '0';
+                end if;
+                if r.forwarder_file(0).valid = '1' then
+                    if r.readreg_ex_reg.lhs_num = r.forwarder_file(0).reg_num and
+                       ex_floating_inst = r.forwarder_file(0).floating then
+                        ex_lhs_value := r.forwarder_file(0).value;
+                    end if;
+                    if r.readreg_ex_reg.rhs_num = r.forwarder_file(0).reg_num and
+                       ex_floating_inst = r.forwarder_file(0).floating then
+                        ex_rhs_value := r.forwarder_file(0).value;
+                    end if;
+                    if r.readreg_ex_reg.dest_num = r.forwarder_file(0).reg_num then
+                        if r.readreg_ex_reg.ex_op = OP_FLD or r.readreg_ex_reg.ex_op = OP_FST then
+                            if r.forwarder_file(0).floating = '0' then
+                                ex_dest_value := r.forwarder_file(0).value;
+                            end if;
+                        elsif ex_floating_inst = r.forwarder_file(0).floating then
+                            ex_dest_value := r.forwarder_file(0).value;
+                        end if;
+                    end if;
                 end if;
                 if v.forwarder_file(0).valid = '1' then
                     if r.readreg_ex_reg.lhs_num = v.forwarder_file(0).reg_num and
@@ -583,8 +602,9 @@ begin
                         flush_read := '1';
                     when OP_SEND =>
                         if cpu_in.ex_sender_busy = '0' then
-                            cpu_out.ex_data <= ex_dest_value;
-                            cpu_ex_go8 := '0';
+--                            cpu_out.ex_data <= ex_dest_value;
+--                            cpu_ex_go8 := '0';
+                            cpu_out.ex_data <= ex_dest_value (7 downto 0) & x"000000";
                             cpu_ex_go := '1';
 
                             v.repeat := '0';
@@ -604,9 +624,9 @@ begin
                         v.cpu_state := ready;
                     when OP_SEND8 =>
                         if cpu_in.ex_sender_busy = '0' then
-                            cpu_out.ex_data <= ex_dest_value;
-                            cpu_ex_go8 := '1';
-                            cpu_ex_go := '0';
+                            cpu_out.ex_data <= ex_dest_value (7 downto 0) & x"000000";
+--                            cpu_ex_go8 := '1';
+                            cpu_ex_go := '1';
 
                             v.repeat := '0';
                             no_fetch := '1';
@@ -709,6 +729,7 @@ begin
                 end if;
 
                 -- read and decode
+                is_floating_inst := '0';
                 if v.repeat = '0' then
                     if v.bubble_counter = x"0" and flush_read = '0' and no_fetch = '0' then
                         if r.fetch_readreg_reg2.fetched = '1' then
@@ -716,7 +737,6 @@ begin
                         else
                             inst := pmem_dout;
                         end if;
-                        is_floating_inst := '0';
                         if inst (31) = '1' and inst (30) = '1' then -- TODO NOTE floating point 命令のオペコード変更時はここも変える
                             is_floating_inst := '1';
                         end if;
@@ -729,51 +749,22 @@ begin
                         v.readreg_ex_reg.rhs_num := inst (15 downto 11);
                         v.readreg_ex_reg.imm := inst (15 downto 0);
 
-                        if is_floating_inst = '1' and inst (31 downto 26) /= OP_FLD and inst (31 downto 26) /= OP_FST then
-                            v.readreg_ex_reg.dest_value := r.fregs (to_integer(unsigned(inst (25 downto 21))));
-                            if v.forwarder_file(0).valid = '1' and v.forwarder_file(0).floating = '1' then
-                                if v.readreg_ex_reg.dest_num = v.forwarder_file(0).reg_num then
-                                    v.readreg_ex_reg.dest_value := v.forwarder_file(0).value;
-                                end if;
-                            end if;
-                        else
-                            v.readreg_ex_reg.dest_value := r.regs (to_integer(unsigned(inst (25 downto 21))));
-                            if v.forwarder_file(0).valid = '1' and v.forwarder_file(0).floating = '0' then
-                                if v.readreg_ex_reg.dest_num = v.forwarder_file(0).reg_num then
-                                    v.readreg_ex_reg.dest_value := v.forwarder_file(0).value;
-                                end if;
-                            end if;
-                        end if;
-                        if is_floating_inst = '1' then
-                            v.readreg_ex_reg.lhs_value := r.fregs (to_integer(unsigned(inst (20 downto 16))));
-                            v.readreg_ex_reg.rhs_value := r.fregs (to_integer(unsigned(inst (15 downto 11))));
-                        else
-                            v.readreg_ex_reg.lhs_value := r.regs (to_integer(unsigned(inst (20 downto 16))));
-                            v.readreg_ex_reg.rhs_value := r.regs (to_integer(unsigned(inst (15 downto 11))));
-                        end if;
-
-                        if v.forwarder_file(0).valid = '1' and is_floating_inst = v.forwarder_file(0).floating then
-                            if v.readreg_ex_reg.lhs_num = v.forwarder_file(0).reg_num then
-                                v.readreg_ex_reg.lhs_value := v.forwarder_file(0).value;
-                            end if;
-                            if v.readreg_ex_reg.rhs_num = v.forwarder_file(0).reg_num then
-                                v.readreg_ex_reg.rhs_value := v.forwarder_file(0).value;
-                            end if;
-                        end if;
-    --                    if v.forwarder_file(1).valid = '1' then
-    --                        if v.readreg_ex_reg.lhs_num = v.forwarder_file(1).reg_num then
-    --                            v.readreg_ex_reg.lhs_value := v.forwarder_file(1).value;
-    --                        end if;
-    --                        if v.readreg_ex_reg.rhs_num = v.forwarder_file(1).reg_num then
-    --                            v.readreg_ex_reg.rhs_value := v.forwarder_file(1).value;
-    --                        end if;
-    --                        if v.readreg_ex_reg.dest_num = v.forwarder_file(1).reg_num then
-    --                            v.readreg_ex_reg.dest_value := v.forwarder_file(1).value;
-    --                        end if;
-    --                    end if;
                     else
                         v.readreg_ex_reg := reg_init.readreg_ex_reg;
                     end if;
+                end if;
+                --      update values
+                if is_floating_inst = '1' and inst (31 downto 26) /= OP_FLD and inst (31 downto 26) /= OP_FST then
+                    v.readreg_ex_reg.dest_value := r.fregs (to_integer(unsigned(inst (25 downto 21))));
+                else
+                    v.readreg_ex_reg.dest_value := r.regs (to_integer(unsigned(inst (25 downto 21))));
+                end if;
+                if is_floating_inst = '1' then
+                    v.readreg_ex_reg.lhs_value := r.fregs (to_integer(unsigned(inst (20 downto 16))));
+                    v.readreg_ex_reg.rhs_value := r.fregs (to_integer(unsigned(inst (15 downto 11))));
+                else
+                    v.readreg_ex_reg.lhs_value := r.regs (to_integer(unsigned(inst (20 downto 16))));
+                    v.readreg_ex_reg.rhs_value := r.regs (to_integer(unsigned(inst (15 downto 11))));
                 end if;
 
                 -- dummy fetch
@@ -807,7 +798,7 @@ begin
         cpu_out.ex_rst8 <= cpu_ex_rst8;
         cpu_out.state <= r.cpu_state;
         cpu_out.ex_go <= cpu_ex_go;
-        cpu_out.ex_go8 <= cpu_ex_go8;
+--        cpu_out.ex_go8 <= cpu_ex_go8;
         v.regs (0) := (others => '0'); -- must be zero
         rin <= v;
     end process;
