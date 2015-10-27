@@ -227,12 +227,14 @@ begin
         variable inst : std_logic_vector (31 downto 0) := (others => '0');
         variable is_floating_inst : std_logic := '0';
         variable tmp_sram_addr : std_logic_vector (31 downto 0) := (others => '0');
+        variable receive : std_logic := '0';
     begin
         v := r;
         cpu_ex_rst8 := '0';
         cpu_ex_go := '0';
 --        cpu_ex_go8 := '0';
         no_fetch := '0';
+        receive := '0';
         case r.cpu_state is
             when ready =>
                 cpu_ex_rst8 := '1';
@@ -651,6 +653,7 @@ begin
                             cpu_ex_pop8 := '1';
                             v.repeat := '0';
                             no_fetch := '1';
+                            receive := '1';
 
                             ex_tmp_pc := "00" & r.readreg_ex_reg.pc;
                             ex_tmp_pc := std_logic_vector(signed(ex_tmp_pc) + 1);
@@ -753,18 +756,21 @@ begin
                         v.readreg_ex_reg := reg_init.readreg_ex_reg;
                     end if;
                 end if;
-                --      update values
-                if is_floating_inst = '1' and inst (31 downto 26) /= OP_FLD and inst (31 downto 26) /= OP_FST then
-                    v.readreg_ex_reg.dest_value := r.fregs (to_integer(unsigned(inst (25 downto 21))));
-                else
-                    v.readreg_ex_reg.dest_value := r.regs (to_integer(unsigned(inst (25 downto 21))));
-                end if;
-                if is_floating_inst = '1' then
-                    v.readreg_ex_reg.lhs_value := r.fregs (to_integer(unsigned(inst (20 downto 16))));
-                    v.readreg_ex_reg.rhs_value := r.fregs (to_integer(unsigned(inst (15 downto 11))));
-                else
-                    v.readreg_ex_reg.lhs_value := r.regs (to_integer(unsigned(inst (20 downto 16))));
-                    v.readreg_ex_reg.rhs_value := r.regs (to_integer(unsigned(inst (15 downto 11))));
+
+                if (v.repeat = '0' or (v.repeat = '1' and receive = '1')) and v.bubble_counter = x"0" and flush_read = '0' and no_fetch = '0' then
+                    --      update values
+                    if is_floating_inst = '1' and inst (31 downto 26) /= OP_FLD and inst (31 downto 26) /= OP_FST then
+                        v.readreg_ex_reg.dest_value := r.fregs (to_integer(unsigned(inst (25 downto 21))));
+                    else
+                        v.readreg_ex_reg.dest_value := r.regs (to_integer(unsigned(inst (25 downto 21))));
+                    end if;
+                    if is_floating_inst = '1' then
+                        v.readreg_ex_reg.lhs_value := r.fregs (to_integer(unsigned(inst (20 downto 16))));
+                        v.readreg_ex_reg.rhs_value := r.fregs (to_integer(unsigned(inst (15 downto 11))));
+                    else
+                        v.readreg_ex_reg.lhs_value := r.regs (to_integer(unsigned(inst (20 downto 16))));
+                        v.readreg_ex_reg.rhs_value := r.regs (to_integer(unsigned(inst (15 downto 11))));
+                    end if;
                 end if;
 
                 -- dummy fetch
