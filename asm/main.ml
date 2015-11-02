@@ -1,5 +1,20 @@
 module TagDict = Map.Make(String)
 
+let rec print_str_list l =
+    match l with
+    | [] -> ()
+    | e :: l' -> Printf.printf "%s\n" e; print_str_list l'
+
+let rec print_triple_list xs =
+    match xs with
+    | [] -> ()
+    | (i1, i2, str) :: xs' -> Printf.printf "(%d, %d, %s)\n" i1 i2 str; print_triple_list xs'
+
+let rec print_double_list xs =
+    match xs with
+    | [] -> ()
+    | (i1, str) :: xs' -> Printf.printf "(%d, %s)\n" i1 str; print_double_list xs'
+
 let half_byte_to_hex hb =
     match hb with
     | "0000" -> "0"
@@ -105,7 +120,7 @@ let rec hex_imm_to_bin str =
 
 let imm_to_bin' str =
     if String.length str > 2 &&  String.sub str 0 2 = "0x" then
-        hex_imm_to_bin (String.sub str 2 (String.length str - 2))
+        zfill (hex_imm_to_bin (String.sub str 2 (String.length str - 2))) 16
     else if String.length str > 2 &&  String.sub str 0 2 = "0b" then
         zfill (String.sub str 2 (String.length str - 2)) 16
     else
@@ -117,6 +132,9 @@ let imm_to_bin str =
         res
     else
         raise (Failure "immediate overflow")
+
+let imm_to_bin_unlimited str =
+    imm_to_bin' (String.sub str 1 (String.length str - 1))
 
 let dsp_to_bin str =
     let res = imm_to_bin' str in
@@ -138,6 +156,50 @@ let imm_or_abs_tag_to_bin str line tag_dict =
         abs_tag_to_bin str line tag_dict
     else
         imm_to_bin str
+
+let tag_counter = ref 0
+
+let get_fresh_tag () =
+    tag_counter := !tag_counter + 1;
+    "_asm_tag" ^ string_of_int !tag_counter
+
+let first_half_of_imm imm =
+    let binstr = imm_to_bin_unlimited imm in
+    zfill (String.sub binstr (String.length binstr - 32) 16) 16
+
+let last_half_of_imm imm =
+    let binstr = imm_to_bin_unlimited imm in
+    zfill (String.sub binstr (String.length binstr - 16) 16) 16
+
+let convert_pseudo_ops' line asm =
+    let tokens = Str.split (Str.regexp "[ \t()]+") asm in
+    let head = List.hd tokens in
+    let (label, tokens) = if String.sub head (String.length head - 1) 1 = ":" then ([(line, head)], List.tl tokens) else ([], tokens) in
+    if List.length tokens > 0 then
+        match List.hd tokens with
+        | "jalr" ->
+            let tag = get_fresh_tag () in
+            label @
+            [(line, "addiu %r31 %r0 " ^ tag);
+             (line, "jr " ^ List.nth tokens 1);
+             (line, tag ^ ":")]
+        | "addiu32" ->
+            label @
+            [(line, "addi %r1 %r0 $1");
+            (line, "addiu " ^ List.nth tokens 1 ^ " %r0 $0b" ^ first_half_of_imm (List.nth tokens 3));
+            (line, "sll " ^ List.nth tokens 1 ^ " " ^ List.nth tokens 1 ^ " %r1");
+            (line, "addiu " ^ List.nth tokens 1 ^ " %r0 $0b" ^ last_half_of_imm (List.nth tokens 3))]
+        | _ -> [(line, asm)]
+    else
+        [(line, asm)]
+
+
+let rec convert_pseudo_ops text =
+    let converted = List.flatten (List.map (fun (line, asm) -> convert_pseudo_ops' line asm) text) in
+    if converted = text then
+        converted
+    else
+        convert_pseudo_ops converted
 
 let asm_to_bin line str tag_dict =
     let tokens = Str.split (Str.regexp "[ \t()]+") str in
@@ -197,8 +259,7 @@ let asm_to_bin line str tag_dict =
                            reg_to_bin (List.nth tokens 2) ^
                            reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
     | "finv" -> "110010" ^ reg_to_bin (List.nth tokens 1) ^
-                           reg_to_bin (List.nth tokens 2) ^
-                           reg_to_bin (List.nth tokens 3) ^ repeat "0" 11
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "fneg" -> "110011" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "fabs" -> "110100" ^ reg_to_bin (List.nth tokens 1) ^
@@ -214,6 +275,8 @@ let asm_to_bin line str tag_dict =
     | "fslt" -> "111000" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | "fmov" -> "111001" ^ reg_to_bin (List.nth tokens 1) ^
+                           reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
+    | "fsqrt"-> "111010" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^ repeat "0" 16
     | _ -> raise (Failure "matching failed in asm_to_bin")
 
@@ -363,16 +426,6 @@ let rec remove_entry_point_mark text =
     | (_, asm) :: asms' when has_globl asm -> asms'
     | asm :: asms' -> asm :: remove_entry_point_mark asms'
 
-let rec print_str_list l =
-    match l with
-    | [] -> ()
-    | e :: l' -> Printf.printf "%s\n" e; print_str_list l'
-
-let rec print_triple_list xs =
-    match xs with
-    | [] -> ()
-    | (i1, i2, str) :: xs' -> Printf.printf "(%d, %d, %s)\n" i1 i2 str; print_triple_list xs'
-
 let output_format = ref "h" (* Hexstr Simulator Object Binary *)
 
 let rec output_format_sim prog =
@@ -411,23 +464,31 @@ let rec output_format_obj prog =
     | [] -> ()
     | l :: prog' -> output_int32 (int32_of_bin l); output_format_obj prog'
 
-let main' asms = (* TODO: data *)
+let main' asms =
     let asms = trim_comment asms in
-    let data = extract_data asms in
+(*    let data = attach_logical_line_num (extract_data asms) in
+    let data_tag_dict = create_tag_dict data in
+    let data = strip_tag_def data in
+let data' = List.map (fun (_, _, d) -> let tokens = Str.split (Str.regexp "[ \t()]+") d in imm_to_bin_unlimited (List.nth tokens 1)) data in*)
     let text = extract_text asms in
     let entry_point = get_entry_point text in
     let text = remove_entry_point_mark text in
+    let text = convert_pseudo_ops text in
+    print_double_list text;
     let text = optimize text in
     let text = (-1, "beq %r0 %r0 " ^ entry_point) :: text in
     let text' = attach_logical_line_num text in
     let tag_dict = create_tag_dict text' in
     let text' = strip_tag_def text' in
     let prog = List.map (fun (lline, _, asm) -> asm_to_bin lline asm tag_dict) text' in
-    let prog = ("00000001" ^ zfill (to_bin (List.length prog)) 24) :: prog @
+    let prog =
+(*        data' @ *)
+        [("00000001" ^ zfill (to_bin (List.length prog)) 24)] @
+        prog @
         ["00000011000000000000000000000000"] in
     match !output_format with
-    | "s" -> Printf.printf "%d, %s\n" (List.length prog) (bin_to_hex (to_bin (List.length prog))); output_format_sim prog
     | "h" -> output_format_hex prog; Printf.printf "\n"
+    | "s" -> Printf.printf "%d, %s\n" (List.length prog) (bin_to_hex (to_bin (List.length prog))); output_format_sim prog
     | "o" -> output_format_obj prog
     | _ -> raise (Failure (Printf.sprintf "Unknown output format: %s" !output_format))
 
