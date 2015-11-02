@@ -245,6 +245,7 @@ package types is
     constant OP_FSEQ  : std_logic_vector (5 downto 0) := "110111";
     constant OP_FSLT  : std_logic_vector (5 downto 0) := "111000";
     constant OP_FMOV  : std_logic_vector (5 downto 0) := "111001";
+    constant OP_FSQRT : std_logic_vector (5 downto 0) := "111010";
 
     constant ALU_NOP : std_logic_vector (3 downto 0) := "0000";
     constant ALU_ADD : std_logic_vector (3 downto 0) := "0001";
@@ -252,10 +253,11 @@ package types is
     constant ALU_SLL : std_logic_vector (3 downto 0) := "0011";
     constant ALU_SRL : std_logic_vector (3 downto 0) := "0100";
 
-    constant FPU_NOP : std_logic_vector (3 downto 0) := "0000";
-    constant FPU_ADD : std_logic_vector (3 downto 0) := "0001";
-    constant FPU_MUL : std_logic_vector (3 downto 0) := "0010";
-    constant FPU_INV : std_logic_vector (3 downto 0) := "0011";
-    constant FPU_NEG : std_logic_vector (3 downto 0) := "0100";
-    constant FPU_ABS : std_logic_vector (3 downto 0) := "0101";
+    constant FPU_NOP  : std_logic_vector (3 downto 0) := "0000";
+    constant FPU_ADD  : std_logic_vector (3 downto 0) := "0001";
+    constant FPU_MUL  : std_logic_vector (3 downto 0) := "0010";
+    constant FPU_INV  : std_logic_vector (3 downto 0) := "0011";
+    constant FPU_NEG  : std_logic_vector (3 downto 0) := "0100";
+    constant FPU_ABS  : std_logic_vector (3 downto 0) := "0101";
+    constant FPU_SQRT : std_logic_vector (3 downto 0) := "0110";
 end package;

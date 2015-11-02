@@ -248,7 +248,7 @@ begin
                             v.load_counter := (others => '0');
                         when CMD_DLOAD =>
                             v.cpu_state := dloading;
-                            v.load_size := cpu_in.ex_data ((PMEM_ADDR_WIDTH - 1) downto 0);
+                            v.load_size := cpu_in.ex_data ((PMEM_ADDR_WIDTH - 1) downto 0); -- TODO FIXME
                             v.load_counter := (others => '0');
                         when CMD_EXEC =>
                             v.cpu_state := running;
@@ -283,6 +283,19 @@ begin
             when dloading =>
                 cpu_out.ex_go <= '0';
                 pmem_we <= (others => '0');
+                if r.load_counter < r.load_size then
+                    if cpu_in.ex_fresh = '1' then
+                        cpu_out.sram_addr <= "0000" & r.load_counter; -- TODO FIXME
+                        cpu_out.sram_dout <= cpu_in.ex_data;
+                        cpu_out.sram_we <= '1';
+                        v.load_counter := std_logic_vector(unsigned(r.load_counter) + 1);
+                    else
+                        cpu_out.sram_we <= '0';
+                    end if;
+                else
+                    v.cpu_state := ready;
+                    cpu_out.sram_we <= '0';
+                end if;
             when running =>
                 cpu_ex_pop8 := '0';
                 cpu_ex_sram_we := '0';
@@ -306,7 +319,7 @@ begin
                 -- write back
                 if r.bubble_counter = x"0" then
                     if r.ex_wb_reg.write = '1' then
-                        case v.ex_wb_reg.data_source is
+                        case r.ex_wb_reg.data_source is
                             when src_alu =>
                                 tmp_data := alu_out.data;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
@@ -679,6 +692,16 @@ begin
                         fpu_in.command <= FPU_ADD;
                         fpu_in.lhs <= ex_lhs_value;
                         fpu_in.rhs <= ex_rhs_value;
+                    when OP_FINV =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_fpu;
+                        fpu_in.command <= FPU_INV;
+                        fpu_in.lhs <= ex_lhs_value;
+
+                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.data := pmem_dout;
+                        v.bubble_counter := x"3";
                     when OP_FNEG =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -693,6 +716,16 @@ begin
                         fpu_in.command <= FPU_ABS;
                         fpu_in.lhs <= ex_lhs_value;
                         fpu_in.rhs <= ex_rhs_value;
+                    when OP_FSQRT =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_fpu;
+                        fpu_in.command <= FPU_SQRT;
+                        fpu_in.lhs <= ex_lhs_value;
+
+                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.data := pmem_dout;
+                        v.bubble_counter := x"3";
                     when OP_SLT =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';

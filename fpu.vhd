@@ -28,11 +28,37 @@ architecture struct of FPU is
     signal fadd_lhs : std_logic_vector (31 downto 0) := (others => '0');
     signal fadd_rhs : std_logic_vector (31 downto 0) := (others => '0');
     signal fadd_result : std_logic_vector (31 downto 0) := (others => '0');
+
+    component finv is
+      Port (
+        clk     : in  STD_LOGIC;
+        input   : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal finv_input : std_logic_vector (31 downto 0) := (others => '0');
+    signal finv_output : std_logic_vector (31 downto 0) := (others => '0');
+
+    component fsqrt is
+      Port (
+        clk     : in  STD_LOGIC;
+        input   : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal fsqrt_input : std_logic_vector (31 downto 0) := (others => '0');
+    signal fsqrt_output : std_logic_vector (31 downto 0) := (others => '0');
 begin
     FADD1 : FADD port map (
         input1 => fadd_lhs,
         input2 => fadd_rhs,
         output => fadd_result);
+    FINV1 : FINV port map (
+        clk => clk,
+        input => finv_input,
+        output => finv_output);
+    FSQRT1 : fsqrt port map (
+        clk => clk,
+        input => fsqrt_input,
+        output => fsqrt_output);
     comb : process (fpu_in, r, fadd_lhs, fadd_rhs, fadd_result)
         variable v : reg_type := reg_init;
     begin
@@ -52,6 +78,12 @@ begin
                 v.data := '0' & fpu_in.lhs (30 downto 0);
             when FPU_NOP =>
                 v.data := fpu_in.lhs;
+            when FPU_INV =>
+                finv_input <= fpu_in.lhs;
+                v.data := finv_output;
+            when FPU_SQRT =>
+                fsqrt_input <= fpu_in.lhs;
+                v.data := fsqrt_output;
             when others =>
         end case;
 

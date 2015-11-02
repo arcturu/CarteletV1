@@ -202,6 +202,7 @@ let rec convert_pseudo_ops text =
         convert_pseudo_ops converted
 
 let asm_to_bin line str tag_dict =
+    Printf.printf "%s\n" str;
     let tokens = Str.split (Str.regexp "[ \t()]+") str in
     match List.hd tokens with
     | "nop"  -> repeat "0" 32
@@ -317,6 +318,7 @@ let rec extract_data' data asms =
     match asms with
     | [] -> data
     | (_, asm) :: asms' when asm = ".text" -> data
+    | (_, asm) :: asms' when asm = ".data" -> extract_data' data asms'
     | lineasm :: asms' -> extract_data' (data @ [lineasm]) asms'
 
 let extract_data asms =
@@ -466,23 +468,23 @@ let rec output_format_obj prog =
 
 let main' asms =
     let asms = trim_comment asms in
-(*    let data = attach_logical_line_num (extract_data asms) in
+    let data = attach_logical_line_num (extract_data asms) in
     let data_tag_dict = create_tag_dict data in
     let data = strip_tag_def data in
-let data' = List.map (fun (_, _, d) -> let tokens = Str.split (Str.regexp "[ \t()]+") d in imm_to_bin_unlimited (List.nth tokens 1)) data in*)
+    let data' = List.map (fun (_, _, d) -> let tokens = Str.split (Str.regexp "[ \t()]+") d in (Printf.printf "%s\n" (List.nth tokens 1)); imm_to_bin' (List.nth tokens 1)) data in
     let text = extract_text asms in
     let entry_point = get_entry_point text in
     let text = remove_entry_point_mark text in
     let text = convert_pseudo_ops text in
-    print_double_list text;
     let text = optimize text in
     let text = (-1, "beq %r0 %r0 " ^ entry_point) :: text in
     let text' = attach_logical_line_num text in
-    let tag_dict = create_tag_dict text' in
+    let tag_dict = TagDict.merge (fun key a b -> if a = None then b else a) data_tag_dict (create_tag_dict text') in
     let text' = strip_tag_def text' in
     let prog = List.map (fun (lline, _, asm) -> asm_to_bin lline asm tag_dict) text' in
     let prog =
-(*        data' @ *)
+        [("00000010" ^ zfill (to_bin (List.length data')) 24)] @
+        data' @
         [("00000001" ^ zfill (to_bin (List.length prog)) 24)] @
         prog @
         ["00000011000000000000000000000000"] in
