@@ -202,7 +202,7 @@ let rec convert_pseudo_ops text =
         convert_pseudo_ops converted
 
 let asm_to_bin line str tag_dict =
-    Printf.printf "%s\n" str;
+    Printf.eprintf "%s\n" str;
     let tokens = Str.split (Str.regexp "[ \t()]+") str in
     match List.hd tokens with
     | "nop"  -> repeat "0" 32
@@ -471,7 +471,7 @@ let main' asms =
     let data = attach_logical_line_num (extract_data asms) in
     let data_tag_dict = create_tag_dict data in
     let data = strip_tag_def data in
-    let data' = List.map (fun (_, _, d) -> let tokens = Str.split (Str.regexp "[ \t()]+") d in (Printf.printf "%s\n" (List.nth tokens 1)); imm_to_bin' (List.nth tokens 1)) data in
+    let data' = List.map (fun (_, _, d) -> let tokens = Str.split (Str.regexp "[ \t()]+") d in (Printf.eprintf "%s\n" (List.nth tokens 1)); imm_to_bin' (List.nth tokens 1)) data in
     let text = extract_text asms in
     let entry_point = get_entry_point text in
     let text = remove_entry_point_mark text in
@@ -490,7 +490,7 @@ let main' asms =
         ["00000011000000000000000000000000"] in
     match !output_format with
     | "h" -> output_format_hex prog; Printf.printf "\n"
-    | "s" -> Printf.printf "%d, %s\n" (List.length prog) (bin_to_hex (to_bin (List.length prog))); output_format_sim prog
+    | "s" -> Printf.eprintf "%d, %s\n" (List.length prog) (bin_to_hex (to_bin (List.length prog))); output_format_sim prog
     | "o" -> output_format_obj prog
     | _ -> raise (Failure (Printf.sprintf "Unknown output format: %s" !output_format))
 
