@@ -185,10 +185,10 @@ let convert_pseudo_ops' line asm =
              (line, tag ^ ":")]
         | "addiu32" ->
             label @
-            [(line, "addi %r1 %r0 $1");
+            [(line, "addi %r1 %r0 $16");
             (line, "addiu " ^ List.nth tokens 1 ^ " %r0 $0b" ^ first_half_of_imm (List.nth tokens 3));
             (line, "sll " ^ List.nth tokens 1 ^ " " ^ List.nth tokens 1 ^ " %r1");
-            (line, "addiu " ^ List.nth tokens 1 ^ " %r0 $0b" ^ last_half_of_imm (List.nth tokens 3))]
+            (line, "addiu " ^ List.nth tokens 1 ^ " " ^ List.nth tokens 1 ^ " $0b" ^ last_half_of_imm (List.nth tokens 3))]
         | _ -> [(line, asm)]
     else
         [(line, asm)]
