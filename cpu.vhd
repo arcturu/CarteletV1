@@ -786,7 +786,9 @@ begin
                             v.ex_wb_reg.data := x"0000000" & "0000";
                         end if;
                     when OP_FSEQ =>
-                        if ex_dest_value = ex_lhs_value then
+                        if ex_dest_value = ex_lhs_value or
+                            (ex_dest_value(30 downto 0) = x"0000000" & "000" and
+                             ex_lhs_value (30 downto 0) = x"0000000" & "000") then
                             v.fpcond := '1';
                         else
                             v.fpcond := '0';
@@ -796,8 +798,14 @@ begin
                             v.fpcond := '1';
                         elsif ex_dest_value (31) = '0' and ex_lhs_value (31) = '1' then
                             v.fpcond := '0';
-                        else
+                        elsif ex_dest_value (31) = '0' and ex_lhs_value (31) = '0' then
                             if ex_dest_value (30 downto 0) < ex_lhs_value (30 downto 0) then
+                                v.fpcond := '1';
+                            else
+                                v.fpcond := '0';
+                            end if;
+                        else
+                            if ex_dest_value (30 downto 0) > ex_lhs_value (30 downto 0) then
                                 v.fpcond := '1';
                             else
                                 v.fpcond := '0';

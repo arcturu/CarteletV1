@@ -165,11 +165,11 @@ let get_fresh_tag () =
 
 let first_half_of_imm imm =
     let binstr = imm_to_bin_unlimited imm in
-    zfill (String.sub binstr (String.length binstr - 32) 16) 16
+    String.sub (zfill binstr 32) 0 16
 
 let last_half_of_imm imm =
     let binstr = imm_to_bin_unlimited imm in
-    zfill (String.sub binstr (String.length binstr - 16) 16) 16
+    String.sub (zfill binstr 32) 16 16
 
 let convert_pseudo_ops' line asm =
     let tokens = Str.split (Str.regexp "[ \t()]+") asm in
