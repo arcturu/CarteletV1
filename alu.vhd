@@ -28,6 +28,8 @@ begin
         case alu_in.command is
             when ALU_ADD =>
                 v.data := std_logic_vector(signed(alu_in.lhs) + signed(alu_in.rhs));
+            when ALU_ADDU =>
+                v.data := std_logic_vector(unsigned(alu_in.lhs) + unsigned(alu_in.rhs));
             when ALU_SUB =>
                 v.data := std_logic_vector(signed(alu_in.lhs) - signed(alu_in.rhs));
             when ALU_SLL =>

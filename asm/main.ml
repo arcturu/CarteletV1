@@ -237,7 +237,7 @@ let asm_to_bin line str tag_dict =
                            reg_to_bin (List.nth tokens 2) ^
                            tag_to_bin (List.nth tokens 3) line tag_dict
     | "jal"  -> "010011" ^ repeat "0" 10 ^
-                           tag_to_bin (List.nth tokens 1) line tag_dict
+                           abs_tag_to_bin (List.nth tokens 1) line tag_dict
     | "slt"  -> "010100" ^ reg_to_bin (List.nth tokens 1) ^
                            reg_to_bin (List.nth tokens 2) ^
                            reg_to_bin (List.nth tokens 3) ^ repeat "0" 11

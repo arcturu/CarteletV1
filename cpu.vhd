@@ -25,7 +25,7 @@ architecture struct of CPU is
 
 
     type sram_state_type is (idle, write, read);
-    type data_source_type is (src_alu, src_fpu, src_sram, src_fsram, src_direct, src_fdirect);
+    type data_source_type is (src_alu, src_fpu, src_sram, src_fsram, src_direct, src_fdirect, src_finv, src_fsqrt);
     type registers_type is array (31 downto 0) of std_logic_vector (31 downto 0);
     type fetch_readreg_reg_type is record
         pc : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
@@ -92,6 +92,7 @@ architecture struct of CPU is
         fregs : registers_type;
         fpcond : std_logic;
         cpu_state : cpu_state_type;
+        update_register : std_logic;
     end record;
     constant reg_init : reg_type := (
         sram_cache => (others => (
@@ -144,7 +145,8 @@ architecture struct of CPU is
         regs => (others => (others => '0')),
         fregs => (others => (others => '0')),
         fpcond => '0',
-        cpu_state => ready);
+        cpu_state => ready,
+        update_register => '0');
 
     signal r, rin : reg_type := reg_init;
     signal pmem_we : std_logic_vector (0 downto 0) := (others => '0');
@@ -183,6 +185,23 @@ architecture struct of CPU is
         end loop;
         return str;
     end;
+    component finv is
+      Port (
+        clk     : in  STD_LOGIC;
+        input   : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal finv_input : std_logic_vector (31 downto 0) := (others => '0');
+    signal finv_output : std_logic_vector (31 downto 0) := (others => '0');
+
+    component fsqrt is
+      Port (
+        clk     : in  STD_LOGIC;
+        input   : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal fsqrt_input : std_logic_vector (31 downto 0) := (others => '0');
+    signal fsqrt_output : std_logic_vector (31 downto 0) := (others => '0');
 begin
 --    pmem : dmem_sim port map (
     pmem : mem port map (
@@ -204,7 +223,17 @@ begin
         fpu_in => fpu_in,
         fpu_out => fpu_out);
 
-    comb : process (cpu_in, r, pmem_dout, alu_out)
+    FINV1 : FINV port map (
+        clk => clk,
+        input => finv_input,
+        output => finv_output);
+    FSQRT1 : fsqrt port map (
+        clk => clk,
+        input => fsqrt_input,
+        output => fsqrt_output);
+
+
+    comb : process (cpu_in, r, pmem_dout, alu_out, fsqrt_output, finv_output)
         variable v : reg_type;
         variable ex_lhs_value : std_logic_vector (31 downto 0) := (others => '0');
         variable ex_rhs_value : std_logic_vector (31 downto 0) := (others => '0');
@@ -226,8 +255,13 @@ begin
         variable no_fetch : std_logic := '0';
         variable inst : std_logic_vector (31 downto 0) := (others => '0');
         variable is_floating_inst : std_logic := '0';
-        variable tmp_sram_addr : std_logic_vector (31 downto 0) := (others => '0');
+        variable tmp_sram_addr1 : std_logic_vector (31 downto 0) := (others => '0');
+        variable tmp_sram_addr2 : std_logic_vector (31 downto 0) := (others => '0');
+        variable tmp_sram_addr3 : std_logic_vector (31 downto 0) := (others => '0');
+        variable tmp_sram_addr4 : std_logic_vector (31 downto 0) := (others => '0');
         variable receive : std_logic := '0';
+        variable v_fsqrt_input : std_logic_vector (31 downto 0) := (others => '0');
+        variable v_finv_input : std_logic_vector (31 downto 0) := (others => '0');
     begin
         v := r;
         cpu_ex_rst8 := '0';
@@ -285,7 +319,7 @@ begin
                 pmem_we <= (others => '0');
                 if r.load_counter < r.load_size then
                     if cpu_in.ex_fresh = '1' then
-                        cpu_out.sram_addr <= "0000" & r.load_counter; -- TODO FIXME
+                        cpu_out.sram_addr <= "000000" & r.load_counter; -- TODO FIXME
                         cpu_out.sram_dout <= cpu_in.ex_data;
                         cpu_out.sram_we <= '1';
                         v.load_counter := std_logic_vector(unsigned(r.load_counter) + 1);
@@ -332,16 +366,16 @@ begin
                                 tmp_data := r.sram_in_buf;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
                                 v.forwarder_file(0).floating := '0';
-                                v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid := '1';
-                                v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data := tmp_data;
-                                v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag := r.ex_wb_reg.sram_addr;
+                                v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).valid := '1';
+                                v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).data := tmp_data;
+                                v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).tag := r.ex_wb_reg.sram_addr;
                             when src_fsram =>
                                 tmp_data := r.sram_in_buf;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
                                 v.forwarder_file(0).floating := '1';
-                                v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid := '1';
-                                v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data := tmp_data;
-                                v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag := r.ex_wb_reg.sram_addr;
+                                v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).valid := '1';
+                                v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).data := tmp_data;
+                                v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).tag := r.ex_wb_reg.sram_addr;
                             when src_direct =>
                                 tmp_data := r.ex_wb_reg.data;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
@@ -350,11 +384,19 @@ begin
                                 tmp_data := r.ex_wb_reg.data;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
                                 v.forwarder_file(0).floating := '1';
+                            when src_finv =>
+                                tmp_data := finv_output;
+                                v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
+                                v.forwarder_file(0).floating := '1';
+                            when src_fsqrt =>
+                                tmp_data := fsqrt_output;
+                                v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
+                                v.forwarder_file(0).floating := '1';
                         end case;
                         v.forwarder_file(0).reg_num := r.ex_wb_reg.dest_num;
                         v.forwarder_file(0).valid := '1';
                         v.forwarder_file(0).value := tmp_data;
-                    else
+                    elsif v.repeat = '0' then
                         v.forwarder_file(0).valid := '0';
                     end if;
 --                    v.wb_mem_reg.sram_state := r.ex_wb_reg.sram_state;
@@ -441,7 +483,7 @@ begin
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_ADD;
+                        alu_in.command <= ALU_ADDU;
                         alu_in.lhs <= ex_lhs_value;
                         alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
                     when OP_SUB =>
@@ -478,71 +520,75 @@ begin
                         alu_in.rhs <= ex_rhs_value;
                     when OP_ST =>
                         v.ex_wb_reg.sram_state := write;
-                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
-                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
+                        tmp_sram_addr1 := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr1 (19 downto 0);
                         cpu_ex_sram_we := '1';
                         cpu_ex_sram_dout := ex_lhs_value;
 
-                        v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid := '1';
-                        v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data := ex_lhs_value;
-                        v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag := tmp_sram_addr (19 downto 0);
+                        v.sram_cache(to_integer(unsigned(tmp_sram_addr1 (3 downto 0)))).valid := '1';
+                        v.sram_cache(to_integer(unsigned(tmp_sram_addr1 (3 downto 0)))).data := ex_lhs_value;
+                        v.sram_cache(to_integer(unsigned(tmp_sram_addr1 (3 downto 0)))).tag := tmp_sram_addr1 (19 downto 0);
 --
 --                        v.fetch_readreg_reg2.fetched := '1';
 --                        v.fetch_readreg_reg2.data := pmem_dout;
 --                        v.bubble_counter := x"3";
+--                        v.update_register := '0';
                     when OP_FST =>
                         v.ex_wb_reg.sram_state := write;
-                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
-                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
+                        tmp_sram_addr2 := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr2 (19 downto 0);
                         cpu_ex_sram_we := '1';
                         cpu_ex_sram_dout := ex_lhs_value;
 
-                        v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid := '1';
-                        v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data := ex_lhs_value;
-                        v.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag := tmp_sram_addr (19 downto 0);
+                        v.sram_cache(to_integer(unsigned(tmp_sram_addr2 (3 downto 0)))).valid := '1';
+                        v.sram_cache(to_integer(unsigned(tmp_sram_addr2 (3 downto 0)))).data := ex_lhs_value;
+                        v.sram_cache(to_integer(unsigned(tmp_sram_addr2 (3 downto 0)))).tag := tmp_sram_addr2 (19 downto 0);
 --
 --                        v.fetch_readreg_reg2.fetched := '1';
 --                        v.fetch_readreg_reg2.data := pmem_dout;
 --                        v.bubble_counter := x"3";
+--                        v.update_register := '0';
                     when OP_LD =>
                         v.ex_wb_reg.sram_state := read;
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
                         v.ex_wb_reg.write := '1';
-                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
-                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
+                        tmp_sram_addr3 := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr3 (19 downto 0);
                         cpu_ex_sram_we := '0';
-                        v.ex_wb_reg.sram_addr := tmp_sram_addr (19 downto 0);
+                        v.ex_wb_reg.sram_addr := tmp_sram_addr3 (19 downto 0);
 
-                        if r.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid = '1' and
-                            r.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag = tmp_sram_addr (19 downto 0) then
+                        if r.sram_cache(to_integer(unsigned(tmp_sram_addr3 (3 downto 0)))).valid = '1' and
+                            r.sram_cache(to_integer(unsigned(tmp_sram_addr3 (3 downto 0)))).tag = tmp_sram_addr3 (19 downto 0) then
                             v.ex_wb_reg.data_source := src_direct;
-                            v.ex_wb_reg.data := r.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data;
+                            v.ex_wb_reg.data := r.sram_cache(to_integer(unsigned(tmp_sram_addr3 (3 downto 0)))).data;
                         else
                             v.ex_wb_reg.data_source := src_sram;
 
                             v.fetch_readreg_reg2.fetched := '1';
                             v.fetch_readreg_reg2.data := pmem_dout;
                             v.bubble_counter := x"3";
+                            v.update_register := '0';
                         end if;
                     when OP_FLD =>
                         v.ex_wb_reg.sram_state := read;
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
                         v.ex_wb_reg.write := '1';
-                        tmp_sram_addr := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
-                        cpu_ex_sram_addr := tmp_sram_addr (19 downto 0);
+                        tmp_sram_addr4 := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
+                        cpu_ex_sram_addr := tmp_sram_addr4 (19 downto 0);
                         cpu_ex_sram_we := '0';
-                        v.ex_wb_reg.sram_addr := tmp_sram_addr (19 downto 0);
+                        v.ex_wb_reg.sram_addr := tmp_sram_addr4 (19 downto 0);
 
-                        if r.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).valid = '1' and
-                            r.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).tag = tmp_sram_addr (19 downto 0) then
+                        if r.sram_cache(to_integer(unsigned(tmp_sram_addr4 (3 downto 0)))).valid = '1' and
+                            r.sram_cache(to_integer(unsigned(tmp_sram_addr4 (3 downto 0)))).tag = tmp_sram_addr4 (19 downto 0) then
                             v.ex_wb_reg.data_source := src_fdirect;
-                            v.ex_wb_reg.data := r.sram_cache(to_integer(unsigned(tmp_sram_addr (3 downto 0)))).data;
+                            v.ex_wb_reg.data := r.sram_cache(to_integer(unsigned(tmp_sram_addr4 (3 downto 0)))).data;
                         else
                             v.ex_wb_reg.data_source := src_fsram;
 
                             v.fetch_readreg_reg2.fetched := '1';
                             v.fetch_readreg_reg2.data := pmem_dout;
                             v.bubble_counter := x"3";
+                            v.update_register := '0';
                         end if;
                     when OP_BEQ =>
                         if ex_dest_value = ex_lhs_value then
@@ -606,10 +652,7 @@ begin
                         v.ex_wb_reg.data_source := src_direct;
                         v.ex_wb_reg.data := "000000000000000000" & std_logic_vector(unsigned(r.readreg_ex_reg.pc) + 1);
 
-                        ex_tmp_pc := "00" & r.readreg_ex_reg.pc;
-                        ex_tmp_pc := std_logic_vector(signed(ex_tmp_pc) + signed(r.readreg_ex_reg.imm) + 1);
-
-                        v.pc := ex_tmp_pc ((PMEM_ADDR_WIDTH - 1) downto 0);
+                        v.pc := r.readreg_ex_reg.imm ((PMEM_ADDR_WIDTH - 1) downto 0);
 
                         v.fetch_readreg_reg2.pc := v.pc;
                         v.fetch_readreg_reg2.fetched := '0';
@@ -661,7 +704,7 @@ begin
                             v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                             v.ex_wb_reg.write := '1';
                             v.ex_wb_reg.data_source := src_direct;
-                            v.ex_wb_reg.data := x"000000" & cpu_in.ex_data (7 downto 0);
+                            v.ex_wb_reg.data := ex_dest_value (31 downto 8) & cpu_in.ex_data (7 downto 0);
 
                             cpu_ex_pop8 := '1';
                             v.repeat := '0';
@@ -692,16 +735,33 @@ begin
                         fpu_in.command <= FPU_ADD;
                         fpu_in.lhs <= ex_lhs_value;
                         fpu_in.rhs <= ex_rhs_value;
-                    when OP_FINV =>
+                    when OP_FMUL =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_fpu;
-                        fpu_in.command <= FPU_INV;
+                        fpu_in.command <= FPU_MUL;
                         fpu_in.lhs <= ex_lhs_value;
+                        fpu_in.rhs <= ex_rhs_value;
+                    when OP_FINV =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_finv;
+                        v_finv_input := ex_lhs_value;
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"3";
+                        v.bubble_counter := x"4";
+                        v.update_register := '1';
+                    when OP_FSQRT =>
+                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
+                        v.ex_wb_reg.write := '1';
+                        v.ex_wb_reg.data_source := src_fsqrt;
+                        v_fsqrt_input := ex_lhs_value;
+
+                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.data := pmem_dout;
+                        v.bubble_counter := x"4";
+                        v.update_register := '1';
                     when OP_FNEG =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -716,16 +776,6 @@ begin
                         fpu_in.command <= FPU_ABS;
                         fpu_in.lhs <= ex_lhs_value;
                         fpu_in.rhs <= ex_rhs_value;
-                    when OP_FSQRT =>
-                        v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
-                        v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.data_source := src_fpu;
-                        fpu_in.command <= FPU_SQRT;
-                        fpu_in.lhs <= ex_lhs_value;
-
-                        v.fetch_readreg_reg2.fetched := '1';
-                        v.fetch_readreg_reg2.data := pmem_dout;
-                        v.bubble_counter := x"3";
                     when OP_SLT =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -790,7 +840,7 @@ begin
                     end if;
                 end if;
 
-                if (v.repeat = '0' or (v.repeat = '1' and receive = '1')) and v.bubble_counter = x"0" and flush_read = '0' and no_fetch = '0' then
+                if (v.repeat = '0' or (v.repeat = '1' and receive = '1')) and (r.update_register = '1' or v.bubble_counter = x"0") and flush_read = '0' and no_fetch = '0' then
                     --      update values
                     if is_floating_inst = '1' and inst (31 downto 26) /= OP_FLD and inst (31 downto 26) /= OP_FST then
                         v.readreg_ex_reg.dest_value := r.fregs (to_integer(unsigned(inst (25 downto 21))));
@@ -831,6 +881,8 @@ begin
                 cpu_out.sram_we <= cpu_ex_sram_we;
                 cpu_out.sram_addr <= cpu_ex_sram_addr;
                 cpu_out.sram_dout <= cpu_ex_sram_dout;
+                fsqrt_input <= v_fsqrt_input;
+                finv_input <= v_finv_input;
             when others =>
                 pmem_we <= (others => '0');
         end case;

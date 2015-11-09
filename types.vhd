@@ -252,6 +252,7 @@ package types is
     constant ALU_SUB : std_logic_vector (3 downto 0) := "0010";
     constant ALU_SLL : std_logic_vector (3 downto 0) := "0011";
     constant ALU_SRL : std_logic_vector (3 downto 0) := "0100";
+    constant ALU_ADDU : std_logic_vector (3 downto 0) := "0101";
 
     constant FPU_NOP  : std_logic_vector (3 downto 0) := "0000";
     constant FPU_ADD  : std_logic_vector (3 downto 0) := "0001";

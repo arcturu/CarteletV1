@@ -50,6 +50,30 @@ send	%r1
 send	%r1
 send	%r1
 send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
+send	%r1
 addi    %r5 %r5 $1
 addi    %r1 %r5 $0
 bneq    %r5 %r4 loop
