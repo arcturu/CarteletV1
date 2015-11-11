@@ -25,7 +25,7 @@ architecture struct of CPU is
 
 
     type sram_state_type is (idle, write, read);
-    type data_source_type is (src_alu, src_fpu, src_sram, src_fsram, src_direct, src_fdirect, src_finv, src_fsqrt);
+    type data_source_type is (src_alu, src_fpu, src_sram, src_fsram, src_direct, src_fdirect);
     type registers_type is array (31 downto 0) of std_logic_vector (31 downto 0);
     type fetch_readreg_reg_type is record
         pc : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
@@ -66,6 +66,11 @@ architecture struct of CPU is
         valid : std_logic;
         floating : std_logic;
     end record;
+    constant forwarder_init : forwarder_type := (
+        reg_num => (others => '0'),
+        value => (others => '0'),
+        valid => '0',
+        floating => '0');
     type forwarder_file_type is array (0 downto 0) of forwarder_type;
     type sram_cache_slot_type is record
         data : std_logic_vector (31 downto 0);
@@ -81,7 +86,7 @@ architecture struct of CPU is
         repeat : std_logic;
         load_size : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
         load_counter : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
-        forwarder_file : forwarder_file_type;
+        forwarder_file : forwarder_type;
         fetch_counter : std_logic_vector (3 downto 0);
 --        fetch_readreg_reg : fetch_readreg_reg_type;
         fetch_readreg_reg2 : fetch_readreg_reg_type;
@@ -91,8 +96,8 @@ architecture struct of CPU is
         regs : registers_type;
         fregs : registers_type;
         fpcond : std_logic;
+        fpu_in : fpu_in_type;
         cpu_state : cpu_state_type;
-        update_register : std_logic;
     end record;
     constant reg_init : reg_type := (
         sram_cache => (others => (
@@ -105,11 +110,7 @@ architecture struct of CPU is
         repeat => '0',
         load_size => (others => '0'),
         load_counter => (others => '0'),
-        forwarder_file => (others => (
-            reg_num => (others => '0'),
-            value => (others => '0'),
-            valid => '0',
-            floating => '0')),
+        forwarder_file => forwarder_init,
         fetch_counter => (others => '0'),
 --        fetch_readreg_reg => (
 --            pc => (others => '0')),
@@ -145,8 +146,8 @@ architecture struct of CPU is
         regs => (others => (others => '0')),
         fregs => (others => (others => '0')),
         fpcond => '0',
-        cpu_state => ready,
-        update_register => '0');
+        fpu_in => fpu_in_init,
+        cpu_state => ready);
 
     signal r, rin : reg_type := reg_init;
     signal pmem_we : std_logic_vector (0 downto 0) := (others => '0');
@@ -185,23 +186,6 @@ architecture struct of CPU is
         end loop;
         return str;
     end;
-    component finv is
-      Port (
-        clk     : in  STD_LOGIC;
-        input   : in  STD_LOGIC_VECTOR (31 downto 0);
-        output  : out STD_LOGIC_VECTOR (31 downto 0));
-    end component;
-    signal finv_input : std_logic_vector (31 downto 0) := (others => '0');
-    signal finv_output : std_logic_vector (31 downto 0) := (others => '0');
-
-    component fsqrt is
-      Port (
-        clk     : in  STD_LOGIC;
-        input   : in  STD_LOGIC_VECTOR (31 downto 0);
-        output  : out STD_LOGIC_VECTOR (31 downto 0));
-    end component;
-    signal fsqrt_input : std_logic_vector (31 downto 0) := (others => '0');
-    signal fsqrt_output : std_logic_vector (31 downto 0) := (others => '0');
 begin
 --    pmem : dmem_sim port map (
     pmem : mem port map (
@@ -223,17 +207,8 @@ begin
         fpu_in => fpu_in,
         fpu_out => fpu_out);
 
-    FINV1 : FINV port map (
-        clk => clk,
-        input => finv_input,
-        output => finv_output);
-    FSQRT1 : fsqrt port map (
-        clk => clk,
-        input => fsqrt_input,
-        output => fsqrt_output);
 
-
-    comb : process (cpu_in, r, pmem_dout, alu_out, fsqrt_output, finv_output)
+    comb : process (cpu_in, r, pmem_dout, alu_out, fpu_out)
         variable v : reg_type;
         variable ex_lhs_value : std_logic_vector (31 downto 0) := (others => '0');
         variable ex_rhs_value : std_logic_vector (31 downto 0) := (others => '0');
@@ -250,6 +225,7 @@ begin
         variable cpu_ex_sram_we : std_logic := '0';
         variable cpu_ex_sram_dout : std_logic_vector (31 downto 0) := (others => 'Z');
         variable cpu_ex_sram_addr : std_logic_vector (19 downto 0) := (others => 'Z');
+        variable cpu_ex_data : std_logic_vector (31 downto 0) := (others => '0');
         variable tmp_data : std_logic_vector (31 downto 0);
         variable flush_read : std_logic := '0';
         variable no_fetch : std_logic := '0';
@@ -260,20 +236,25 @@ begin
         variable tmp_sram_addr3 : std_logic_vector (31 downto 0) := (others => '0');
         variable tmp_sram_addr4 : std_logic_vector (31 downto 0) := (others => '0');
         variable receive : std_logic := '0';
-        variable v_fsqrt_input : std_logic_vector (31 downto 0) := (others => '0');
-        variable v_finv_input : std_logic_vector (31 downto 0) := (others => '0');
+        variable v_forwarder : forwarder_type := forwarder_init;
+        variable v_pmem_addr : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
     begin
         v := r;
         cpu_ex_rst8 := '0';
         cpu_ex_go := '0';
+        cpu_ex_sram_we := '0';
+        cpu_ex_sram_dout := (others => 'Z');
+        cpu_ex_sram_addr := (others => '0');
+        cpu_ex_pop8 := '0';
+        cpu_ex_data := (others => '0');
 --        cpu_ex_go8 := '0';
+        v_pmem_addr := (others => '0');
         no_fetch := '0';
         receive := '0';
+        inst := (others => '0');
         case r.cpu_state is
             when ready =>
                 cpu_ex_rst8 := '1';
-                cpu_out.ex_go <= '0';
-                pmem_addr <= (others => '0');
                 if cpu_in.ex_fresh = '1' then
                     case cpu_in.ex_data (31 downto 24) is
                         when CMD_PLOAD =>
@@ -288,7 +269,8 @@ begin
                             v.cpu_state := running;
 
                             v.pc := reg_init.pc;
-                            v.forwarder_file := reg_init.forwarder_file;
+                            v.forwarder_file := forwarder_init;
+                            v_forwarder := forwarder_init;
 --                            v.fetch_readreg_reg := reg_init.fetch_readreg_reg;
                             v.fetch_readreg_reg2 := reg_init.fetch_readreg_reg2;
                             v.readreg_ex_reg := reg_init.readreg_ex_reg;
@@ -300,10 +282,9 @@ begin
                 end if;
                 pmem_we <= (others => '0');
             when ploading =>
-                cpu_out.ex_go <= '0';
                 if r.load_counter < r.load_size then
                     if cpu_in.ex_fresh = '1' then
-                        pmem_addr <= r.load_counter;
+                        v_pmem_addr := r.load_counter;
                         pmem_din <= cpu_in.ex_data;
                         pmem_we <= (others => '1');
                         v.load_counter := std_logic_vector(unsigned(r.load_counter) + 1);
@@ -315,13 +296,12 @@ begin
                     pmem_we <= (others => '0');
                 end if;
             when dloading =>
-                cpu_out.ex_go <= '0';
                 pmem_we <= (others => '0');
                 if r.load_counter < r.load_size then
                     if cpu_in.ex_fresh = '1' then
-                        cpu_out.sram_addr <= "000000" & r.load_counter; -- TODO FIXME
-                        cpu_out.sram_dout <= cpu_in.ex_data;
-                        cpu_out.sram_we <= '1';
+                        cpu_ex_sram_addr := "000000" & r.load_counter; -- TODO FIXME
+                        cpu_ex_sram_dout := cpu_in.ex_data;
+                        cpu_ex_sram_we := '1';
                         v.load_counter := std_logic_vector(unsigned(r.load_counter) + 1);
                     else
                         cpu_out.sram_we <= '0';
@@ -331,9 +311,6 @@ begin
                     cpu_out.sram_we <= '0';
                 end if;
             when running =>
-                cpu_ex_pop8 := '0';
-                cpu_ex_sram_we := '0';
-                cpu_ex_sram_dout := (others => 'Z');
                 pmem_we <= (others => '0');
 
 --                -- memory read
@@ -350,59 +327,62 @@ begin
 --                        v.forwarder_file(1).valid := '0';
 --                end case;
 
+                v_forwarder := r.forwarder_file;
                 -- write back
-                if r.bubble_counter = x"0" then
+--                if r.bubble_counter = x"0" then
                     if r.ex_wb_reg.write = '1' then
                         case r.ex_wb_reg.data_source is
                             when src_alu =>
                                 tmp_data := alu_out.data;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '0';
+                                v.forwarder_file.floating := '0';
+                                v_forwarder.floating := '0';
                             when src_fpu =>
                                 tmp_data := fpu_out.data;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '1';
+                                v.forwarder_file.floating := '1';
+                                v_forwarder.floating := '1';
                             when src_sram =>
                                 tmp_data := r.sram_in_buf;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '0';
+                                v.forwarder_file.floating := '0';
+                                v_forwarder.floating := '0';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).valid := '1';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).data := tmp_data;
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).tag := r.ex_wb_reg.sram_addr;
                             when src_fsram =>
                                 tmp_data := r.sram_in_buf;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '1';
+                                v.forwarder_file.floating := '1';
+                                v_forwarder.floating := '1';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).valid := '1';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).data := tmp_data;
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).tag := r.ex_wb_reg.sram_addr;
                             when src_direct =>
                                 tmp_data := r.ex_wb_reg.data;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '0';
+                                v.forwarder_file.floating := '0';
+                                v_forwarder.floating := '0';
                             when src_fdirect =>
                                 tmp_data := r.ex_wb_reg.data;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '1';
-                            when src_finv =>
-                                tmp_data := finv_output;
-                                v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '1';
-                            when src_fsqrt =>
-                                tmp_data := fsqrt_output;
-                                v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file(0).floating := '1';
+                                v.forwarder_file.floating := '1';
+                                v_forwarder.floating := '1';
                         end case;
-                        v.forwarder_file(0).reg_num := r.ex_wb_reg.dest_num;
-                        v.forwarder_file(0).valid := '1';
-                        v.forwarder_file(0).value := tmp_data;
+                        v.forwarder_file.reg_num := r.ex_wb_reg.dest_num;
+                        v_forwarder.reg_num := r.ex_wb_reg.dest_num;
+                        v.forwarder_file.valid := '1';
+                        v_forwarder.valid := '1';
+                        v.forwarder_file.value := tmp_data;
+                        v_forwarder.value := tmp_data;
                     elsif v.repeat = '0' then
-                        v.forwarder_file(0).valid := '0';
+                        v.forwarder_file.valid := '0';
+                        v_forwarder.valid := '0';
                     end if;
 --                    v.wb_mem_reg.sram_state := r.ex_wb_reg.sram_state;
 --                    v.wb_mem_reg.sram_data_to_be_written := r.ex_wb_reg.sram_data_to_be_written;
 --                    v.wb_mem_reg.dest_num := r.ex_wb_reg.dest_num;
-                end if;
+--                end if;
 
                 -- execute
 
@@ -415,41 +395,41 @@ begin
                 else
                     ex_floating_inst := '0';
                 end if;
-                if r.forwarder_file(0).valid = '1' then
-                    if r.readreg_ex_reg.lhs_num = r.forwarder_file(0).reg_num and
-                       ex_floating_inst = r.forwarder_file(0).floating then
-                        ex_lhs_value := r.forwarder_file(0).value;
+                if r.forwarder_file.valid = '1' then
+                    if r.readreg_ex_reg.lhs_num = r.forwarder_file.reg_num and
+                       ex_floating_inst = r.forwarder_file.floating then
+                        ex_lhs_value := r.forwarder_file.value;
                     end if;
-                    if r.readreg_ex_reg.rhs_num = r.forwarder_file(0).reg_num and
-                       ex_floating_inst = r.forwarder_file(0).floating then
-                        ex_rhs_value := r.forwarder_file(0).value;
+                    if r.readreg_ex_reg.rhs_num = r.forwarder_file.reg_num and
+                       ex_floating_inst = r.forwarder_file.floating then
+                        ex_rhs_value := r.forwarder_file.value;
                     end if;
-                    if r.readreg_ex_reg.dest_num = r.forwarder_file(0).reg_num then
+                    if r.readreg_ex_reg.dest_num = r.forwarder_file.reg_num then
                         if r.readreg_ex_reg.ex_op = OP_FLD or r.readreg_ex_reg.ex_op = OP_FST then
-                            if r.forwarder_file(0).floating = '0' then
-                                ex_dest_value := r.forwarder_file(0).value;
+                            if r.forwarder_file.floating = '0' then
+                                ex_dest_value := r.forwarder_file.value;
                             end if;
-                        elsif ex_floating_inst = r.forwarder_file(0).floating then
-                            ex_dest_value := r.forwarder_file(0).value;
+                        elsif ex_floating_inst = r.forwarder_file.floating then
+                            ex_dest_value := r.forwarder_file.value;
                         end if;
                     end if;
                 end if;
-                if v.forwarder_file(0).valid = '1' then
-                    if r.readreg_ex_reg.lhs_num = v.forwarder_file(0).reg_num and
-                       ex_floating_inst = v.forwarder_file(0).floating then
-                        ex_lhs_value := v.forwarder_file(0).value;
+                if v_forwarder.valid = '1' then
+                    if r.readreg_ex_reg.lhs_num = v_forwarder.reg_num and
+                       ex_floating_inst = v_forwarder.floating then
+                        ex_lhs_value := v_forwarder.value;
                     end if;
-                    if r.readreg_ex_reg.rhs_num = v.forwarder_file(0).reg_num and
-                       ex_floating_inst = v.forwarder_file(0).floating then
-                        ex_rhs_value := v.forwarder_file(0).value;
+                    if r.readreg_ex_reg.rhs_num = v_forwarder.reg_num and
+                       ex_floating_inst = v_forwarder.floating then
+                        ex_rhs_value := v_forwarder.value;
                     end if;
-                    if r.readreg_ex_reg.dest_num = v.forwarder_file(0).reg_num then
+                    if r.readreg_ex_reg.dest_num = v_forwarder.reg_num then
                         if r.readreg_ex_reg.ex_op = OP_FLD or r.readreg_ex_reg.ex_op = OP_FST then
-                            if v.forwarder_file(0).floating = '0' then
-                                ex_dest_value := v.forwarder_file(0).value;
+                            if v_forwarder.floating = '0' then
+                                ex_dest_value := v_forwarder.value;
                             end if;
-                        elsif ex_floating_inst = v.forwarder_file(0).floating then
-                            ex_dest_value := v.forwarder_file(0).value;
+                        elsif ex_floating_inst = v_forwarder.floating then
+                            ex_dest_value := v_forwarder.value;
                         end if;
                     end if;
                 end if;
@@ -532,7 +512,6 @@ begin
 --                        v.fetch_readreg_reg2.fetched := '1';
 --                        v.fetch_readreg_reg2.data := pmem_dout;
 --                        v.bubble_counter := x"3";
---                        v.update_register := '0';
                     when OP_FST =>
                         v.ex_wb_reg.sram_state := write;
                         tmp_sram_addr2 := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
@@ -547,7 +526,6 @@ begin
 --                        v.fetch_readreg_reg2.fetched := '1';
 --                        v.fetch_readreg_reg2.data := pmem_dout;
 --                        v.bubble_counter := x"3";
---                        v.update_register := '0';
                     when OP_LD =>
                         v.ex_wb_reg.sram_state := read;
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.lhs_num;
@@ -567,7 +545,6 @@ begin
                             v.fetch_readreg_reg2.fetched := '1';
                             v.fetch_readreg_reg2.data := pmem_dout;
                             v.bubble_counter := x"3";
-                            v.update_register := '0';
                         end if;
                     when OP_FLD =>
                         v.ex_wb_reg.sram_state := read;
@@ -588,7 +565,6 @@ begin
                             v.fetch_readreg_reg2.fetched := '1';
                             v.fetch_readreg_reg2.data := pmem_dout;
                             v.bubble_counter := x"3";
-                            v.update_register := '0';
                         end if;
                     when OP_BEQ =>
                         if ex_dest_value = ex_lhs_value then
@@ -662,7 +638,7 @@ begin
                         if cpu_in.ex_sender_busy = '0' then
 --                            cpu_out.ex_data <= ex_dest_value;
 --                            cpu_ex_go8 := '0';
-                            cpu_out.ex_data <= ex_dest_value (7 downto 0) & x"000000";
+                            cpu_ex_data := ex_dest_value (7 downto 0) & x"000000";
                             cpu_ex_go := '1';
 
                             v.repeat := '0';
@@ -682,7 +658,7 @@ begin
                         v.cpu_state := ready;
                     when OP_SEND8 =>
                         if cpu_in.ex_sender_busy = '0' then
-                            cpu_out.ex_data <= ex_dest_value (7 downto 0) & x"000000";
+                            cpu_ex_data := ex_dest_value (7 downto 0) & x"000000";
 --                            cpu_ex_go8 := '1';
                             cpu_ex_go := '1';
 
@@ -732,50 +708,58 @@ begin
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_fpu;
-                        fpu_in.command <= FPU_ADD;
-                        fpu_in.lhs <= ex_lhs_value;
-                        fpu_in.rhs <= ex_rhs_value;
+                        v.fpu_in.command := FPU_ADD;
+                        v.fpu_in.lhs := ex_lhs_value;
+                        v.fpu_in.rhs := ex_rhs_value;
+
+                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.data := pmem_dout;
+                        v.bubble_counter := x"4";
                     when OP_FMUL =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_fpu;
-                        fpu_in.command <= FPU_MUL;
-                        fpu_in.lhs <= ex_lhs_value;
-                        fpu_in.rhs <= ex_rhs_value;
+                        v.fpu_in.command := FPU_MUL;
+                        v.fpu_in.lhs := ex_lhs_value;
+                        v.fpu_in.rhs := ex_rhs_value;
+
+                        v.fetch_readreg_reg2.fetched := '1';
+                        v.fetch_readreg_reg2.data := pmem_dout;
+                        v.bubble_counter := x"1";
                     when OP_FINV =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.data_source := src_finv;
-                        v_finv_input := ex_lhs_value;
+                        v.ex_wb_reg.data_source := src_fpu;
+                        v.fpu_in.command := FPU_INV;
+                        v.fpu_in.lhs := ex_lhs_value;
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
                         v.bubble_counter := x"4";
-                        v.update_register := '1';
                     when OP_FSQRT =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
-                        v.ex_wb_reg.data_source := src_fsqrt;
-                        v_fsqrt_input := ex_lhs_value;
+                        v.ex_wb_reg.data_source := src_fpu;
+                        v.fpu_in.command := FPU_SQRT;
+                        v.fpu_in.lhs := ex_lhs_value;
 
                         v.fetch_readreg_reg2.fetched := '1';
                         v.fetch_readreg_reg2.data := pmem_dout;
                         v.bubble_counter := x"4";
-                        v.update_register := '1';
                     when OP_FNEG =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_fpu;
-                        fpu_in.command <= FPU_NEG;
-                        fpu_in.lhs <= ex_lhs_value;
-                        fpu_in.rhs <= ex_rhs_value;
+                        v.fpu_in.command := FPU_NEG;
+                        v.fpu_in.lhs := ex_lhs_value;
+                        v.fpu_in.rhs := ex_rhs_value;
                     when OP_FABS =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_fpu;
-                        fpu_in.command <= FPU_ABS;
-                        fpu_in.lhs <= ex_lhs_value;
-                        fpu_in.rhs <= ex_rhs_value;
+                        v.fpu_in.command := FPU_ABS;
+                        v.fpu_in.lhs := ex_lhs_value;
+                        v.fpu_in.rhs := ex_rhs_value;
                     when OP_SLT =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
@@ -848,7 +832,7 @@ begin
                     end if;
                 end if;
 
-                if (v.repeat = '0' or (v.repeat = '1' and receive = '1')) and (r.update_register = '1' or v.bubble_counter = x"0") and flush_read = '0' and no_fetch = '0' then
+                if (v.repeat = '0' or (v.repeat = '1' and receive = '1')) and v.bubble_counter = x"0" and flush_read = '0' and no_fetch = '0' then
                     --      update values
                     if is_floating_inst = '1' and inst (31 downto 26) /= OP_FLD and inst (31 downto 26) /= OP_FST then
                         v.readreg_ex_reg.dest_value := r.fregs (to_integer(unsigned(inst (25 downto 21))));
@@ -865,7 +849,7 @@ begin
                 end if;
 
                 -- dummy fetch
-                pmem_addr <= v.pc;
+                v_pmem_addr := v.pc;
                 if v.bubble_counter = x"0" and flush_read = '0' and v.repeat = '0' and no_fetch = '0' then -- v なのは意図的です
 --                    v.fetch_readreg_reg2.pc := r.fetch_readreg_reg.pc;
                     v.fetch_readreg_reg2.pc := v.pc;
@@ -873,7 +857,7 @@ begin
                 end if;
 
                 -- fetch
---                pmem_addr <= v.pc;
+--                v_pmem_addr := v.pc;
 --                if v.bubble_counter = x"0" and flush_read = '0' then
 --                    v.fetch_readreg_reg.pc := v.pc;
 --                end if;
@@ -885,18 +869,19 @@ begin
 
                 v.sram_in_buf := cpu_in.sram_din;
 
-                cpu_out.ex_pop8 <= cpu_ex_pop8;
-                cpu_out.sram_we <= cpu_ex_sram_we;
-                cpu_out.sram_addr <= cpu_ex_sram_addr;
-                cpu_out.sram_dout <= cpu_ex_sram_dout;
-                fsqrt_input <= v_fsqrt_input;
-                finv_input <= v_finv_input;
             when others =>
                 pmem_we <= (others => '0');
         end case;
+        cpu_out.ex_pop8 <= cpu_ex_pop8;
+        cpu_out.sram_we <= cpu_ex_sram_we;
+        cpu_out.sram_addr <= cpu_ex_sram_addr;
+        cpu_out.sram_dout <= cpu_ex_sram_dout;
         cpu_out.ex_rst8 <= cpu_ex_rst8;
         cpu_out.state <= r.cpu_state;
         cpu_out.ex_go <= cpu_ex_go;
+        cpu_out.ex_data <= cpu_ex_data;
+        pmem_addr <= v_pmem_addr;
+        fpu_in <= v.fpu_in;
 --        cpu_out.ex_go8 <= cpu_ex_go8;
         v.regs (0) := (others => '0'); -- must be zero
         rin <= v;

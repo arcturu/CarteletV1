@@ -1,6 +1,10 @@
 .data
 min_caml_pi:
 	.long	0x40490fdb
+min_caml_half_pi:
+	.long	0x3fc90fdb
+min_caml_quarter_pi:
+	.long	0x3f490fdb
 min_caml_float_0:
 	.long	0x00000000
 min_caml_float_1:
@@ -13,23 +17,23 @@ min_caml_float_int_c1:
 	.long	0xcb000000
 min_caml_float_int_c2:
 	.long	0x4b000000
-l.107:	# 0.000000
+l.111:	# 0.000000
 	.long	0x0
-l.105:	# 1.000000
+l.109:	# 1.000000
 	.long	0x3f800000
-l.102:	# 1.500000
+l.106:	# 1.500000
 	.long	0x3fc00000
-l.100:	# 400.000000
+l.104:	# 400.000000
 	.long	0x43c80000
-l.98:	# 4.000000
+l.102:	# 4.000000
 	.long	0x40800000
 .text
-dbl.38:
+dbl.40:
 	fadd	%f0 %f0 %f0	# 1
 	jr	%r31	# 1
-iloop.54:
+iloop.58:
 	addi	%r25 %r2 $0	# 12
-	beq	%r25 %r0 beq.126	# 12
+	beq	%r25 %r0 beq.130	# 12
 	fneg	%f3 %f3	# 13
 	fadd	%f2 %f2 %f3	# 13
 	fadd	%f2 %f2 %f4	# 13
@@ -40,7 +44,7 @@ iloop.54:
 	fst	-9(%r29) %f1	# 14
 	addi	%r29 %r29 $-11	# 14
 	st	0(%r29) %r31	# 14
-	jal	dbl.38	# 14
+	jal	dbl.40	# 14
 	ld	0(%r29) %r31	# 14
 	addi	%r29 %r29 $11	# 14
 	fld	-9(%r29) %f1	# 14
@@ -51,30 +55,28 @@ iloop.54:
 	fmul	%f2 %f0 %f0	# 17
 	fmul	%f3 %f1 %f1	# 18
 	fadd	%f4 %f2 %f3	# 19
-	addi	%r2 %r0 l.98	# 19
+	addi	%r2 %r0 l.102	# 19
 	fld	0(%r2) %f6	# 19
 	fslt	%f6 %f4	# 19
-	bclt	bclt.128	# 19
+	bclt	bclt.132	# 19
 	ld	-3(%r29) %r2	# 20
 	addi	%r2 %r2 $-1	# 20
 	fld	-1(%r29) %f4	# 20
-	addi	%r25 %r0 iloop.54	# 20
-	jr	%r31	# 20
-bclt.128:
+	addi	%r25 %r0 iloop.58	# 20
+	jr	%r25	# 20
+bclt.132:
 	addi	%r2 %r0 $0	# 19
 	addi	%r25 %r0 min_caml_print_int	# 19
-    jr  %r25
-	jr	%r31	# 19
-beq.126:
+	jr	%r25	# 19
+beq.130:
 	addi	%r2 %r0 $1	# 12
 	addi	%r25 %r0 min_caml_print_int	# 12
-    jr  %r25
-	jr	%r31	# 12
-xloop.44:
+	jr	%r25	# 12
+xloop.46:
 	sub	%r25 %r0 %r2	# 8
 	addi	%r25 %r25 $400	# 8
 	slt	%r25 %r0 %r25	# 8
-	beq	%r25 %r0 beq.129	# 8
+	beq	%r25 %r0 beq.133	# 8
 	st	-1(%r29) %r2	# 9
 	st	-2(%r29) %r3	# 9
 	addi	%r29 %r29 $-3	# 9
@@ -84,14 +86,17 @@ xloop.44:
 	addi	%r29 %r29 $3	# 9
 	addi	%r29 %r29 $-3	# 9
 	st	0(%r29) %r31	# 9
-	jal	dbl.38	# 9
+	jal	dbl.40	# 9
 	ld	0(%r29) %r31	# 9
 	addi	%r29 %r29 $3	# 9
-	addi	%r2 %r0 l.100	# 9
+	addi	%r2 %r0 l.104	# 9
 	fld	0(%r2) %f1	# 9
 	finv	%f1 %f1	# 9
+    nop
+    nop
+    nop
 	fmul	%f0 %f0 %f1	# 9
-	addi	%r2 %r0 l.102	# 9
+	addi	%r2 %r0 l.106	# 9
 	fld	0(%r2) %f1	# 9
 	fneg	%f1 %f1	# 9
 	fadd	%f0 %f0 %f1	# 9
@@ -104,44 +109,47 @@ xloop.44:
 	addi	%r29 %r29 $5	# 10
 	addi	%r29 %r29 $-5	# 10
 	st	0(%r29) %r31	# 10
-	jal	dbl.38	# 10
+	jal	dbl.40	# 10
 	ld	0(%r29) %r31	# 10
 	addi	%r29 %r29 $5	# 10
-	addi	%r2 %r0 l.100	# 10
+	addi	%r2 %r0 l.104	# 10
 	fld	0(%r2) %f1	# 10
 	finv	%f1 %f1	# 10
+    nop
+    nop
+    nop
 	fmul	%f0 %f0 %f1	# 10
-	addi	%r2 %r0 l.105	# 10
+	addi	%r2 %r0 l.109	# 10
 	fld	0(%r2) %f1	# 10
 	fneg	%f1 %f1	# 10
 	fadd	%f5 %f0 %f1	# 10
 	addi	%r2 %r0 $1000	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.111	# 21
 	fld	0(%r3) %f0	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.111	# 21
 	fld	0(%r3) %f1	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.111	# 21
 	fld	0(%r3) %f2	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.111	# 21
 	fld	0(%r3) %f3	# 21
 	fld	-3(%r29) %f4	# 21
 	addi	%r29 %r29 $-5	# 21
 	st	0(%r29) %r31	# 21
-	jal	iloop.54	# 21
+	jal	iloop.58	# 21
 	ld	0(%r29) %r31	# 21
 	addi	%r29 %r29 $5	# 21
 	ld	-1(%r29) %r2	# 40
 	addi	%r2 %r2 $1	# 40
 	ld	-2(%r29) %r3	# 40
-	addi	%r25 %r0 xloop.44	# 40
-	jr	%r31	# 40
-beq.129:
+	addi	%r25 %r0 xloop.46	# 40
+	jr	%r25	# 40
+beq.133:
 	jr	%r31	# 8
-yloop.40:
+yloop.42:
 	sub	%r25 %r0 %r2	# 5
 	addi	%r25 %r25 $400	# 5
 	slt	%r25 %r0 %r25	# 5
-	beq	%r25 %r0 beq.131	# 5
+	beq	%r25 %r0 beq.135	# 5
 	addi	%r3 %r0 $0	# 41
 	st	-1(%r29) %r2	# 41
 	add	%r24 %r0 %r3	# 41
@@ -149,14 +157,20 @@ yloop.40:
 	add	%r2 %r0 %r24	# 41
 	addi	%r29 %r29 $-2	# 41
 	st	0(%r29) %r31	# 41
-	jal	xloop.44	# 41
+	jal	xloop.46	# 41
 	ld	0(%r29) %r31	# 41
 	addi	%r29 %r29 $2	# 41
+	addi	%r2 %r0 $10	# 43
+	addi	%r29 %r29 $-2	# 43
+	st	0(%r29) %r31	# 43
+	jal	min_caml_print_char	# 43
+	ld	0(%r29) %r31	# 43
+	addi	%r29 %r29 $2	# 43
 	ld	-1(%r29) %r2	# 43
 	addi	%r2 %r2 $1	# 43
-	addi	%r25 %r0 yloop.40	# 43
-	jr	%r31	# 43
-beq.131:
+	addi	%r25 %r0 yloop.42	# 43
+	jr	%r25	# 43
+beq.135:
 	jr	%r31	# 5
 .globl	min_caml_start
 min_caml_start:
@@ -169,7 +183,7 @@ min_caml_start:
 	addi	%r2 %r0 $0	# 44
 	addi	%r29 %r29 $-1	# 44
 	st	0(%r29) %r31	# 44
-	jal	yloop.40	# 44
+	jal	yloop.42	# 44
 	ld	0(%r29) %r31	# 44
 	addi	%r29 %r29 $1	# 44
 	# Main Program End
@@ -184,10 +198,10 @@ min_caml_create_array:
 	add	%r2 %r0 %r28
 	addi	%r10 %r0 min_caml_create_array_loop
 min_caml_create_array_loop:
+	beq	%r8 %r0 min_caml_create_array_exit
 	st	0(%r28) %r3
 	addi	%r8 %r8 $-1
 	addi	%r28 %r28 $1
-	beq	%r8 %r0 min_caml_create_array_exit
 	jr	%r10
 min_caml_create_array_exit:
 	jr	%r31
@@ -198,14 +212,14 @@ min_caml_create_float_array:
 	# f0: initial value
 	add	%r8 %r0 %r2
 	add	%r2 %r0 %r28
-	addi	%r10 %r0 min_caml_create_array_loop
-min_caml_create_array_loop:
+	addi	%r10 %r0 min_caml_create_float_array_loop
+min_caml_create_float_array_loop:
+	beq	%r8 %r0 min_caml_create_float_array_exit
 	fst	0(%r28) %f0
 	addi	%r8 %r8 $-1
 	addi	%r28 %r28 $1
-	beq	%r8 %r0 min_caml_create_array_exit
 	jr	%r10
-min_caml_create_array_exit:
+min_caml_create_float_array_exit:
 	jr	%r31
 # div10 (unsigned)
 min_caml_div10:

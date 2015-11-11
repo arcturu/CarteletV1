@@ -7,7 +7,7 @@ main:
 addiu %r1 %r0 $0
 addiu %r2 %r0 $1
 addiu %r3 %r0 $0
-addiu %r4 %r0 $1
+addiu %r4 %r0 $5
 addiu %r5 %r0 $8
 addiu %r6 %r0 $10
 fld (0)%r1 %f1

@@ -19,29 +19,32 @@ architecture struct of FPU is
     constant reg_init : reg_type := (
         data => (others => '0'));
     signal r, rin : reg_type := reg_init;
+
     component FADD is
-        Port (
-             input1  : in  STD_LOGIC_VECTOR (31 downto 0);
-             input2  : in  STD_LOGIC_VECTOR (31 downto 0);
-             output  : out STD_LOGIC_VECTOR (31 downto 0));
+      Port (
+        clk     : in  STD_LOGIC;
+        input1  : in  STD_LOGIC_VECTOR (31 downto 0);
+        input2  : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
     end component;
+
     signal fadd_result : std_logic_vector (31 downto 0) := (others => '0');
 
---    component finv is
---      Port (
---        clk     : in  STD_LOGIC;
---        input   : in  STD_LOGIC_VECTOR (31 downto 0);
---        output  : out STD_LOGIC_VECTOR (31 downto 0));
---    end component;
---    signal finv_output : std_logic_vector (31 downto 0) := (others => '0');
---
---    component fsqrt is
---      Port (
---        clk     : in  STD_LOGIC;
---        input   : in  STD_LOGIC_VECTOR (31 downto 0);
---        output  : out STD_LOGIC_VECTOR (31 downto 0));
---    end component;
---    signal fsqrt_output : std_logic_vector (31 downto 0) := (others => '0');
+    component finv is
+      Port (
+        clk     : in  STD_LOGIC;
+        input   : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal finv_output : std_logic_vector (31 downto 0) := (others => '0');
+
+    component fsqrt is
+      Port (
+        clk     : in  STD_LOGIC;
+        input   : in  STD_LOGIC_VECTOR (31 downto 0);
+        output  : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    signal fsqrt_output : std_logic_vector (31 downto 0) := (others => '0');
 
     component fmul is
       Port (
@@ -53,26 +56,25 @@ architecture struct of FPU is
     signal fmul_result : std_logic_vector (31 downto 0) := (others => '0');
 begin
     FADD1 : FADD port map (
+        clk => clk,
         input1 => fpu_in.lhs,
         input2 => fpu_in.rhs,
         output => fadd_result);
---    FINV1 : FINV port map (
---        clk => clk,
---        input => fpu_in.lhs,
---        output => finv_output);
---    FSQRT1 : fsqrt port map (
---        clk => clk,
---        input => fpu_in.lhs,
---        output => fsqrt_output);
+    FINV1 : FINV port map (
+        clk => clk,
+        input => fpu_in.lhs,
+        output => finv_output);
+    FSQRT1 : fsqrt port map (
+        clk => clk,
+        input => fpu_in.lhs,
+        output => fsqrt_output);
     FMUL1 : fmul port map (
         a => fpu_in.lhs,
         b => fpu_in.rhs,
         c => fmul_result
     );
 
-    comb : process (fpu_in, r, fadd_result,
-        --finv_output, fsqrt_output,
-        fmul_result)
+    comb : process (fpu_in, r, fadd_result, finv_output, fsqrt_output, fmul_result)
         variable v : reg_type := reg_init;
     begin
         v := r;
@@ -89,10 +91,10 @@ begin
                 v.data := '0' & fpu_in.lhs (30 downto 0);
             when FPU_NOP =>
                 v.data := fpu_in.lhs;
---            when FPU_INV =>
---                v.data := finv_output;
---            when FPU_SQRT =>
---                v.data := fsqrt_output;
+            when FPU_INV =>
+                v.data := finv_output;
+            when FPU_SQRT =>
+                v.data := fsqrt_output;
             when FPU_MUL =>
                 v.data := fmul_result;
             when others =>
