@@ -17,23 +17,23 @@ min_caml_float_int_c1:
 	.long	0xcb000000
 min_caml_float_int_c2:
 	.long	0x4b000000
-l.111:	# 0.000000
+l.107:	# 0.000000
 	.long	0x0
-l.109:	# 1.000000
+l.105:	# 1.000000
 	.long	0x3f800000
-l.106:	# 1.500000
+l.102:	# 1.500000
 	.long	0x3fc00000
-l.104:	# 400.000000
+l.100:	# 400.000000
 	.long	0x43c80000
-l.102:	# 4.000000
+l.98:	# 4.000000
 	.long	0x40800000
 .text
-dbl.40:
+dbl.38:
 	fadd	%f0 %f0 %f0	# 1
 	jr	%r31	# 1
-iloop.58:
+iloop.54:
 	addi	%r25 %r2 $0	# 12
-	beq	%r25 %r0 beq.130	# 12
+	beq	%r25 %r0 beq.126	# 12
 	fneg	%f3 %f3	# 13
 	fadd	%f2 %f2 %f3	# 13
 	fadd	%f2 %f2 %f4	# 13
@@ -44,7 +44,7 @@ iloop.58:
 	fst	-9(%r29) %f1	# 14
 	addi	%r29 %r29 $-11	# 14
 	st	0(%r29) %r31	# 14
-	jal	dbl.40	# 14
+	jal	dbl.38	# 14
 	ld	0(%r29) %r31	# 14
 	addi	%r29 %r29 $11	# 14
 	fld	-9(%r29) %f1	# 14
@@ -55,28 +55,25 @@ iloop.58:
 	fmul	%f2 %f0 %f0	# 17
 	fmul	%f3 %f1 %f1	# 18
 	fadd	%f4 %f2 %f3	# 19
-	addi	%r2 %r0 l.102	# 19
+	addi	%r2 %r0 l.98	# 19
 	fld	0(%r2) %f6	# 19
 	fslt	%f6 %f4	# 19
-	bclt	bclt.132	# 19
+	bclt	bclt.128	# 19
 	ld	-3(%r29) %r2	# 20
 	addi	%r2 %r2 $-1	# 20
 	fld	-1(%r29) %f4	# 20
-	addi	%r25 %r0 iloop.58	# 20
-	jr	%r25	# 20
-bclt.132:
+	beq	%r0 %r0 iloop.54	# 20
+bclt.128:
 	addi	%r2 %r0 $0	# 19
-	addi	%r25 %r0 min_caml_print_int	# 19
-	jr	%r25	# 19
-beq.130:
+	beq	%r0 %r0 min_caml_print_int	# 19
+beq.126:
 	addi	%r2 %r0 $1	# 12
-	addi	%r25 %r0 min_caml_print_int	# 12
-	jr	%r25	# 12
-xloop.46:
+	beq	%r0 %r0 min_caml_print_int	# 12
+xloop.44:
 	sub	%r25 %r0 %r2	# 8
 	addi	%r25 %r25 $400	# 8
 	slt	%r25 %r0 %r25	# 8
-	beq	%r25 %r0 beq.133	# 8
+	beq	%r25 %r0 beq.129	# 8
 	st	-1(%r29) %r2	# 9
 	st	-2(%r29) %r3	# 9
 	addi	%r29 %r29 $-3	# 9
@@ -86,17 +83,14 @@ xloop.46:
 	addi	%r29 %r29 $3	# 9
 	addi	%r29 %r29 $-3	# 9
 	st	0(%r29) %r31	# 9
-	jal	dbl.40	# 9
+	jal	dbl.38	# 9
 	ld	0(%r29) %r31	# 9
 	addi	%r29 %r29 $3	# 9
-	addi	%r2 %r0 l.104	# 9
+	addi	%r2 %r0 l.100	# 9
 	fld	0(%r2) %f1	# 9
 	finv	%f1 %f1	# 9
-    nop
-    nop
-    nop
 	fmul	%f0 %f0 %f1	# 9
-	addi	%r2 %r0 l.106	# 9
+	addi	%r2 %r0 l.102	# 9
 	fld	0(%r2) %f1	# 9
 	fneg	%f1 %f1	# 9
 	fadd	%f0 %f0 %f1	# 9
@@ -109,47 +103,43 @@ xloop.46:
 	addi	%r29 %r29 $5	# 10
 	addi	%r29 %r29 $-5	# 10
 	st	0(%r29) %r31	# 10
-	jal	dbl.40	# 10
+	jal	dbl.38	# 10
 	ld	0(%r29) %r31	# 10
 	addi	%r29 %r29 $5	# 10
-	addi	%r2 %r0 l.104	# 10
+	addi	%r2 %r0 l.100	# 10
 	fld	0(%r2) %f1	# 10
 	finv	%f1 %f1	# 10
-    nop
-    nop
-    nop
 	fmul	%f0 %f0 %f1	# 10
-	addi	%r2 %r0 l.109	# 10
+	addi	%r2 %r0 l.105	# 10
 	fld	0(%r2) %f1	# 10
 	fneg	%f1 %f1	# 10
 	fadd	%f5 %f0 %f1	# 10
 	addi	%r2 %r0 $1000	# 21
-	addi	%r3 %r0 l.111	# 21
+	addi	%r3 %r0 l.107	# 21
 	fld	0(%r3) %f0	# 21
-	addi	%r3 %r0 l.111	# 21
+	addi	%r3 %r0 l.107	# 21
 	fld	0(%r3) %f1	# 21
-	addi	%r3 %r0 l.111	# 21
+	addi	%r3 %r0 l.107	# 21
 	fld	0(%r3) %f2	# 21
-	addi	%r3 %r0 l.111	# 21
+	addi	%r3 %r0 l.107	# 21
 	fld	0(%r3) %f3	# 21
 	fld	-3(%r29) %f4	# 21
 	addi	%r29 %r29 $-5	# 21
 	st	0(%r29) %r31	# 21
-	jal	iloop.58	# 21
+	jal	iloop.54	# 21
 	ld	0(%r29) %r31	# 21
 	addi	%r29 %r29 $5	# 21
 	ld	-1(%r29) %r2	# 40
 	addi	%r2 %r2 $1	# 40
 	ld	-2(%r29) %r3	# 40
-	addi	%r25 %r0 xloop.46	# 40
-	jr	%r25	# 40
-beq.133:
+	beq	%r0 %r0 xloop.44	# 40
+beq.129:
 	jr	%r31	# 8
-yloop.42:
+yloop.40:
 	sub	%r25 %r0 %r2	# 5
 	addi	%r25 %r25 $400	# 5
 	slt	%r25 %r0 %r25	# 5
-	beq	%r25 %r0 beq.135	# 5
+	beq	%r25 %r0 beq.131	# 5
 	addi	%r3 %r0 $0	# 41
 	st	-1(%r29) %r2	# 41
 	add	%r24 %r0 %r3	# 41
@@ -157,20 +147,13 @@ yloop.42:
 	add	%r2 %r0 %r24	# 41
 	addi	%r29 %r29 $-2	# 41
 	st	0(%r29) %r31	# 41
-	jal	xloop.46	# 41
+	jal	xloop.44	# 41
 	ld	0(%r29) %r31	# 41
 	addi	%r29 %r29 $2	# 41
-	addi	%r2 %r0 $10	# 43
-	addi	%r29 %r29 $-2	# 43
-	st	0(%r29) %r31	# 43
-	jal	min_caml_print_char	# 43
-	ld	0(%r29) %r31	# 43
-	addi	%r29 %r29 $2	# 43
 	ld	-1(%r29) %r2	# 43
 	addi	%r2 %r2 $1	# 43
-	addi	%r25 %r0 yloop.42	# 43
-	jr	%r25	# 43
-beq.135:
+	beq	%r0 %r0 yloop.40	# 43
+beq.131:
 	jr	%r31	# 5
 .globl	min_caml_start
 min_caml_start:
@@ -183,7 +166,7 @@ min_caml_start:
 	addi	%r2 %r0 $0	# 44
 	addi	%r29 %r29 $-1	# 44
 	st	0(%r29) %r31	# 44
-	jal	yloop.42	# 44
+	jal	yloop.40	# 44
 	ld	0(%r29) %r31	# 44
 	addi	%r29 %r29 $1	# 44
 	# Main Program End

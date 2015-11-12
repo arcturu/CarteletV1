@@ -18,7 +18,6 @@ end RECEIVER_Q8;
 architecture struct of RECEIVER_Q8 is
     type st_type is (ready, first_zero, receiving, wait_next_zero);
     type queue_type is array (15 downto 0) of std_logic_vector (7 downto 0);
-    signal queue : queue_type := (others => (others => '0'));
     type reg_type is record
         bytes : std_logic_vector (2 downto 0);
         bits_buff : std_logic_vector (7 downto 0);
@@ -27,6 +26,7 @@ architecture struct of RECEIVER_Q8 is
         counter : std_logic_vector (15 downto 0);
         rs_rxb : std_logic;
         st : st_type;
+        queue : queue_type;
         qhd : std_logic_vector (3 downto 0);
         qtl : std_logic_vector (3 downto 0);
     end record;
@@ -38,6 +38,7 @@ architecture struct of RECEIVER_Q8 is
         counter => (others => '0'),
         rs_rxb => '1',
         st => ready,
+        queue => (others => (others => '0')),
         qhd => (others => '0'),
         qtl => (others => '0'));
 begin
@@ -80,7 +81,7 @@ begin
                         v.bytes := std_logic_vector(unsigned(r.bytes) - 1);
                         v.bits := "1001";
                         if r.qhd /= std_logic_vector(unsigned(r.qtl) + 1) then -- 溢れたら溢れたぶんは捨てられる
-                            queue (to_integer(unsigned(v.qtl))) <= r.bits_buff;
+                            v.queue(to_integer(unsigned(r.qtl))) := r.bits_buff;
                             v.qtl := std_logic_vector(unsigned(r.qtl) + 1);
                         end if;
                         if v.bytes = "000" then
@@ -105,7 +106,7 @@ begin
             receiver_q8_out.valid <= '1';
         end if;
 
-        receiver_q8_out.data <= queue (to_integer(unsigned(r.qhd)));
+        receiver_q8_out.data <= v.queue (to_integer(unsigned(r.qhd)));
         rin <= v;
     end process;
 

@@ -55,6 +55,7 @@ begin
         send_enable := '0';
         v.sender_in_go := sender_in.go;
         v.sender_in_data := sender_in.data;
+        data_to_be_sent := (others => '0');
         if unsigned(r.qtl) + 1 /= unsigned(r.qhd) and r.sender_in_go = '1' then
             v.sender_fifo (to_integer(unsigned(r.qtl))) := r.sender_in_data;
             v.qtl := std_logic_vector(unsigned(r.qtl) + 1);

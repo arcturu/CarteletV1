@@ -96,6 +96,7 @@ architecture struct of CPU is
         regs : registers_type;
         fregs : registers_type;
         fpcond : std_logic;
+        alu_in : alu_in_type;
         fpu_in : fpu_in_type;
         cpu_state : cpu_state_type;
     end record;
@@ -146,6 +147,7 @@ architecture struct of CPU is
         regs => (others => (others => '0')),
         fregs => (others => (others => '0')),
         fpcond => '0',
+        alu_in => alu_in_init,
         fpu_in => fpu_in_init,
         cpu_state => ready);
 
@@ -238,6 +240,7 @@ begin
         variable receive : std_logic := '0';
         variable v_forwarder : forwarder_type := forwarder_init;
         variable v_pmem_addr : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
+        variable v_pmem_din : std_logic_vector (31 downto 0);
     begin
         v := r;
         cpu_ex_rst8 := '0';
@@ -249,6 +252,7 @@ begin
         cpu_ex_data := (others => '0');
 --        cpu_ex_go8 := '0';
         v_pmem_addr := (others => '0');
+        v_pmem_din := (others => '0');
         no_fetch := '0';
         receive := '0';
         inst := (others => '0');
@@ -285,7 +289,7 @@ begin
                 if r.load_counter < r.load_size then
                     if cpu_in.ex_fresh = '1' then
                         v_pmem_addr := r.load_counter;
-                        pmem_din <= cpu_in.ex_data;
+                        v_pmem_din := cpu_in.ex_data;
                         pmem_we <= (others => '1');
                         v.load_counter := std_logic_vector(unsigned(r.load_counter) + 1);
                     else
@@ -445,59 +449,59 @@ begin
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_ADD;
-                        alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= ex_rhs_value;
+                        v.alu_in.command := ALU_ADD;
+                        v.alu_in.lhs := ex_lhs_value;
+                        v.alu_in.rhs := ex_rhs_value;
                     when OP_ADDI =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_ADD;
-                        alu_in.lhs <= ex_lhs_value;
+                        v.alu_in.command := ALU_ADD;
+                        v.alu_in.lhs := ex_lhs_value;
                         if r.readreg_ex_reg.imm (15) = '1' then
-                            alu_in.rhs <= x"ffff" & r.readreg_ex_reg.imm;
+                            v.alu_in.rhs := x"ffff" & r.readreg_ex_reg.imm;
                         else
-                            alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                            v.alu_in.rhs := x"0000" & r.readreg_ex_reg.imm;
                         end if;
                     when OP_ADDIU =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_ADDU;
-                        alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                        v.alu_in.command := ALU_ADDU;
+                        v.alu_in.lhs := ex_lhs_value;
+                        v.alu_in.rhs := x"0000" & r.readreg_ex_reg.imm;
                     when OP_SUB =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_SUB;
-                        alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= ex_rhs_value;
+                        v.alu_in.command := ALU_SUB;
+                        v.alu_in.lhs := ex_lhs_value;
+                        v.alu_in.rhs := ex_rhs_value;
                     when OP_SUBI => -- deprecated
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_SUB;
-                        alu_in.lhs <= ex_lhs_value;
+                        v.alu_in.command := ALU_SUB;
+                        v.alu_in.lhs := ex_lhs_value;
                         if r.readreg_ex_reg.imm (15) = '1' then
-                            alu_in.rhs <= x"ffff" & r.readreg_ex_reg.imm;
+                            v.alu_in.rhs := x"ffff" & r.readreg_ex_reg.imm;
                         else
-                            alu_in.rhs <= x"0000" & r.readreg_ex_reg.imm;
+                            v.alu_in.rhs := x"0000" & r.readreg_ex_reg.imm;
                         end if;
                     when OP_SLL =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_SLL;
-                        alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= ex_rhs_value;
+                        v.alu_in.command := ALU_SLL;
+                        v.alu_in.lhs := ex_lhs_value;
+                        v.alu_in.rhs := ex_rhs_value;
                     when OP_SRL =>
                         v.ex_wb_reg.dest_num := r.readreg_ex_reg.dest_num;
                         v.ex_wb_reg.write := '1';
                         v.ex_wb_reg.data_source := src_alu;
-                        alu_in.command <= ALU_SRL;
-                        alu_in.lhs <= ex_lhs_value;
-                        alu_in.rhs <= ex_rhs_value;
+                        v.alu_in.command := ALU_SRL;
+                        v.alu_in.lhs := ex_lhs_value;
+                        v.alu_in.rhs := ex_rhs_value;
                     when OP_ST =>
                         v.ex_wb_reg.sram_state := write;
                         tmp_sram_addr1 := std_logic_vector(signed(ex_dest_value) + signed(r.readreg_ex_reg.imm));
@@ -881,7 +885,9 @@ begin
         cpu_out.ex_go <= cpu_ex_go;
         cpu_out.ex_data <= cpu_ex_data;
         pmem_addr <= v_pmem_addr;
+        pmem_din <= v_pmem_din;
         fpu_in <= v.fpu_in;
+        alu_in <= v.alu_in;
 --        cpu_out.ex_go8 <= cpu_ex_go8;
         v.regs (0) := (others => '0'); -- must be zero
         rin <= v;
