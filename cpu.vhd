@@ -71,7 +71,7 @@ architecture struct of CPU is
         value => (others => '0'),
         valid => '0',
         floating => '0');
-    type forwarder_file_type is array (0 downto 0) of forwarder_type;
+    type forwarder_file_type is array (1 downto 0) of forwarder_type;
     type sram_cache_slot_type is record
         data : std_logic_vector (31 downto 0);
         valid : std_logic;
@@ -86,7 +86,7 @@ architecture struct of CPU is
         repeat : std_logic;
         load_size : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
         load_counter : std_logic_vector ((PMEM_ADDR_WIDTH - 1) downto 0);
-        forwarder_file : forwarder_type;
+        forwarder_file : forwarder_file_type;
         fetch_counter : std_logic_vector (3 downto 0);
 --        fetch_readreg_reg : fetch_readreg_reg_type;
         fetch_readreg_reg2 : fetch_readreg_reg_type;
@@ -111,7 +111,7 @@ architecture struct of CPU is
         repeat => '0',
         load_size => (others => '0'),
         load_counter => (others => '0'),
-        forwarder_file => forwarder_init,
+        forwarder_file => (others => forwarder_init),
         fetch_counter => (others => '0'),
 --        fetch_readreg_reg => (
 --            pc => (others => '0')),
@@ -273,7 +273,7 @@ begin
                             v.cpu_state := running;
 
                             v.pc := reg_init.pc;
-                            v.forwarder_file := forwarder_init;
+                            v.forwarder_file := (others => forwarder_init);
                             v_forwarder := forwarder_init;
 --                            v.fetch_readreg_reg := reg_init.fetch_readreg_reg;
                             v.fetch_readreg_reg2 := reg_init.fetch_readreg_reg2;
@@ -331,25 +331,26 @@ begin
 --                        v.forwarder_file(1).valid := '0';
 --                end case;
 
-                v_forwarder := r.forwarder_file;
+                v_forwarder := r.forwarder_file(0);
                 -- write back
---                if r.bubble_counter = x"0" then
+                if r.repeat = '0' then
+                    v.forwarder_file(1) := r.forwarder_file(0);
                     if r.ex_wb_reg.write = '1' then
                         case r.ex_wb_reg.data_source is
                             when src_alu =>
                                 tmp_data := alu_out.data;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file.floating := '0';
+                                v.forwarder_file(0).floating := '0';
                                 v_forwarder.floating := '0';
                             when src_fpu =>
                                 tmp_data := fpu_out.data;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file.floating := '1';
+                                v.forwarder_file(0).floating := '1';
                                 v_forwarder.floating := '1';
                             when src_sram =>
                                 tmp_data := r.sram_in_buf;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file.floating := '0';
+                                v.forwarder_file(0).floating := '0';
                                 v_forwarder.floating := '0';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).valid := '1';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).data := tmp_data;
@@ -357,7 +358,7 @@ begin
                             when src_fsram =>
                                 tmp_data := r.sram_in_buf;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file.floating := '1';
+                                v.forwarder_file(0).floating := '1';
                                 v_forwarder.floating := '1';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).valid := '1';
                                 v.sram_cache(to_integer(unsigned(r.ex_wb_reg.sram_addr(3 downto 0)))).data := tmp_data;
@@ -365,28 +366,28 @@ begin
                             when src_direct =>
                                 tmp_data := r.ex_wb_reg.data;
                                 v.regs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file.floating := '0';
+                                v.forwarder_file(0).floating := '0';
                                 v_forwarder.floating := '0';
                             when src_fdirect =>
                                 tmp_data := r.ex_wb_reg.data;
                                 v.fregs (to_integer(unsigned(r.ex_wb_reg.dest_num))) := tmp_data;
-                                v.forwarder_file.floating := '1';
+                                v.forwarder_file(0).floating := '1';
                                 v_forwarder.floating := '1';
                         end case;
-                        v.forwarder_file.reg_num := r.ex_wb_reg.dest_num;
+                        v.forwarder_file(0).reg_num := r.ex_wb_reg.dest_num;
                         v_forwarder.reg_num := r.ex_wb_reg.dest_num;
-                        v.forwarder_file.valid := '1';
+                        v.forwarder_file(0).valid := '1';
                         v_forwarder.valid := '1';
-                        v.forwarder_file.value := tmp_data;
+                        v.forwarder_file(0).value := tmp_data;
                         v_forwarder.value := tmp_data;
                     elsif v.repeat = '0' then
-                        v.forwarder_file.valid := '0';
+                        v.forwarder_file(0).valid := '0';
                         v_forwarder.valid := '0';
                     end if;
 --                    v.wb_mem_reg.sram_state := r.ex_wb_reg.sram_state;
 --                    v.wb_mem_reg.sram_data_to_be_written := r.ex_wb_reg.sram_data_to_be_written;
 --                    v.wb_mem_reg.dest_num := r.ex_wb_reg.dest_num;
---                end if;
+                end if;
 
                 -- execute
 
@@ -399,22 +400,41 @@ begin
                 else
                     ex_floating_inst := '0';
                 end if;
-                if r.forwarder_file.valid = '1' then
-                    if r.readreg_ex_reg.lhs_num = r.forwarder_file.reg_num and
-                       ex_floating_inst = r.forwarder_file.floating then
-                        ex_lhs_value := r.forwarder_file.value;
+                if r.forwarder_file(1).valid = '1' then
+                    if r.readreg_ex_reg.lhs_num = r.forwarder_file(1).reg_num and
+                        ex_floating_inst = r.forwarder_file(1).floating then
+                        ex_lhs_value := r.forwarder_file(1).value;
                     end if;
-                    if r.readreg_ex_reg.rhs_num = r.forwarder_file.reg_num and
-                       ex_floating_inst = r.forwarder_file.floating then
-                        ex_rhs_value := r.forwarder_file.value;
+                    if r.readreg_ex_reg.rhs_num = r.forwarder_file(1).reg_num and
+                       ex_floating_inst = r.forwarder_file(1).floating then
+                        ex_rhs_value := r.forwarder_file(1).value;
                     end if;
-                    if r.readreg_ex_reg.dest_num = r.forwarder_file.reg_num then
+                    if r.readreg_ex_reg.dest_num = r.forwarder_file(1).reg_num then
                         if r.readreg_ex_reg.ex_op = OP_FLD or r.readreg_ex_reg.ex_op = OP_FST then
-                            if r.forwarder_file.floating = '0' then
-                                ex_dest_value := r.forwarder_file.value;
+                            if r.forwarder_file(1).floating = '0' then
+                                ex_dest_value := r.forwarder_file(1).value;
                             end if;
-                        elsif ex_floating_inst = r.forwarder_file.floating then
-                            ex_dest_value := r.forwarder_file.value;
+                        elsif ex_floating_inst = r.forwarder_file(1).floating then
+                            ex_dest_value := r.forwarder_file(1).value;
+                        end if;
+                    end if;
+                end if;
+                if r.forwarder_file(0).valid = '1' then
+                    if r.readreg_ex_reg.lhs_num = r.forwarder_file(0).reg_num and
+                        ex_floating_inst = r.forwarder_file(0).floating then
+                        ex_lhs_value := r.forwarder_file(0).value;
+                    end if;
+                    if r.readreg_ex_reg.rhs_num = r.forwarder_file(0).reg_num and
+                       ex_floating_inst = r.forwarder_file(0).floating then
+                        ex_rhs_value := r.forwarder_file(0).value;
+                    end if;
+                    if r.readreg_ex_reg.dest_num = r.forwarder_file(0).reg_num then
+                        if r.readreg_ex_reg.ex_op = OP_FLD or r.readreg_ex_reg.ex_op = OP_FST then
+                            if r.forwarder_file(0).floating = '0' then
+                                ex_dest_value := r.forwarder_file(0).value;
+                            end if;
+                        elsif ex_floating_inst = r.forwarder_file(0).floating then
+                            ex_dest_value := r.forwarder_file(0).value;
                         end if;
                     end if;
                 end if;
@@ -787,13 +807,13 @@ begin
                         elsif ex_dest_value (31) = '0' and ex_lhs_value (31) = '1' then
                             v.fpcond := '0';
                         elsif ex_dest_value (31) = '0' and ex_lhs_value (31) = '0' then
-                            if ex_dest_value (30 downto 0) < ex_lhs_value (30 downto 0) then
+                            if unsigned(ex_dest_value (30 downto 0)) < unsigned(ex_lhs_value (30 downto 0)) then
                                 v.fpcond := '1';
                             else
                                 v.fpcond := '0';
                             end if;
                         else
-                            if ex_dest_value (30 downto 0) > ex_lhs_value (30 downto 0) then
+                            if unsigned(ex_dest_value (30 downto 0)) > unsigned(ex_lhs_value (30 downto 0)) then
                                 v.fpcond := '1';
                             else
                                 v.fpcond := '0';

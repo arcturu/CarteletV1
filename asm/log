@@ -1,0 +1,10478 @@
+0x40c90fdb
+0x40490fdb
+0x3fc90fdb
+0x3f490fdb
+0x00000000
+0x3f800000
+0x40000000
+0xbf800000
+0x3f000000
+0x3dcccccd
+0xcb000000
+0x4b000000
+0xbf000000
+0x3d2aa789
+0xbab38106
+0xbe2aaaac
+0x3c088666
+0xb94d64b6
+0x3ee00000
+0x401c0000
+0xbeaaaaaa
+0x3e4ccccd
+0xbe124925
+0x3de38e38
+0xbdb7d66e
+0x3d75e7c5
+0x43000000
+0x3f666666
+0x3e4ccccd
+0x43160000
+0xc3160000
+0x3dcccccd
+0xc0000000
+0x3b800000
+0x41a00000
+0x3d4ccccd
+0x3e800000
+0x41200000
+0x3e99999a
+0x437f0000
+0x3e19999a
+0x40490fdb
+0x41f00000
+0x41700000
+0x38d1b717
+0x4cbebc20
+0x4e6e6b28
+0xbdcccccd
+0x3c23d70a
+0xbe4ccccd
+0x3f000000
+0x40000000
+0xc3480000
+0x43480000
+0x3c8efa35
+0xbf800000
+0x3f800000
+0x0
+addi %r3 %r0 $0x00aa
+send8 %r3
+beq %r0 %r0 min_caml_start
+addi	%r8 %r0 $0
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $2
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+jr	%r31
+addi	%r8 %r0 $0
+add	%r25 %r2 %r8
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f0
+addi	%r8 %r0 $1
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f1
+fadd	%f0 %f0 %f1
+addi	%r8 %r0 $2
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f1
+fadd	%f0 %f0 %f1
+st	-1(%r29) %r2
+st	-2(%r29) %r3
+fsqrt	%f0 %f0
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10405
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10406
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10407
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f1
+beq	%r0 %r0 beq_cont.10408
+ld	-2(%r29) %r2
+beq	%r2 %r0 beq_true.10409
+addi	%r2 %r0 l.8522
+fld	0(%r2) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+beq	%r0 %r0 beq_cont.10410
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+ld	-1(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+jr	%r31
+addi	%r8 %r0 $0
+add	%r25 %r2 %r8
+fld	0(%r25) %f0
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fmul	%f0 %f0 %f1
+addi	%r8 %r0 $1
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+addi	%r8 %r0 $2
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+addi	%r2 %r0 $2
+add	%r25 %r3 %r2
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+jr	%r31
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+fld	0(%r25) %f3
+fmul	%f3 %f3 %f0
+addi	%r3 %r0 $1
+add	%r25 %r2 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f1
+fadd	%f3 %f3 %f0
+addi	%r3 %r0 $2
+add	%r25 %r2 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f2
+fadd	%f0 %f3 %f0
+jr	%r31
+addi	%r8 %r0 $0
+addi	%r9 %r0 $0
+add	%r25 %r2 %r9
+fld	0(%r25) %f1
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f2
+fmul	%f2 %f0 %f2
+fadd	%f1 %f1 %f2
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $1
+addi	%r9 %r0 $1
+add	%r25 %r2 %r9
+fld	0(%r25) %f1
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f2
+fmul	%f2 %f0 %f2
+fadd	%f1 %f1 %f2
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $2
+addi	%r9 %r0 $2
+add	%r25 %r2 %r9
+fld	0(%r25) %f1
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f2
+fmul	%f0 %f0 %f2
+fadd	%f1 %f1 %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+jr	%r31
+addi	%r8 %r0 $0
+addi	%r9 %r0 $0
+add	%r25 %r2 %r9
+fld	0(%r25) %f0
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f1
+fadd	%f0 %f0 %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+addi	%r9 %r0 $1
+add	%r25 %r2 %r9
+fld	0(%r25) %f0
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f1
+fadd	%f0 %f0 %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $2
+addi	%r9 %r0 $2
+add	%r25 %r2 %r9
+fld	0(%r25) %f0
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f1
+fadd	%f0 %f0 %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+jr	%r31
+addi	%r3 %r0 $0
+addi	%r8 %r0 $0
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f1
+addi	%r3 %r0 $1
+addi	%r8 %r0 $1
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f1
+addi	%r3 %r0 $2
+addi	%r8 %r0 $2
+add	%r25 %r2 %r8
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f1
+jr	%r31
+addi	%r9 %r0 $0
+addi	%r10 %r0 $0
+add	%r25 %r2 %r10
+fld	0(%r25) %f0
+addi	%r10 %r0 $0
+add	%r25 %r3 %r10
+fld	0(%r25) %f1
+addi	%r10 %r0 $0
+add	%r25 %r8 %r10
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+add	%r25 %r2 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $1
+addi	%r10 %r0 $1
+add	%r25 %r2 %r10
+fld	0(%r25) %f0
+addi	%r10 %r0 $1
+add	%r25 %r3 %r10
+fld	0(%r25) %f1
+addi	%r10 %r0 $1
+add	%r25 %r8 %r10
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+add	%r25 %r2 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $2
+addi	%r10 %r0 $2
+add	%r25 %r2 %r10
+fld	0(%r25) %f0
+addi	%r10 %r0 $2
+add	%r25 %r3 %r10
+fld	0(%r25) %f1
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+add	%r25 %r2 %r9
+fst	0(%r25) %f0
+jr	%r31
+ld	5(%r16) %r2
+ld	4(%r16) %r3
+ld	3(%r16) %r8
+ld	2(%r16) %r9
+ld	1(%r16) %r10
+addi	%r11 %r0 $0
+st	-1(%r29) %r2
+st	-2(%r29) %r8
+st	-3(%r29) %r9
+st	-4(%r29) %r3
+st	-5(%r29) %r11
+st	-6(%r29) %r10
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-5(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+st	-7(%r29) %r2
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+ld	-7(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+st	-8(%r29) %r2
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+ld	-8(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+fst	-9(%r29) %f0
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+fld	-9(%r29) %f1
+fst	-10(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+fst	-11(%r29) %f0
+addi	%r29 %r29 $-12
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $12
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+fst	-12(%r29) %f0
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+fld	-12(%r29) %f1
+fst	-13(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+addi	%r2 %r0 $0
+fld	-10(%r29) %f1
+fmul	%f2 %f1 %f0
+addi	%r3 %r0 l.8528
+fld	0(%r3) %f3
+fmul	%f2 %f2 %f3
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f2
+addi	%r2 %r0 $1
+addi	%r8 %r0 l.8530
+fld	0(%r8) %f2
+fld	-11(%r29) %f3
+fmul	%f2 %f3 %f2
+add	%r25 %r3 %r2
+fst	0(%r25) %f2
+addi	%r2 %r0 $2
+fld	-13(%r29) %f2
+fmul	%f4 %f1 %f2
+addi	%r8 %r0 l.8528
+fld	0(%r8) %f5
+fmul	%f4 %f4 %f5
+add	%r25 %r3 %r2
+fst	0(%r25) %f4
+addi	%r2 %r0 $0
+ld	-3(%r29) %r8
+add	%r25 %r8 %r2
+fst	0(%r25) %f2
+addi	%r2 %r0 $1
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f4
+add	%r25 %r8 %r2
+fst	0(%r25) %f4
+addi	%r2 %r0 $2
+fneg	%f4 %f0
+add	%r25 %r8 %r2
+fst	0(%r25) %f4
+addi	%r2 %r0 $0
+fneg	%f4 %f3
+fmul	%f4 %f4 %f0
+ld	-2(%r29) %r8
+add	%r25 %r8 %r2
+fst	0(%r25) %f4
+addi	%r2 %r0 $1
+fneg	%f1 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $2
+fneg	%f3 %f3
+fmul	%f3 %f3 %f2
+add	%r25 %r8 %r2
+fst	0(%r25) %f3
+addi	%r2 %r0 $0
+addi	%r8 %r0 $0
+ld	-6(%r29) %r9
+add	%r25 %r9 %r8
+fld	0(%r25) %f0
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+ld	-1(%r29) %r8
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+addi	%r10 %r0 $1
+add	%r25 %r3 %r10
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+addi	%r10 %r0 $2
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+jr	%r31
+ld	2(%r16) %r2
+ld	1(%r16) %r3
+st	-1(%r29) %r3
+st	-2(%r29) %r2
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_read_int_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+fst	-3(%r29) %f0
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+addi	%r2 %r0 $1
+fneg	%f0 %f0
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+fld	-3(%r29) %f1
+fst	-4(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+fld	-4(%r29) %f1
+fst	-5(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 $0
+fld	-5(%r29) %f1
+fmul	%f0 %f1 %f0
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+fld	-4(%r29) %f0
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 $2
+fld	-5(%r29) %f1
+fmul	%f1 %f1 %f0
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $0
+st	-6(%r29) %r2
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-6(%r29) %r2
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+jr	%r31
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f0
+st	-1(%r29) %r2
+st	-2(%r29) %r3
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r2 %r0 $0
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fst	-3(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+addi	%r2 %r0 $1
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fst	-4(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+addi	%r2 %r0 $1
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fst	-5(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 $2
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fst	-6(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r2 %r0 $2
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fst	-7(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+fld	-7(%r29) %f1
+fld	-5(%r29) %f2
+fmul	%f3 %f2 %f1
+fld	-6(%r29) %f4
+fld	-4(%r29) %f5
+fmul	%f6 %f5 %f4
+fmul	%f6 %f6 %f1
+fld	-3(%r29) %f7
+fmul	%f8 %f7 %f0
+fneg	%f31 %f8
+fadd	%f6 %f6 %f31
+fmul	%f8 %f7 %f4
+fmul	%f8 %f8 %f1
+fmul	%f9 %f5 %f0
+fadd	%f8 %f8 %f9
+fmul	%f9 %f2 %f0
+fmul	%f10 %f5 %f4
+fmul	%f10 %f10 %f0
+fmul	%f11 %f7 %f1
+fadd	%f10 %f10 %f11
+fmul	%f11 %f7 %f4
+fmul	%f11 %f11 %f0
+fmul	%f1 %f5 %f1
+fneg	%f31 %f1
+fadd	%f11 %f11 %f31
+fneg	%f4 %f4
+fmul	%f5 %f5 %f2
+fmul	%f7 %f7 %f2
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+addi	%r2 %r0 $2
+add	%r25 %r3 %r2
+fld	0(%r25) %f2
+addi	%r2 %r0 $0
+fmul	%f12 %f3 %f3
+fmul	%f12 %f0 %f12
+fmul	%f13 %f9 %f9
+fmul	%f13 %f1 %f13
+fadd	%f12 %f12 %f13
+fmul	%f13 %f4 %f4
+fmul	%f13 %f2 %f13
+fadd	%f12 %f12 %f13
+add	%r25 %r3 %r2
+fst	0(%r25) %f12
+addi	%r2 %r0 $1
+fmul	%f12 %f6 %f6
+fmul	%f12 %f0 %f12
+fmul	%f13 %f10 %f10
+fmul	%f13 %f1 %f13
+fadd	%f12 %f12 %f13
+fmul	%f13 %f5 %f5
+fmul	%f13 %f2 %f13
+fadd	%f12 %f12 %f13
+add	%r25 %r3 %r2
+fst	0(%r25) %f12
+addi	%r2 %r0 $2
+fmul	%f12 %f8 %f8
+fmul	%f12 %f0 %f12
+fmul	%f13 %f11 %f11
+fmul	%f13 %f1 %f13
+fadd	%f12 %f12 %f13
+fmul	%f13 %f7 %f7
+fmul	%f13 %f2 %f13
+fadd	%f12 %f12 %f13
+add	%r25 %r3 %r2
+fst	0(%r25) %f12
+addi	%r2 %r0 $0
+addi	%r3 %r0 l.8536
+fld	0(%r3) %f12
+fmul	%f13 %f0 %f6
+fmul	%f13 %f13 %f8
+fmul	%f14 %f1 %f10
+fmul	%f14 %f14 %f11
+fadd	%f13 %f13 %f14
+fmul	%f14 %f2 %f5
+fmul	%f14 %f14 %f7
+fadd	%f13 %f13 %f14
+fmul	%f12 %f12 %f13
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f12
+addi	%r2 %r0 $1
+addi	%r8 %r0 l.8536
+fld	0(%r8) %f12
+fmul	%f13 %f0 %f3
+fmul	%f13 %f13 %f8
+fmul	%f8 %f1 %f9
+fmul	%f8 %f8 %f11
+fadd	%f13 %f13 %f8
+fmul	%f8 %f2 %f4
+fmul	%f8 %f8 %f7
+fadd	%f13 %f13 %f8
+fmul	%f12 %f12 %f13
+add	%r25 %r3 %r2
+fst	0(%r25) %f12
+addi	%r2 %r0 $2
+addi	%r8 %r0 l.8536
+fld	0(%r8) %f7
+fmul	%f0 %f0 %f3
+fmul	%f0 %f0 %f6
+fmul	%f1 %f1 %f9
+fmul	%f1 %f1 %f10
+fadd	%f0 %f0 %f1
+fmul	%f2 %f2 %f4
+fmul	%f2 %f2 %f5
+fadd	%f0 %f0 %f2
+fmul	%f7 %f7 %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f7
+jr	%r31
+ld	1(%r16) %r3
+st	-1(%r29) %r2
+st	-2(%r29) %r3
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_read_int_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq.10419
+st	-3(%r29) %r2
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_read_int_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+st	-4(%r29) %r2
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_read_int_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+st	-5(%r29) %r2
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_read_int_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-6(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r3 %r0 $0
+st	-7(%r29) %r3
+st	-8(%r29) %r2
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+ld	-7(%r29) %r2
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+st	-9(%r29) %r2
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+ld	-9(%r29) %r2
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+st	-10(%r29) %r2
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+ld	-10(%r29) %r2
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r3 %r0 $0
+st	-11(%r29) %r3
+st	-12(%r29) %r2
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+ld	-11(%r29) %r2
+ld	-12(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+st	-13(%r29) %r2
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+ld	-13(%r29) %r2
+ld	-12(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+st	-14(%r29) %r2
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+ld	-14(%r29) %r2
+ld	-12(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10420
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10421
+addi	%r2 %r0 $1
+addi	%r3 %r0 $2
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-15(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+addi	%r3 %r0 $0
+st	-16(%r29) %r3
+st	-17(%r29) %r2
+addi	%r29 %r29 $-18
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $18
+ld	-16(%r29) %r2
+ld	-17(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+st	-18(%r29) %r2
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+ld	-18(%r29) %r2
+ld	-17(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+addi	%r3 %r0 $0
+st	-19(%r29) %r3
+st	-20(%r29) %r2
+addi	%r29 %r29 $-21
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $21
+ld	-19(%r29) %r2
+ld	-20(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+st	-21(%r29) %r2
+addi	%r29 %r29 $-22
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $22
+ld	-21(%r29) %r2
+ld	-20(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+st	-22(%r29) %r2
+addi	%r29 %r29 $-23
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $23
+ld	-22(%r29) %r2
+ld	-20(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+addi	%r29 %r29 $-23
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $23
+ld	-6(%r29) %r3
+st	-23(%r29) %r2
+beq	%r3 %r0 beq_true.10422
+addi	%r8 %r0 $0
+st	-24(%r29) %r8
+addi	%r29 %r29 $-25
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $25
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+ld	-24(%r29) %r2
+ld	-23(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+st	-25(%r29) %r2
+addi	%r29 %r29 $-26
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $26
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+ld	-25(%r29) %r2
+ld	-23(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+st	-26(%r29) %r2
+addi	%r29 %r29 $-27
+st	0(%r29) %r31
+jal	min_caml_read_float_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $27
+addi	%r2 %r0 l.8525
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+ld	-26(%r29) %r2
+ld	-23(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+beq	%r0 %r0 beq_cont.10423
+ld	-4(%r29) %r2
+addi	%r25 %r2 $-2
+beq	%r25 %r0 beq_true.10424
+ld	-15(%r29) %r3
+beq	%r0 %r0 beq_cont.10425
+addi	%r3 %r0 $1
+addi	%r8 %r0 $4
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-27(%r29) %r3
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-28
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $28
+add	%r3 %r0 %r28
+addi	%r28 %r28 $11
+st	10(%r3) %r2
+ld	-23(%r29) %r2
+st	9(%r3) %r2
+ld	-20(%r29) %r8
+st	8(%r3) %r8
+ld	-17(%r29) %r8
+st	7(%r3) %r8
+ld	-27(%r29) %r8
+st	6(%r3) %r8
+ld	-12(%r29) %r8
+st	5(%r3) %r8
+ld	-8(%r29) %r8
+st	4(%r3) %r8
+ld	-6(%r29) %r9
+st	3(%r3) %r9
+ld	-5(%r29) %r10
+st	2(%r3) %r10
+ld	-4(%r29) %r10
+st	1(%r3) %r10
+ld	-3(%r29) %r11
+st	0(%r3) %r11
+ld	-1(%r29) %r11
+ld	-2(%r29) %r12
+add	%r25 %r12 %r11
+st	0(%r25) %r3
+addi	%r25 %r10 $-3
+beq	%r25 %r0 beq_true.10426
+addi	%r25 %r10 $-2
+beq	%r25 %r0 beq_true.10428
+beq	%r0 %r0 beq_cont.10429
+ld	-15(%r29) %r3
+beq	%r3 %r0 beq_true.10430
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10431
+addi	%r3 %r0 $1
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-28
+st	0(%r29) %r31
+jal	vecunit_sgn.2509
+ld	0(%r29) %r31
+addi	%r29 %r29 $28
+beq	%r0 %r0 beq_cont.10427
+addi	%r3 %r0 $0
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 $0
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10432
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10433
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10434
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10435
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10436
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10437
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10438
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10439
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10440
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10441
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10442
+addi	%r10 %r0 l.8520
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10443
+addi	%r10 %r0 l.8522
+fld	0(%r10) %f1
+fmul	%f0 %f0 %f0
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+add	%r25 %r8 %r3
+fst	0(%r25) %f1
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 $1
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10444
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10445
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10446
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10447
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10448
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10449
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10450
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10451
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10452
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10453
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10454
+addi	%r10 %r0 l.8520
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10455
+addi	%r10 %r0 l.8522
+fld	0(%r10) %f1
+fmul	%f0 %f0 %f0
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+add	%r25 %r8 %r3
+fst	0(%r25) %f1
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 $2
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10456
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10457
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10458
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10459
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10460
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10461
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10462
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10463
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10464
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10465
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq_true.10466
+addi	%r10 %r0 l.8520
+fld	0(%r10) %f1
+beq	%r0 %r0 beq_cont.10467
+addi	%r10 %r0 l.8522
+fld	0(%r10) %f1
+fmul	%f0 %f0 %f0
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+add	%r25 %r8 %r3
+fst	0(%r25) %f1
+ld	-6(%r29) %r2
+beq	%r2 %r0 beq_true.10468
+ld	-8(%r29) %r2
+ld	-23(%r29) %r3
+addi	%r29 %r29 $-28
+st	0(%r29) %r31
+jal	rotate_quadratic_matrix.2614
+ld	0(%r29) %r31
+addi	%r29 %r29 $28
+beq	%r0 %r0 beq_cont.10469
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	2(%r16) %r3
+ld	1(%r16) %r8
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $60
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10470
+st	-1(%r29) %r16
+st	-2(%r29) %r3
+st	-3(%r29) %r8
+st	-4(%r29) %r2
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag1
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+beq	%r2 %r0 beq.10471
+ld	-4(%r29) %r2
+addi	%r2 %r2 $1
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $60
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10472
+ld	-2(%r29) %r3
+st	-5(%r29) %r2
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag2
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+beq	%r2 %r0 beq.10473
+ld	-5(%r29) %r2
+addi	%r2 %r2 $1
+ld	-1(%r29) %r3
+add	%r16 %r0 %r3
+ld	0(%r16) %r24
+jr	%r24
+addi	%r2 %r0 $0
+ld	-3(%r29) %r3
+ld	-5(%r29) %r8
+add	%r25 %r3 %r2
+st	0(%r25) %r8
+jr	%r31
+jr	%r31
+addi	%r2 %r0 $0
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r25 %r3 %r2
+st	0(%r25) %r8
+jr	%r31
+jr	%r31
+st	-1(%r29) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_read_int_byte
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq.10478
+ld	-1(%r29) %r3
+addi	%r8 %r3 $1
+st	-2(%r29) %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	read_net_item.2623
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r2 %r3
+st	0(%r25) %r8
+jr	%r31
+ld	-1(%r29) %r2
+addi	%r2 %r2 $1
+addi	%r3 %r0 $-1
+beq	%r0 %r0 min_caml_create_array
+addi	%r3 %r0 $0
+st	-1(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	read_net_item.2623
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq.10479
+ld	-1(%r29) %r2
+addi	%r8 %r2 $1
+st	-2(%r29) %r3
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	read_or_network.2625
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r2 %r3
+st	0(%r25) %r8
+jr	%r31
+ld	-1(%r29) %r2
+addi	%r2 %r2 $1
+beq	%r0 %r0 min_caml_create_array
+ld	1(%r16) %r3
+addi	%r8 %r0 $0
+st	-1(%r29) %r16
+st	-2(%r29) %r2
+st	-3(%r29) %r3
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	read_net_item.2623
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+ld	0(%r25) %r3
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq.10480
+ld	-2(%r29) %r3
+ld	-3(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r3 %r3 $1
+addi	%r2 %r0 $0
+st	-4(%r29) %r3
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	read_net_item.2623
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+ld	0(%r25) %r3
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq.10481
+ld	-4(%r29) %r3
+ld	-3(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r3 $1
+ld	-1(%r29) %r3
+add	%r16 %r0 %r3
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+jr	%r31
+ld	6(%r16) %r2
+ld	5(%r16) %r3
+ld	4(%r16) %r8
+ld	3(%r16) %r9
+ld	2(%r16) %r10
+ld	1(%r16) %r11
+st	-1(%r29) %r10
+st	-2(%r29) %r9
+st	-3(%r29) %r11
+st	-4(%r29) %r3
+st	-5(%r29) %r8
+add	%r16 %r0 %r2
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag3
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+ld	-5(%r29) %r2
+add	%r16 %r0 %r2
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag4
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag5
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+st	-6(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	read_net_item.2623
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+ld	0(%r25) %r3
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq_true.10484
+ld	-6(%r29) %r3
+ld	-3(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r0 $1
+ld	-2(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag6
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r0 %r0 beq_cont.10485
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+st	-7(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	read_or_network.2625
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+ld	-7(%r29) %r3
+ld	-1(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+jr	%r31
+ld	1(%r16) %r11
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+addi	%r12 %r0 l.8518
+fld	0(%r12) %f4
+fseq	%f3 %f4
+bclt	bclt_true.10487
+addi	%r12 %r0 $0
+beq	%r0 %r0 bclt_cont.10488
+addi	%r12 %r0 $1
+beq	%r12 %r0 beq.10489
+addi	%r2 %r0 $0
+jr	%r31
+ld	4(%r2) %r12
+ld	6(%r2) %r2
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+addi	%r13 %r0 l.8518
+fld	0(%r13) %f4
+fslt	%f3 %f4
+bclt	bclt_true.10490
+addi	%r13 %r0 $0
+beq	%r0 %r0 bclt_cont.10491
+addi	%r13 %r0 $1
+beq	%r2 %r0 beq_true.10492
+beq	%r13 %r0 beq_true.10494
+addi	%r13 %r0 $0
+beq	%r0 %r0 beq_cont.10495
+addi	%r13 %r0 $1
+beq	%r0 %r0 beq_cont.10493
+add	%r25 %r12 %r8
+fld	0(%r25) %f3
+beq	%r13 %r0 beq_true.10496
+beq	%r0 %r0 beq_cont.10497
+fneg	%f3 %f3
+fneg	%f31 %f0
+fadd	%f3 %f3 %f31
+add	%r25 %r3 %r8
+fld	0(%r25) %f0
+finv	%f31 %f0
+fmul	%f3 %f3 %f31
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+fmul	%f0 %f3 %f0
+fadd	%f0 %f0 %f1
+st	-1(%r29) %r11
+fst	-2(%r29) %f2
+fst	-3(%r29) %f3
+st	-4(%r29) %r10
+st	-5(%r29) %r3
+st	-6(%r29) %r9
+st	-7(%r29) %r12
+fabs	%f0 %f0
+ld	-6(%r29) %r2
+ld	-7(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10498
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10499
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10500
+ld	-4(%r29) %r2
+ld	-5(%r29) %r8
+add	%r25 %r8 %r2
+fld	0(%r25) %f0
+fld	-3(%r29) %f1
+fmul	%f0 %f1 %f0
+fld	-2(%r29) %f2
+fadd	%f0 %f0 %f2
+fabs	%f0 %f0
+ld	-4(%r29) %r2
+ld	-7(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10501
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10502
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10503
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+fld	-3(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	1(%r16) %r8
+addi	%r9 %r0 $0
+addi	%r10 %r0 $1
+addi	%r11 %r0 $2
+fst	-1(%r29) %f0
+fst	-2(%r29) %f2
+fst	-3(%r29) %f1
+st	-4(%r29) %r3
+st	-5(%r29) %r2
+st	-6(%r29) %r8
+add	%r16 %r0 %r8
+add	%r8 %r0 %r9
+add	%r9 %r0 %r10
+add	%r10 %r0 %r11
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag7
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r2 %r0 beq.10504
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r8 %r0 $1
+addi	%r9 %r0 $2
+addi	%r10 %r0 $0
+fld	-3(%r29) %f0
+fld	-2(%r29) %f1
+fld	-1(%r29) %f2
+ld	-5(%r29) %r2
+ld	-4(%r29) %r3
+ld	-6(%r29) %r11
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag8
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r2 %r0 beq.10505
+addi	%r2 %r0 $2
+jr	%r31
+addi	%r8 %r0 $2
+addi	%r9 %r0 $0
+addi	%r10 %r0 $1
+fld	-2(%r29) %f0
+fld	-1(%r29) %f1
+fld	-3(%r29) %f2
+ld	-5(%r29) %r2
+ld	-4(%r29) %r3
+ld	-6(%r29) %r11
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag9
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r2 %r0 beq.10506
+addi	%r2 %r0 $3
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	1(%r16) %r8
+ld	4(%r2) %r2
+st	-1(%r29) %r8
+fst	-2(%r29) %f2
+fst	-3(%r29) %f1
+fst	-4(%r29) %f0
+st	-5(%r29) %r2
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10507
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10508
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10509
+addi	%r2 %r0 $0
+fld	-4(%r29) %f1
+fld	-3(%r29) %f2
+fld	-2(%r29) %f3
+ld	-5(%r29) %r3
+st	-6(%r29) %r2
+fst	-7(%r29) %f0
+add	%r2 %r0 %r3
+fmov	%f0 %f1
+fmov	%f1 %f2
+fmov	%f2 %f3
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	veciprod2.2515
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+fneg	%f0 %f0
+fld	-7(%r29) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+ld	-6(%r29) %r2
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+fmul	%f3 %f0 %f0
+ld	4(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f4
+fmul	%f3 %f3 %f4
+fmul	%f4 %f1 %f1
+ld	4(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f5
+fmul	%f4 %f4 %f5
+fadd	%f3 %f3 %f4
+fmul	%f4 %f2 %f2
+ld	4(%r2) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f5
+fmul	%f4 %f4 %f5
+fadd	%f3 %f3 %f4
+ld	3(%r2) %r3
+beq	%r3 %r0 beq.10510
+fmul	%f4 %f1 %f2
+ld	9(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f5
+fmul	%f4 %f4 %f5
+fadd	%f3 %f3 %f4
+fmul	%f2 %f2 %f0
+ld	9(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f4
+fmul	%f2 %f2 %f4
+fadd	%f3 %f3 %f2
+fmul	%f0 %f0 %f1
+ld	9(%r2) %r2
+addi	%r3 %r0 $2
+add	%r25 %r2 %r3
+fld	0(%r25) %f1
+fmul	%f0 %f0 %f1
+fadd	%f0 %f3 %f0
+jr	%r31
+fmov	%f0 %f3
+jr	%r31
+fmul	%f6 %f0 %f3
+ld	4(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f7
+fmul	%f6 %f6 %f7
+fmul	%f7 %f1 %f4
+ld	4(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f8
+fmul	%f7 %f7 %f8
+fadd	%f6 %f6 %f7
+fmul	%f7 %f2 %f5
+ld	4(%r2) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f8
+fmul	%f7 %f7 %f8
+fadd	%f6 %f6 %f7
+ld	3(%r2) %r3
+beq	%r3 %r0 beq.10511
+fmul	%f7 %f2 %f4
+fmul	%f8 %f1 %f5
+fadd	%f7 %f7 %f8
+ld	9(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f8
+fmul	%f7 %f7 %f8
+fmul	%f5 %f0 %f5
+fmul	%f2 %f2 %f3
+fadd	%f5 %f5 %f2
+ld	9(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f2
+fmul	%f5 %f5 %f2
+fadd	%f7 %f7 %f5
+fmul	%f0 %f0 %f4
+fmul	%f1 %f1 %f3
+fadd	%f0 %f0 %f1
+ld	9(%r2) %r2
+addi	%r3 %r0 $2
+add	%r25 %r2 %r3
+fld	0(%r25) %f1
+fmul	%f0 %f0 %f1
+fadd	%f7 %f7 %f0
+addi	%r2 %r0 l.8586
+fld	0(%r2) %f0
+fmul	%f7 %f7 %f0
+fadd	%f0 %f6 %f7
+jr	%r31
+fmov	%f0 %f6
+jr	%r31
+ld	1(%r16) %r8
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f3
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f4
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f5
+st	-1(%r29) %r8
+fst	-2(%r29) %f2
+fst	-3(%r29) %f1
+fst	-4(%r29) %f0
+st	-5(%r29) %r2
+st	-6(%r29) %r3
+fmov	%f2 %f5
+fmov	%f1 %f4
+fmov	%f0 %f3
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	quadratic.2652
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10512
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10513
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10514
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+fld	0(%r25) %f2
+addi	%r2 %r0 $2
+add	%r25 %r3 %r2
+fld	0(%r25) %f3
+fld	-4(%r29) %f4
+fld	-3(%r29) %f5
+fld	-2(%r29) %f6
+ld	-5(%r29) %r2
+fst	-7(%r29) %f0
+fmov	%f0 %f1
+fmov	%f1 %f2
+fmov	%f2 %f3
+fmov	%f3 %f4
+fmov	%f4 %f5
+fmov	%f5 %f6
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	bilinear.2657
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+fld	-4(%r29) %f1
+fld	-3(%r29) %f2
+fld	-2(%r29) %f3
+ld	-5(%r29) %r2
+fst	-8(%r29) %f0
+fmov	%f0 %f1
+fmov	%f1 %f2
+fmov	%f2 %f3
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	quadratic.2652
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+ld	-5(%r29) %r2
+ld	1(%r2) %r3
+addi	%r25 %r3 $-3
+beq	%r25 %r0 beq_true.10515
+beq	%r0 %r0 beq_cont.10516
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+fld	-8(%r29) %f1
+fmul	%f2 %f1 %f1
+fld	-7(%r29) %f3
+fmul	%f0 %f3 %f0
+fneg	%f31 %f0
+fadd	%f0 %f2 %f31
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f2
+fslt	%f2 %f0
+bclt	bclt_true.10517
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10518
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq.10519
+fsqrt	%f0 %f0
+ld	-5(%r29) %r2
+ld	6(%r2) %r2
+beq	%r2 %r0 beq_true.10520
+beq	%r0 %r0 beq_cont.10521
+fneg	%f0 %f0
+addi	%r2 %r0 $0
+fld	-8(%r29) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+fld	-7(%r29) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	4(%r16) %r9
+ld	3(%r16) %r10
+ld	2(%r16) %r11
+ld	1(%r16) %r12
+add	%r25 %r12 %r2
+ld	0(%r25) %r2
+addi	%r12 %r0 $0
+add	%r25 %r8 %r12
+fld	0(%r25) %f0
+ld	5(%r2) %r12
+addi	%r13 %r0 $0
+add	%r25 %r12 %r13
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r12 %r0 $1
+add	%r25 %r8 %r12
+fld	0(%r25) %f1
+ld	5(%r2) %r12
+addi	%r13 %r0 $1
+add	%r25 %r12 %r13
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f1 %f1 %f31
+addi	%r12 %r0 $2
+add	%r25 %r8 %r12
+fld	0(%r25) %f2
+ld	5(%r2) %r8
+addi	%r12 %r0 $2
+add	%r25 %r8 %r12
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f2 %f2 %f31
+ld	1(%r2) %r8
+addi	%r25 %r8 $-1
+beq	%r25 %r0 beq.10522
+addi	%r25 %r8 $-2
+beq	%r25 %r0 beq.10523
+add	%r16 %r0 %r10
+ld	0(%r16) %r24
+jr	%r24
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+add	%r16 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r9
+addi	%r10 %r0 $0
+add	%r25 %r8 %r10
+fld	0(%r25) %f3
+fneg	%f31 %f0
+fadd	%f3 %f3 %f31
+addi	%r10 %r0 $1
+add	%r25 %r8 %r10
+fld	0(%r25) %f4
+fmul	%f3 %f3 %f4
+addi	%r10 %r0 $1
+add	%r25 %r3 %r10
+fld	0(%r25) %f4
+fmul	%f4 %f3 %f4
+fadd	%f4 %f4 %f1
+st	-1(%r29) %r9
+fst	-2(%r29) %f0
+fst	-3(%r29) %f1
+st	-4(%r29) %r8
+fst	-5(%r29) %f2
+fst	-6(%r29) %f3
+st	-7(%r29) %r3
+st	-8(%r29) %r2
+fabs	%f0 %f4
+ld	-8(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10524
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10525
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10526
+addi	%r3 %r0 $2
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fld	-6(%r29) %f1
+fmul	%f0 %f1 %f0
+fld	-5(%r29) %f2
+fadd	%f0 %f0 %f2
+fabs	%f0 %f0
+ld	-8(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10528
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10529
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10530
+addi	%r3 %r0 $1
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10532
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10533
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10534
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10535
+addi	%r3 %r0 $1
+beq	%r0 %r0 beq_cont.10531
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10527
+addi	%r3 %r0 $0
+beq	%r3 %r0 beq.10536
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+fld	-6(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r3 %r0 $2
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fld	-3(%r29) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r3 %r0 $3
+add	%r25 %r8 %r3
+fld	0(%r25) %f2
+fmul	%f0 %f0 %f2
+addi	%r3 %r0 $0
+ld	-7(%r29) %r9
+add	%r25 %r9 %r3
+fld	0(%r25) %f2
+fmul	%f2 %f0 %f2
+fld	-2(%r29) %f3
+fadd	%f2 %f2 %f3
+fst	-9(%r29) %f0
+fabs	%f0 %f2
+ld	-8(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10537
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10538
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10539
+addi	%r3 %r0 $2
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fld	-9(%r29) %f1
+fmul	%f0 %f1 %f0
+fld	-5(%r29) %f2
+fadd	%f0 %f0 %f2
+fabs	%f0 %f0
+ld	-8(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10541
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10542
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10543
+addi	%r3 %r0 $3
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10545
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10546
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10547
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10548
+addi	%r3 %r0 $1
+beq	%r0 %r0 beq_cont.10544
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10540
+addi	%r3 %r0 $0
+beq	%r3 %r0 beq.10549
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+fld	-9(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+jr	%r31
+addi	%r3 %r0 $4
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fld	-5(%r29) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r3 %r0 $5
+add	%r25 %r8 %r3
+fld	0(%r25) %f1
+fmul	%f0 %f0 %f1
+addi	%r3 %r0 $0
+ld	-7(%r29) %r9
+add	%r25 %r9 %r3
+fld	0(%r25) %f1
+fmul	%f1 %f0 %f1
+fld	-2(%r29) %f2
+fadd	%f1 %f1 %f2
+fst	-10(%r29) %f0
+fabs	%f0 %f1
+ld	-8(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10550
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10551
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10552
+addi	%r3 %r0 $1
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fld	-10(%r29) %f1
+fmul	%f0 %f1 %f0
+fld	-3(%r29) %f2
+fadd	%f0 %f0 %f2
+fabs	%f0 %f0
+ld	-8(%r29) %r2
+ld	4(%r2) %r2
+addi	%r3 %r0 $1
+add	%r25 %r2 %r3
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10554
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10555
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10556
+addi	%r2 %r0 $5
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10558
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10559
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10560
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10561
+addi	%r2 %r0 $1
+beq	%r0 %r0 beq_cont.10557
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10553
+addi	%r2 %r0 $0
+beq	%r2 %r0 beq.10562
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+fld	-10(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $3
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	1(%r16) %r2
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f4
+fslt	%f3 %f4
+bclt	bclt_true.10563
+addi	%r8 %r0 $0
+beq	%r0 %r0 bclt_cont.10564
+addi	%r8 %r0 $1
+beq	%r8 %r0 beq.10565
+addi	%r8 %r0 $0
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f3
+fmul	%f3 %f3 %f0
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f1
+fadd	%f3 %f3 %f0
+addi	%r9 %r0 $3
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f2
+fadd	%f3 %f3 %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f3
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	1(%r16) %r8
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f4
+fseq	%f3 %f4
+bclt	bclt_true.10566
+addi	%r9 %r0 $0
+beq	%r0 %r0 bclt_cont.10567
+addi	%r9 %r0 $1
+beq	%r9 %r0 beq.10568
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f4
+fmul	%f4 %f4 %f0
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f5
+fmul	%f5 %f5 %f1
+fadd	%f4 %f4 %f5
+addi	%r9 %r0 $3
+add	%r25 %r3 %r9
+fld	0(%r25) %f5
+fmul	%f5 %f5 %f2
+fadd	%f4 %f4 %f5
+st	-1(%r29) %r8
+st	-2(%r29) %r3
+fst	-3(%r29) %f3
+fst	-4(%r29) %f4
+st	-5(%r29) %r2
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	quadratic.2652
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+ld	-5(%r29) %r2
+ld	1(%r2) %r3
+addi	%r25 %r3 $-3
+beq	%r25 %r0 beq_true.10569
+beq	%r0 %r0 beq_cont.10570
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+fld	-4(%r29) %f1
+fmul	%f2 %f1 %f1
+fld	-3(%r29) %f3
+fmul	%f3 %f3 %f0
+fneg	%f31 %f3
+fadd	%f0 %f2 %f31
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f2
+fslt	%f2 %f0
+bclt	bclt_true.10571
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10572
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq.10573
+ld	6(%r2) %r2
+beq	%r2 %r0 beq_true.10574
+addi	%r2 %r0 $0
+st	-6(%r29) %r2
+fsqrt	%f0 %f0
+fld	-4(%r29) %f1
+fadd	%f1 %f1 %f0
+addi	%r2 %r0 $4
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+fmul	%f1 %f1 %f0
+ld	-6(%r29) %r2
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+beq	%r0 %r0 beq_cont.10575
+addi	%r2 %r0 $0
+st	-7(%r29) %r2
+fsqrt	%f0 %f0
+fld	-4(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 $4
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+fmul	%f1 %f1 %f0
+ld	-7(%r29) %r2
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	4(%r16) %r9
+ld	3(%r16) %r10
+ld	2(%r16) %r11
+ld	1(%r16) %r12
+add	%r25 %r12 %r2
+ld	0(%r25) %r12
+addi	%r13 %r0 $0
+add	%r25 %r8 %r13
+fld	0(%r25) %f0
+ld	5(%r12) %r13
+addi	%r14 %r0 $0
+add	%r25 %r13 %r14
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r13 %r0 $1
+add	%r25 %r8 %r13
+fld	0(%r25) %f1
+ld	5(%r12) %r13
+addi	%r14 %r0 $1
+add	%r25 %r13 %r14
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f1 %f1 %f31
+addi	%r13 %r0 $2
+add	%r25 %r8 %r13
+fld	0(%r25) %f2
+ld	5(%r12) %r8
+addi	%r13 %r0 $2
+add	%r25 %r8 %r13
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f2 %f2 %f31
+ld	1(%r3) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r8
+ld	1(%r12) %r2
+addi	%r25 %r2 $-1
+beq	%r25 %r0 beq.10576
+addi	%r25 %r2 $-2
+beq	%r25 %r0 beq.10577
+add	%r3 %r0 %r8
+add	%r2 %r0 %r12
+add	%r16 %r0 %r10
+ld	0(%r16) %r24
+jr	%r24
+add	%r3 %r0 %r8
+add	%r2 %r0 %r12
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+ld	0(%r3) %r3
+add	%r2 %r0 %r12
+add	%r16 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r2
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10578
+addi	%r9 %r0 $0
+beq	%r0 %r0 bclt_cont.10579
+addi	%r9 %r0 $1
+beq	%r9 %r0 beq.10580
+addi	%r9 %r0 $0
+addi	%r10 %r0 $0
+add	%r25 %r3 %r10
+fld	0(%r25) %f0
+addi	%r3 %r0 $3
+add	%r25 %r8 %r3
+fld	0(%r25) %f1
+fmul	%f0 %f0 %f1
+add	%r25 %r2 %r9
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	1(%r16) %r9
+addi	%r10 %r0 $0
+add	%r25 %r3 %r10
+fld	0(%r25) %f3
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f4
+fseq	%f3 %f4
+bclt	bclt_true.10581
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10582
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq.10583
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r10 %r0 $1
+add	%r25 %r3 %r10
+fld	0(%r25) %f4
+fmul	%f4 %f4 %f0
+addi	%r10 %r0 $2
+add	%r25 %r3 %r10
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f1
+fadd	%f4 %f4 %f0
+addi	%r10 %r0 $3
+add	%r25 %r3 %r10
+fld	0(%r25) %f0
+fmul	%f0 %f0 %f2
+fadd	%f4 %f4 %f0
+addi	%r10 %r0 $3
+add	%r25 %r8 %r10
+fld	0(%r25) %f0
+fmul	%f1 %f4 %f4
+fmul	%f3 %f3 %f0
+fneg	%f31 %f3
+fadd	%f0 %f1 %f31
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10584
+addi	%r8 %r0 $0
+beq	%r0 %r0 bclt_cont.10585
+addi	%r8 %r0 $1
+beq	%r8 %r0 beq.10586
+ld	6(%r2) %r2
+beq	%r2 %r0 beq_true.10587
+addi	%r2 %r0 $0
+st	-1(%r29) %r2
+st	-2(%r29) %r9
+st	-3(%r29) %r3
+fst	-4(%r29) %f4
+fsqrt	%f0 %f0
+fld	-4(%r29) %f1
+fadd	%f1 %f1 %f0
+addi	%r2 %r0 $4
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+fmul	%f1 %f1 %f0
+ld	-1(%r29) %r2
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+beq	%r0 %r0 beq_cont.10588
+addi	%r2 %r0 $0
+st	-5(%r29) %r2
+st	-2(%r29) %r9
+st	-3(%r29) %r3
+fst	-4(%r29) %f4
+fsqrt	%f0 %f0
+fld	-4(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 $4
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+fmul	%f1 %f1 %f0
+ld	-5(%r29) %r2
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	4(%r16) %r8
+ld	3(%r16) %r9
+ld	2(%r16) %r10
+ld	1(%r16) %r11
+add	%r25 %r11 %r2
+ld	0(%r25) %r11
+ld	10(%r11) %r12
+addi	%r13 %r0 $0
+add	%r25 %r12 %r13
+fld	0(%r25) %f0
+addi	%r13 %r0 $1
+add	%r25 %r12 %r13
+fld	0(%r25) %f1
+addi	%r13 %r0 $2
+add	%r25 %r12 %r13
+fld	0(%r25) %f2
+ld	1(%r3) %r13
+add	%r25 %r13 %r2
+ld	0(%r25) %r2
+ld	1(%r11) %r13
+addi	%r25 %r13 $-1
+beq	%r25 %r0 beq.10589
+addi	%r25 %r13 $-2
+beq	%r25 %r0 beq.10590
+add	%r8 %r0 %r12
+add	%r3 %r0 %r2
+add	%r16 %r0 %r9
+add	%r2 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+add	%r3 %r0 %r2
+add	%r16 %r0 %r8
+add	%r8 %r0 %r12
+add	%r2 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+ld	0(%r3) %r3
+add	%r8 %r0 %r2
+add	%r16 %r0 %r10
+add	%r2 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+addi	%r8 %r0 $6
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-1(%r29) %r3
+st	-2(%r29) %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r3 %r0 $0
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10591
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10592
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10593
+addi	%r3 %r0 $1
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+beq	%r0 %r0 beq_cont.10594
+addi	%r3 %r0 $0
+ld	-1(%r29) %r9
+ld	6(%r9) %r10
+addi	%r11 %r0 $0
+add	%r25 %r8 %r11
+fld	0(%r25) %f0
+addi	%r11 %r0 l.8518
+fld	0(%r11) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10595
+addi	%r11 %r0 $0
+beq	%r0 %r0 bclt_cont.10596
+addi	%r11 %r0 $1
+beq	%r10 %r0 beq_true.10597
+beq	%r11 %r0 beq_true.10599
+addi	%r11 %r0 $0
+beq	%r0 %r0 beq_cont.10600
+addi	%r11 %r0 $1
+beq	%r0 %r0 beq_cont.10598
+ld	4(%r9) %r10
+addi	%r12 %r0 $0
+add	%r25 %r10 %r12
+fld	0(%r25) %f0
+beq	%r11 %r0 beq_true.10601
+beq	%r0 %r0 beq_cont.10602
+fneg	%f0 %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+addi	%r3 %r0 $1
+addi	%r10 %r0 l.8520
+fld	0(%r10) %f0
+addi	%r10 %r0 $0
+add	%r25 %r8 %r10
+fld	0(%r25) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10603
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10604
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10605
+addi	%r3 %r0 $3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+beq	%r0 %r0 beq_cont.10606
+addi	%r3 %r0 $2
+ld	-1(%r29) %r9
+ld	6(%r9) %r10
+addi	%r11 %r0 $1
+add	%r25 %r8 %r11
+fld	0(%r25) %f0
+addi	%r11 %r0 l.8518
+fld	0(%r11) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10607
+addi	%r11 %r0 $0
+beq	%r0 %r0 bclt_cont.10608
+addi	%r11 %r0 $1
+beq	%r10 %r0 beq_true.10609
+beq	%r11 %r0 beq_true.10611
+addi	%r11 %r0 $0
+beq	%r0 %r0 beq_cont.10612
+addi	%r11 %r0 $1
+beq	%r0 %r0 beq_cont.10610
+ld	4(%r9) %r10
+addi	%r12 %r0 $1
+add	%r25 %r10 %r12
+fld	0(%r25) %f0
+beq	%r11 %r0 beq_true.10613
+beq	%r0 %r0 beq_cont.10614
+fneg	%f0 %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+addi	%r3 %r0 $3
+addi	%r10 %r0 l.8520
+fld	0(%r10) %f0
+addi	%r10 %r0 $1
+add	%r25 %r8 %r10
+fld	0(%r25) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10615
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10616
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10617
+addi	%r3 %r0 $5
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+beq	%r0 %r0 beq_cont.10618
+addi	%r3 %r0 $4
+ld	-1(%r29) %r9
+ld	6(%r9) %r10
+addi	%r11 %r0 $2
+add	%r25 %r8 %r11
+fld	0(%r25) %f0
+addi	%r11 %r0 l.8518
+fld	0(%r11) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10619
+addi	%r11 %r0 $0
+beq	%r0 %r0 bclt_cont.10620
+addi	%r11 %r0 $1
+beq	%r10 %r0 beq_true.10621
+beq	%r11 %r0 beq_true.10623
+addi	%r11 %r0 $0
+beq	%r0 %r0 beq_cont.10624
+addi	%r11 %r0 $1
+beq	%r0 %r0 beq_cont.10622
+ld	4(%r9) %r9
+addi	%r10 %r0 $2
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+beq	%r11 %r0 beq_true.10625
+beq	%r0 %r0 beq_cont.10626
+fneg	%f0 %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+addi	%r3 %r0 $5
+addi	%r9 %r0 l.8520
+fld	0(%r9) %f0
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+jr	%r31
+addi	%r8 %r0 $4
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-1(%r29) %r3
+st	-2(%r29) %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r3 %r0 $0
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+ld	-1(%r29) %r3
+ld	4(%r3) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+fmul	%f0 %f0 %f1
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fld	0(%r25) %f1
+ld	4(%r3) %r9
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f1
+ld	4(%r3) %r8
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10627
+addi	%r8 %r0 $0
+beq	%r0 %r0 bclt_cont.10628
+addi	%r8 %r0 $1
+beq	%r8 %r0 beq_true.10629
+addi	%r8 %r0 $0
+addi	%r9 %r0 l.8522
+fld	0(%r9) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $1
+ld	4(%r3) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fneg	%f1 %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $2
+ld	4(%r3) %r9
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fneg	%f1 %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $3
+ld	4(%r3) %r3
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fneg	%f1 %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+beq	%r0 %r0 beq_cont.10630
+addi	%r3 %r0 $0
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+jr	%r31
+addi	%r8 %r0 $5
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-1(%r29) %r3
+st	-2(%r29) %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r3 %r0 $0
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f1
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f2
+ld	-1(%r29) %r3
+st	-3(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	quadratic.2652
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+addi	%r2 %r0 $0
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+ld	-1(%r29) %r2
+ld	4(%r2) %r8
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fneg	%f1 %f1
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f2
+ld	4(%r2) %r8
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fld	0(%r25) %f3
+fmul	%f2 %f2 %f3
+fneg	%f2 %f2
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+ld	4(%r2) %r8
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f4
+fmul	%f3 %f3 %f4
+fneg	%f3 %f3
+addi	%r8 %r0 $0
+ld	-3(%r29) %r9
+add	%r25 %r9 %r8
+fst	0(%r25) %f0
+ld	3(%r2) %r8
+beq	%r8 %r0 beq_true.10631
+addi	%r8 %r0 $1
+addi	%r10 %r0 $2
+add	%r25 %r3 %r10
+fld	0(%r25) %f4
+ld	9(%r2) %r10
+addi	%r11 %r0 $1
+add	%r25 %r10 %r11
+fld	0(%r25) %f5
+fmul	%f4 %f4 %f5
+addi	%r10 %r0 $1
+add	%r25 %r3 %r10
+fld	0(%r25) %f5
+ld	9(%r2) %r10
+addi	%r11 %r0 $2
+add	%r25 %r10 %r11
+fld	0(%r25) %f6
+fmul	%f5 %f5 %f6
+fadd	%f4 %f4 %f5
+addi	%r10 %r0 l.8586
+fld	0(%r10) %f5
+fmul	%f4 %f4 %f5
+fneg	%f31 %f4
+fadd	%f1 %f1 %f31
+add	%r25 %r9 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $2
+addi	%r10 %r0 $2
+add	%r25 %r3 %r10
+fld	0(%r25) %f1
+ld	9(%r2) %r10
+addi	%r11 %r0 $0
+add	%r25 %r10 %r11
+fld	0(%r25) %f4
+fmul	%f1 %f1 %f4
+addi	%r10 %r0 $0
+add	%r25 %r3 %r10
+fld	0(%r25) %f4
+ld	9(%r2) %r10
+addi	%r11 %r0 $2
+add	%r25 %r10 %r11
+fld	0(%r25) %f5
+fmul	%f4 %f4 %f5
+fadd	%f1 %f1 %f4
+addi	%r10 %r0 l.8586
+fld	0(%r10) %f4
+fmul	%f1 %f1 %f4
+fneg	%f31 %f1
+fadd	%f2 %f2 %f31
+add	%r25 %r9 %r8
+fst	0(%r25) %f2
+addi	%r8 %r0 $3
+addi	%r10 %r0 $1
+add	%r25 %r3 %r10
+fld	0(%r25) %f1
+ld	9(%r2) %r10
+addi	%r11 %r0 $0
+add	%r25 %r10 %r11
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+addi	%r10 %r0 $0
+add	%r25 %r3 %r10
+fld	0(%r25) %f2
+ld	9(%r2) %r2
+addi	%r3 %r0 $1
+add	%r25 %r2 %r3
+fld	0(%r25) %f4
+fmul	%f2 %f2 %f4
+fadd	%f1 %f1 %f2
+addi	%r2 %r0 l.8586
+fld	0(%r2) %f2
+fmul	%f1 %f1 %f2
+fneg	%f31 %f1
+fadd	%f3 %f3 %f31
+add	%r25 %r9 %r8
+fst	0(%r25) %f3
+beq	%r0 %r0 beq_cont.10632
+addi	%r2 %r0 $1
+add	%r25 %r9 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $2
+add	%r25 %r9 %r2
+fst	0(%r25) %f2
+addi	%r2 %r0 $3
+add	%r25 %r9 %r2
+fst	0(%r25) %f3
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10633
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10634
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10635
+beq	%r0 %r0 beq_cont.10636
+addi	%r2 %r0 $4
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+add	%r25 %r9 %r2
+fst	0(%r25) %f1
+add	%r2 %r0 %r9
+jr	%r31
+ld	1(%r16) %r8
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10637
+jr	%r31
+add	%r25 %r8 %r3
+ld	0(%r25) %r8
+ld	1(%r2) %r9
+ld	0(%r2) %r10
+ld	1(%r8) %r11
+st	-1(%r29) %r2
+st	-2(%r29) %r16
+addi	%r25 %r11 $-1
+beq	%r25 %r0 beq_true.10639
+addi	%r25 %r11 $-2
+beq	%r25 %r0 beq_true.10641
+st	-3(%r29) %r3
+st	-4(%r29) %r9
+add	%r3 %r0 %r8
+add	%r2 %r0 %r10
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	setup_second_table.2721
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+beq	%r0 %r0 beq_cont.10642
+st	-3(%r29) %r3
+st	-4(%r29) %r9
+add	%r3 %r0 %r8
+add	%r2 %r0 %r10
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	setup_surface_table.2718
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+beq	%r0 %r0 beq_cont.10640
+st	-3(%r29) %r3
+st	-4(%r29) %r9
+add	%r3 %r0 %r8
+add	%r2 %r0 %r10
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	setup_rect_table.2715
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r3 %r3 $-1
+ld	-1(%r29) %r2
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r8
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10643
+jr	%r31
+add	%r25 %r8 %r3
+ld	0(%r25) %r8
+ld	10(%r8) %r9
+ld	1(%r8) %r10
+addi	%r11 %r0 $0
+addi	%r12 %r0 $0
+add	%r25 %r2 %r12
+fld	0(%r25) %f0
+ld	5(%r8) %r12
+addi	%r13 %r0 $0
+add	%r25 %r12 %r13
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+add	%r25 %r9 %r11
+fst	0(%r25) %f0
+addi	%r11 %r0 $1
+addi	%r12 %r0 $1
+add	%r25 %r2 %r12
+fld	0(%r25) %f0
+ld	5(%r8) %r12
+addi	%r13 %r0 $1
+add	%r25 %r12 %r13
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+add	%r25 %r9 %r11
+fst	0(%r25) %f0
+addi	%r11 %r0 $2
+addi	%r12 %r0 $2
+add	%r25 %r2 %r12
+fld	0(%r25) %f0
+ld	5(%r8) %r12
+addi	%r13 %r0 $2
+add	%r25 %r12 %r13
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+add	%r25 %r9 %r11
+fst	0(%r25) %f0
+st	-1(%r29) %r2
+st	-2(%r29) %r16
+st	-3(%r29) %r3
+addi	%r25 %r10 $-2
+beq	%r25 %r0 beq_true.10645
+sub	%r25 %r0 %r10
+addi	%r25 %r25 $2
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq_true.10647
+addi	%r11 %r0 $0
+add	%r25 %r9 %r11
+fld	0(%r25) %f0
+addi	%r11 %r0 $1
+add	%r25 %r9 %r11
+fld	0(%r25) %f1
+addi	%r11 %r0 $2
+add	%r25 %r9 %r11
+fld	0(%r25) %f2
+st	-4(%r29) %r9
+st	-5(%r29) %r10
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	quadratic.2652
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 $3
+ld	-5(%r29) %r3
+addi	%r25 %r3 $-3
+beq	%r25 %r0 beq_true.10649
+beq	%r0 %r0 beq_cont.10650
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+beq	%r0 %r0 beq_cont.10648
+beq	%r0 %r0 beq_cont.10646
+addi	%r10 %r0 $3
+ld	4(%r8) %r8
+addi	%r11 %r0 $0
+add	%r25 %r9 %r11
+fld	0(%r25) %f0
+addi	%r11 %r0 $1
+add	%r25 %r9 %r11
+fld	0(%r25) %f1
+addi	%r11 %r0 $2
+add	%r25 %r9 %r11
+fld	0(%r25) %f2
+st	-6(%r29) %r10
+st	-4(%r29) %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	veciprod2.2515
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-6(%r29) %r2
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+ld	-3(%r29) %r2
+addi	%r3 %r2 $-1
+ld	-1(%r29) %r2
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+fst	-1(%r29) %f2
+fst	-2(%r29) %f1
+st	-3(%r29) %r2
+fabs	%f0 %f0
+ld	-3(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10651
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10652
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10653
+fld	-2(%r29) %f0
+fabs	%f0 %f0
+ld	-3(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10655
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10656
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10657
+fld	-1(%r29) %f0
+fabs	%f0 %f0
+ld	-3(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10659
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10660
+addi	%r3 %r0 $1
+beq	%r0 %r0 beq_cont.10658
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10654
+addi	%r3 %r0 $0
+beq	%r3 %r0 beq.10661
+ld	6(%r2) %r2
+jr	%r31
+ld	6(%r2) %r2
+beq	%r2 %r0 beq.10662
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+st	-1(%r29) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	quadratic.2652
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+ld	-1(%r29) %r2
+ld	1(%r2) %r3
+addi	%r25 %r3 $-3
+beq	%r25 %r0 beq_true.10663
+beq	%r0 %r0 beq_cont.10664
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+ld	6(%r2) %r2
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10665
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10666
+addi	%r3 %r0 $1
+beq	%r2 %r0 beq_true.10667
+beq	%r3 %r0 beq_true.10669
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10670
+addi	%r3 %r0 $1
+beq	%r0 %r0 beq_cont.10668
+beq	%r3 %r0 beq.10671
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+ld	5(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f0 %f0 %f31
+ld	5(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f1 %f1 %f31
+ld	5(%r2) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f2 %f2 %f31
+ld	1(%r2) %r3
+addi	%r25 %r3 $-1
+beq	%r25 %r0 beq.10672
+addi	%r25 %r3 $-2
+beq	%r25 %r0 beq.10673
+beq	%r0 %r0 is_second_outside.2744
+ld	4(%r2) %r3
+st	-1(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	veciprod2.2515
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+ld	-1(%r29) %r2
+ld	6(%r2) %r2
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10674
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10675
+addi	%r3 %r0 $1
+beq	%r2 %r0 beq_true.10676
+beq	%r3 %r0 beq_true.10678
+addi	%r3 %r0 $0
+beq	%r0 %r0 beq_cont.10679
+addi	%r3 %r0 $1
+beq	%r0 %r0 beq_cont.10677
+beq	%r3 %r0 beq.10680
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+beq	%r0 %r0 is_rect_outside.2734
+ld	1(%r16) %r8
+add	%r25 %r3 %r2
+ld	0(%r25) %r9
+addi	%r25 %r9 $1
+beq	%r25 %r0 beq.10681
+add	%r25 %r8 %r9
+ld	0(%r25) %r9
+st	-1(%r29) %r16
+fst	-2(%r29) %f2
+fst	-3(%r29) %f1
+fst	-4(%r29) %f0
+st	-5(%r29) %r8
+st	-6(%r29) %r3
+st	-7(%r29) %r2
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	is_outside.2749
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+beq	%r2 %r0 beq.10682
+addi	%r2 %r0 $0
+jr	%r31
+ld	-7(%r29) %r2
+addi	%r2 %r2 $1
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r25 %r8 $1
+beq	%r25 %r0 beq.10683
+ld	-5(%r29) %r9
+add	%r25 %r9 %r8
+ld	0(%r25) %r8
+fld	-4(%r29) %f0
+fld	-3(%r29) %f1
+fld	-2(%r29) %f2
+st	-8(%r29) %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	is_outside.2749
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+beq	%r2 %r0 beq.10684
+addi	%r2 %r0 $0
+jr	%r31
+ld	-8(%r29) %r2
+addi	%r2 %r2 $1
+fld	-4(%r29) %f0
+fld	-3(%r29) %f1
+fld	-2(%r29) %f2
+ld	-6(%r29) %r3
+ld	-1(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+ld	7(%r16) %r8
+ld	6(%r16) %r9
+ld	5(%r16) %r10
+ld	4(%r16) %r11
+ld	3(%r16) %r12
+ld	2(%r16) %r13
+ld	1(%r16) %r14
+add	%r25 %r3 %r2
+ld	0(%r25) %r15
+addi	%r25 %r15 $1
+beq	%r25 %r0 beq.10685
+add	%r25 %r3 %r2
+ld	0(%r25) %r15
+st	-1(%r29) %r14
+st	-2(%r29) %r13
+st	-3(%r29) %r12
+st	-4(%r29) %r3
+st	-5(%r29) %r16
+st	-6(%r29) %r2
+st	-7(%r29) %r15
+st	-8(%r29) %r10
+st	-9(%r29) %r9
+add	%r3 %r0 %r11
+add	%r2 %r0 %r15
+add	%r16 %r0 %r8
+add	%r8 %r0 %r13
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag10
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+addi	%r3 %r0 $0
+ld	-9(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+beq	%r2 %r0 beq_true.10686
+addi	%r2 %r0 l.8628
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10688
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10689
+addi	%r2 %r0 $1
+beq	%r0 %r0 beq_cont.10687
+addi	%r2 %r0 $0
+beq	%r2 %r0 beq.10690
+addi	%r2 %r0 l.8630
+fld	0(%r2) %f1
+fadd	%f0 %f0 %f1
+addi	%r2 %r0 $0
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $0
+ld	-2(%r29) %r8
+add	%r25 %r8 %r2
+fld	0(%r25) %f2
+fadd	%f1 %f1 %f2
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+fld	0(%r25) %f2
+fmul	%f2 %f2 %f0
+addi	%r2 %r0 $1
+add	%r25 %r8 %r2
+fld	0(%r25) %f3
+fadd	%f2 %f2 %f3
+addi	%r2 %r0 $2
+add	%r25 %r3 %r2
+fld	0(%r25) %f3
+fmul	%f3 %f3 %f0
+addi	%r2 %r0 $2
+add	%r25 %r8 %r2
+fld	0(%r25) %f0
+fadd	%f3 %f3 %f0
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq_true.10691
+ld	-8(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+fst	-10(%r29) %f3
+fst	-11(%r29) %f2
+fst	-12(%r29) %f1
+fmov	%f0 %f1
+fmov	%f1 %f2
+fmov	%f2 %f3
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	is_outside.2749
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+beq	%r2 %r0 beq_true.10693
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10694
+addi	%r2 %r0 $1
+fld	-12(%r29) %f0
+fld	-11(%r29) %f1
+fld	-10(%r29) %f2
+ld	-4(%r29) %r3
+ld	-1(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag11
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+beq	%r0 %r0 beq_cont.10692
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10695
+addi	%r2 %r0 $1
+jr	%r31
+ld	-6(%r29) %r2
+addi	%r2 %r2 $1
+ld	-4(%r29) %r3
+ld	-5(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	-7(%r29) %r2
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	6(%r2) %r2
+beq	%r2 %r0 beq.10696
+ld	-6(%r29) %r2
+addi	%r2 %r2 $1
+ld	-4(%r29) %r3
+ld	-5(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	2(%r16) %r8
+ld	1(%r16) %r9
+add	%r25 %r3 %r2
+ld	0(%r25) %r10
+addi	%r25 %r10 $1
+beq	%r25 %r0 beq.10697
+add	%r25 %r9 %r10
+ld	0(%r25) %r9
+addi	%r10 %r0 $0
+st	-1(%r29) %r3
+st	-2(%r29) %r16
+st	-3(%r29) %r2
+add	%r3 %r0 %r9
+add	%r2 %r0 %r10
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag12
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+beq	%r2 %r0 beq.10698
+addi	%r2 %r0 $1
+jr	%r31
+ld	-3(%r29) %r2
+addi	%r2 %r2 $1
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+addi	%r2 %r0 $0
+jr	%r31
+ld	5(%r16) %r8
+ld	4(%r16) %r9
+ld	3(%r16) %r10
+ld	2(%r16) %r11
+ld	1(%r16) %r12
+add	%r25 %r3 %r2
+ld	0(%r25) %r13
+addi	%r14 %r0 $0
+add	%r25 %r13 %r14
+ld	0(%r25) %r14
+addi	%r25 %r14 $1
+beq	%r25 %r0 beq.10699
+st	-1(%r29) %r13
+st	-2(%r29) %r10
+st	-3(%r29) %r3
+st	-4(%r29) %r16
+st	-5(%r29) %r2
+addi	%r25 %r14 $-99
+beq	%r25 %r0 beq_true.10700
+st	-6(%r29) %r9
+add	%r3 %r0 %r11
+add	%r2 %r0 %r14
+add	%r16 %r0 %r8
+add	%r8 %r0 %r12
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag13
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r2 %r0 beq_true.10702
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 l.8632
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10704
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10705
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10706
+addi	%r2 %r0 $1
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag14
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r2 %r0 beq_true.10708
+addi	%r2 %r0 $1
+beq	%r0 %r0 beq_cont.10709
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10707
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10703
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10701
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10710
+addi	%r2 %r0 $1
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag15
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r2 %r0 beq.10711
+addi	%r2 %r0 $1
+jr	%r31
+ld	-5(%r29) %r2
+addi	%r2 %r2 $1
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	-5(%r29) %r2
+addi	%r2 %r2 $1
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+addi	%r2 %r0 $0
+jr	%r31
+ld	9(%r16) %r9
+ld	8(%r16) %r10
+ld	7(%r16) %r11
+ld	6(%r16) %r12
+ld	5(%r16) %r13
+ld	4(%r16) %r14
+ld	3(%r16) %r15
+st	-1(%r29) %r14
+ld	2(%r16) %r14
+st	-2(%r29) %r14
+ld	1(%r16) %r14
+st	-3(%r29) %r15
+add	%r25 %r3 %r2
+ld	0(%r25) %r15
+addi	%r25 %r15 $1
+beq	%r25 %r0 beq.10712
+st	-4(%r29) %r14
+st	-5(%r29) %r10
+st	-6(%r29) %r9
+st	-7(%r29) %r11
+st	-8(%r29) %r8
+st	-9(%r29) %r3
+st	-10(%r29) %r16
+st	-11(%r29) %r2
+st	-12(%r29) %r15
+st	-13(%r29) %r13
+add	%r3 %r0 %r8
+add	%r2 %r0 %r15
+add	%r16 %r0 %r12
+add	%r8 %r0 %r10
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag16
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+beq	%r2 %r0 beq.10713
+addi	%r3 %r0 $0
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10714
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10715
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10716
+addi	%r3 %r0 $0
+ld	-6(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10718
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10719
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10720
+addi	%r3 %r0 l.8630
+fld	0(%r3) %f1
+fadd	%f0 %f0 %f1
+addi	%r3 %r0 $0
+ld	-8(%r29) %r9
+add	%r25 %r9 %r3
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f0
+addi	%r3 %r0 $0
+ld	-5(%r29) %r10
+add	%r25 %r10 %r3
+fld	0(%r25) %f2
+fadd	%f1 %f1 %f2
+addi	%r3 %r0 $1
+add	%r25 %r9 %r3
+fld	0(%r25) %f2
+fmul	%f2 %f2 %f0
+addi	%r3 %r0 $1
+add	%r25 %r10 %r3
+fld	0(%r25) %f3
+fadd	%f2 %f2 %f3
+addi	%r3 %r0 $2
+add	%r25 %r9 %r3
+fld	0(%r25) %f3
+fmul	%f3 %f3 %f0
+addi	%r3 %r0 $2
+add	%r25 %r10 %r3
+fld	0(%r25) %f4
+fadd	%f3 %f3 %f4
+addi	%r3 %r0 $0
+ld	-9(%r29) %r10
+add	%r25 %r10 %r3
+ld	0(%r25) %r3
+st	-14(%r29) %r2
+fst	-15(%r29) %f3
+fst	-16(%r29) %f2
+fst	-17(%r29) %f1
+fst	-18(%r29) %f0
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq_true.10722
+ld	-13(%r29) %r11
+add	%r25 %r11 %r3
+ld	0(%r25) %r3
+add	%r2 %r0 %r3
+fmov	%f0 %f1
+fmov	%f1 %f2
+fmov	%f2 %f3
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	is_outside.2749
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+beq	%r2 %r0 beq_true.10724
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10725
+addi	%r2 %r0 $1
+fld	-17(%r29) %f0
+fld	-16(%r29) %f1
+fld	-15(%r29) %f2
+ld	-9(%r29) %r3
+ld	-4(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag17
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+beq	%r0 %r0 beq_cont.10723
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10726
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+fld	-18(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-3(%r29) %r3
+fld	-17(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+fld	-16(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+fld	-15(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-2(%r29) %r3
+ld	-12(%r29) %r8
+add	%r25 %r3 %r2
+st	0(%r25) %r8
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+ld	-14(%r29) %r8
+add	%r25 %r3 %r2
+st	0(%r25) %r8
+beq	%r0 %r0 beq_cont.10727
+beq	%r0 %r0 beq_cont.10721
+beq	%r0 %r0 beq_cont.10717
+ld	-11(%r29) %r2
+addi	%r2 %r2 $1
+ld	-9(%r29) %r3
+ld	-8(%r29) %r8
+ld	-10(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+ld	-12(%r29) %r2
+ld	-13(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	6(%r2) %r2
+beq	%r2 %r0 beq.10728
+ld	-11(%r29) %r2
+addi	%r2 %r2 $1
+ld	-9(%r29) %r3
+ld	-8(%r29) %r8
+ld	-10(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+jr	%r31
+ld	2(%r16) %r9
+ld	1(%r16) %r10
+add	%r25 %r3 %r2
+ld	0(%r25) %r11
+addi	%r25 %r11 $1
+beq	%r25 %r0 beq.10731
+add	%r25 %r10 %r11
+ld	0(%r25) %r11
+addi	%r12 %r0 $0
+st	-1(%r29) %r16
+st	-2(%r29) %r8
+st	-3(%r29) %r9
+st	-4(%r29) %r10
+st	-5(%r29) %r3
+st	-6(%r29) %r2
+add	%r3 %r0 %r11
+add	%r2 %r0 %r12
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag18
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-6(%r29) %r2
+addi	%r2 %r2 $1
+ld	-5(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r25 %r8 $1
+beq	%r25 %r0 beq.10732
+ld	-4(%r29) %r9
+add	%r25 %r9 %r8
+ld	0(%r25) %r8
+addi	%r9 %r0 $0
+ld	-2(%r29) %r10
+ld	-3(%r29) %r11
+st	-7(%r29) %r2
+add	%r3 %r0 %r8
+add	%r2 %r0 %r9
+add	%r16 %r0 %r11
+add	%r8 %r0 %r10
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag19
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+ld	-7(%r29) %r2
+addi	%r2 %r2 $1
+ld	-5(%r29) %r3
+ld	-2(%r29) %r8
+ld	-1(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+jr	%r31
+ld	7(%r16) %r9
+ld	6(%r16) %r10
+ld	5(%r16) %r11
+ld	4(%r16) %r12
+ld	3(%r16) %r13
+ld	2(%r16) %r14
+ld	1(%r16) %r15
+st	-1(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+st	-2(%r29) %r2
+addi	%r2 %r0 $0
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq.10735
+st	-3(%r29) %r8
+st	-4(%r29) %r16
+addi	%r25 %r2 $-99
+beq	%r25 %r0 beq_true.10736
+st	-5(%r29) %r13
+st	-6(%r29) %r14
+st	-7(%r29) %r15
+st	-8(%r29) %r3
+st	-9(%r29) %r9
+st	-10(%r29) %r11
+add	%r3 %r0 %r8
+add	%r16 %r0 %r12
+add	%r8 %r0 %r10
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag20
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r2 %r0 beq_true.10738
+addi	%r2 %r0 $0
+ld	-10(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-9(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10740
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10741
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10742
+addi	%r2 %r0 $1
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq_true.10744
+ld	-7(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+addi	%r8 %r0 $0
+ld	-3(%r29) %r9
+ld	-6(%r29) %r10
+add	%r3 %r0 %r2
+add	%r16 %r0 %r10
+add	%r2 %r0 %r8
+add	%r8 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag21
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r2 %r0 $2
+ld	-8(%r29) %r3
+ld	-3(%r29) %r8
+ld	-5(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag22
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10745
+beq	%r0 %r0 beq_cont.10743
+beq	%r0 %r0 beq_cont.10739
+beq	%r0 %r0 beq_cont.10737
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq_true.10746
+add	%r25 %r15 %r2
+ld	0(%r25) %r2
+addi	%r9 %r0 $0
+st	-8(%r29) %r3
+st	-5(%r29) %r13
+add	%r3 %r0 %r2
+add	%r16 %r0 %r14
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag23
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r2 %r0 $2
+ld	-8(%r29) %r3
+ld	-3(%r29) %r8
+ld	-5(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag24
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10747
+ld	-2(%r29) %r2
+addi	%r2 %r2 $1
+ld	-1(%r29) %r3
+ld	-3(%r29) %r8
+ld	-4(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+ld	3(%r16) %r3
+ld	2(%r16) %r8
+ld	1(%r16) %r9
+addi	%r10 %r0 $0
+addi	%r11 %r0 l.8636
+fld	0(%r11) %f0
+add	%r25 %r8 %r10
+fst	0(%r25) %f0
+addi	%r10 %r0 $0
+addi	%r11 %r0 $0
+add	%r25 %r9 %r11
+ld	0(%r25) %r9
+st	-1(%r29) %r8
+add	%r8 %r0 %r2
+add	%r16 %r0 %r3
+add	%r3 %r0 %r9
+add	%r2 %r0 %r10
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag25
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 l.8632
+fld	0(%r2) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10749
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10750
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10751
+addi	%r2 %r0 l.8639
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt.10752
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	9(%r16) %r9
+ld	8(%r16) %r10
+ld	7(%r16) %r11
+ld	6(%r16) %r12
+ld	5(%r16) %r13
+ld	4(%r16) %r14
+ld	3(%r16) %r15
+st	-1(%r29) %r14
+ld	2(%r16) %r14
+st	-2(%r29) %r14
+ld	1(%r16) %r14
+st	-3(%r29) %r15
+ld	0(%r8) %r15
+st	-4(%r29) %r14
+add	%r25 %r3 %r2
+ld	0(%r25) %r14
+addi	%r25 %r14 $1
+beq	%r25 %r0 beq.10753
+st	-5(%r29) %r10
+st	-6(%r29) %r15
+st	-7(%r29) %r9
+st	-8(%r29) %r12
+st	-9(%r29) %r8
+st	-10(%r29) %r3
+st	-11(%r29) %r16
+st	-12(%r29) %r2
+st	-13(%r29) %r14
+st	-14(%r29) %r13
+add	%r3 %r0 %r8
+add	%r2 %r0 %r14
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag26
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+beq	%r2 %r0 beq.10754
+addi	%r3 %r0 $0
+ld	-8(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10755
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10756
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10757
+addi	%r3 %r0 $0
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10759
+addi	%r3 %r0 $0
+beq	%r0 %r0 bclt_cont.10760
+addi	%r3 %r0 $1
+beq	%r3 %r0 beq_true.10761
+addi	%r3 %r0 l.8630
+fld	0(%r3) %f1
+fadd	%f0 %f0 %f1
+addi	%r3 %r0 $0
+ld	-6(%r29) %r9
+add	%r25 %r9 %r3
+fld	0(%r25) %f1
+fmul	%f1 %f1 %f0
+addi	%r3 %r0 $0
+ld	-5(%r29) %r10
+add	%r25 %r10 %r3
+fld	0(%r25) %f2
+fadd	%f1 %f1 %f2
+addi	%r3 %r0 $1
+add	%r25 %r9 %r3
+fld	0(%r25) %f2
+fmul	%f2 %f2 %f0
+addi	%r3 %r0 $1
+add	%r25 %r10 %r3
+fld	0(%r25) %f3
+fadd	%f2 %f2 %f3
+addi	%r3 %r0 $2
+add	%r25 %r9 %r3
+fld	0(%r25) %f3
+fmul	%f3 %f3 %f0
+addi	%r3 %r0 $2
+add	%r25 %r10 %r3
+fld	0(%r25) %f4
+fadd	%f3 %f3 %f4
+addi	%r3 %r0 $0
+ld	-10(%r29) %r9
+add	%r25 %r9 %r3
+ld	0(%r25) %r3
+st	-15(%r29) %r2
+fst	-16(%r29) %f3
+fst	-17(%r29) %f2
+fst	-18(%r29) %f1
+fst	-19(%r29) %f0
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq_true.10763
+ld	-14(%r29) %r10
+add	%r25 %r10 %r3
+ld	0(%r25) %r3
+add	%r2 %r0 %r3
+fmov	%f0 %f1
+fmov	%f1 %f2
+fmov	%f2 %f3
+addi	%r29 %r29 $-20
+st	0(%r29) %r31
+jal	is_outside.2749
+ld	0(%r29) %r31
+addi	%r29 %r29 $20
+beq	%r2 %r0 beq_true.10765
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10766
+addi	%r2 %r0 $1
+fld	-18(%r29) %f0
+fld	-17(%r29) %f1
+fld	-16(%r29) %f2
+ld	-10(%r29) %r3
+ld	-4(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-20
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag27
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $20
+beq	%r0 %r0 beq_cont.10764
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10767
+addi	%r2 %r0 $0
+ld	-7(%r29) %r3
+fld	-19(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-3(%r29) %r3
+fld	-18(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+fld	-17(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+fld	-16(%r29) %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-2(%r29) %r3
+ld	-13(%r29) %r8
+add	%r25 %r3 %r2
+st	0(%r25) %r8
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+ld	-15(%r29) %r8
+add	%r25 %r3 %r2
+st	0(%r25) %r8
+beq	%r0 %r0 beq_cont.10768
+beq	%r0 %r0 beq_cont.10762
+beq	%r0 %r0 beq_cont.10758
+ld	-12(%r29) %r2
+addi	%r2 %r2 $1
+ld	-10(%r29) %r3
+ld	-9(%r29) %r8
+ld	-11(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+ld	-13(%r29) %r2
+ld	-14(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	6(%r2) %r2
+beq	%r2 %r0 beq.10769
+ld	-12(%r29) %r2
+addi	%r2 %r2 $1
+ld	-10(%r29) %r3
+ld	-9(%r29) %r8
+ld	-11(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+jr	%r31
+ld	2(%r16) %r9
+ld	1(%r16) %r10
+add	%r25 %r3 %r2
+ld	0(%r25) %r11
+addi	%r25 %r11 $1
+beq	%r25 %r0 beq.10772
+add	%r25 %r10 %r11
+ld	0(%r25) %r11
+addi	%r12 %r0 $0
+st	-1(%r29) %r16
+st	-2(%r29) %r8
+st	-3(%r29) %r9
+st	-4(%r29) %r10
+st	-5(%r29) %r3
+st	-6(%r29) %r2
+add	%r3 %r0 %r11
+add	%r2 %r0 %r12
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag28
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-6(%r29) %r2
+addi	%r2 %r2 $1
+ld	-5(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r25 %r8 $1
+beq	%r25 %r0 beq.10773
+ld	-4(%r29) %r9
+add	%r25 %r9 %r8
+ld	0(%r25) %r8
+addi	%r9 %r0 $0
+ld	-2(%r29) %r10
+ld	-3(%r29) %r11
+st	-7(%r29) %r2
+add	%r3 %r0 %r8
+add	%r2 %r0 %r9
+add	%r16 %r0 %r11
+add	%r8 %r0 %r10
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag29
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+ld	-7(%r29) %r2
+addi	%r2 %r2 $1
+ld	-5(%r29) %r3
+ld	-2(%r29) %r8
+ld	-1(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+jr	%r31
+ld	6(%r16) %r9
+ld	5(%r16) %r10
+ld	4(%r16) %r11
+ld	3(%r16) %r12
+ld	2(%r16) %r13
+ld	1(%r16) %r14
+add	%r25 %r3 %r2
+ld	0(%r25) %r15
+st	-1(%r29) %r3
+addi	%r3 %r0 $0
+add	%r25 %r15 %r3
+ld	0(%r25) %r3
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq.10776
+st	-2(%r29) %r8
+st	-3(%r29) %r16
+st	-4(%r29) %r2
+addi	%r25 %r3 $-99
+beq	%r25 %r0 beq_true.10777
+st	-5(%r29) %r12
+st	-6(%r29) %r13
+st	-7(%r29) %r14
+st	-8(%r29) %r15
+st	-9(%r29) %r9
+st	-10(%r29) %r11
+add	%r2 %r0 %r3
+add	%r16 %r0 %r10
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag30
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r2 %r0 beq_true.10779
+addi	%r2 %r0 $0
+ld	-10(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-9(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10781
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10782
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10783
+addi	%r2 %r0 $1
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r2 $1
+beq	%r25 %r0 beq_true.10785
+ld	-7(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+addi	%r8 %r0 $0
+ld	-2(%r29) %r9
+ld	-6(%r29) %r10
+add	%r3 %r0 %r2
+add	%r16 %r0 %r10
+add	%r2 %r0 %r8
+add	%r8 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag31
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r2 %r0 $2
+ld	-8(%r29) %r3
+ld	-2(%r29) %r8
+ld	-5(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag32
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10786
+beq	%r0 %r0 beq_cont.10784
+beq	%r0 %r0 beq_cont.10780
+beq	%r0 %r0 beq_cont.10778
+addi	%r3 %r0 $1
+add	%r25 %r15 %r3
+ld	0(%r25) %r3
+addi	%r25 %r3 $1
+beq	%r25 %r0 beq_true.10787
+add	%r25 %r14 %r3
+ld	0(%r25) %r3
+addi	%r9 %r0 $0
+st	-8(%r29) %r15
+st	-5(%r29) %r12
+add	%r2 %r0 %r9
+add	%r16 %r0 %r13
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag33
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r2 %r0 $2
+ld	-8(%r29) %r3
+ld	-2(%r29) %r8
+ld	-5(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag34
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10788
+ld	-4(%r29) %r2
+addi	%r2 %r2 $1
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+ld	-3(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+ld	3(%r16) %r3
+ld	2(%r16) %r8
+ld	1(%r16) %r9
+addi	%r10 %r0 $0
+addi	%r11 %r0 l.8636
+fld	0(%r11) %f0
+add	%r25 %r8 %r10
+fst	0(%r25) %f0
+addi	%r10 %r0 $0
+addi	%r11 %r0 $0
+add	%r25 %r9 %r11
+ld	0(%r25) %r9
+st	-1(%r29) %r8
+add	%r8 %r0 %r2
+add	%r16 %r0 %r3
+add	%r3 %r0 %r9
+add	%r2 %r0 %r10
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag35
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 l.8632
+fld	0(%r2) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10790
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10791
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10792
+addi	%r2 %r0 l.8639
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt.10793
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+ld	2(%r16) %r3
+ld	1(%r16) %r8
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+ld	0(%r25) %r8
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fst	0(%r25) %f0
+addi	%r9 %r8 $-1
+addi	%r8 %r8 $-1
+add	%r25 %r2 %r8
+fld	0(%r25) %f0
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fseq	%f0 %f1
+bclt	bclt_true.10794
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10795
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10796
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10797
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10798
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10799
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10800
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10801
+addi	%r2 %r0 l.8522
+fld	0(%r2) %f0
+fneg	%f0 %f0
+add	%r25 %r3 %r9
+fst	0(%r25) %f0
+jr	%r31
+ld	1(%r16) %r3
+addi	%r8 %r0 $0
+ld	4(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+fneg	%f0 %f0
+add	%r25 %r3 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+ld	4(%r2) %r9
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+fneg	%f0 %f0
+add	%r25 %r3 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $2
+ld	4(%r2) %r2
+addi	%r9 %r0 $2
+add	%r25 %r2 %r9
+fld	0(%r25) %f0
+fneg	%f0 %f0
+add	%r25 %r3 %r8
+fst	0(%r25) %f0
+jr	%r31
+ld	2(%r16) %r3
+ld	1(%r16) %r8
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fld	0(%r25) %f0
+ld	5(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fld	0(%r25) %f1
+ld	5(%r2) %r9
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f1 %f1 %f31
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f2
+ld	5(%r2) %r8
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f2 %f2 %f31
+ld	4(%r2) %r8
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fld	0(%r25) %f3
+fmul	%f3 %f0 %f3
+ld	4(%r2) %r8
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fld	0(%r25) %f4
+fmul	%f4 %f1 %f4
+ld	4(%r2) %r8
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f5
+fmul	%f5 %f2 %f5
+ld	3(%r2) %r8
+beq	%r8 %r0 beq_true.10804
+addi	%r8 %r0 $0
+ld	9(%r2) %r9
+addi	%r10 %r0 $2
+add	%r25 %r9 %r10
+fld	0(%r25) %f6
+fmul	%f6 %f1 %f6
+ld	9(%r2) %r9
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f7
+fmul	%f7 %f2 %f7
+fadd	%f6 %f6 %f7
+addi	%r9 %r0 l.8586
+fld	0(%r9) %f7
+fmul	%f6 %f6 %f7
+fadd	%f3 %f3 %f6
+add	%r25 %r3 %r8
+fst	0(%r25) %f3
+addi	%r8 %r0 $1
+ld	9(%r2) %r9
+addi	%r10 %r0 $2
+add	%r25 %r9 %r10
+fld	0(%r25) %f3
+fmul	%f3 %f0 %f3
+ld	9(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f6
+fmul	%f2 %f2 %f6
+fadd	%f3 %f3 %f2
+addi	%r9 %r0 l.8586
+fld	0(%r9) %f2
+fmul	%f3 %f3 %f2
+fadd	%f4 %f4 %f3
+add	%r25 %r3 %r8
+fst	0(%r25) %f4
+addi	%r8 %r0 $2
+ld	9(%r2) %r9
+addi	%r10 %r0 $1
+add	%r25 %r9 %r10
+fld	0(%r25) %f2
+fmul	%f0 %f0 %f2
+ld	9(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fadd	%f0 %f0 %f1
+addi	%r9 %r0 l.8586
+fld	0(%r9) %f1
+fmul	%f0 %f0 %f1
+fadd	%f5 %f5 %f0
+add	%r25 %r3 %r8
+fst	0(%r25) %f5
+beq	%r0 %r0 beq_cont.10805
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fst	0(%r25) %f3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fst	0(%r25) %f4
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fst	0(%r25) %f5
+ld	6(%r2) %r2
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+beq	%r0 %r0 vecunit_sgn.2509
+ld	1(%r16) %r8
+ld	0(%r2) %r9
+addi	%r10 %r0 $0
+ld	8(%r2) %r11
+addi	%r12 %r0 $0
+add	%r25 %r11 %r12
+fld	0(%r25) %f0
+add	%r25 %r8 %r10
+fst	0(%r25) %f0
+addi	%r10 %r0 $1
+ld	8(%r2) %r11
+addi	%r12 %r0 $1
+add	%r25 %r11 %r12
+fld	0(%r25) %f0
+add	%r25 %r8 %r10
+fst	0(%r25) %f0
+addi	%r10 %r0 $2
+ld	8(%r2) %r11
+addi	%r12 %r0 $2
+add	%r25 %r11 %r12
+fld	0(%r25) %f0
+add	%r25 %r8 %r10
+fst	0(%r25) %f0
+addi	%r25 %r9 $-1
+beq	%r25 %r0 beq.10806
+addi	%r25 %r9 $-2
+beq	%r25 %r0 beq.10807
+addi	%r25 %r9 $-3
+beq	%r25 %r0 beq.10808
+addi	%r25 %r9 $-4
+beq	%r25 %r0 beq.10809
+jr	%r31
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+ld	5(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+ld	4(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+st	-1(%r29) %r8
+st	-2(%r29) %r2
+st	-3(%r29) %r3
+fst	-4(%r29) %f0
+fsqrt	%f0 %f1
+fld	-4(%r29) %f1
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $2
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+ld	-2(%r29) %r2
+ld	5(%r2) %r8
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f0 %f0 %f31
+ld	4(%r2) %r8
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f2
+fst	-5(%r29) %f1
+fst	-6(%r29) %f0
+fsqrt	%f0 %f2
+fld	-6(%r29) %f1
+fmul	%f1 %f1 %f0
+fld	-5(%r29) %f0
+fmul	%f2 %f0 %f0
+fmul	%f3 %f1 %f1
+fadd	%f2 %f2 %f3
+fst	-7(%r29) %f2
+fst	-8(%r29) %f1
+fabs	%f0 %f0
+addi	%r2 %r0 l.8655
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10811
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10812
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10813
+addi	%r2 %r0 l.8657
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10814
+fld	-5(%r29) %f0
+fld	-8(%r29) %f1
+finv	%f31 %f0
+fmul	%f0 %f1 %f31
+fabs	%f0 %f0
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	min_caml_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+addi	%r2 %r0 l.8659
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+addi	%r2 %r0 l.8661
+fld	0(%r2) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+fst	-9(%r29) %f0
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_floor
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+fld	-9(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 $1
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+ld	-2(%r29) %r2
+ld	5(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f0 %f0 %f31
+ld	4(%r2) %r2
+addi	%r3 %r0 $1
+add	%r25 %r2 %r3
+fld	0(%r25) %f2
+fst	-10(%r29) %f1
+fst	-11(%r29) %f0
+fsqrt	%f0 %f2
+fld	-11(%r29) %f1
+fmul	%f1 %f1 %f0
+fld	-7(%r29) %f0
+fst	-12(%r29) %f1
+fabs	%f0 %f0
+addi	%r2 %r0 l.8655
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10815
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10816
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10817
+addi	%r2 %r0 l.8657
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10818
+fld	-7(%r29) %f0
+fld	-12(%r29) %f1
+finv	%f31 %f0
+fmul	%f0 %f1 %f31
+fabs	%f0 %f0
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	min_caml_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+addi	%r2 %r0 l.8659
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+addi	%r2 %r0 l.8661
+fld	0(%r2) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+fst	-13(%r29) %f0
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_floor
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+fld	-13(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 l.8667
+fld	0(%r2) %f0
+addi	%r2 %r0 l.8586
+fld	0(%r2) %f2
+fld	-10(%r29) %f3
+fneg	%f31 %f3
+fadd	%f2 %f2 %f31
+fmul	%f2 %f2 %f2
+fneg	%f31 %f2
+fadd	%f0 %f0 %f31
+addi	%r2 %r0 l.8586
+fld	0(%r2) %f2
+fneg	%f31 %f1
+fadd	%f2 %f2 %f31
+fmul	%f2 %f2 %f2
+fneg	%f31 %f2
+fadd	%f0 %f0 %f31
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10819
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10820
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10821
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10822
+addi	%r2 %r0 $2
+addi	%r3 %r0 l.8673
+fld	0(%r3) %f1
+fmul	%f1 %f1 %f0
+addi	%r3 %r0 l.8675
+fld	0(%r3) %f0
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+jr	%r31
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+ld	5(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r9 %r0 $2
+add	%r25 %r3 %r9
+fld	0(%r25) %f1
+ld	5(%r2) %r2
+addi	%r3 %r0 $2
+add	%r25 %r2 %r3
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f1 %f1 %f31
+fmul	%f0 %f0 %f0
+fmul	%f1 %f1 %f1
+fadd	%f0 %f0 %f1
+st	-1(%r29) %r8
+fsqrt	%f0 %f0
+addi	%r2 %r0 l.8677
+fld	0(%r2) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+fst	-14(%r29) %f0
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_floor
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+fld	-14(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 l.8661
+fld	0(%r2) %f0
+fmul	%f0 %f1 %f0
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+fmul	%f0 %f0 %f0
+addi	%r2 %r0 $1
+addi	%r3 %r0 l.8673
+fld	0(%r3) %f1
+fmul	%f1 %f0 %f1
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $2
+addi	%r8 %r0 l.8520
+fld	0(%r8) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r8 %r0 l.8673
+fld	0(%r8) %f0
+fmul	%f1 %f1 %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+jr	%r31
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r2 %r0 l.8683
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+st	-1(%r29) %r8
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+fmul	%f0 %f0 %f0
+addi	%r2 %r0 $0
+addi	%r3 %r0 l.8673
+fld	0(%r3) %f1
+fmul	%f1 %f1 %f0
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $1
+addi	%r8 %r0 l.8673
+fld	0(%r8) %f1
+addi	%r8 %r0 l.8520
+fld	0(%r8) %f2
+fneg	%f31 %f0
+fadd	%f2 %f2 %f31
+fmul	%f1 %f1 %f2
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+jr	%r31
+addi	%r9 %r0 $0
+add	%r25 %r3 %r9
+fld	0(%r25) %f0
+ld	5(%r2) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r9 %r0 l.8688
+fld	0(%r9) %f1
+fmul	%f1 %f0 %f1
+st	-1(%r29) %r8
+st	-2(%r29) %r2
+st	-3(%r29) %r3
+fst	-15(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	min_caml_floor
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+addi	%r2 %r0 l.8690
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+fld	-15(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 l.8677
+fld	0(%r2) %f0
+fslt	%f1 %f0
+bclt	bclt_true.10826
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10827
+addi	%r2 %r0 $1
+addi	%r3 %r0 $2
+ld	-3(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+ld	-2(%r29) %r3
+ld	5(%r3) %r3
+addi	%r8 %r0 $2
+add	%r25 %r3 %r8
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r3 %r0 l.8688
+fld	0(%r3) %f1
+fmul	%f1 %f0 %f1
+st	-16(%r29) %r2
+fst	-17(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-18
+st	0(%r29) %r31
+jal	min_caml_floor
+ld	0(%r29) %r31
+addi	%r29 %r29 $18
+addi	%r2 %r0 l.8690
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+fld	-17(%r29) %f1
+fneg	%f31 %f0
+fadd	%f1 %f1 %f31
+addi	%r2 %r0 l.8677
+fld	0(%r2) %f0
+fslt	%f1 %f0
+bclt	bclt_true.10828
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10829
+addi	%r2 %r0 $1
+addi	%r3 %r0 $1
+ld	-16(%r29) %r8
+beq	%r8 %r0 beq_true.10830
+beq	%r2 %r0 beq_true.10832
+addi	%r2 %r0 l.8673
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10833
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10831
+beq	%r2 %r0 beq_true.10834
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+beq	%r0 %r0 beq_cont.10835
+addi	%r2 %r0 l.8673
+fld	0(%r2) %f0
+ld	-1(%r29) %r2
+add	%r25 %r2 %r3
+fst	0(%r25) %f0
+jr	%r31
+ld	2(%r16) %r3
+ld	1(%r16) %r2
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f3
+fslt	%f3 %f0
+bclt	bclt_true.10837
+addi	%r8 %r0 $0
+beq	%r0 %r0 bclt_cont.10838
+addi	%r8 %r0 $1
+st	-1(%r29) %r2
+fst	-2(%r29) %f2
+fst	-3(%r29) %f1
+beq	%r8 %r0 beq_true.10839
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	vecaccum.2520
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+beq	%r0 %r0 beq_cont.10840
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+fld	-3(%r29) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10841
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10842
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10843
+fmul	%f1 %f1 %f1
+fmul	%f1 %f1 %f1
+fld	-2(%r29) %f0
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+ld	-1(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fadd	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fadd	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fadd	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+jr	%r31
+jr	%r31
+ld	8(%r16) %r8
+ld	7(%r16) %r9
+ld	6(%r16) %r10
+ld	5(%r16) %r11
+ld	4(%r16) %r12
+ld	3(%r16) %r13
+ld	2(%r16) %r14
+ld	1(%r16) %r15
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10846
+jr	%r31
+add	%r25 %r9 %r2
+ld	0(%r25) %r9
+st	-1(%r29) %r2
+ld	1(%r9) %r2
+st	-2(%r29) %r16
+fst	-3(%r29) %f1
+st	-4(%r29) %r15
+st	-5(%r29) %r3
+fst	-6(%r29) %f0
+st	-7(%r29) %r11
+st	-8(%r29) %r2
+st	-9(%r29) %r8
+st	-10(%r29) %r10
+st	-11(%r29) %r9
+st	-12(%r29) %r13
+st	-13(%r29) %r14
+add	%r16 %r0 %r12
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag36
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+beq	%r2 %r0 beq_true.10848
+addi	%r2 %r0 $0
+ld	-13(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r25 %r0 $2
+sll	%r2 %r2 %r25
+addi	%r3 %r0 $0
+ld	-12(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+add	%r2 %r2 %r3
+ld	-11(%r29) %r3
+ld	0(%r3) %r8
+beq	%r2 %r8 beq_true.10850
+beq	%r0 %r0 beq_cont.10851
+addi	%r2 %r0 $0
+addi	%r8 %r0 $0
+ld	-10(%r29) %r9
+add	%r25 %r9 %r8
+ld	0(%r25) %r8
+ld	-9(%r29) %r9
+add	%r3 %r0 %r8
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag37
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+beq	%r2 %r0 beq_true.10852
+beq	%r0 %r0 beq_cont.10853
+ld	-8(%r29) %r2
+ld	0(%r2) %r3
+ld	-7(%r29) %r8
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+ld	-11(%r29) %r2
+fld	2(%r2) %f1
+fld	-6(%r29) %f2
+fmul	%f3 %f1 %f2
+fmul	%f3 %f3 %f0
+ld	-8(%r29) %r2
+ld	0(%r2) %r3
+ld	-5(%r29) %r2
+fst	-14(%r29) %f3
+fst	-15(%r29) %f1
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+fld	-15(%r29) %f1
+fmul	%f1 %f1 %f0
+fld	-14(%r29) %f0
+fld	-3(%r29) %f2
+ld	-4(%r29) %r2
+add	%r16 %r0 %r2
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag38
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+beq	%r0 %r0 beq_cont.10849
+ld	-1(%r29) %r2
+addi	%r2 %r2 $-1
+fld	-6(%r29) %f0
+fld	-3(%r29) %f1
+ld	-5(%r29) %r3
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	24(%r16) %r9
+ld	23(%r16) %r10
+ld	22(%r16) %r11
+ld	21(%r16) %r12
+ld	20(%r16) %r13
+ld	19(%r16) %r14
+ld	18(%r16) %r15
+st	-1(%r29) %r11
+ld	17(%r16) %r11
+st	-2(%r29) %r10
+ld	16(%r16) %r10
+st	-3(%r29) %r11
+ld	15(%r16) %r11
+st	-4(%r29) %r13
+ld	14(%r16) %r13
+st	-5(%r29) %r15
+ld	13(%r16) %r15
+st	-6(%r29) %r11
+ld	12(%r16) %r11
+st	-7(%r29) %r11
+ld	11(%r16) %r11
+st	-8(%r29) %r11
+ld	10(%r16) %r11
+st	-9(%r29) %r15
+ld	9(%r16) %r15
+st	-10(%r29) %r12
+ld	8(%r16) %r12
+st	-11(%r29) %r12
+ld	7(%r16) %r12
+st	-12(%r29) %r9
+ld	6(%r16) %r9
+st	-13(%r29) %r12
+ld	5(%r16) %r12
+st	-14(%r29) %r14
+ld	4(%r16) %r14
+st	-15(%r29) %r12
+ld	3(%r16) %r12
+st	-16(%r29) %r12
+ld	2(%r16) %r12
+st	-17(%r29) %r14
+ld	1(%r16) %r14
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $4
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq.10854
+jr	%r31
+st	-18(%r29) %r14
+ld	2(%r8) %r14
+st	-19(%r29) %r16
+fst	-20(%r29) %f1
+st	-21(%r29) %r8
+st	-22(%r29) %r13
+st	-23(%r29) %r9
+st	-24(%r29) %r10
+st	-25(%r29) %r12
+fst	-26(%r29) %f0
+st	-27(%r29) %r11
+st	-28(%r29) %r3
+st	-29(%r29) %r2
+st	-30(%r29) %r14
+add	%r2 %r0 %r3
+add	%r16 %r0 %r15
+addi	%r29 %r29 $-31
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag39
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $31
+beq	%r2 %r0 beq.10856
+addi	%r2 %r0 $0
+ld	-23(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	-22(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	2(%r3) %r8
+ld	7(%r3) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+fld	-26(%r29) %f1
+fmul	%f0 %f0 %f1
+ld	1(%r3) %r9
+st	-31(%r29) %r8
+fst	-32(%r29) %f0
+st	-33(%r29) %r2
+st	-34(%r29) %r3
+addi	%r25 %r9 $-1
+beq	%r25 %r0 beq_true.10857
+addi	%r25 %r9 $-2
+beq	%r25 %r0 beq_true.10859
+ld	-15(%r29) %r9
+add	%r2 %r0 %r3
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag40
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+beq	%r0 %r0 beq_cont.10860
+ld	-16(%r29) %r9
+add	%r2 %r0 %r3
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag41
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+beq	%r0 %r0 beq_cont.10858
+ld	-28(%r29) %r9
+ld	-17(%r29) %r10
+add	%r2 %r0 %r9
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag42
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+ld	-14(%r29) %r2
+ld	-13(%r29) %r3
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+ld	-34(%r29) %r2
+ld	-13(%r29) %r3
+ld	-12(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag43
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+ld	-33(%r29) %r2
+addi	%r25 %r0 $2
+sll	%r2 %r2 %r25
+addi	%r3 %r0 $0
+ld	-11(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+add	%r2 %r2 %r3
+ld	-29(%r29) %r3
+ld	-30(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+ld	-21(%r29) %r2
+ld	1(%r2) %r9
+add	%r25 %r9 %r3
+ld	0(%r25) %r9
+ld	-13(%r29) %r10
+add	%r3 %r0 %r10
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+ld	-21(%r29) %r2
+ld	3(%r2) %r3
+ld	-34(%r29) %r8
+ld	7(%r8) %r9
+addi	%r10 %r0 $0
+add	%r25 %r9 %r10
+fld	0(%r25) %f0
+addi	%r9 %r0 l.8586
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10861
+addi	%r9 %r0 $0
+beq	%r0 %r0 bclt_cont.10862
+addi	%r9 %r0 $1
+beq	%r9 %r0 beq_true.10863
+addi	%r9 %r0 $0
+ld	-29(%r29) %r10
+add	%r25 %r3 %r10
+st	0(%r25) %r9
+beq	%r0 %r0 beq_cont.10864
+addi	%r9 %r0 $1
+ld	-29(%r29) %r10
+add	%r25 %r3 %r10
+st	0(%r25) %r9
+ld	4(%r2) %r3
+add	%r25 %r3 %r10
+ld	0(%r25) %r9
+ld	-10(%r29) %r11
+st	-35(%r29) %r3
+add	%r3 %r0 %r11
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-36
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $36
+ld	-29(%r29) %r2
+ld	-35(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+addi	%r8 %r0 l.8703
+fld	0(%r8) %f0
+fld	-32(%r29) %f1
+fmul	%f0 %f0 %f1
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-36
+st	0(%r29) %r31
+jal	vecscale.2530
+ld	0(%r29) %r31
+addi	%r29 %r29 $36
+ld	-21(%r29) %r2
+ld	7(%r2) %r3
+ld	-29(%r29) %r8
+add	%r25 %r3 %r8
+ld	0(%r25) %r3
+ld	-9(%r29) %r9
+add	%r2 %r0 %r3
+add	%r3 %r0 %r9
+addi	%r29 %r29 $-36
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $36
+addi	%r2 %r0 l.8705
+fld	0(%r2) %f0
+ld	-28(%r29) %r2
+ld	-9(%r29) %r3
+fst	-36(%r29) %f0
+addi	%r29 %r29 $-37
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $37
+fld	-36(%r29) %f1
+fmul	%f0 %f1 %f0
+ld	-28(%r29) %r2
+ld	-9(%r29) %r3
+addi	%r29 %r29 $-37
+st	0(%r29) %r31
+jal	vecaccum.2520
+ld	0(%r29) %r31
+addi	%r29 %r29 $37
+ld	-34(%r29) %r2
+ld	7(%r2) %r3
+addi	%r8 %r0 $1
+add	%r25 %r3 %r8
+fld	0(%r25) %f0
+fld	-26(%r29) %f1
+fmul	%f0 %f1 %f0
+addi	%r3 %r0 $0
+addi	%r8 %r0 $0
+ld	-6(%r29) %r9
+add	%r25 %r9 %r8
+ld	0(%r25) %r8
+ld	-5(%r29) %r9
+fst	-37(%r29) %f0
+add	%r2 %r0 %r3
+add	%r16 %r0 %r9
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-38
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag44
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $38
+beq	%r2 %r0 beq_true.10865
+beq	%r0 %r0 beq_cont.10866
+ld	-9(%r29) %r2
+ld	-27(%r29) %r3
+addi	%r29 %r29 $-38
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $38
+fneg	%f0 %f0
+fld	-32(%r29) %f1
+fmul	%f0 %f0 %f1
+ld	-28(%r29) %r2
+ld	-27(%r29) %r3
+fst	-38(%r29) %f0
+addi	%r29 %r29 $-39
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $39
+fneg	%f1 %f0
+fld	-38(%r29) %f0
+fld	-37(%r29) %f2
+ld	-18(%r29) %r2
+add	%r16 %r0 %r2
+addi	%r29 %r29 $-39
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag45
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $39
+ld	-4(%r29) %r2
+ld	-13(%r29) %r3
+addi	%r29 %r29 $-39
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $39
+addi	%r2 %r0 $0
+ld	-8(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r3 %r2 $-1
+ld	-13(%r29) %r2
+ld	-3(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-39
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag46
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $39
+addi	%r2 %r0 $0
+ld	-7(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+fld	-32(%r29) %f0
+fld	-37(%r29) %f1
+ld	-28(%r29) %r3
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-39
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag47
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $39
+addi	%r2 %r0 l.8707
+fld	0(%r2) %f0
+fld	-26(%r29) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10867
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10868
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10869
+ld	-29(%r29) %r2
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $4
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10870
+addi	%r3 %r2 $1
+addi	%r8 %r0 $-1
+ld	-30(%r29) %r9
+add	%r25 %r9 %r3
+st	0(%r25) %r8
+beq	%r0 %r0 beq_cont.10871
+ld	-31(%r29) %r3
+addi	%r25 %r3 $-2
+beq	%r25 %r0 beq.10872
+jr	%r31
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f0
+ld	-34(%r29) %r3
+ld	7(%r3) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f0 %f0 %f31
+fmul	%f0 %f1 %f0
+addi	%r2 %r2 $1
+addi	%r3 %r0 $0
+ld	-1(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f1
+fld	-20(%r29) %f2
+fadd	%f1 %f2 %f1
+ld	-28(%r29) %r3
+ld	-21(%r29) %r8
+ld	-19(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+addi	%r2 %r0 $-1
+ld	-29(%r29) %r3
+ld	-30(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+beq	%r3 %r0 beq.10875
+ld	-28(%r29) %r2
+ld	-27(%r29) %r3
+addi	%r29 %r29 $-39
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $39
+fneg	%f0 %f0
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10876
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10877
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq.10878
+fmul	%f1 %f0 %f0
+fmul	%f1 %f1 %f0
+fld	-26(%r29) %f0
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $0
+ld	-25(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+ld	-24(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fadd	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fadd	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+addi	%r3 %r0 $2
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fadd	%f0 %f0 %f1
+add	%r25 %r8 %r2
+fst	0(%r25) %f0
+jr	%r31
+jr	%r31
+jr	%r31
+ld	14(%r16) %r3
+ld	13(%r16) %r8
+ld	12(%r16) %r9
+ld	11(%r16) %r10
+ld	10(%r16) %r11
+ld	9(%r16) %r12
+ld	8(%r16) %r13
+ld	7(%r16) %r14
+ld	6(%r16) %r15
+st	-1(%r29) %r8
+ld	5(%r16) %r8
+st	-2(%r29) %r13
+ld	4(%r16) %r13
+st	-3(%r29) %r12
+ld	3(%r16) %r12
+st	-4(%r29) %r9
+ld	2(%r16) %r9
+st	-5(%r29) %r10
+ld	1(%r16) %r10
+st	-6(%r29) %r10
+fst	-7(%r29) %f0
+st	-8(%r29) %r15
+st	-9(%r29) %r3
+st	-10(%r29) %r13
+st	-11(%r29) %r9
+st	-12(%r29) %r12
+st	-13(%r29) %r2
+st	-14(%r29) %r11
+st	-15(%r29) %r8
+add	%r16 %r0 %r14
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag48
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+beq	%r2 %r0 beq.10882
+addi	%r2 %r0 $0
+ld	-15(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	-14(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	-13(%r29) %r3
+ld	0(%r3) %r3
+ld	1(%r2) %r8
+st	-16(%r29) %r2
+addi	%r25 %r8 $-1
+beq	%r25 %r0 beq_true.10883
+addi	%r25 %r8 $-2
+beq	%r25 %r0 beq_true.10885
+ld	-10(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag49
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+beq	%r0 %r0 beq_cont.10886
+ld	-11(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag50
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+beq	%r0 %r0 beq_cont.10884
+ld	-12(%r29) %r8
+add	%r2 %r0 %r3
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag51
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+ld	-16(%r29) %r2
+ld	-8(%r29) %r3
+ld	-9(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag52
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+ld	-5(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+ld	-4(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag53
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+beq	%r2 %r0 beq.10887
+jr	%r31
+ld	-3(%r29) %r2
+ld	-2(%r29) %r3
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+fneg	%f0 %f0
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f1 %f0
+bclt	bclt_true.10889
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10890
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10891
+beq	%r0 %r0 beq_cont.10892
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+fld	-7(%r29) %f1
+fmul	%f1 %f1 %f0
+ld	-16(%r29) %r2
+ld	7(%r2) %r2
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f1 %f0
+ld	-6(%r29) %r2
+ld	-1(%r29) %r3
+beq	%r0 %r0 vecaccum.2520
+jr	%r31
+ld	1(%r16) %r10
+sub	%r25 %r0 %r9
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10894
+jr	%r31
+add	%r25 %r2 %r9
+ld	0(%r25) %r11
+ld	0(%r11) %r11
+st	-1(%r29) %r8
+st	-2(%r29) %r3
+st	-3(%r29) %r16
+st	-4(%r29) %r10
+st	-5(%r29) %r9
+st	-6(%r29) %r2
+add	%r2 %r0 %r11
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10896
+addi	%r2 %r0 $0
+beq	%r0 %r0 bclt_cont.10897
+addi	%r2 %r0 $1
+beq	%r2 %r0 beq_true.10898
+ld	-5(%r29) %r2
+addi	%r3 %r2 $1
+ld	-6(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+addi	%r9 %r0 l.8714
+fld	0(%r9) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+ld	-4(%r29) %r9
+add	%r2 %r0 %r3
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag54
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+beq	%r0 %r0 beq_cont.10899
+ld	-5(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r9 %r0 l.8716
+fld	0(%r9) %f1
+finv	%f31 %f1
+fmul	%f0 %f0 %f31
+ld	-4(%r29) %r9
+add	%r2 %r0 %r8
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag55
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-5(%r29) %r2
+addi	%r9 %r2 $-2
+ld	-6(%r29) %r2
+ld	-2(%r29) %r3
+ld	-1(%r29) %r8
+ld	-3(%r29) %r10
+add	%r16 %r0 %r10
+ld	0(%r16) %r24
+jr	%r24
+ld	5(%r16) %r9
+ld	4(%r16) %r10
+ld	3(%r16) %r11
+ld	2(%r16) %r12
+ld	1(%r16) %r13
+st	-1(%r29) %r3
+st	-2(%r29) %r12
+st	-3(%r29) %r10
+st	-4(%r29) %r11
+st	-5(%r29) %r8
+st	-6(%r29) %r9
+st	-7(%r29) %r13
+st	-8(%r29) %r2
+beq	%r2 %r0 beq_true.10900
+addi	%r14 %r0 $0
+add	%r25 %r13 %r14
+ld	0(%r25) %r14
+st	-9(%r29) %r14
+add	%r3 %r0 %r8
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-5(%r29) %r8
+ld	-3(%r29) %r9
+add	%r3 %r0 %r2
+add	%r16 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag56
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+addi	%r9 %r0 $118
+ld	-9(%r29) %r2
+ld	-1(%r29) %r3
+ld	-5(%r29) %r8
+ld	-2(%r29) %r10
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag57
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+beq	%r0 %r0 beq_cont.10901
+ld	-8(%r29) %r2
+addi	%r25 %r2 $-1
+beq	%r25 %r0 beq_true.10902
+addi	%r3 %r0 $1
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+ld	-6(%r29) %r9
+ld	-5(%r29) %r10
+st	-10(%r29) %r3
+add	%r3 %r0 %r10
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-5(%r29) %r8
+ld	-3(%r29) %r9
+add	%r3 %r0 %r2
+add	%r16 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag58
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r9 %r0 $118
+ld	-10(%r29) %r2
+ld	-1(%r29) %r3
+ld	-5(%r29) %r8
+ld	-2(%r29) %r10
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag59
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10903
+ld	-8(%r29) %r2
+addi	%r25 %r2 $-2
+beq	%r25 %r0 beq_true.10904
+addi	%r3 %r0 $2
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+ld	-6(%r29) %r9
+ld	-5(%r29) %r10
+st	-11(%r29) %r3
+add	%r3 %r0 %r10
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-12
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $12
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-5(%r29) %r8
+ld	-3(%r29) %r9
+add	%r3 %r0 %r2
+add	%r16 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-12
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag60
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $12
+addi	%r9 %r0 $118
+ld	-11(%r29) %r2
+ld	-1(%r29) %r3
+ld	-5(%r29) %r8
+ld	-2(%r29) %r10
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-12
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag61
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $12
+beq	%r0 %r0 beq_cont.10905
+ld	-8(%r29) %r2
+addi	%r25 %r2 $-3
+beq	%r25 %r0 beq_true.10906
+addi	%r3 %r0 $3
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+ld	-6(%r29) %r9
+ld	-5(%r29) %r10
+st	-12(%r29) %r3
+add	%r3 %r0 %r10
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-5(%r29) %r8
+ld	-3(%r29) %r9
+add	%r3 %r0 %r2
+add	%r16 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag62
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+addi	%r9 %r0 $118
+ld	-12(%r29) %r2
+ld	-1(%r29) %r3
+ld	-5(%r29) %r8
+ld	-2(%r29) %r10
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag63
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+beq	%r0 %r0 beq_cont.10907
+ld	-8(%r29) %r2
+addi	%r25 %r2 $-4
+beq	%r25 %r0 beq.10908
+addi	%r2 %r0 $4
+ld	-7(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	-6(%r29) %r3
+ld	-5(%r29) %r8
+st	-13(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r3 %r2 $-1
+ld	-5(%r29) %r2
+ld	-3(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag64
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+addi	%r9 %r0 $118
+ld	-13(%r29) %r2
+ld	-1(%r29) %r3
+ld	-5(%r29) %r8
+ld	-2(%r29) %r10
+add	%r16 %r0 %r10
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+ld	3(%r16) %r8
+ld	2(%r16) %r9
+ld	1(%r16) %r10
+ld	5(%r2) %r11
+ld	7(%r2) %r12
+ld	1(%r2) %r13
+ld	4(%r2) %r14
+add	%r25 %r11 %r3
+ld	0(%r25) %r11
+st	-1(%r29) %r10
+st	-2(%r29) %r9
+st	-3(%r29) %r14
+st	-4(%r29) %r8
+st	-5(%r29) %r13
+st	-6(%r29) %r3
+st	-7(%r29) %r12
+st	-8(%r29) %r2
+add	%r3 %r0 %r11
+add	%r2 %r0 %r10
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+ld	-8(%r29) %r2
+ld	6(%r2) %r2
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+ld	0(%r25) %r2
+ld	-6(%r29) %r3
+ld	-7(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r8
+ld	-5(%r29) %r9
+add	%r25 %r9 %r3
+ld	0(%r25) %r9
+ld	-4(%r29) %r10
+add	%r3 %r0 %r8
+add	%r16 %r0 %r10
+add	%r8 %r0 %r9
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag65
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+ld	-6(%r29) %r2
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	-2(%r29) %r2
+ld	-1(%r29) %r8
+beq	%r0 %r0 vecaccumv.2533
+ld	2(%r16) %r11
+ld	1(%r16) %r12
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	5(%r3) %r3
+addi	%r13 %r2 $-1
+add	%r25 %r8 %r13
+ld	0(%r25) %r13
+ld	5(%r13) %r13
+add	%r25 %r8 %r2
+ld	0(%r25) %r14
+ld	5(%r14) %r14
+addi	%r15 %r2 $1
+add	%r25 %r8 %r15
+ld	0(%r25) %r15
+ld	5(%r15) %r15
+add	%r25 %r9 %r2
+ld	0(%r25) %r9
+ld	5(%r9) %r9
+add	%r25 %r3 %r10
+ld	0(%r25) %r3
+st	-1(%r29) %r11
+st	-2(%r29) %r2
+st	-3(%r29) %r8
+st	-4(%r29) %r9
+st	-5(%r29) %r15
+st	-6(%r29) %r14
+st	-7(%r29) %r12
+st	-8(%r29) %r10
+st	-9(%r29) %r13
+add	%r2 %r0 %r12
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+ld	-8(%r29) %r2
+ld	-9(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	-7(%r29) %r8
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	vecadd.2524
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+ld	-8(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	-7(%r29) %r8
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	vecadd.2524
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+ld	-8(%r29) %r2
+ld	-5(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	-7(%r29) %r8
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	vecadd.2524
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+ld	-8(%r29) %r2
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	-7(%r29) %r8
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	vecadd.2524
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+ld	-2(%r29) %r2
+ld	-3(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	4(%r2) %r2
+ld	-8(%r29) %r3
+add	%r25 %r2 %r3
+ld	0(%r25) %r3
+ld	-1(%r29) %r2
+ld	-7(%r29) %r8
+beq	%r0 %r0 vecaccumv.2533
+ld	1(%r16) %r8
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $4
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq.10910
+jr	%r31
+ld	2(%r2) %r9
+add	%r25 %r9 %r3
+ld	0(%r25) %r9
+sub	%r25 %r0 %r9
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10912
+jr	%r31
+ld	3(%r2) %r9
+add	%r25 %r9 %r3
+ld	0(%r25) %r9
+st	-1(%r29) %r2
+st	-2(%r29) %r16
+st	-3(%r29) %r3
+beq	%r9 %r0 beq_true.10914
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag66
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+beq	%r0 %r0 beq_cont.10915
+ld	-3(%r29) %r2
+addi	%r3 %r2 $1
+ld	-1(%r29) %r2
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r8
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+ld	0(%r25) %r9
+addi	%r10 %r3 $1
+slt	%r25 %r10 %r9
+beq	%r25 %r0 beq.10916
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq.10917
+addi	%r3 %r0 $0
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+addi	%r8 %r2 $1
+slt	%r25 %r8 %r3
+beq	%r25 %r0 beq.10918
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq.10919
+addi	%r2 %r0 $1
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $0
+jr	%r31
+add	%r25 %r8 %r2
+ld	0(%r25) %r11
+ld	2(%r11) %r11
+add	%r25 %r11 %r10
+ld	0(%r25) %r11
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+ld	2(%r3) %r3
+add	%r25 %r3 %r10
+ld	0(%r25) %r3
+beq	%r3 %r11 beq.10920
+addi	%r2 %r0 $0
+jr	%r31
+add	%r25 %r9 %r2
+ld	0(%r25) %r3
+ld	2(%r3) %r3
+add	%r25 %r3 %r10
+ld	0(%r25) %r3
+beq	%r3 %r11 beq.10921
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r3 %r2 $-1
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+ld	2(%r3) %r3
+add	%r25 %r3 %r10
+ld	0(%r25) %r3
+beq	%r3 %r11 beq.10922
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r2 $1
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+ld	2(%r2) %r2
+add	%r25 %r2 %r10
+ld	0(%r25) %r2
+beq	%r2 %r11 beq.10923
+addi	%r2 %r0 $0
+jr	%r31
+addi	%r2 %r0 $1
+jr	%r31
+ld	2(%r16) %r12
+ld	1(%r16) %r13
+add	%r25 %r9 %r2
+ld	0(%r25) %r14
+sub	%r25 %r0 %r11
+addi	%r25 %r25 $4
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq.10924
+jr	%r31
+ld	2(%r14) %r15
+add	%r25 %r15 %r11
+ld	0(%r25) %r15
+sub	%r25 %r0 %r15
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10926
+jr	%r31
+st	-1(%r29) %r3
+st	-2(%r29) %r16
+st	-3(%r29) %r10
+st	-4(%r29) %r8
+st	-5(%r29) %r13
+st	-6(%r29) %r14
+st	-7(%r29) %r11
+st	-8(%r29) %r12
+st	-9(%r29) %r2
+st	-10(%r29) %r9
+add	%r3 %r0 %r8
+add	%r8 %r0 %r9
+add	%r9 %r0 %r10
+add	%r10 %r0 %r11
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	neighbors_are_available.2859
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r2 %r0 beq.10928
+ld	-6(%r29) %r2
+ld	3(%r2) %r2
+ld	-7(%r29) %r10
+add	%r25 %r2 %r10
+ld	0(%r25) %r2
+beq	%r2 %r0 beq_true.10929
+ld	-9(%r29) %r2
+ld	-4(%r29) %r3
+ld	-10(%r29) %r8
+ld	-3(%r29) %r9
+ld	-5(%r29) %r11
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag67
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10930
+ld	-7(%r29) %r2
+addi	%r11 %r2 $1
+ld	-9(%r29) %r2
+ld	-1(%r29) %r3
+ld	-4(%r29) %r8
+ld	-10(%r29) %r9
+ld	-3(%r29) %r10
+ld	-2(%r29) %r12
+add	%r16 %r0 %r12
+ld	0(%r16) %r24
+jr	%r24
+ld	-9(%r29) %r2
+ld	-10(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	-7(%r29) %r3
+ld	-8(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r2
+addi	%r3 %r0 $80
+st	-1(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $51
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $10
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $0
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $32
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $1
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $32
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $255
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $10
+beq	%r0 %r0 min_caml_print_char
+ld	1(%r16) %r2
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+fld	0(%r25) %f0
+st	-1(%r29) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_int_of_float
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $255
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq_true.10931
+addi	%r2 %r0 $255
+beq	%r0 %r0 beq_cont.10932
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10933
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10934
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $32
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $1
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_int_of_float
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $255
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq_true.10935
+addi	%r2 %r0 $255
+beq	%r0 %r0 beq_cont.10936
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10937
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10938
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $32
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_char
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $2
+ld	-1(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_int_of_float
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $255
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq_true.10939
+addi	%r2 %r0 $255
+beq	%r0 %r0 beq_cont.10940
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10941
+addi	%r2 %r0 $0
+beq	%r0 %r0 beq_cont.10942
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_print_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r2 %r0 $10
+beq	%r0 %r0 min_caml_print_char
+ld	6(%r16) %r8
+ld	5(%r16) %r9
+ld	4(%r16) %r10
+ld	3(%r16) %r11
+ld	2(%r16) %r12
+ld	1(%r16) %r13
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $4
+slt	%r25 %r25 %r0
+beq	%r25 %r0 beq.10943
+jr	%r31
+ld	2(%r2) %r14
+add	%r25 %r14 %r3
+ld	0(%r25) %r14
+sub	%r25 %r0 %r14
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10945
+jr	%r31
+ld	3(%r2) %r14
+add	%r25 %r14 %r3
+ld	0(%r25) %r14
+st	-1(%r29) %r2
+st	-2(%r29) %r16
+st	-3(%r29) %r3
+beq	%r14 %r0 beq_true.10947
+ld	6(%r2) %r14
+addi	%r15 %r0 $0
+add	%r25 %r14 %r15
+ld	0(%r25) %r14
+addi	%r15 %r0 l.8518
+fld	0(%r15) %f0
+addi	%r15 %r0 $0
+add	%r25 %r13 %r15
+fst	0(%r25) %f0
+addi	%r15 %r0 $1
+add	%r25 %r13 %r15
+fst	0(%r25) %f0
+addi	%r15 %r0 $2
+add	%r25 %r13 %r15
+fst	0(%r25) %f0
+ld	7(%r2) %r15
+st	-4(%r29) %r13
+ld	1(%r2) %r13
+add	%r25 %r12 %r14
+ld	0(%r25) %r12
+add	%r25 %r15 %r3
+ld	0(%r25) %r14
+add	%r25 %r13 %r3
+ld	0(%r25) %r13
+st	-5(%r29) %r14
+st	-6(%r29) %r12
+st	-7(%r29) %r11
+st	-8(%r29) %r13
+st	-9(%r29) %r9
+st	-10(%r29) %r10
+add	%r3 %r0 %r13
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r2 %r0 $0
+ld	-10(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r3 %r2 $-1
+ld	-8(%r29) %r2
+ld	-9(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag68
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r9 %r0 $118
+ld	-6(%r29) %r2
+ld	-5(%r29) %r3
+ld	-8(%r29) %r8
+ld	-7(%r29) %r10
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag69
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+ld	-1(%r29) %r2
+ld	5(%r2) %r3
+ld	-3(%r29) %r8
+add	%r25 %r3 %r8
+ld	0(%r25) %r3
+ld	-4(%r29) %r9
+add	%r2 %r0 %r3
+add	%r3 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10948
+ld	-3(%r29) %r2
+addi	%r3 %r2 $1
+ld	-1(%r29) %r2
+ld	-2(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	9(%r16) %r9
+ld	8(%r16) %r10
+ld	7(%r16) %r11
+ld	6(%r16) %r12
+ld	5(%r16) %r13
+ld	4(%r16) %r14
+ld	3(%r16) %r15
+st	-1(%r29) %r8
+ld	2(%r16) %r8
+st	-2(%r29) %r8
+ld	1(%r16) %r8
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10949
+jr	%r31
+st	-3(%r29) %r10
+addi	%r10 %r0 $0
+add	%r25 %r13 %r10
+fld	0(%r25) %f3
+addi	%r10 %r0 $0
+add	%r25 %r8 %r10
+ld	0(%r25) %r8
+sub	%r8 %r3 %r8
+st	-4(%r29) %r16
+st	-5(%r29) %r3
+st	-6(%r29) %r2
+st	-7(%r29) %r9
+st	-8(%r29) %r11
+st	-9(%r29) %r14
+fst	-10(%r29) %f2
+fst	-11(%r29) %f1
+st	-12(%r29) %r15
+fst	-13(%r29) %f0
+st	-14(%r29) %r12
+fst	-15(%r29) %f3
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+fld	-15(%r29) %f1
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $0
+addi	%r3 %r0 $0
+ld	-14(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f0
+fmul	%f0 %f1 %f0
+fld	-13(%r29) %f2
+fadd	%f0 %f0 %f2
+ld	-12(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fld	0(%r25) %f0
+fmul	%f0 %f1 %f0
+fld	-11(%r29) %f3
+fadd	%f0 %f0 %f3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fld	0(%r25) %f0
+fmul	%f1 %f1 %f0
+fld	-10(%r29) %f0
+fadd	%f1 %f1 %f0
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $0
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	vecunit_sgn.2509
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+addi	%r2 %r0 l.8518
+fld	0(%r2) %f0
+addi	%r2 %r0 $0
+ld	-9(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+addi	%r2 %r0 $2
+add	%r25 %r3 %r2
+fst	0(%r25) %f0
+ld	-8(%r29) %r2
+ld	-7(%r29) %r8
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+addi	%r2 %r0 $0
+addi	%r3 %r0 l.8520
+fld	0(%r3) %f0
+ld	-5(%r29) %r3
+ld	-6(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r9
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f1
+ld	-12(%r29) %r10
+ld	-3(%r29) %r11
+add	%r8 %r0 %r9
+add	%r3 %r0 %r10
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag70
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+ld	-5(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+ld	-9(%r29) %r9
+add	%r3 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+ld	-5(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+ld	6(%r8) %r8
+addi	%r9 %r0 $0
+ld	-1(%r29) %r10
+add	%r25 %r8 %r9
+st	0(%r25) %r10
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r9 %r0 $0
+ld	-2(%r29) %r11
+add	%r3 %r0 %r9
+add	%r2 %r0 %r8
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag71
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+ld	-5(%r29) %r2
+addi	%r3 %r2 $-1
+ld	-1(%r29) %r2
+addi	%r2 %r2 $1
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $5
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10951
+add	%r8 %r0 %r2
+beq	%r0 %r0 beq_cont.10952
+addi	%r8 %r2 $-5
+fld	-13(%r29) %f0
+fld	-11(%r29) %f1
+fld	-10(%r29) %f2
+ld	-6(%r29) %r2
+ld	-4(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+ld	6(%r16) %r9
+ld	5(%r16) %r10
+ld	4(%r16) %r11
+ld	3(%r16) %r12
+ld	2(%r16) %r13
+ld	1(%r16) %r14
+addi	%r15 %r0 $0
+add	%r25 %r11 %r15
+fld	0(%r25) %f0
+addi	%r11 %r0 $1
+add	%r25 %r14 %r11
+ld	0(%r25) %r11
+sub	%r3 %r3 %r11
+st	-1(%r29) %r8
+st	-2(%r29) %r2
+st	-3(%r29) %r12
+st	-4(%r29) %r13
+st	-5(%r29) %r9
+st	-6(%r29) %r10
+fst	-7(%r29) %f0
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+fld	-7(%r29) %f1
+fmul	%f1 %f1 %f0
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+fld	0(%r25) %f0
+fmul	%f0 %f1 %f0
+addi	%r2 %r0 $0
+ld	-5(%r29) %r8
+add	%r25 %r8 %r2
+fld	0(%r25) %f2
+fadd	%f0 %f0 %f2
+addi	%r2 %r0 $1
+add	%r25 %r3 %r2
+fld	0(%r25) %f2
+fmul	%f2 %f1 %f2
+addi	%r2 %r0 $1
+add	%r25 %r8 %r2
+fld	0(%r25) %f3
+fadd	%f2 %f2 %f3
+addi	%r2 %r0 $2
+add	%r25 %r3 %r2
+fld	0(%r25) %f3
+fmul	%f1 %f1 %f3
+addi	%r2 %r0 $2
+add	%r25 %r8 %r2
+fld	0(%r25) %f3
+fadd	%f1 %f1 %f3
+addi	%r2 %r0 $0
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r3 %r2 $-1
+ld	-2(%r29) %r2
+ld	-1(%r29) %r8
+ld	-3(%r29) %r9
+add	%r16 %r0 %r9
+fmov	%f30 %f2
+fmov	%f2 %f1
+fmov	%f1 %f30
+ld	0(%r16) %r24
+jr	%r24
+ld	6(%r16) %r11
+ld	5(%r16) %r12
+ld	4(%r16) %r13
+ld	3(%r16) %r14
+ld	2(%r16) %r15
+st	-1(%r29) %r11
+ld	1(%r16) %r11
+st	-2(%r29) %r8
+addi	%r8 %r0 $0
+add	%r25 %r15 %r8
+ld	0(%r25) %r8
+slt	%r25 %r2 %r8
+beq	%r25 %r0 beq.10953
+add	%r25 %r9 %r2
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+st	-3(%r29) %r16
+st	-4(%r29) %r12
+st	-5(%r29) %r11
+st	-6(%r29) %r9
+st	-7(%r29) %r10
+st	-8(%r29) %r3
+st	-9(%r29) %r2
+st	-10(%r29) %r14
+add	%r3 %r0 %r8
+add	%r2 %r0 %r13
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+ld	-9(%r29) %r2
+ld	-8(%r29) %r3
+ld	-7(%r29) %r8
+ld	-10(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag72
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r2 %r0 beq_true.10954
+addi	%r11 %r0 $0
+ld	-9(%r29) %r2
+ld	-8(%r29) %r3
+ld	-2(%r29) %r8
+ld	-6(%r29) %r9
+ld	-7(%r29) %r10
+ld	-4(%r29) %r12
+add	%r16 %r0 %r12
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag73
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+beq	%r0 %r0 beq_cont.10955
+ld	-9(%r29) %r2
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r9 %r0 $0
+ld	-5(%r29) %r10
+add	%r3 %r0 %r9
+add	%r2 %r0 %r8
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag74
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+ld	-1(%r29) %r2
+add	%r16 %r0 %r2
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag75
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+ld	-9(%r29) %r2
+addi	%r2 %r2 $1
+ld	-8(%r29) %r3
+ld	-2(%r29) %r8
+ld	-6(%r29) %r9
+ld	-7(%r29) %r10
+ld	-3(%r29) %r11
+add	%r16 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+ld	3(%r16) %r11
+ld	2(%r16) %r12
+ld	1(%r16) %r13
+addi	%r14 %r0 $1
+add	%r25 %r13 %r14
+ld	0(%r25) %r14
+slt	%r25 %r2 %r14
+beq	%r25 %r0 beq.10957
+addi	%r14 %r0 $1
+add	%r25 %r13 %r14
+ld	0(%r25) %r13
+addi	%r13 %r13 $-1
+st	-1(%r29) %r16
+st	-2(%r29) %r10
+st	-3(%r29) %r9
+st	-4(%r29) %r8
+st	-5(%r29) %r3
+st	-6(%r29) %r2
+st	-7(%r29) %r11
+slt	%r25 %r2 %r13
+beq	%r25 %r0 beq_true.10958
+addi	%r13 %r2 $1
+add	%r8 %r0 %r10
+add	%r3 %r0 %r13
+add	%r2 %r0 %r9
+add	%r16 %r0 %r12
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag76
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+beq	%r0 %r0 beq_cont.10959
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+ld	-5(%r29) %r8
+ld	-4(%r29) %r9
+ld	-3(%r29) %r10
+ld	-7(%r29) %r11
+add	%r16 %r0 %r11
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag77
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+ld	-6(%r29) %r2
+addi	%r2 %r2 $1
+ld	-2(%r29) %r3
+addi	%r3 %r3 $2
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $5
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10960
+add	%r10 %r0 %r3
+beq	%r0 %r0 beq_cont.10961
+addi	%r10 %r3 $-5
+ld	-4(%r29) %r3
+ld	-3(%r29) %r8
+ld	-5(%r29) %r9
+ld	-1(%r29) %r11
+add	%r16 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+addi	%r2 %r0 $3
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f0
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+add	%r3 %r0 %r2
+addi	%r2 %r0 $5
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+addi	%r3 %r0 $1
+addi	%r8 %r0 $3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-1(%r29) %r3
+st	-2(%r29) %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r0 $2
+addi	%r3 %r0 $3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-3(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+ld	-3(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r0 $3
+addi	%r3 %r0 $3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-4(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+ld	-4(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r0 $4
+addi	%r3 %r0 $3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-5(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+ld	-5(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+add	%r2 %r0 %r8
+jr	%r31
+addi	%r2 %r0 $3
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f0
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+st	-1(%r29) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	create_float5x3array.2904
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r3 %r0 $5
+addi	%r8 %r0 $0
+st	-2(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r3 %r0 $5
+addi	%r8 %r0 $0
+st	-3(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+st	-4(%r29) %r2
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	create_float5x3array.2904
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+st	-5(%r29) %r2
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	create_float5x3array.2904
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r3 %r0 $1
+addi	%r8 %r0 $0
+st	-6(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+st	-7(%r29) %r2
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	create_float5x3array.2904
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+add	%r3 %r0 %r28
+addi	%r28 %r28 $8
+st	7(%r3) %r2
+ld	-7(%r29) %r2
+st	6(%r3) %r2
+ld	-6(%r29) %r2
+st	5(%r3) %r2
+ld	-5(%r29) %r2
+st	4(%r3) %r2
+ld	-4(%r29) %r2
+st	3(%r3) %r2
+ld	-3(%r29) %r2
+st	2(%r3) %r2
+ld	-2(%r29) %r2
+st	1(%r3) %r2
+ld	-1(%r29) %r2
+st	0(%r3) %r2
+add	%r2 %r0 %r3
+jr	%r31
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10963
+jr	%r31
+st	-1(%r29) %r3
+st	-2(%r29) %r2
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	create_pixel.2906
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+ld	-1(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r3 %r3 $-1
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10964
+add	%r2 %r0 %r8
+jr	%r31
+st	-3(%r29) %r3
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	create_pixel.2906
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+ld	-3(%r29) %r3
+ld	-2(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r3 %r3 $-1
+add	%r2 %r0 %r8
+beq	%r0 %r0 init_line_elements.2908
+ld	1(%r16) %r9
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $5
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10965
+fmul	%f1 %f1 %f1
+addi	%r9 %r0 l.8707
+fld	0(%r9) %f0
+fadd	%f0 %f1 %f0
+st	-1(%r29) %r8
+st	-2(%r29) %r3
+st	-3(%r29) %r16
+fst	-4(%r29) %f3
+st	-5(%r29) %r2
+fst	-6(%r29) %f2
+fsqrt	%f0 %f0
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fst	-7(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+fld	-6(%r29) %f1
+fmul	%f0 %f0 %f1
+fst	-8(%r29) %f0
+addi	%r29 %r29 $-9
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $9
+fld	-8(%r29) %f1
+fst	-9(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+fld	-9(%r29) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fld	-7(%r29) %f0
+fmul	%f1 %f1 %f0
+ld	-5(%r29) %r2
+addi	%r2 %r2 $1
+fmul	%f0 %f1 %f1
+addi	%r3 %r0 l.8707
+fld	0(%r3) %f2
+fadd	%f0 %f0 %f2
+fst	-10(%r29) %f1
+st	-11(%r29) %r2
+fsqrt	%f0 %f0
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fst	-12(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	min_caml_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+fld	-4(%r29) %f1
+fmul	%f0 %f0 %f1
+fst	-13(%r29) %f0
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_sin
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+fld	-13(%r29) %f1
+fst	-14(%r29) %f0
+fmov	%f0 %f1
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_cos
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+fld	-14(%r29) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fld	-12(%r29) %f0
+fmul	%f1 %f1 %f0
+fld	-10(%r29) %f0
+fld	-6(%r29) %f2
+fld	-4(%r29) %f3
+ld	-11(%r29) %r2
+ld	-2(%r29) %r3
+ld	-1(%r29) %r8
+ld	-3(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+fmul	%f2 %f0 %f0
+fmul	%f3 %f1 %f1
+fadd	%f2 %f2 %f3
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f3
+fadd	%f2 %f2 %f3
+st	-1(%r29) %r8
+st	-2(%r29) %r3
+st	-15(%r29) %r9
+fst	-16(%r29) %f1
+fst	-17(%r29) %f0
+fsqrt	%f0 %f2
+fld	-17(%r29) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+fld	-16(%r29) %f2
+finv	%f31 %f0
+fmul	%f2 %f2 %f31
+addi	%r2 %r0 l.8520
+fld	0(%r2) %f3
+finv	%f31 %f0
+fmul	%f3 %f3 %f31
+ld	-2(%r29) %r2
+ld	-15(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+ld	-1(%r29) %r3
+add	%r25 %r2 %r3
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fst	0(%r25) %f1
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fst	0(%r25) %f2
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fst	0(%r25) %f3
+addi	%r8 %r3 $40
+add	%r25 %r2 %r8
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+fneg	%f0 %f2
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fst	0(%r25) %f1
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fst	0(%r25) %f3
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fst	0(%r25) %f0
+addi	%r8 %r3 $80
+add	%r25 %r2 %r8
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+fneg	%f0 %f1
+fneg	%f4 %f2
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fst	0(%r25) %f3
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fst	0(%r25) %f4
+addi	%r8 %r3 $1
+add	%r25 %r2 %r8
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+fneg	%f0 %f1
+fneg	%f4 %f2
+fneg	%f5 %f3
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fst	0(%r25) %f4
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fst	0(%r25) %f5
+addi	%r8 %r3 $41
+add	%r25 %r2 %r8
+ld	0(%r25) %r8
+ld	0(%r8) %r8
+fneg	%f0 %f1
+fneg	%f4 %f3
+addi	%r9 %r0 $0
+add	%r25 %r8 %r9
+fst	0(%r25) %f0
+addi	%r9 %r0 $1
+add	%r25 %r8 %r9
+fst	0(%r25) %f4
+addi	%r9 %r0 $2
+add	%r25 %r8 %r9
+fst	0(%r25) %f2
+addi	%r3 %r3 $81
+add	%r25 %r2 %r3
+ld	0(%r25) %r2
+ld	0(%r2) %r2
+fneg	%f3 %f3
+addi	%r3 %r0 $0
+add	%r25 %r2 %r3
+fst	0(%r25) %f3
+addi	%r3 %r0 $1
+add	%r25 %r2 %r3
+fst	0(%r25) %f1
+addi	%r3 %r0 $2
+add	%r25 %r2 %r3
+fst	0(%r25) %f2
+jr	%r31
+ld	1(%r16) %r9
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10967
+jr	%r31
+st	-1(%r29) %r16
+st	-2(%r29) %r2
+fst	-3(%r29) %f0
+st	-4(%r29) %r8
+st	-5(%r29) %r3
+st	-6(%r29) %r9
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r2 %r0 l.8743
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+addi	%r2 %r0 l.8745
+fld	0(%r2) %f1
+fneg	%f31 %f1
+fadd	%f2 %f0 %f31
+addi	%r2 %r0 $0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+fld	-3(%r29) %f3
+ld	-5(%r29) %r3
+ld	-4(%r29) %r8
+ld	-6(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag78
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-2(%r29) %r2
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+addi	%r2 %r0 l.8743
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+addi	%r2 %r0 l.8707
+fld	0(%r2) %f1
+fadd	%f2 %f0 %f1
+addi	%r2 %r0 $0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f0
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f1
+ld	-4(%r29) %r3
+addi	%r8 %r3 $2
+fld	-3(%r29) %f3
+ld	-5(%r29) %r9
+ld	-6(%r29) %r10
+add	%r3 %r0 %r9
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag79
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-2(%r29) %r2
+addi	%r2 %r2 $-1
+ld	-5(%r29) %r3
+addi	%r3 %r3 $1
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $5
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10969
+beq	%r0 %r0 beq_cont.10970
+addi	%r3 %r3 $-5
+fld	-3(%r29) %f0
+ld	-4(%r29) %r8
+ld	-1(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r9
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10971
+jr	%r31
+st	-1(%r29) %r16
+st	-2(%r29) %r2
+st	-3(%r29) %r8
+st	-4(%r29) %r3
+st	-5(%r29) %r9
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r2 %r0 l.8743
+fld	0(%r2) %f1
+fmul	%f0 %f0 %f1
+addi	%r2 %r0 l.8745
+fld	0(%r2) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r2 %r0 $4
+ld	-4(%r29) %r3
+ld	-3(%r29) %r8
+ld	-5(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag80
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+ld	-2(%r29) %r2
+addi	%r2 %r2 $-1
+ld	-4(%r29) %r3
+addi	%r3 %r3 $2
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $5
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq_true.10973
+beq	%r0 %r0 beq_cont.10974
+addi	%r3 %r3 $-5
+ld	-3(%r29) %r8
+addi	%r8 %r8 $4
+ld	-1(%r29) %r9
+add	%r16 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+ld	1(%r16) %r8
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10975
+jr	%r31
+addi	%r9 %r0 $3
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f0
+st	-1(%r29) %r16
+st	-2(%r29) %r3
+st	-3(%r29) %r2
+st	-4(%r29) %r8
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-4(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-5(%r29) %r3
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-5(%r29) %r2
+st	0(%r3) %r2
+ld	-2(%r29) %r2
+ld	-3(%r29) %r8
+add	%r25 %r8 %r2
+st	0(%r25) %r3
+addi	%r2 %r2 $-1
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10977
+jr	%r31
+addi	%r3 %r0 $3
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-6(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-4(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-7(%r29) %r3
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-7(%r29) %r2
+st	0(%r3) %r2
+ld	-6(%r29) %r2
+ld	-3(%r29) %r8
+add	%r25 %r8 %r2
+st	0(%r25) %r3
+addi	%r3 %r2 $-1
+ld	-1(%r29) %r2
+add	%r16 %r0 %r2
+add	%r2 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	3(%r16) %r3
+ld	2(%r16) %r8
+ld	1(%r16) %r9
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10979
+jr	%r31
+addi	%r10 %r0 $120
+addi	%r11 %r0 $3
+addi	%r12 %r0 l.8518
+fld	0(%r12) %f0
+st	-1(%r29) %r16
+st	-2(%r29) %r9
+st	-3(%r29) %r2
+st	-4(%r29) %r8
+st	-5(%r29) %r10
+st	-6(%r29) %r3
+add	%r2 %r0 %r11
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-6(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-7(%r29) %r3
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-7(%r29) %r2
+st	0(%r3) %r2
+ld	-5(%r29) %r2
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+ld	-3(%r29) %r3
+ld	-4(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+add	%r25 %r8 %r3
+ld	0(%r25) %r2
+addi	%r8 %r0 $118
+addi	%r9 %r0 $3
+addi	%r10 %r0 l.8518
+fld	0(%r10) %f0
+st	-8(%r29) %r8
+st	-9(%r29) %r2
+add	%r2 %r0 %r9
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-6(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-10(%r29) %r3
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-10(%r29) %r2
+st	0(%r3) %r2
+ld	-8(%r29) %r2
+ld	-9(%r29) %r8
+add	%r25 %r8 %r2
+st	0(%r25) %r3
+addi	%r3 %r0 $117
+ld	-2(%r29) %r2
+add	%r16 %r0 %r2
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag81
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+ld	-3(%r29) %r2
+addi	%r2 %r2 $-1
+ld	-1(%r29) %r3
+add	%r16 %r0 %r3
+ld	0(%r16) %r24
+jr	%r24
+ld	2(%r16) %r8
+ld	1(%r16) %r9
+sub	%r25 %r0 %r3
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10981
+jr	%r31
+add	%r25 %r2 %r3
+ld	0(%r25) %r10
+addi	%r11 %r0 $0
+add	%r25 %r8 %r11
+ld	0(%r25) %r11
+addi	%r11 %r11 $-1
+st	-1(%r29) %r16
+st	-2(%r29) %r9
+st	-3(%r29) %r8
+st	-4(%r29) %r2
+st	-5(%r29) %r3
+add	%r3 %r0 %r11
+add	%r2 %r0 %r10
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag82
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+ld	-5(%r29) %r2
+addi	%r2 %r2 $-1
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10983
+jr	%r31
+ld	-4(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r8
+addi	%r9 %r0 $0
+ld	-3(%r29) %r10
+add	%r25 %r10 %r9
+ld	0(%r25) %r9
+addi	%r9 %r9 $-1
+ld	-2(%r29) %r10
+st	-6(%r29) %r2
+add	%r3 %r0 %r9
+add	%r2 %r0 %r8
+add	%r16 %r0 %r10
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag83
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-6(%r29) %r2
+addi	%r3 %r2 $-1
+ld	-4(%r29) %r2
+ld	-1(%r29) %r8
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+ld	4(%r16) %r3
+ld	3(%r16) %r8
+ld	2(%r16) %r9
+ld	1(%r16) %r10
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10985
+jr	%r31
+add	%r25 %r10 %r2
+ld	0(%r25) %r11
+addi	%r12 %r0 $119
+add	%r25 %r11 %r12
+ld	0(%r25) %r12
+addi	%r13 %r0 $0
+add	%r25 %r3 %r13
+ld	0(%r25) %r3
+addi	%r3 %r3 $-1
+st	-1(%r29) %r16
+st	-2(%r29) %r10
+st	-3(%r29) %r2
+st	-4(%r29) %r11
+st	-5(%r29) %r9
+add	%r2 %r0 %r12
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag84
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r3 %r0 $118
+ld	-4(%r29) %r2
+ld	-5(%r29) %r8
+add	%r16 %r0 %r8
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag85
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+ld	-3(%r29) %r2
+addi	%r2 %r2 $-1
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10987
+jr	%r31
+ld	-2(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r3
+addi	%r8 %r0 $119
+ld	-5(%r29) %r9
+st	-6(%r29) %r2
+add	%r2 %r0 %r3
+add	%r16 %r0 %r9
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-7
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag86
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $7
+ld	-6(%r29) %r2
+addi	%r2 %r2 $-1
+ld	-1(%r29) %r3
+add	%r16 %r0 %r3
+ld	0(%r16) %r24
+jr	%r24
+ld	5(%r16) %r8
+ld	4(%r16) %r9
+ld	3(%r16) %r10
+ld	2(%r16) %r11
+ld	1(%r16) %r12
+addi	%r25 %r0 $2
+sll	%r2 %r2 %r25
+addi	%r13 %r0 $0
+add	%r25 %r9 %r13
+ld	0(%r25) %r13
+addi	%r14 %r0 l.8520
+fld	0(%r14) %f0
+ld	7(%r3) %r3
+addi	%r14 %r0 $0
+add	%r25 %r3 %r14
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+addi	%r3 %r0 $0
+add	%r25 %r11 %r3
+fld	0(%r25) %f1
+fneg	%f1 %f1
+addi	%r3 %r0 $1
+add	%r25 %r11 %r3
+fld	0(%r25) %f2
+fneg	%f2 %f2
+addi	%r3 %r0 $2
+add	%r25 %r11 %r3
+fld	0(%r25) %f3
+fneg	%f3 %f3
+addi	%r3 %r2 $1
+addi	%r14 %r0 $0
+add	%r25 %r11 %r14
+fld	0(%r25) %f4
+addi	%r14 %r0 $3
+addi	%r15 %r0 l.8518
+fld	0(%r15) %f5
+st	-1(%r29) %r9
+fst	-2(%r29) %f1
+st	-3(%r29) %r11
+st	-4(%r29) %r2
+st	-5(%r29) %r13
+st	-6(%r29) %r8
+st	-7(%r29) %r3
+fst	-8(%r29) %f0
+st	-9(%r29) %r12
+fst	-10(%r29) %f3
+fst	-11(%r29) %f2
+fst	-12(%r29) %f4
+st	-13(%r29) %r10
+add	%r2 %r0 %r14
+fmov	%f0 %f5
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-13(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-14(%r29) %r3
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-14(%r29) %r2
+st	0(%r3) %r2
+addi	%r8 %r0 $0
+fld	-12(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+fld	-11(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $2
+fld	-10(%r29) %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r2 %r0 $0
+ld	-13(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-9(%r29) %r9
+st	-15(%r29) %r3
+add	%r16 %r0 %r9
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag87
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+add	%r2 %r0 %r28
+addi	%r28 %r28 $3
+fld	-8(%r29) %f0
+fst	2(%r2) %f0
+ld	-15(%r29) %r3
+st	1(%r2) %r3
+ld	-7(%r29) %r3
+st	0(%r2) %r3
+ld	-5(%r29) %r3
+ld	-6(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r3 $1
+ld	-4(%r29) %r9
+addi	%r10 %r9 $2
+addi	%r11 %r0 $1
+ld	-3(%r29) %r12
+add	%r25 %r12 %r11
+fld	0(%r25) %f1
+addi	%r11 %r0 $3
+addi	%r13 %r0 l.8518
+fld	0(%r13) %f2
+st	-16(%r29) %r2
+st	-17(%r29) %r10
+fst	-18(%r29) %f1
+add	%r2 %r0 %r11
+fmov	%f0 %f2
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-13(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-19(%r29) %r3
+addi	%r29 %r29 $-20
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $20
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-19(%r29) %r2
+st	0(%r3) %r2
+addi	%r8 %r0 $0
+fld	-2(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+fld	-18(%r29) %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r8 %r0 $2
+fld	-10(%r29) %f1
+add	%r25 %r2 %r8
+fst	0(%r25) %f1
+addi	%r2 %r0 $0
+ld	-13(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-9(%r29) %r9
+st	-20(%r29) %r3
+add	%r16 %r0 %r9
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+addi	%r29 %r29 $-21
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag88
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $21
+add	%r2 %r0 %r28
+addi	%r28 %r28 $3
+fld	-8(%r29) %f0
+fst	2(%r2) %f0
+ld	-20(%r29) %r3
+st	1(%r2) %r3
+ld	-17(%r29) %r3
+st	0(%r2) %r3
+ld	-16(%r29) %r3
+ld	-6(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+ld	-5(%r29) %r2
+addi	%r3 %r2 $2
+ld	-4(%r29) %r9
+addi	%r9 %r9 $3
+addi	%r10 %r0 $2
+ld	-3(%r29) %r11
+add	%r25 %r11 %r10
+fld	0(%r25) %f1
+addi	%r10 %r0 $3
+addi	%r11 %r0 l.8518
+fld	0(%r11) %f2
+st	-21(%r29) %r3
+st	-22(%r29) %r9
+fst	-23(%r29) %f1
+add	%r2 %r0 %r10
+fmov	%f0 %f2
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-13(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-24(%r29) %r3
+addi	%r29 %r29 $-25
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $25
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-24(%r29) %r2
+st	0(%r3) %r2
+addi	%r8 %r0 $0
+fld	-2(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+fld	-11(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $2
+fld	-23(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-13(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-9(%r29) %r8
+st	-25(%r29) %r3
+add	%r16 %r0 %r8
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+addi	%r29 %r29 $-26
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag89
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $26
+add	%r2 %r0 %r28
+addi	%r28 %r28 $3
+fld	-8(%r29) %f0
+fst	2(%r2) %f0
+ld	-25(%r29) %r3
+st	1(%r2) %r3
+ld	-22(%r29) %r3
+st	0(%r2) %r3
+ld	-21(%r29) %r3
+ld	-6(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r0 $0
+ld	-5(%r29) %r3
+addi	%r3 %r3 $3
+ld	-1(%r29) %r8
+add	%r25 %r8 %r2
+st	0(%r25) %r3
+jr	%r31
+ld	5(%r16) %r8
+ld	4(%r16) %r9
+ld	3(%r16) %r10
+ld	2(%r16) %r11
+ld	1(%r16) %r12
+addi	%r25 %r0 $2
+sll	%r2 %r2 %r25
+addi	%r2 %r2 $1
+addi	%r13 %r0 $0
+add	%r25 %r9 %r13
+ld	0(%r25) %r13
+addi	%r14 %r0 l.8520
+fld	0(%r14) %f0
+ld	7(%r3) %r14
+addi	%r15 %r0 $0
+add	%r25 %r14 %r15
+fld	0(%r25) %f1
+fneg	%f31 %f1
+fadd	%f0 %f0 %f31
+ld	4(%r3) %r14
+st	-1(%r29) %r9
+st	-2(%r29) %r13
+st	-3(%r29) %r8
+st	-4(%r29) %r2
+fst	-5(%r29) %f0
+st	-6(%r29) %r12
+st	-7(%r29) %r10
+st	-8(%r29) %r11
+st	-9(%r29) %r3
+add	%r3 %r0 %r14
+add	%r2 %r0 %r11
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	veciprod.2512
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+addi	%r2 %r0 l.8536
+fld	0(%r2) %f1
+ld	-9(%r29) %r2
+ld	4(%r2) %r3
+addi	%r8 %r0 $0
+add	%r25 %r3 %r8
+fld	0(%r25) %f2
+fmul	%f1 %f1 %f2
+fmul	%f1 %f1 %f0
+addi	%r3 %r0 $0
+ld	-8(%r29) %r8
+add	%r25 %r8 %r3
+fld	0(%r25) %f2
+fneg	%f31 %f2
+fadd	%f1 %f1 %f31
+addi	%r3 %r0 l.8536
+fld	0(%r3) %f2
+ld	4(%r2) %r3
+addi	%r9 %r0 $1
+add	%r25 %r3 %r9
+fld	0(%r25) %f3
+fmul	%f2 %f2 %f3
+fmul	%f2 %f2 %f0
+addi	%r3 %r0 $1
+add	%r25 %r8 %r3
+fld	0(%r25) %f3
+fneg	%f31 %f3
+fadd	%f2 %f2 %f31
+addi	%r3 %r0 l.8536
+fld	0(%r3) %f3
+ld	4(%r2) %r2
+addi	%r3 %r0 $2
+add	%r25 %r2 %r3
+fld	0(%r25) %f4
+fmul	%f3 %f3 %f4
+fmul	%f3 %f3 %f0
+addi	%r2 %r0 $2
+add	%r25 %r8 %r2
+fld	0(%r25) %f0
+fneg	%f31 %f0
+fadd	%f3 %f3 %f31
+addi	%r2 %r0 $3
+addi	%r3 %r0 l.8518
+fld	0(%r3) %f0
+fst	-10(%r29) %f3
+fst	-11(%r29) %f2
+fst	-12(%r29) %f1
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+ld	-7(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+st	-13(%r29) %r3
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-13(%r29) %r2
+st	0(%r3) %r2
+addi	%r8 %r0 $0
+fld	-12(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $1
+fld	-11(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r8 %r0 $2
+fld	-10(%r29) %f0
+add	%r25 %r2 %r8
+fst	0(%r25) %f0
+addi	%r2 %r0 $0
+ld	-7(%r29) %r8
+add	%r25 %r8 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-6(%r29) %r8
+st	-14(%r29) %r3
+add	%r16 %r0 %r8
+add	%r24 %r0 %r3
+add	%r3 %r0 %r2
+add	%r2 %r0 %r24
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag90
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+add	%r2 %r0 %r28
+addi	%r28 %r28 $3
+fld	-5(%r29) %f0
+fst	2(%r2) %f0
+ld	-14(%r29) %r3
+st	1(%r2) %r3
+ld	-4(%r29) %r3
+st	0(%r2) %r3
+ld	-2(%r29) %r3
+ld	-3(%r29) %r8
+add	%r25 %r8 %r3
+st	0(%r25) %r2
+addi	%r2 %r0 $0
+addi	%r3 %r3 $1
+ld	-1(%r29) %r8
+add	%r25 %r8 %r2
+st	0(%r25) %r3
+jr	%r31
+ld	3(%r16) %r3
+ld	2(%r16) %r8
+ld	1(%r16) %r9
+sub	%r25 %r0 %r2
+addi	%r25 %r25 $0
+slt	%r25 %r0 %r25
+beq	%r25 %r0 beq.10991
+jr	%r31
+add	%r25 %r9 %r2
+ld	0(%r25) %r9
+ld	2(%r9) %r10
+addi	%r25 %r10 $-2
+beq	%r25 %r0 beq.10993
+jr	%r31
+ld	7(%r9) %r10
+addi	%r11 %r0 $0
+add	%r25 %r10 %r11
+fld	0(%r25) %f0
+addi	%r10 %r0 l.8520
+fld	0(%r10) %f1
+fslt	%f0 %f1
+bclt	bclt_true.10995
+addi	%r10 %r0 $0
+beq	%r0 %r0 bclt_cont.10996
+addi	%r10 %r0 $1
+beq	%r10 %r0 beq.10997
+ld	1(%r9) %r10
+addi	%r25 %r10 $-1
+beq	%r25 %r0 beq.10998
+addi	%r25 %r10 $-2
+beq	%r25 %r0 beq.10999
+jr	%r31
+add	%r16 %r0 %r3
+add	%r3 %r0 %r9
+ld	0(%r16) %r24
+jr	%r24
+add	%r3 %r0 %r9
+add	%r16 %r0 %r8
+ld	0(%r16) %r24
+jr	%r24
+jr	%r31
+ld	16(%r16) %r8
+ld	15(%r16) %r9
+ld	14(%r16) %r10
+ld	13(%r16) %r11
+ld	12(%r16) %r12
+ld	11(%r16) %r13
+ld	10(%r16) %r14
+ld	9(%r16) %r15
+st	-1(%r29) %r12
+ld	8(%r16) %r12
+st	-2(%r29) %r14
+ld	7(%r16) %r14
+st	-3(%r29) %r10
+ld	6(%r16) %r10
+st	-4(%r29) %r12
+ld	5(%r16) %r12
+st	-5(%r29) %r10
+ld	4(%r16) %r10
+st	-6(%r29) %r15
+ld	3(%r16) %r15
+st	-7(%r29) %r14
+ld	2(%r16) %r14
+st	-8(%r29) %r9
+ld	1(%r16) %r9
+st	-9(%r29) %r12
+addi	%r12 %r0 $0
+add	%r25 %r10 %r12
+st	0(%r25) %r2
+addi	%r12 %r0 $1
+add	%r25 %r10 %r12
+st	0(%r25) %r3
+addi	%r12 %r0 $0
+st	-10(%r29) %r9
+slt	%r25 %r2 %r0
+beq	%r25 %r0 div_positive.11002
+sub	%r9 %r0 %r2
+addi	%r25 %r0 $1
+srl	%r25 %r9 %r25
+sub	%r9 %r0 %r25
+beq	%r0 %r0 div_exit.11003
+addi	%r25 %r0 $1
+srl	%r9 %r2 %r25
+add	%r25 %r15 %r12
+st	0(%r25) %r9
+addi	%r9 %r0 $1
+slt	%r25 %r3 %r0
+beq	%r25 %r0 div_positive.11004
+sub	%r3 %r0 %r3
+addi	%r25 %r0 $1
+srl	%r25 %r3 %r25
+sub	%r3 %r0 %r25
+beq	%r0 %r0 div_exit.11005
+addi	%r25 %r0 $1
+srl	%r3 %r3 %r25
+add	%r25 %r15 %r9
+st	0(%r25) %r3
+addi	%r3 %r0 $0
+addi	%r9 %r0 l.8809
+fld	0(%r9) %f0
+st	-11(%r29) %r14
+st	-12(%r29) %r8
+st	-13(%r29) %r13
+st	-14(%r29) %r10
+st	-15(%r29) %r3
+st	-16(%r29) %r11
+fst	-17(%r29) %f0
+addi	%r29 %r29 $-18
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $18
+fld	-17(%r29) %f1
+finv	%f31 %f0
+fmul	%f1 %f1 %f31
+ld	-15(%r29) %r2
+ld	-16(%r29) %r3
+add	%r25 %r3 %r2
+fst	0(%r25) %f1
+addi	%r2 %r0 $0
+ld	-14(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+st	-18(%r29) %r2
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	create_pixel.2906
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+add	%r3 %r0 %r2
+ld	-18(%r29) %r2
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+addi	%r3 %r0 $0
+ld	-14(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+addi	%r3 %r3 $-2
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	init_line_elements.2908
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+addi	%r3 %r0 $0
+ld	-14(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+st	-19(%r29) %r2
+st	-20(%r29) %r3
+addi	%r29 %r29 $-21
+st	0(%r29) %r31
+jal	create_pixel.2906
+ld	0(%r29) %r31
+addi	%r29 %r29 $21
+add	%r3 %r0 %r2
+ld	-20(%r29) %r2
+addi	%r29 %r29 $-21
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $21
+addi	%r3 %r0 $0
+ld	-14(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+addi	%r3 %r3 $-2
+addi	%r29 %r29 $-21
+st	0(%r29) %r31
+jal	init_line_elements.2908
+ld	0(%r29) %r31
+addi	%r29 %r29 $21
+addi	%r3 %r0 $0
+ld	-14(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+st	-21(%r29) %r2
+st	-22(%r29) %r3
+addi	%r29 %r29 $-23
+st	0(%r29) %r31
+jal	create_pixel.2906
+ld	0(%r29) %r31
+addi	%r29 %r29 $23
+add	%r3 %r0 %r2
+ld	-22(%r29) %r2
+addi	%r29 %r29 $-23
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $23
+addi	%r3 %r0 $0
+ld	-14(%r29) %r8
+add	%r25 %r8 %r3
+ld	0(%r25) %r3
+addi	%r3 %r3 $-2
+addi	%r29 %r29 $-23
+st	0(%r29) %r31
+jal	init_line_elements.2908
+ld	0(%r29) %r31
+addi	%r29 %r29 $23
+ld	-13(%r29) %r3
+st	-23(%r29) %r2
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag91
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+ld	-12(%r29) %r2
+add	%r16 %r0 %r2
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag92
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r2 %r0 $4
+ld	-11(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag93
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r2 %r0 $9
+addi	%r3 %r0 $0
+addi	%r8 %r0 $0
+ld	-10(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag94
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r2 %r0 $4
+ld	-9(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag95
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+ld	-8(%r29) %r2
+ld	-7(%r29) %r3
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+jal	veccpy.2501
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-4(%r29) %r8
+ld	-5(%r29) %r9
+add	%r3 %r0 %r2
+add	%r16 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag96
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r2 %r0 $0
+ld	-6(%r29) %r3
+add	%r25 %r3 %r2
+ld	0(%r25) %r2
+addi	%r2 %r2 $-1
+ld	-3(%r29) %r3
+add	%r16 %r0 %r3
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag97
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r3 %r0 $0
+addi	%r8 %r0 $0
+ld	-21(%r29) %r2
+ld	-2(%r29) %r9
+add	%r16 %r0 %r9
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag98
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r2 %r0 $0
+addi	%r10 %r0 $2
+ld	-19(%r29) %r3
+ld	-21(%r29) %r8
+ld	-23(%r29) %r9
+ld	-1(%r29) %r11
+add	%r16 %r0 %r11
+ld	0(%r16) %r24
+jr	%r24
+addi	%r29 %r0 $1023
+addi	%r25 %r0 $10
+sll	%r29 %r29 %r25
+addi	%r29 %r29 $1023
+addi	%r28 %r0 $1023
+addi	%r2 %r0 $1
+addi	%r3 %r0 $0
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+addi	%r3 %r0 $0
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-1(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r3 %r0 $60
+addi	%r8 %r0 $0
+addi	%r9 %r0 $0
+addi	%r10 %r0 $0
+addi	%r11 %r0 $0
+addi	%r12 %r0 $0
+add	%r13 %r0 %r28
+addi	%r28 %r28 $11
+st	10(%r13) %r2
+st	9(%r13) %r2
+st	8(%r13) %r2
+st	7(%r13) %r2
+st	6(%r13) %r12
+st	5(%r13) %r2
+st	4(%r13) %r2
+st	3(%r13) %r11
+st	2(%r13) %r10
+st	1(%r13) %r9
+st	0(%r13) %r8
+add	%r2 %r0 %r3
+add	%r3 %r0 %r13
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-2(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-3(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-4(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+addi	%r3 %r0 $1
+addi	%r8 %r0 l.8673
+fld	0(%r8) %f0
+st	-5(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-6
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $6
+addi	%r3 %r0 $50
+addi	%r8 %r0 $1
+addi	%r9 %r0 $-1
+st	-6(%r29) %r2
+st	-7(%r29) %r3
+add	%r3 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+add	%r3 %r0 %r2
+ld	-7(%r29) %r2
+addi	%r29 %r29 $-8
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $8
+addi	%r3 %r0 $1
+addi	%r8 %r0 $1
+addi	%r9 %r0 $0
+add	%r25 %r2 %r9
+ld	0(%r25) %r9
+st	-8(%r29) %r2
+st	-9(%r29) %r3
+add	%r3 %r0 %r9
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+add	%r3 %r0 %r2
+ld	-9(%r29) %r2
+addi	%r29 %r29 $-10
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $10
+addi	%r3 %r0 $1
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-10(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-11
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $11
+addi	%r3 %r0 $1
+addi	%r8 %r0 $0
+st	-11(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-12
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $12
+addi	%r3 %r0 $1
+addi	%r8 %r0 l.8636
+fld	0(%r8) %f0
+st	-12(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-13
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $13
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-13(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-14
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $14
+addi	%r3 %r0 $1
+addi	%r8 %r0 $0
+st	-14(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-15
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $15
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-15(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-16
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $16
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-16(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-17
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $17
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-17(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-18
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $18
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-18(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-19
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $19
+addi	%r3 %r0 $2
+addi	%r8 %r0 $0
+st	-19(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-20
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $20
+addi	%r3 %r0 $2
+addi	%r8 %r0 $0
+st	-20(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-21
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $21
+addi	%r3 %r0 $1
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-21(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-22
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $22
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-22(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-23
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $23
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-23(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-24
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $24
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-24(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-25
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $25
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-25(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-26
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $26
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-26(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-27
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $27
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-27(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-28
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $28
+addi	%r3 %r0 $0
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-28(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-29
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $29
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+st	-29(%r29) %r3
+addi	%r29 %r29 $-30
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $30
+addi	%r3 %r0 $0
+add	%r8 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r8) %r2
+ld	-29(%r29) %r2
+st	0(%r8) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-30
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $30
+add	%r3 %r0 %r2
+addi	%r2 %r0 $5
+addi	%r29 %r29 $-30
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $30
+addi	%r3 %r0 $0
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-30(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-31
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $31
+addi	%r3 %r0 $3
+addi	%r8 %r0 l.8518
+fld	0(%r8) %f0
+st	-31(%r29) %r2
+add	%r2 %r0 %r3
+addi	%r29 %r29 $-32
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $32
+addi	%r3 %r0 $60
+ld	-31(%r29) %r8
+st	-32(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-33
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $33
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-32(%r29) %r2
+st	0(%r3) %r2
+addi	%r8 %r0 $0
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+st	-33(%r29) %r3
+add	%r2 %r0 %r8
+addi	%r29 %r29 $-34
+st	0(%r29) %r31
+jal	min_caml_create_float_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $34
+add	%r3 %r0 %r2
+addi	%r2 %r0 $0
+st	-34(%r29) %r3
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+st	1(%r3) %r2
+ld	-34(%r29) %r2
+st	0(%r3) %r2
+addi	%r2 %r0 $180
+addi	%r8 %r0 $0
+addi	%r9 %r0 l.8518
+fld	0(%r9) %f0
+add	%r9 %r0 %r28
+addi	%r28 %r28 $3
+fst	2(%r9) %f0
+st	1(%r9) %r3
+st	0(%r9) %r8
+add	%r3 %r0 %r9
+addi	%r29 %r29 $-35
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $35
+addi	%r3 %r0 $1
+addi	%r8 %r0 $0
+st	-35(%r29) %r2
+add	%r2 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-36
+st	0(%r29) %r31
+jal	min_caml_create_array
+ld	0(%r29) %r31
+addi	%r29 %r29 $36
+add	%r3 %r0 %r28
+addi	%r28 %r28 $6
+addi	%r8 %r0 read_screen_settings.2610
+st	0(%r3) %r8
+ld	-4(%r29) %r8
+st	5(%r3) %r8
+ld	-27(%r29) %r9
+st	4(%r3) %r9
+ld	-26(%r29) %r10
+st	3(%r3) %r10
+ld	-25(%r29) %r11
+st	2(%r3) %r11
+ld	-3(%r29) %r12
+st	1(%r3) %r12
+add	%r12 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r13 %r0 read_light.2612
+st	0(%r12) %r13
+ld	-5(%r29) %r13
+st	2(%r12) %r13
+ld	-6(%r29) %r14
+st	1(%r12) %r14
+add	%r15 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r10 %r0 read_nth_object.2617
+st	0(%r15) %r10
+ld	-2(%r29) %r10
+st	1(%r15) %r10
+add	%r9 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r11 %r0 read_object.2619
+st	0(%r9) %r11
+st	2(%r9) %r15
+ld	-1(%r29) %r11
+st	1(%r9) %r11
+add	%r15 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r8 %r0 read_and_network.2627
+st	0(%r15) %r8
+ld	-8(%r29) %r8
+st	1(%r15) %r8
+add	%r14 %r0 %r28
+addi	%r28 %r28 $7
+addi	%r11 %r0 read_parameter.2629
+st	0(%r14) %r11
+st	6(%r14) %r3
+st	5(%r14) %r9
+st	4(%r14) %r12
+st	3(%r14) %r15
+ld	-10(%r29) %r3
+st	2(%r14) %r3
+st	1(%r14) %r8
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r11 %r0 solver_rect_surface.2631
+st	0(%r9) %r11
+ld	-11(%r29) %r11
+st	1(%r9) %r11
+add	%r12 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r15 %r0 solver_rect.2640
+st	0(%r12) %r15
+st	1(%r12) %r9
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r15 %r0 solver_surface.2646
+st	0(%r9) %r15
+st	1(%r9) %r11
+add	%r15 %r0 %r28
+addi	%r28 %r28 $2
+st	-36(%r29) %r14
+addi	%r14 %r0 solver_second.2665
+st	0(%r15) %r14
+st	1(%r15) %r11
+add	%r14 %r0 %r28
+addi	%r28 %r28 $5
+st	-37(%r29) %r2
+addi	%r2 %r0 solver.2671
+st	0(%r14) %r2
+st	4(%r14) %r9
+st	3(%r14) %r15
+st	2(%r14) %r12
+st	1(%r14) %r10
+add	%r2 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r9 %r0 solver_rect_fast.2675
+st	0(%r2) %r9
+st	1(%r2) %r11
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r12 %r0 solver_surface_fast.2682
+st	0(%r9) %r12
+st	1(%r9) %r11
+add	%r12 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r15 %r0 solver_second_fast.2688
+st	0(%r12) %r15
+st	1(%r12) %r11
+add	%r15 %r0 %r28
+addi	%r28 %r28 $5
+addi	%r3 %r0 solver_fast.2694
+st	0(%r15) %r3
+st	4(%r15) %r9
+st	3(%r15) %r12
+st	2(%r15) %r2
+st	1(%r15) %r10
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r9 %r0 solver_surface_fast2.2698
+st	0(%r3) %r9
+st	1(%r3) %r11
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r12 %r0 solver_second_fast2.2705
+st	0(%r9) %r12
+st	1(%r9) %r11
+add	%r12 %r0 %r28
+addi	%r28 %r28 $5
+st	-38(%r29) %r14
+addi	%r14 %r0 solver_fast2.2712
+st	0(%r12) %r14
+st	4(%r12) %r3
+st	3(%r12) %r9
+st	2(%r12) %r2
+st	1(%r12) %r10
+add	%r2 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r3 %r0 iter_setup_dirvec_constants.2724
+st	0(%r2) %r3
+st	1(%r2) %r10
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r9 %r0 setup_startp_constants.2729
+st	0(%r3) %r9
+st	1(%r3) %r10
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r14 %r0 check_all_inside.2754
+st	0(%r9) %r14
+st	1(%r9) %r10
+add	%r14 %r0 %r28
+addi	%r28 %r28 $8
+st	-39(%r29) %r2
+addi	%r2 %r0 shadow_check_and_group.2760
+st	0(%r14) %r2
+st	7(%r14) %r15
+st	6(%r14) %r11
+st	5(%r14) %r10
+ld	-33(%r29) %r2
+st	4(%r14) %r2
+st	3(%r14) %r13
+ld	-14(%r29) %r13
+st	2(%r14) %r13
+st	1(%r14) %r9
+st	-40(%r29) %r3
+add	%r3 %r0 %r28
+addi	%r28 %r28 $3
+st	-41(%r29) %r12
+addi	%r12 %r0 shadow_check_one_or_group.2763
+st	0(%r3) %r12
+st	2(%r3) %r14
+st	1(%r3) %r8
+add	%r12 %r0 %r28
+addi	%r28 %r28 $6
+addi	%r14 %r0 shadow_check_one_or_matrix.2766
+st	0(%r12) %r14
+st	5(%r12) %r15
+st	4(%r12) %r11
+st	3(%r12) %r3
+st	2(%r12) %r2
+st	1(%r12) %r13
+add	%r3 %r0 %r28
+addi	%r28 %r28 $10
+addi	%r14 %r0 solve_each_element.2769
+st	0(%r3) %r14
+ld	-13(%r29) %r14
+st	9(%r3) %r14
+ld	-23(%r29) %r15
+st	8(%r3) %r15
+st	7(%r3) %r11
+ld	-38(%r29) %r2
+st	6(%r3) %r2
+st	5(%r3) %r10
+st	-42(%r29) %r12
+ld	-12(%r29) %r12
+st	4(%r3) %r12
+st	3(%r3) %r13
+ld	-15(%r29) %r13
+st	2(%r3) %r13
+st	1(%r3) %r9
+st	-43(%r29) %r9
+add	%r9 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r13 %r0 solve_one_or_network.2773
+st	0(%r9) %r13
+st	2(%r9) %r3
+st	1(%r9) %r8
+add	%r13 %r0 %r28
+addi	%r28 %r28 $8
+addi	%r12 %r0 trace_or_matrix.2777
+st	0(%r13) %r12
+st	7(%r13) %r14
+st	6(%r13) %r15
+st	5(%r13) %r11
+st	4(%r13) %r2
+st	3(%r13) %r9
+st	2(%r13) %r3
+st	1(%r13) %r8
+add	%r2 %r0 %r28
+addi	%r28 %r28 $4
+addi	%r3 %r0 judge_intersection.2781
+st	0(%r2) %r3
+st	3(%r2) %r13
+st	2(%r2) %r14
+ld	-10(%r29) %r3
+st	1(%r2) %r3
+add	%r9 %r0 %r28
+addi	%r28 %r28 $10
+addi	%r12 %r0 solve_each_element_fast.2783
+st	0(%r9) %r12
+st	9(%r9) %r14
+ld	-24(%r29) %r12
+st	8(%r9) %r12
+ld	-41(%r29) %r13
+st	7(%r9) %r13
+st	6(%r9) %r11
+st	5(%r9) %r10
+st	-44(%r29) %r2
+ld	-12(%r29) %r2
+st	4(%r9) %r2
+ld	-14(%r29) %r10
+st	3(%r9) %r10
+ld	-15(%r29) %r15
+st	2(%r9) %r15
+ld	-43(%r29) %r12
+st	1(%r9) %r12
+add	%r12 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r15 %r0 solve_one_or_network_fast.2787
+st	0(%r12) %r15
+st	2(%r12) %r9
+st	1(%r12) %r8
+add	%r15 %r0 %r28
+addi	%r28 %r28 $7
+addi	%r10 %r0 trace_or_matrix_fast.2791
+st	0(%r15) %r10
+st	6(%r15) %r14
+st	5(%r15) %r13
+st	4(%r15) %r11
+st	3(%r15) %r12
+st	2(%r15) %r9
+st	1(%r15) %r8
+add	%r8 %r0 %r28
+addi	%r28 %r28 $4
+addi	%r9 %r0 judge_intersection_fast.2795
+st	0(%r8) %r9
+st	3(%r8) %r15
+st	2(%r8) %r14
+st	1(%r8) %r3
+add	%r9 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r10 %r0 get_nvector_rect.2797
+st	0(%r9) %r10
+ld	-16(%r29) %r10
+st	2(%r9) %r10
+st	1(%r9) %r2
+add	%r11 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r12 %r0 get_nvector_plane.2799
+st	0(%r11) %r12
+st	1(%r11) %r10
+add	%r12 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r13 %r0 get_nvector_second.2801
+st	0(%r12) %r13
+st	2(%r12) %r10
+ld	-14(%r29) %r13
+st	1(%r12) %r13
+add	%r15 %r0 %r28
+addi	%r28 %r28 $2
+st	-45(%r29) %r11
+addi	%r11 %r0 utexture.2806
+st	0(%r15) %r11
+ld	-17(%r29) %r11
+st	1(%r15) %r11
+st	-46(%r29) %r9
+add	%r9 %r0 %r28
+addi	%r28 %r28 $3
+st	-47(%r29) %r12
+addi	%r12 %r0 add_light.2809
+st	0(%r9) %r12
+st	2(%r9) %r11
+ld	-19(%r29) %r12
+st	1(%r9) %r12
+add	%r13 %r0 %r28
+addi	%r28 %r28 $9
+addi	%r12 %r0 trace_reflections.2813
+st	0(%r13) %r12
+ld	-42(%r29) %r12
+st	8(%r13) %r12
+ld	-35(%r29) %r12
+st	7(%r13) %r12
+st	6(%r13) %r3
+st	5(%r13) %r10
+st	4(%r13) %r8
+st	3(%r13) %r2
+ld	-15(%r29) %r12
+st	2(%r13) %r12
+st	1(%r13) %r9
+st	-48(%r29) %r8
+add	%r8 %r0 %r28
+addi	%r28 %r28 $25
+st	-49(%r29) %r9
+addi	%r9 %r0 trace_ray.2818
+st	0(%r8) %r9
+st	24(%r8) %r15
+st	23(%r8) %r13
+st	22(%r8) %r14
+st	21(%r8) %r11
+ld	-24(%r29) %r9
+st	20(%r8) %r9
+ld	-23(%r29) %r13
+st	19(%r8) %r13
+ld	-42(%r29) %r14
+st	18(%r8) %r14
+ld	-40(%r29) %r13
+st	17(%r8) %r13
+ld	-19(%r29) %r13
+st	16(%r8) %r13
+st	15(%r8) %r3
+ld	-2(%r29) %r13
+st	14(%r8) %r13
+st	13(%r8) %r10
+ld	-37(%r29) %r9
+st	12(%r8) %r9
+ld	-1(%r29) %r9
+st	11(%r8) %r9
+ld	-5(%r29) %r9
+st	10(%r8) %r9
+ld	-44(%r29) %r9
+st	9(%r8) %r9
+st	8(%r8) %r2
+ld	-14(%r29) %r2
+st	7(%r8) %r2
+st	6(%r8) %r12
+ld	-47(%r29) %r9
+st	5(%r8) %r9
+ld	-46(%r29) %r9
+st	4(%r8) %r9
+ld	-45(%r29) %r9
+st	3(%r8) %r9
+ld	-6(%r29) %r9
+st	2(%r8) %r9
+ld	-49(%r29) %r9
+st	1(%r8) %r9
+add	%r9 %r0 %r28
+addi	%r28 %r28 $15
+st	-50(%r29) %r8
+addi	%r8 %r0 trace_diffuse_ray.2824
+st	0(%r9) %r8
+st	14(%r9) %r15
+st	13(%r9) %r11
+st	12(%r9) %r14
+st	11(%r9) %r3
+st	10(%r9) %r13
+st	9(%r9) %r10
+ld	-5(%r29) %r3
+st	8(%r9) %r3
+ld	-48(%r29) %r8
+st	7(%r9) %r8
+st	6(%r9) %r2
+st	5(%r9) %r12
+ld	-47(%r29) %r2
+st	4(%r9) %r2
+ld	-46(%r29) %r2
+st	3(%r9) %r2
+ld	-45(%r29) %r2
+st	2(%r9) %r2
+ld	-18(%r29) %r2
+st	1(%r9) %r2
+add	%r8 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r10 %r0 iter_trace_diffuse_rays.2827
+st	0(%r8) %r10
+st	1(%r8) %r9
+add	%r9 %r0 %r28
+addi	%r28 %r28 $6
+addi	%r10 %r0 trace_diffuse_ray_80percent.2836
+st	0(%r9) %r10
+ld	-24(%r29) %r10
+st	5(%r9) %r10
+ld	-40(%r29) %r11
+st	4(%r9) %r11
+ld	-1(%r29) %r12
+st	3(%r9) %r12
+st	2(%r9) %r8
+ld	-30(%r29) %r14
+st	1(%r9) %r14
+add	%r15 %r0 %r28
+addi	%r28 %r28 $4
+addi	%r13 %r0 calc_diffuse_using_1point.2840
+st	0(%r15) %r13
+st	3(%r15) %r9
+ld	-19(%r29) %r9
+st	2(%r15) %r9
+st	1(%r15) %r2
+add	%r13 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r3 %r0 calc_diffuse_using_5points.2843
+st	0(%r13) %r3
+st	2(%r13) %r9
+st	1(%r13) %r2
+add	%r3 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r2 %r0 do_without_neighbors.2849
+st	0(%r3) %r2
+st	1(%r3) %r15
+add	%r2 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r15 %r0 neighbors_exist.2852
+st	0(%r2) %r15
+ld	-20(%r29) %r15
+st	1(%r2) %r15
+st	-51(%r29) %r2
+add	%r2 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r14 %r0 try_exploit_neighbors.2865
+st	0(%r2) %r14
+st	2(%r2) %r3
+st	1(%r2) %r13
+add	%r13 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r14 %r0 write_ppm_header.2872
+st	0(%r13) %r14
+st	1(%r13) %r15
+add	%r14 %r0 %r28
+addi	%r28 %r28 $2
+st	-52(%r29) %r13
+addi	%r13 %r0 write_rgb.2876
+st	0(%r14) %r13
+st	1(%r14) %r9
+add	%r13 %r0 %r28
+addi	%r28 %r28 $7
+st	-53(%r29) %r3
+addi	%r3 %r0 pretrace_diffuse_rays.2878
+st	0(%r13) %r3
+st	6(%r13) %r10
+st	5(%r13) %r11
+st	4(%r13) %r12
+st	3(%r13) %r8
+ld	-30(%r29) %r3
+st	2(%r13) %r3
+ld	-18(%r29) %r8
+st	1(%r13) %r8
+add	%r8 %r0 %r28
+addi	%r28 %r28 $10
+addi	%r10 %r0 pretrace_pixels.2881
+st	0(%r8) %r10
+ld	-4(%r29) %r10
+st	9(%r8) %r10
+ld	-50(%r29) %r10
+st	8(%r8) %r10
+ld	-23(%r29) %r10
+st	7(%r8) %r10
+ld	-25(%r29) %r10
+st	6(%r8) %r10
+ld	-22(%r29) %r10
+st	5(%r8) %r10
+st	4(%r8) %r9
+ld	-28(%r29) %r11
+st	3(%r8) %r11
+st	2(%r8) %r13
+ld	-21(%r29) %r11
+st	1(%r8) %r11
+add	%r13 %r0 %r28
+addi	%r28 %r28 $7
+addi	%r12 %r0 pretrace_line.2888
+st	0(%r13) %r12
+ld	-27(%r29) %r12
+st	6(%r13) %r12
+ld	-26(%r29) %r12
+st	5(%r13) %r12
+st	4(%r13) %r10
+st	3(%r13) %r8
+st	2(%r13) %r15
+st	1(%r13) %r11
+add	%r8 %r0 %r28
+addi	%r28 %r28 $7
+addi	%r12 %r0 scan_pixel.2892
+st	0(%r8) %r12
+st	6(%r8) %r14
+st	5(%r8) %r2
+st	4(%r8) %r9
+ld	-51(%r29) %r2
+st	3(%r8) %r2
+st	2(%r8) %r15
+ld	-53(%r29) %r2
+st	1(%r8) %r2
+add	%r2 %r0 %r28
+addi	%r28 %r28 $4
+addi	%r9 %r0 scan_line.2898
+st	0(%r2) %r9
+st	3(%r2) %r8
+st	2(%r2) %r13
+st	1(%r2) %r15
+add	%r8 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r9 %r0 calc_dirvec.2918
+st	0(%r8) %r9
+st	1(%r8) %r3
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r12 %r0 calc_dirvecs.2926
+st	0(%r9) %r12
+st	1(%r9) %r8
+add	%r8 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r12 %r0 calc_dirvec_rows.2931
+st	0(%r8) %r12
+st	1(%r8) %r9
+add	%r9 %r0 %r28
+addi	%r28 %r28 $2
+addi	%r12 %r0 create_dirvec_elements.2937
+st	0(%r9) %r12
+ld	-1(%r29) %r12
+st	1(%r9) %r12
+add	%r14 %r0 %r28
+addi	%r28 %r28 $4
+st	-54(%r29) %r8
+addi	%r8 %r0 create_dirvecs.2940
+st	0(%r14) %r8
+st	3(%r14) %r12
+st	2(%r14) %r3
+st	1(%r14) %r9
+add	%r8 %r0 %r28
+addi	%r28 %r28 $3
+addi	%r9 %r0 init_dirvec_constants.2942
+st	0(%r8) %r9
+st	2(%r8) %r12
+ld	-39(%r29) %r9
+st	1(%r8) %r9
+st	-55(%r29) %r14
+add	%r14 %r0 %r28
+addi	%r28 %r28 $5
+addi	%r11 %r0 init_vecset_constants.2945
+st	0(%r14) %r11
+st	4(%r14) %r12
+st	3(%r14) %r9
+st	2(%r14) %r8
+st	1(%r14) %r3
+add	%r3 %r0 %r28
+addi	%r28 %r28 $6
+addi	%r8 %r0 setup_rect_reflection.2956
+st	0(%r3) %r8
+ld	-35(%r29) %r8
+st	5(%r3) %r8
+ld	-37(%r29) %r11
+st	4(%r3) %r11
+st	3(%r3) %r12
+ld	-5(%r29) %r15
+st	2(%r3) %r15
+st	1(%r3) %r9
+st	-56(%r29) %r14
+add	%r14 %r0 %r28
+addi	%r28 %r28 $6
+st	-57(%r29) %r13
+addi	%r13 %r0 setup_surface_reflection.2959
+st	0(%r14) %r13
+st	5(%r14) %r8
+st	4(%r14) %r11
+st	3(%r14) %r12
+st	2(%r14) %r15
+st	1(%r14) %r9
+add	%r8 %r0 %r28
+addi	%r28 %r28 $4
+addi	%r11 %r0 setup_reflections.2962
+st	0(%r8) %r11
+st	3(%r8) %r14
+st	2(%r8) %r3
+ld	-2(%r29) %r3
+st	1(%r8) %r3
+add	%r3 %r0 %r28
+addi	%r28 %r28 $17
+addi	%r11 %r0 rt.2964
+st	0(%r3) %r11
+ld	-52(%r29) %r11
+st	16(%r3) %r11
+ld	-32(%r29) %r11
+st	15(%r3) %r11
+st	14(%r3) %r8
+st	13(%r3) %r10
+st	12(%r3) %r2
+ld	-36(%r29) %r2
+st	11(%r3) %r2
+ld	-57(%r29) %r2
+st	10(%r3) %r2
+st	9(%r3) %r12
+ld	-33(%r29) %r2
+st	8(%r3) %r2
+st	7(%r3) %r15
+st	6(%r3) %r9
+ld	-56(%r29) %r2
+st	5(%r3) %r2
+ld	-20(%r29) %r2
+st	4(%r3) %r2
+ld	-21(%r29) %r2
+st	3(%r3) %r2
+ld	-55(%r29) %r2
+st	2(%r3) %r2
+ld	-54(%r29) %r2
+st	1(%r3) %r2
+addi	%r2 %r0 $128
+addi	%r8 %r0 $128
+add	%r16 %r0 %r3
+add	%r3 %r0 %r8
+addi	%r29 %r29 $-58
+st	0(%r29) %r31
+ld	0(%r16) %r24
+addiu %r31 %r0 _asm_tag99
+jr %r24
+ld	0(%r29) %r31
+addi	%r29 %r29 $58
+addi	%r2 %r0 $0
+halt
+add	%r8 %r0 %r2
+add	%r2 %r0 %r28
+addi	%r10 %r0 min_caml_create_array_loop
+beq	%r8 %r0 min_caml_create_array_exit
+st	0(%r28) %r3
+addi	%r8 %r8 $-1
+addi	%r28 %r28 $1
+jr	%r10
+jr	%r31
+add	%r8 %r0 %r2
+add	%r2 %r0 %r28
+addi	%r10 %r0 min_caml_create_float_array_loop
+beq	%r8 %r0 min_caml_create_float_array_exit
+fst	0(%r28) %f0
+addi	%r8 %r8 $-1
+addi	%r28 %r28 $1
+jr	%r10
+jr	%r31
+add	%r8 %r0 %r2
+addi	%r9 %r0 $2
+srl	%r2 %r8 %r9
+add	%r2 %r2 %r8
+addi	%r9 %r0 $1
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+addi	%r10 %r0 $3
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r10
+add	%r2 %r2 %r8
+srl	%r2 %r2 %r9
+add	%r2 %r2 %r8
+addi	%r10 %r0 $4
+srl	%r2 %r2 %r10
+jr	%r31
+addi	%r8 %r0 $0x0a
+send8	%r8
+jr	%r31
+send8	%r2
+jr	%r31
+slt	%r8 %r2 %r0
+beq	%r8 %r0 min_caml_print_int_positive
+addi	%r8 %r0 $0x2d
+send8	%r8
+sub	%r2 %r0 %r2
+addi	%r12 %r0 $8
+add	%r8 %r0 %r0
+add	%r9 %r0 %r0
+st	-1(%r29) %r2
+st	-2(%r29) %r8
+st	-3(%r29) %r9
+st	-4(%r29) %r12
+addi	%r29 %r29 $-5
+st	0(%r29) %r31
+jal	min_caml_div10
+ld	0(%r29) %r31
+addi	%r29 %r29 $5
+ld	-1(%r29) %r8
+ld	-4(%r29) %r12
+addi	%r9 %r0 $1
+sll	%r10 %r2 %r9
+addi	%r9 %r0 $3
+sll	%r11 %r2 %r9
+add	%r10 %r10 %r11
+sub	%r10 %r8 %r10
+addi	%r10 %r10 $0x30
+ld	-2(%r29) %r8
+ld	-3(%r29) %r9
+addi	%r13 %r0 $8
+sll	%r9 %r9 %r13
+addi	%r14 %r0 $24
+srl	%r11 %r8 %r14
+add	%r9 %r9 %r11
+sll	%r8 %r8 %r13
+add	%r8 %r8 %r10
+beq	%r2 %r0 min_caml_print_int_send
+addi	%r12 %r12 $-1
+beq	%r12 %r0 min_caml_print_int_loop_exit
+addi	%r13 %r0 min_caml_print_int_loop
+jr	%r13
+st	-1(%r29) %r2
+st	-2(%r29) %r8
+st	-3(%r29) %r9
+addi	%r29 %r29 $-4
+st	0(%r29) %r31
+jal	min_caml_div10
+ld	0(%r29) %r31
+addi	%r29 %r29 $4
+ld	-1(%r29) %r8
+addi	%r9 %r0 $1
+sll	%r10 %r2 %r9
+addi	%r9 %r0 $1
+sll	%r11 %r2 %r9
+add	%r10 %r10 %r11
+sub	%r10 %r8 %r10
+addi	%r10 %r10 $0x30
+beq	%r2 %r0 min_caml_print_int_send_9
+addi	%r2 %r2 $0x30
+send8	%r2
+send8	%r10
+ld	-2(%r29) %r8
+ld	-3(%r29) %r9
+addi	%r10 %r0 $8
+send8	%r8
+srl	%r8 %r8 %r10
+beq	%r8 %r0 min_caml_print_int_exit
+send8	%r8
+srl	%r8 %r8 %r10
+beq	%r8 %r0 min_caml_print_int_exit
+send8	%r8
+srl	%r8 %r8 %r10
+beq	%r8 %r0 min_caml_print_int_exit
+send8	%r8
+beq	%r9 %r0 min_caml_print_int_exit
+send8	%r9
+srl	%r9 %r9 %r10
+beq	%r9 %r0 min_caml_print_int_exit
+send8	%r9
+srl	%r9 %r9 %r10
+beq	%r9 %r0 min_caml_print_int_exit
+send8	%r9
+srl	%r9 %r9 %r10
+beq	%r9 %r0 min_caml_print_int_exit
+send8	%r9
+jr	%r31
+addi	%r9 %r0 $24
+srl	%r10 %r2 %r9
+send8	%r10
+addi	%r9 %r0 $16
+srl	%r10 %r2 %r9
+send8	%r10
+addi	%r9 %r0 $8
+srl	%r10 %r2 %r9
+send8	%r10
+send8	%r2
+jr	%r31
+fst	-1(%r29) %f0
+ld	-1(%r29) %r8
+addi	%r9 %r0 $24
+srl	%r10 %r8 %r9
+send8	%r10
+addi	%r9 %r0 $16
+srl	%r10 %r8 %r9
+send8	%r10
+addi	%r9 %r0 $8
+srl	%r10 %r8 %r9
+send8	%r10
+send8	%r8
+jr	%r31
+addi	%r9 %r0 $0x30
+addi	%r10 %r0 $0x39
+addi	%r3 %r0 $0
+addi	%r11 %r0 $0x2d
+addi	%r12 %r0 min_caml_read_int_start
+recv8	%r3
+beq	%r3 %r11 min_caml_read_int_negative
+slt	%r13 %r3 %r9
+slt	%r14 %r10 %r3
+add	%r13 %r13 %r14
+beq	%r13 %r0 min_caml_read_int_positive
+jr	%r12
+addi	%r8 %r0 $1
+addi	%r2 %r0 $0
+addi	%r11 %r0 min_caml_read_int_loop
+jr	%r11
+addi	%r8 %r0 $0
+addi	%r2 %r3 $-48
+recv8	%r3
+slt	%r11 %r3 %r9
+bneq	%r11 %r0 min_caml_read_int_sign
+slt	%r11 %r10 %r3
+bneq	%r11 %r0 min_caml_read_int_sign
+addi	%r13 %r0 $1
+sll	%r11 %r2 %r13
+addi	%r13 %r0 $3
+sll	%r12 %r2 %r13
+add	%r2 %r11 %r12
+addi	%r3 %r3 $-48
+add	%r2 %r2 %r3
+addi	%r11 %r0 min_caml_read_int_loop
+jr	%r11
+beq	%r8 %r0 min_caml_read_int_exit
+sub	%r2 %r0 %r2
+jr	%r31
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_read_int
+st	1(%r29) %r3
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+ld	-1(%r29) %r8
+addi	%r9 %r0 $0x2e
+bneq	%r8 %r9 min_caml_read_float_exit
+addi	%r9 %r0 $0x30
+addi	%r10 %r0 $0x39
+addi	%r11 %r0 min_caml_read_float_loop1
+addi	%r3 %r0 $0
+addi	%r8 %r0 $0
+recv8	%r8
+slt	%r12 %r8 %r9
+bneq	%r12 %r0 min_caml_read_float_exit
+slt	%r12 %r10 %r8
+bneq	%r12 %r0 min_caml_read_float_exit
+bneq	%r8 %r9 min_caml_read_float_loop1_exit
+addi	%r3 %r3 $1
+jr	%r11
+addi	%r2 %r8 $-48
+recv8	%r8
+slt	%r11 %r8 %r9
+bneq	%r11 %r0 min_caml_read_float_loop2_exit
+slt	%r11 %r10 %r8
+bneq	%r11 %r0 min_caml_read_float_loop2_exit
+addi	%r13 %r0 $1
+sll	%r11 %r2 %r13
+addi	%r13 %r0 $3
+sll	%r12 %r2 %r13
+add	%r2 %r11 %r12
+addi	%r8 %r8 $-48
+add	%r2 %r2 %r8
+addi	%r11 %r0 min_caml_read_float_loop2
+jr	%r11
+fst	-1(%r29) %f0
+st	-2(%r29) %r3
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+fld	-1(%r29) %f1
+ld	-2(%r29) %r3
+addi	%r8 %r0 min_caml_float_1
+fld	0(%r8) %f2
+addi	%r8 %r0 min_caml_read_float_c1
+fld	0(%r8) %f3
+addi	%r8 %r0 min_caml_read_float_loop3
+fslt	%f0 %f2
+bclt	min_caml_read_float_loop3_exit
+fmul	%f0 %f0 %f3
+jr	%r8
+addi	%r8 %r0 min_caml_read_float_loop4
+slt	%r9 %r0 %r3
+beq	%r9 %r0 min_caml_read_float_loop4_exit
+addi	%r3 %r3 $-1
+fmul	%f0 %f0 %f3
+jr	%r8
+addi	%r8 %r0 min_caml_float_0
+fld	0(%r8) %f2
+fslt	%f1 %f2
+bclf	min_caml_read_float_loop_exit_positive
+fneg	%f0 %f0
+fadd	%f0 %f0 %f1
+jr	%r31
+addi	%r8 %r0 $8
+recv8	%r2
+sll	%r2 %r2 %r8
+recv8	%r2
+sll	%r2 %r2 %r8
+recv8	%r2
+sll	%r2 %r2 %r8
+recv8	%r2
+jr	%r31
+addi	%r8 %r0 $8
+recv8	%r2
+sll	%r2 %r2 %r8
+recv8	%r2
+sll	%r2 %r2 %r8
+recv8	%r2
+sll	%r2 %r2 %r8
+recv8	%r2
+st	-1(%r29) %r2
+fld	-1(%r29) %f0
+jr	%r31
+slt	%r8 %r2 %r0
+beq	%r8 %r0 min_caml_float_of_int_flag_positive
+addi	%r9 %r0 $1
+sub	%r11 %r0 %r2
+addi	%r10 %r0 min_caml_float_of_int_after_flag
+jr	%r10
+addi	%r9 %r0 $0
+add	%r11 %r0 %r2
+addi %r1 %r0 $16
+addiu %r8 %r0 $0b0000000010000000
+sll %r8 %r8 %r1
+addiu %r8 %r8 $0b0000000000000000
+slt	%r10 %r11 %r8
+beq	%r10 %r0 min_caml_float_of_int_big
+addi %r1 %r0 $16
+addiu %r8 %r0 $0b0100101100000000
+sll %r8 %r8 %r1
+addiu %r8 %r8 $0b0000000000000000
+add	%r10 %r11 %r8
+st	-1(%r29) %r10
+fld	-1(%r29) %f0
+addi	%r8 %r0 min_caml_float_int_c1
+fld	0(%r8) %f1
+fadd	%f0 %f0 %f1
+beq	%r9 %r0 min_caml_float_of_int_small_positive
+fneg	%f0 %f0
+jr	%r31
+addi	%r8 %r0 min_caml_float_0
+fld	0(%r8) %f0
+addi	%r8 %r0 min_caml_float_int_c2
+fld	0(%r8) %f1
+add	%r8 %r0 %r11
+add	%r9 %r0 %r0
+addi %r1 %r0 $16
+addiu %r10 %r0 $0b0000000010000000
+sll %r10 %r10 %r1
+addiu %r10 %r10 $0b0000000000000000
+addi %r1 %r0 $16
+addiu %r11 %r0 $0b1111111110000000
+sll %r11 %r11 %r1
+addiu %r11 %r11 $0b0000000000000000
+fadd	%f0 %f0 %f1
+add	%r8 %r8 %r11
+slt	%r12 %r10 %r8
+beq	%r12 %r0 min_caml_float_of_int_big_loop
+st	-1(%r29) %r2
+fst	-2(%r29) %f0
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+add	%r2 %r0 %r8
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+fld	-2(%r29) %f1
+ld	-1(%r29) %r2
+fadd	%f0 %f0 %f1
+beq	%r9 %r0 min_caml_float_of_int_big_positive
+fneg	%f0 %f0
+jr	%r31
+addi	%r9 %r0 min_caml_float_0
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	min_caml_int_of_float_flag_negative
+addi	%r8 %r0 $0
+beq	%r0 %r0 min_caml_int_of_float_after_flag
+addi	%r8 %r0 $1
+fneg	%f0 %f0
+addi	%r9 %r0 min_caml_float_int_c2
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclf	min_caml_int_of_float_big
+fadd	%f0 %f0 %f1
+fst	-1(%r29) %f0
+ld	-1(%r29) %r2
+addi %r1 %r0 $16
+addiu %r10 %r0 $0b0100101100000000
+sll %r10 %r10 %r1
+addiu %r10 %r10 $0b0000000000000000
+sub	%r2 %r2 %r10
+nop
+beq	%r8 %r0 min_caml_int_of_float_small_positive
+sub	%r2 %r0 %r2
+jr	%r31
+fneg	%f2 %f1
+addi	%r2 %r0 $0
+fadd	%f0 %f0 %f2
+addi %r1 %r0 $16
+addiu %r11 %r0 $0b0000000010000000
+sll %r11 %r11 %r1
+addiu %r11 %r11 $0b0000000000000000
+add	%r2 %r2 %r11
+fslt	%f0 %f1
+bclf	min_caml_int_of_float_big_loop
+st	-1(%r29) %r2
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_int_of_float
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+ld	-1(%r29) %r3
+add	%r2 %r2 %r3
+beq	%r8 %r0 min_caml_int_of_float_big_positive
+sub	%r2 %r0 %r2
+jr	%r31
+slt	%r8 %r2 %r0
+beq	%r8 %r0 min_caml_float_of_int_flag_positive
+addi	%r9 %r0 $1
+sub	%r11 %r0 %r2
+addi	%r10 %r0 min_caml_float_of_int_after_flag
+jr	%r10
+addi	%r9 %r0 $0
+add	%r11 %r0 %r2
+addi %r1 %r0 $16
+addiu %r8 %r0 $0b0000000010000000
+sll %r8 %r8 %r1
+addiu %r8 %r8 $0b0000000000000000
+slt	%r10 %r11 %r8
+beq	%r10 %r0 min_caml_float_of_int_big
+addi %r1 %r0 $16
+addiu %r8 %r0 $0b0100101100000000
+sll %r8 %r8 %r1
+addiu %r8 %r8 $0b0000000000000000
+add	%r10 %r11 %r8
+st	-1(%r29) %r10
+fld	-1(%r29) %f0
+addi	%r8 %r0 min_caml_float_int_c1
+fld	0(%r8) %f1
+fadd	%f0 %f0 %f1
+beq	%r9 %r0 min_caml_float_of_int_small_positive
+fneg	%f0 %f0
+jr	%r31
+addi	%r8 %r0 min_caml_float_0
+fld	0(%r8) %f0
+addi	%r8 %r0 min_caml_float_int_c2
+fld	0(%r8) %f1
+add	%r8 %r0 %r11
+add	%r9 %r0 %r0
+addi %r1 %r0 $16
+addiu %r10 %r0 $0b0000000010000000
+sll %r10 %r10 %r1
+addiu %r10 %r10 $0b0000000000000000
+sub	%r11 %r0 %r10
+fadd	%f0 %f0 %f1
+add	%r8 %r8 %r11
+slt	%r12 %r8 %r10
+beq	%r12 %r0 min_caml_float_of_int_big_loop
+st	-1(%r29) %r2
+fst	-2(%r29) %f0
+addi	%r29 %r29 $-3
+st	0(%r29) %r31
+add	%r2 %r0 %r8
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $3
+fld	-2(%r29) %f1
+ld	-1(%r29) %r2
+fadd	%f0 %f0 %f1
+beq	%r9 %r0 min_caml_float_of_int_big_positive
+fneg	%f0 %f0
+jr	%r31
+addi	%r8 %r0 min_caml_float_int_c2
+fld	0(%r8) %f1
+fslt	%f0 %f1
+bclf	min_caml_floor_exit
+addi	%r8 %r0 min_caml_float_int_c1
+fld	0(%r8) %f1
+fslt	%f1 %f0
+bclf	min_caml_floor_exit
+fst	-1(%r29) %f0
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_int_of_float
+jal	min_caml_float_of_int
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+fld	-1(%r29) %f1
+addi	%r8 %r0 min_caml_float_minus_1
+fld	0(%r8) %f2
+fslt	%f1 %f0
+bclf	min_caml_floor_sign
+fadd	%f3 %f0 %f2
+fslt	%f3 %f1
+bclf	min_caml_floor_sign
+fadd	%f0 %f0 %f2
+jr	%r31
+addi	%r8 %r0 min_caml_float_0
+fld	0(%r8) %f3
+fslt	%f1 %f3
+bclf	min_caml_floor_exit
+fadd	%f0 %f0 %f2
+jr	%r31
+fabs	%f0 %f0
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_reduction_2pi
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+addi	%r8 %r0 $0
+addi	%r9 %r0 min_caml_pi
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	min_caml_cos_2
+fneg	%f4 %f1
+fadd	%f0 %f0 %f4
+beq	%r8 %r0 min_caml_cos_1_0
+addi	%r8 %r0 $0
+beq	%r0 %r0 min_caml_cos_2
+addi	%r8 %r0 $1
+addi	%r9 %r0 min_caml_half_pi
+fld	0(%r9) %f3
+fslt	%f0 %f3
+bclt	min_caml_cos_3
+fneg	%f4 %f0
+fadd	%f0 %f1 %f4
+beq	%r8 %r0 min_caml_cos_2_0
+addi	%r8 %r0 $0
+beq	%r0 %r0 min_caml_cos_3
+addi	%r8 %r0 $1
+addi	%r9 %r0 min_caml_quarter_pi
+fld	0(%r9) %f4
+fslt	%f4 %f0
+bclf	min_caml_kernel_cos
+fneg	%f4 %f0
+fadd	%f0 %f3 %f4
+beq	%r0 %r0 min_caml_kernel_sin
+fmul	%f1 %f0 %f0
+addi	%r9 %r0 min_caml_kernel_cos_c3
+fld	0(%r9) %f3
+fmul	%f0 %f3 %f1
+addi	%r9 %r0 min_caml_kernel_cos_c2
+fld	0(%r9) %f3
+fadd	%f0 %f0 %f3
+fmul	%f0 %f0 %f1
+addi	%r9 %r0 min_caml_kernel_cos_c1
+fld	0(%r9) %f3
+fadd	%f0 %f0 %f3
+fmul	%f0 %f0 %f1
+addi	%r9 %r0 min_caml_float_1
+fld	0(%r9) %f3
+fadd	%f0 %f0 %f3
+beq	%r8 %r0 min_caml_kernel_cos_positive
+fabs	%f0 %f0
+fneg	%f0 %f0
+jr	%r31
+fabs	%f0 %f0
+jr	%r31
+addi	%r9 %r0 min_caml_float_0
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	min_caml_sin_flag_negative
+addi	%r8 %r0 $0
+beq	%r0 %r0 min_caml_sin_after_flag
+addi	%r8 %r0 $1
+fabs	%f0 %f0
+st	-1(%r29) %r8
+addi	%r29 %r29 $-2
+st	0(%r29) %r31
+jal	min_caml_reduction_2pi
+ld	0(%r29) %r31
+addi	%r29 %r29 $2
+ld	-1(%r29) %r8
+addi	%r9 %r0 min_caml_pi
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	min_caml_sin_2
+fneg	%f4 %f1
+fadd	%f0 %f0 %f4
+beq	%r8 %r0 min_caml_sin_1_0
+addi	%r8 %r0 $0
+beq	%r0 %r0 min_caml_sin_2
+addi	%r8 %r0 $1
+addi	%r9 %r0 min_caml_half_pi
+fld	0(%r9) %f3
+fslt	%f0 %f3
+bclt	min_caml_sin_3
+fneg	%f4 %f0
+fadd	%f0 %f1 %f4
+addi	%r9 %r0 min_caml_quarter_pi
+fld	0(%r9) %f4
+fslt	%f4 %f0
+bclf	min_caml_kernel_sin
+fneg	%f4 %f0
+fadd	%f0 %f3 %f4
+beq	%r0 %r0 min_caml_kernel_cos
+fmul	%f2 %f0 %f0
+addi	%r9 %r0 min_caml_kernel_sin_c3
+fld	0(%r9) %f3
+fmul	%f1 %f3 %f2
+addi	%r9 %r0 min_caml_kernel_sin_c2
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+addi	%r9 %r0 min_caml_kernel_sin_c1
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+fmul	%f1 %f1 %f0
+fadd	%f0 %f1 %f0
+beq	%r8 %r0 min_caml_kernel_sin_positive
+fabs	%f0 %f0
+fneg	%f0 %f0
+jr	%r31
+fabs	%f0 %f0
+jr	%r31
+addi	%r9 %r0 min_caml_2pi
+fld	0(%r9) %f1
+fmov	%f3 %f1
+addi	%r9 %r0 min_caml_float_half
+fld	0(%r9) %f2
+addi	%r9 %r0 min_caml_float_2
+fld	0(%r9) %f4
+fslt	%f0 %f3
+bclt	min_caml_reduction_2pi_while2
+fmul	%f3 %f3 %f4
+beq	%r0 %r0 min_caml_reduction_2pi_while1
+fslt	%f0 %f1
+bclt	min_caml_reduction_2pi_while2_exit
+fslt	%f0 %f3
+bclt	min_caml_reduction_2pi_while2_after_if
+fneg	%f4 %f3
+fadd	%f0 %f0 %f4
+fmul	%f3 %f3 %f2
+beq	%r0 %r0 min_caml_reduction_2pi_while2
+jr	%r31
+addi	%r9 %r0 min_caml_float_0
+fld	0(%r9) %f1
+fslt	%f0 %f1
+bclt	min_caml_atan_flag_negative
+addi	%r8 %r0 $0
+addi	%r9 %r0 min_caml_atan_after_flag
+jr	%r9
+addi	%r8 %r0 $1
+fabs	%f0 %f0
+addi	%r9 %r0 min_caml_atan_c1
+fld	0(%r9) %f4
+fslt	%f0 %f4
+bclf	min_caml_atan_2
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_kernel_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+beq	%r8 %r0 min_caml_atan_positive
+fabs	%f0 %f0
+fneg	%f0 %f0
+jr	%r31
+fabs	%f0 %f0
+jr	%r31
+addi	%r9 %r0 min_caml_atan_c2
+fld	0(%r9) %f4
+fslt	%f0 %f4
+bclf	min_caml_atan_3
+addi	%r9 %r0 min_caml_float_1
+fld	0(%r9) %f3
+fadd	%f4 %f0 %f3
+fneg	%f3 %f3
+fadd	%f5 %f0 %f3
+finv	%f4 %f4
+fmul	%f0 %f4 %f5
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_kernel_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+addi	%r9 %r0 min_caml_quarter_pi
+fld	0(%r9) %f3
+fadd	%f0 %f0 %f3
+beq	%r8 %r0 min_caml_atan_positive
+fabs	%f0 %f0
+fneg	%f0 %f0
+jr	%r31
+finv	%f0 %f0
+addi	%r29 %r29 $-1
+st	0(%r29) %r31
+jal	min_caml_kernel_atan
+ld	0(%r29) %r31
+addi	%r29 %r29 $1
+fneg	%f4 %f0
+addi	%r9 %r0 min_caml_half_pi
+fld	0(%r9) %f0
+fadd	%f0 %f0 %f4
+beq	%r8 %r0 min_caml_atan_positive
+fabs	%f0 %f0
+fneg	%f0 %f0
+jr	%r31
+fmul	%f2 %f0 %f0
+addi	%r9 %r0 min_caml_kernel_atan_c6
+fld	0(%r9) %f3
+fmul	%f1 %f3 %f2
+addi	%r9 %r0 min_caml_kernel_atan_c5
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+addi	%r9 %r0 min_caml_kernel_atan_c4
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+addi	%r9 %r0 min_caml_kernel_atan_c3
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+addi	%r9 %r0 min_caml_kernel_atan_c2
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+addi	%r9 %r0 min_caml_kernel_atan_c1
+fld	0(%r9) %f3
+fadd	%f1 %f1 %f3
+fmul	%f1 %f1 %f2
+fmul	%f1 %f1 %f0
+fadd	%f0 %f1 %f0
+jr	%r31

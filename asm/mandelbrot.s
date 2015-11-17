@@ -1,4 +1,6 @@
 .data
+min_caml_2pi:
+	.long	0x40c90fdb
 min_caml_pi:
 	.long	0x40490fdb
 min_caml_half_pi:
@@ -9,6 +11,8 @@ min_caml_float_0:
 	.long	0x00000000
 min_caml_float_1:
 	.long	0x3f800000
+min_caml_float_2:
+	.long	0x40000000
 min_caml_float_minus_1:
 	.long	0xbf800000
 min_caml_float_half:
@@ -17,63 +21,61 @@ min_caml_float_int_c1:
 	.long	0xcb000000
 min_caml_float_int_c2:
 	.long	0x4b000000
-l.107:	# 0.000000
+l.105:	# 0.000000
 	.long	0x0
-l.105:	# 1.000000
+l.103:	# 1.000000
 	.long	0x3f800000
-l.102:	# 1.500000
+l.100:	# 1.500000
 	.long	0x3fc00000
-l.100:	# 400.000000
+l.98:	# 400.000000
 	.long	0x43c80000
-l.98:	# 4.000000
+l.96:	# 4.000000
 	.long	0x40800000
 .text
-dbl.38:
+dbl.37:
 	fadd	%f0 %f0 %f0	# 1
 	jr	%r31	# 1
-iloop.54:
-	addi	%r25 %r2 $0	# 12
-	beq	%r25 %r0 beq.126	# 12
-	fneg	%f3 %f3	# 13
-	fadd	%f2 %f2 %f3	# 13
+iloop.53:
+	beq	%r2 %r0 beq.124	# 12
+	fneg	%f31 %f3	# 13
+	fadd	%f2 %f2 %f31	# 13
 	fadd	%f2 %f2 %f4	# 13
 	fst	-1(%r29) %f4	# 14
-	st	-3(%r29) %r2	# 14
-	fst	-5(%r29) %f2	# 14
-	fst	-7(%r29) %f5	# 14
-	fst	-9(%r29) %f1	# 14
-	addi	%r29 %r29 $-11	# 14
+	st	-2(%r29) %r2	# 14
+	fst	-3(%r29) %f2	# 14
+	fst	-4(%r29) %f5	# 14
+	fst	-5(%r29) %f1	# 14
+	addi	%r29 %r29 $-6	# 14
 	st	0(%r29) %r31	# 14
-	jal	dbl.38	# 14
+	jal	dbl.37	# 14
 	ld	0(%r29) %r31	# 14
-	addi	%r29 %r29 $11	# 14
-	fld	-9(%r29) %f1	# 14
+	addi	%r29 %r29 $6	# 14
+	fld	-5(%r29) %f1	# 14
 	fmul	%f0 %f0 %f1	# 14
-	fld	-7(%r29) %f5	# 14
+	fld	-4(%r29) %f5	# 14
 	fadd	%f1 %f0 %f5	# 14
-	fld	-5(%r29) %f0	# 17
+	fld	-3(%r29) %f0	# 17
 	fmul	%f2 %f0 %f0	# 17
 	fmul	%f3 %f1 %f1	# 18
 	fadd	%f4 %f2 %f3	# 19
-	addi	%r2 %r0 l.98	# 19
+	addi	%r2 %r0 l.96	# 19
 	fld	0(%r2) %f6	# 19
 	fslt	%f6 %f4	# 19
-	bclt	bclt.128	# 19
-	ld	-3(%r29) %r2	# 20
+	bclt	bclt.125	# 19
+	ld	-2(%r29) %r2	# 20
 	addi	%r2 %r2 $-1	# 20
 	fld	-1(%r29) %f4	# 20
-	beq	%r0 %r0 iloop.54	# 20
-bclt.128:
-	addi	%r2 %r0 $0	# 19
-	beq	%r0 %r0 min_caml_print_int	# 19
-beq.126:
-	addi	%r2 %r0 $1	# 12
-	beq	%r0 %r0 min_caml_print_int	# 12
-xloop.44:
+	beq	%r0 %r0 iloop.53	# 20
+bclt.125:
+	fadd	%f0 %f2 %f3	# 19
+	beq	%r0 %r0 min_caml_print_float_byte	# 19
+beq.124:
+	jr	%r31	# 12
+xloop.43:
 	sub	%r25 %r0 %r2	# 8
 	addi	%r25 %r25 $400	# 8
 	slt	%r25 %r0 %r25	# 8
-	beq	%r25 %r0 beq.129	# 8
+	beq	%r25 %r0 beq.127	# 8
 	st	-1(%r29) %r2	# 9
 	st	-2(%r29) %r3	# 9
 	addi	%r29 %r29 $-3	# 9
@@ -83,63 +85,63 @@ xloop.44:
 	addi	%r29 %r29 $3	# 9
 	addi	%r29 %r29 $-3	# 9
 	st	0(%r29) %r31	# 9
-	jal	dbl.38	# 9
+	jal	dbl.37	# 9
 	ld	0(%r29) %r31	# 9
 	addi	%r29 %r29 $3	# 9
+	addi	%r2 %r0 l.98	# 9
+	fld	0(%r2) %f1	# 9
+	finv	%f31 %f1	# 9
+	fmul	%f0 %f0 %f31	# 9
 	addi	%r2 %r0 l.100	# 9
 	fld	0(%r2) %f1	# 9
-	finv	%f1 %f1	# 9
-	fmul	%f0 %f0 %f1	# 9
-	addi	%r2 %r0 l.102	# 9
-	fld	0(%r2) %f1	# 9
-	fneg	%f1 %f1	# 9
-	fadd	%f0 %f0 %f1	# 9
+	fneg	%f31 %f1	# 9
+	fadd	%f0 %f0 %f31	# 9
 	ld	-2(%r29) %r2	# 10
 	fst	-3(%r29) %f0	# 10
-	addi	%r29 %r29 $-5	# 10
+	addi	%r29 %r29 $-4	# 10
 	st	0(%r29) %r31	# 10
 	jal	min_caml_float_of_int	# 10
 	ld	0(%r29) %r31	# 10
-	addi	%r29 %r29 $5	# 10
-	addi	%r29 %r29 $-5	# 10
+	addi	%r29 %r29 $4	# 10
+	addi	%r29 %r29 $-4	# 10
 	st	0(%r29) %r31	# 10
-	jal	dbl.38	# 10
+	jal	dbl.37	# 10
 	ld	0(%r29) %r31	# 10
-	addi	%r29 %r29 $5	# 10
-	addi	%r2 %r0 l.100	# 10
+	addi	%r29 %r29 $4	# 10
+	addi	%r2 %r0 l.98	# 10
 	fld	0(%r2) %f1	# 10
-	finv	%f1 %f1	# 10
-	fmul	%f0 %f0 %f1	# 10
-	addi	%r2 %r0 l.105	# 10
+	finv	%f31 %f1	# 10
+	fmul	%f0 %f0 %f31	# 10
+	addi	%r2 %r0 l.103	# 10
 	fld	0(%r2) %f1	# 10
-	fneg	%f1 %f1	# 10
-	fadd	%f5 %f0 %f1	# 10
+	fneg	%f31 %f1	# 10
+	fadd	%f5 %f0 %f31	# 10
 	addi	%r2 %r0 $1000	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.105	# 21
 	fld	0(%r3) %f0	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.105	# 21
 	fld	0(%r3) %f1	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.105	# 21
 	fld	0(%r3) %f2	# 21
-	addi	%r3 %r0 l.107	# 21
+	addi	%r3 %r0 l.105	# 21
 	fld	0(%r3) %f3	# 21
 	fld	-3(%r29) %f4	# 21
-	addi	%r29 %r29 $-5	# 21
+	addi	%r29 %r29 $-4	# 21
 	st	0(%r29) %r31	# 21
-	jal	iloop.54	# 21
+	jal	iloop.53	# 21
 	ld	0(%r29) %r31	# 21
-	addi	%r29 %r29 $5	# 21
+	addi	%r29 %r29 $4	# 21
 	ld	-1(%r29) %r2	# 40
 	addi	%r2 %r2 $1	# 40
 	ld	-2(%r29) %r3	# 40
-	beq	%r0 %r0 xloop.44	# 40
-beq.129:
+	beq	%r0 %r0 xloop.43	# 40
+beq.127:
 	jr	%r31	# 8
-yloop.40:
+yloop.39:
 	sub	%r25 %r0 %r2	# 5
 	addi	%r25 %r25 $400	# 5
 	slt	%r25 %r0 %r25	# 5
-	beq	%r25 %r0 beq.131	# 5
+	beq	%r25 %r0 beq.129	# 5
 	addi	%r3 %r0 $0	# 41
 	st	-1(%r29) %r2	# 41
 	add	%r24 %r0 %r3	# 41
@@ -147,13 +149,13 @@ yloop.40:
 	add	%r2 %r0 %r24	# 41
 	addi	%r29 %r29 $-2	# 41
 	st	0(%r29) %r31	# 41
-	jal	xloop.44	# 41
+	jal	xloop.43	# 41
 	ld	0(%r29) %r31	# 41
 	addi	%r29 %r29 $2	# 41
 	ld	-1(%r29) %r2	# 43
 	addi	%r2 %r2 $1	# 43
-	beq	%r0 %r0 yloop.40	# 43
-beq.131:
+	beq	%r0 %r0 yloop.39	# 43
+beq.129:
 	jr	%r31	# 5
 .globl	min_caml_start
 min_caml_start:
@@ -166,7 +168,7 @@ min_caml_start:
 	addi	%r2 %r0 $0	# 44
 	addi	%r29 %r29 $-1	# 44
 	st	0(%r29) %r31	# 44
-	jal	yloop.40	# 44
+	jal	yloop.39	# 44
 	ld	0(%r29) %r31	# 44
 	addi	%r29 %r29 $1	# 44
 	# Main Program End
@@ -369,7 +371,7 @@ min_caml_print_int_send:
 	send8	%r9
 min_caml_print_int_exit:
 	jr	%r31
-# print_int (32bit, byte -> byte)
+# print_int_byte (32bit, byte -> byte)
 min_caml_print_int_byte:
 	addi	%r8 %r0 $8
 	send8	%r2
@@ -380,15 +382,15 @@ min_caml_print_int_byte:
 	srl	%r2 %r2 %r8
 	send8	%r2
 	jr	%r31
-# print_float (32bit, byte -> byte)
+# print_float_byte (32bit, byte -> byte)
 min_caml_print_float_byte:
 	fst	-1(%r29) %f0
 	ld	-1(%r29) %r8
 	addi	%r9 %r0 $8
 	send8	%r8
-	srl	%r8 %r9 %r9
+	srl	%r8 %r8 %r9
 	send8	%r8
-	srl	%r8 %r9 %r9
+	srl	%r8 %r8 %r9
 	send8	%r8
 	srl	%r8 %r8 %r9
 	send8	%r8
@@ -399,22 +401,16 @@ min_caml_print_float_byte:
 ## 加算を倍々に足すやつにすべき(あとでする)
 ##
 
-# truncate
-min_caml_truncate:
-	# int_of_float(x+0.5)
-	addi	%r8 %r0 min_caml_float_half
-	fld	0(%r8) %f1
-	fadd	%f0 %f0 %f1
-# int_of_float
+# int_of_float (a.k.a. truncate)
 min_caml_int_of_float:
+min_caml_truncate:
 	# FLAGを決めてabsをする
 	addi	%r9 %r0 min_caml_float_0
 	fld	0(%r9) %f1
 	fslt	%f0 %f1
 	bclt	min_caml_int_of_float_flag_negative
 	addi	%r8 %r0 $0
-	addi	%r9 %r0 min_caml_int_of_float_after_flag
-	jr	%r9
+	beq	%r0 %r0 min_caml_int_of_float_after_flag
 min_caml_int_of_float_flag_negative:
 	addi	%r8 %r0 $1
 	fneg	%f0 %f0
@@ -424,14 +420,14 @@ min_caml_int_of_float_after_flag:
 	fslt	%f0 %f1
 	bclf	min_caml_int_of_float_big
 	# |x| < 8388608.0
-	# r8: FLAG, r9: addr, r10: imm, r11: const for shift
+	# r2: answer, r8: FLAG, r9: addr, r10: imm, r11: const for shift
 	# f0: |x|, f1: 8388608.0
 	fadd	%f0 %f0 %f1
 	fst	-1(%r29) %f0
 	ld	-1(%r29) %r2
 	addiu32	%r10 %r0 $0x4b000000
-	sub	%r10 %r0 %r10
-	add	%r2 %r2 %r10 
+	sub	%r2 %r2 %r10
+	nop
 	# FLAGの調整
 	beq	%r8 %r0 min_caml_int_of_float_small_positive
 	sub	%r2 %r0 %r2

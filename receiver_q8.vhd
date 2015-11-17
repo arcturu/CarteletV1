@@ -17,7 +17,7 @@ end RECEIVER_Q8;
 
 architecture struct of RECEIVER_Q8 is
     type st_type is (ready, first_zero, receiving, wait_next_zero);
-    type queue_type is array (15 downto 0) of std_logic_vector (7 downto 0);
+    type queue_type is array (2048 downto 0) of std_logic_vector (7 downto 0);
     type reg_type is record
         bytes : std_logic_vector (2 downto 0);
         bits_buff : std_logic_vector (7 downto 0);
@@ -27,8 +27,12 @@ architecture struct of RECEIVER_Q8 is
         rs_rxb : std_logic;
         st : st_type;
         queue : queue_type;
-        qhd : std_logic_vector (3 downto 0);
-        qtl : std_logic_vector (3 downto 0);
+        mem_addr : std_logic_vector (10 downto 0);
+        mem_din : std_logic_vector (7 downto 0);
+        mem_we : std_logic;
+        mem_dout : std_logic_vector (7 downto 0);
+        qhd : std_logic_vector (10 downto 0);
+        qtl : std_logic_vector (10 downto 0);
     end record;
     signal r, rin : reg_type := (
         bytes => "001",
@@ -39,14 +43,35 @@ architecture struct of RECEIVER_Q8 is
         rs_rxb => '1',
         st => ready,
         queue => (others => (others => '0')),
+        mem_addr => (others => '0'),
+        mem_din => (others => '0'),
+        mem_we => '0',
+        mem_dout => (others => '0'),
         qhd => (others => '0'),
         qtl => (others => '0'));
+    component receiver_fifo IS
+        PORT (
+                 a : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
+                 d : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+                 clk : IN STD_LOGIC;
+                 we : IN STD_LOGIC;
+                 spo : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+             );
+    end component;
+    signal mem_addr : std_logic_vector (10 downto 0);
+    signal mem_din : std_logic_vector (7 downto 0);
+    signal mem_we : std_logic := '0';
+    signal mem_dout : std_logic_vector (7 downto 0);
 begin
+    rfifo : receiver_fifo port map (mem_addr, mem_din, clk, mem_we, mem_dout);
     comb : process (receiver_q8_in, r)
         variable v : reg_type;
     begin
         v := r;
         v.rs_rxb := receiver_q8_in.RS_RX;
+
+        v.mem_addr := r.qhd;
+        v.mem_we := '0';
 
         if rst = '1' then
             v.qhd := (others => '0');
@@ -81,7 +106,9 @@ begin
                         v.bytes := std_logic_vector(unsigned(r.bytes) - 1);
                         v.bits := "1001";
                         if r.qhd /= std_logic_vector(unsigned(r.qtl) + 1) then -- 溢れたら溢れたぶんは捨てられる
-                            v.queue(to_integer(unsigned(r.qtl))) := r.bits_buff;
+                            v.mem_din := r.bits_buff;
+                            v.mem_we := '1';
+                            v.mem_addr := r.qtl;
                             v.qtl := std_logic_vector(unsigned(r.qtl) + 1);
                         end if;
                         if v.bytes = "000" then
@@ -100,13 +127,16 @@ begin
                 end if;
         end case;
 
-        if r.qhd = r.qtl then
-            receiver_q8_out.valid <= '0';
-        else
+        if r.qhd /= r.qtl and r.mem_we = '0' then
             receiver_q8_out.valid <= '1';
+        else
+            receiver_q8_out.valid <= '0';
         end if;
 
-        receiver_q8_out.data <= v.queue (to_integer(unsigned(r.qhd)));
+        receiver_q8_out.data <= mem_dout;
+        mem_din <= v.mem_din;
+        mem_we <= v.mem_we;
+        mem_addr <= v.mem_addr;
         rin <= v;
     end process;
 

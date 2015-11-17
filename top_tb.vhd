@@ -77,11 +77,13 @@
           signal receiver_out : receiver_out_type;
           signal sender_in : sender_in_type;
           signal sender_out : sender_out_type;
-          signal counter : std_logic_vector (7 downto 0) := x"08";
-          type inst_list_type is array (8 downto 0) of std_logic_vector (31 downto 0);
+          signal counter : std_logic_vector (7 downto 0) := x"0a";
+          type inst_list_type is array (10 downto 0) of std_logic_vector (31 downto 0);
           signal inst_list : inst_list_type := (
           "00000010000000000000000000000000",
-          "00000001000000000000000000000101",
+          "00000001000000000000000000000111",
+          "00001000011000000000000010101010",
+          "10001000011000000000000000000000",
           "01000000000000000000000000000000",
           "10001100001000000000000000000000",
           "10001000001000000000000000000000",

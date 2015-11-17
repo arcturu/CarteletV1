@@ -1,4 +1,6 @@
 .data
+min_caml_2pi:
+	.long	0x40c90fdb
 min_caml_pi:
 	.long	0x40490fdb
 min_caml_half_pi:
@@ -9,6 +11,8 @@ min_caml_float_0:
 	.long	0x00000000
 min_caml_float_1:
 	.long	0x3f800000
+min_caml_float_2:
+	.long	0x40000000
 min_caml_float_minus_1:
 	.long	0xbf800000
 min_caml_float_half:
@@ -159,25 +163,23 @@ vecunit_sgn.2509:
 bclt_true.10405:
 	addi	%r2 %r0 $1	# 92
 bclt_cont.10406:
-	addi	%r25 %r2 $0	# 186
-	beq	%r25 %r0 beq_true.10407	# 186
+	beq	%r2 %r0 beq_true.10407	# 186
 	addi	%r2 %r0 l.8520	# 186
 	fld	0(%r2) %f1	# 186
 	beq	%r0 %r0 beq_cont.10408	# 186
 beq_true.10407:
 	ld	-2(%r29) %r2	# 186
-	addi	%r25 %r2 $0	# 186
-	beq	%r25 %r0 beq_true.10409	# 186
+	beq	%r2 %r0 beq_true.10409	# 186
 	addi	%r2 %r0 l.8522	# 186
 	fld	0(%r2) %f1	# 186
-	finv	%f0 %f0	# 186
-	fmul	%f1 %f1 %f0	# 186
+	finv	%f31 %f0	# 186
+	fmul	%f1 %f1 %f31	# 186
 	beq	%r0 %r0 beq_cont.10410	# 186
 beq_true.10409:
 	addi	%r2 %r0 l.8520	# 186
 	fld	0(%r2) %f1	# 186
-	finv	%f0 %f0	# 186
-	fmul	%f1 %f1 %f0	# 186
+	finv	%f31 %f0	# 186
+	fmul	%f1 %f1 %f31	# 186
 beq_cont.10410:
 beq_cont.10408:
 	addi	%r2 %r0 $0	# 187
@@ -431,44 +433,44 @@ read_screen_settings.2610:
 	fld	0(%r2) %f1	# 577
 	fmul	%f0 %f0 %f1	# 577
 	fst	-9(%r29) %f0	# 589
-	addi	%r29 %r29 $-11	# 589
+	addi	%r29 %r29 $-10	# 589
 	st	0(%r29) %r31	# 589
 	jal	min_caml_cos	# 589
 	ld	0(%r29) %r31	# 589
-	addi	%r29 %r29 $11	# 589
+	addi	%r29 %r29 $10	# 589
 	fld	-9(%r29) %f1	# 590
-	fst	-11(%r29) %f0	# 590
+	fst	-10(%r29) %f0	# 590
 	fmov	%f0 %f1	# 590
-	addi	%r29 %r29 $-13	# 590
+	addi	%r29 %r29 $-11	# 590
 	st	0(%r29) %r31	# 590
 	jal	min_caml_sin	# 590
 	ld	0(%r29) %r31	# 590
-	addi	%r29 %r29 $13	# 590
-	fst	-13(%r29) %f0	# 591
-	addi	%r29 %r29 $-15	# 591
+	addi	%r29 %r29 $11	# 590
+	fst	-11(%r29) %f0	# 591
+	addi	%r29 %r29 $-12	# 591
 	st	0(%r29) %r31	# 591
 	jal	min_caml_read_float	# 591
 	ld	0(%r29) %r31	# 591
-	addi	%r29 %r29 $15	# 591
+	addi	%r29 %r29 $12	# 591
 	addi	%r2 %r0 l.8525	# 577
 	fld	0(%r2) %f1	# 577
 	fmul	%f0 %f0 %f1	# 577
-	fst	-15(%r29) %f0	# 592
-	addi	%r29 %r29 $-17	# 592
+	fst	-12(%r29) %f0	# 592
+	addi	%r29 %r29 $-13	# 592
 	st	0(%r29) %r31	# 592
 	jal	min_caml_cos	# 592
 	ld	0(%r29) %r31	# 592
-	addi	%r29 %r29 $17	# 592
-	fld	-15(%r29) %f1	# 593
-	fst	-17(%r29) %f0	# 593
+	addi	%r29 %r29 $13	# 592
+	fld	-12(%r29) %f1	# 593
+	fst	-13(%r29) %f0	# 593
 	fmov	%f0 %f1	# 593
-	addi	%r29 %r29 $-19	# 593
+	addi	%r29 %r29 $-14	# 593
 	st	0(%r29) %r31	# 593
 	jal	min_caml_sin	# 593
 	ld	0(%r29) %r31	# 593
-	addi	%r29 %r29 $19	# 593
+	addi	%r29 %r29 $14	# 593
 	addi	%r2 %r0 $0	# 595
-	fld	-11(%r29) %f1	# 595
+	fld	-10(%r29) %f1	# 595
 	fmul	%f2 %f1 %f0	# 595
 	addi	%r3 %r0 l.8528	# 595
 	fld	0(%r3) %f3	# 595
@@ -479,12 +481,12 @@ read_screen_settings.2610:
 	addi	%r2 %r0 $1	# 596
 	addi	%r8 %r0 l.8530	# 596
 	fld	0(%r8) %f2	# 596
-	fld	-13(%r29) %f3	# 596
+	fld	-11(%r29) %f3	# 596
 	fmul	%f2 %f3 %f2	# 596
 	add	%r25 %r3 %r2	# 596
 	fst	0(%r25) %f2	# 596
 	addi	%r2 %r0 $2	# 597
-	fld	-17(%r29) %f2	# 597
+	fld	-13(%r29) %f2	# 597
 	fmul	%f4 %f1 %f2	# 597
 	addi	%r8 %r0 l.8528	# 597
 	fld	0(%r8) %f5	# 597
@@ -527,8 +529,8 @@ read_screen_settings.2610:
 	addi	%r8 %r0 $0	# 607
 	add	%r25 %r3 %r8	# 607
 	fld	0(%r25) %f1	# 607
-	fneg	%f1 %f1	# 607
-	fadd	%f0 %f0 %f1	# 607
+	fneg	%f31 %f1	# 607
+	fadd	%f0 %f0 %f31	# 607
 	ld	-1(%r29) %r8	# 607
 	add	%r25 %r8 %r2	# 607
 	fst	0(%r25) %f0	# 607
@@ -539,8 +541,8 @@ read_screen_settings.2610:
 	addi	%r10 %r0 $1	# 608
 	add	%r25 %r3 %r10	# 608
 	fld	0(%r25) %f1	# 608
-	fneg	%f1 %f1	# 608
-	fadd	%f0 %f0 %f1	# 608
+	fneg	%f31 %f1	# 608
+	fadd	%f0 %f0 %f31	# 608
 	add	%r25 %r8 %r2	# 608
 	fst	0(%r25) %f0	# 608
 	addi	%r2 %r0 $2	# 609
@@ -550,8 +552,8 @@ read_screen_settings.2610:
 	addi	%r9 %r0 $2	# 609
 	add	%r25 %r3 %r9	# 609
 	fld	0(%r25) %f1	# 609
-	fneg	%f1 %f1	# 609
-	fadd	%f0 %f0 %f1	# 609
+	fneg	%f31 %f1	# 609
+	fadd	%f0 %f0 %f31	# 609
 	add	%r25 %r8 %r2	# 609
 	fst	0(%r25) %f0	# 609
 	jr	%r31	# 609
@@ -574,66 +576,66 @@ read_light.2612:
 	fld	0(%r2) %f1	# 577
 	fmul	%f0 %f0 %f1	# 577
 	fst	-3(%r29) %f0	# 620
-	addi	%r29 %r29 $-5	# 620
+	addi	%r29 %r29 $-4	# 620
 	st	0(%r29) %r31	# 620
 	jal	min_caml_sin	# 620
 	ld	0(%r29) %r31	# 620
-	addi	%r29 %r29 $5	# 620
+	addi	%r29 %r29 $4	# 620
 	addi	%r2 %r0 $1	# 621
 	fneg	%f0 %f0	# 95
 	ld	-2(%r29) %r3	# 621
 	add	%r25 %r3 %r2	# 621
 	fst	0(%r25) %f0	# 621
-	addi	%r29 %r29 $-5	# 622
+	addi	%r29 %r29 $-4	# 622
 	st	0(%r29) %r31	# 622
 	jal	min_caml_read_float	# 622
 	ld	0(%r29) %r31	# 622
-	addi	%r29 %r29 $5	# 622
+	addi	%r29 %r29 $4	# 622
 	addi	%r2 %r0 l.8525	# 577
 	fld	0(%r2) %f1	# 577
 	fmul	%f0 %f0 %f1	# 577
 	fld	-3(%r29) %f1	# 623
-	fst	-5(%r29) %f0	# 623
+	fst	-4(%r29) %f0	# 623
 	fmov	%f0 %f1	# 623
-	addi	%r29 %r29 $-7	# 623
+	addi	%r29 %r29 $-5	# 623
 	st	0(%r29) %r31	# 623
 	jal	min_caml_cos	# 623
 	ld	0(%r29) %r31	# 623
-	addi	%r29 %r29 $7	# 623
-	fld	-5(%r29) %f1	# 624
-	fst	-7(%r29) %f0	# 624
+	addi	%r29 %r29 $5	# 623
+	fld	-4(%r29) %f1	# 624
+	fst	-5(%r29) %f0	# 624
 	fmov	%f0 %f1	# 624
-	addi	%r29 %r29 $-9	# 624
+	addi	%r29 %r29 $-6	# 624
 	st	0(%r29) %r31	# 624
 	jal	min_caml_sin	# 624
 	ld	0(%r29) %r31	# 624
-	addi	%r29 %r29 $9	# 624
+	addi	%r29 %r29 $6	# 624
 	addi	%r2 %r0 $0	# 625
-	fld	-7(%r29) %f1	# 625
+	fld	-5(%r29) %f1	# 625
 	fmul	%f0 %f1 %f0	# 625
 	ld	-2(%r29) %r3	# 625
 	add	%r25 %r3 %r2	# 625
 	fst	0(%r25) %f0	# 625
-	fld	-5(%r29) %f0	# 626
-	addi	%r29 %r29 $-9	# 626
+	fld	-4(%r29) %f0	# 626
+	addi	%r29 %r29 $-6	# 626
 	st	0(%r29) %r31	# 626
 	jal	min_caml_cos	# 626
 	ld	0(%r29) %r31	# 626
-	addi	%r29 %r29 $9	# 626
+	addi	%r29 %r29 $6	# 626
 	addi	%r2 %r0 $2	# 627
-	fld	-7(%r29) %f1	# 627
+	fld	-5(%r29) %f1	# 627
 	fmul	%f1 %f1 %f0	# 627
 	ld	-2(%r29) %r3	# 627
 	add	%r25 %r3 %r2	# 627
 	fst	0(%r25) %f1	# 627
 	addi	%r2 %r0 $0	# 628
-	st	-9(%r29) %r2	# 628
-	addi	%r29 %r29 $-10	# 628
+	st	-6(%r29) %r2	# 628
+	addi	%r29 %r29 $-7	# 628
 	st	0(%r29) %r31	# 628
 	jal	min_caml_read_float	# 628
 	ld	0(%r29) %r31	# 628
-	addi	%r29 %r29 $10	# 628
-	ld	-9(%r29) %r2	# 628
+	addi	%r29 %r29 $7	# 628
+	ld	-6(%r29) %r2	# 628
 	ld	-1(%r29) %r3	# 628
 	add	%r25 %r3 %r2	# 628
 	fst	0(%r25) %f0	# 628
@@ -655,66 +657,66 @@ rotate_quadratic_matrix.2614:
 	fld	0(%r25) %f1	# 639
 	fst	-3(%r29) %f0	# 639
 	fmov	%f0 %f1	# 639
-	addi	%r29 %r29 $-5	# 639
+	addi	%r29 %r29 $-4	# 639
 	st	0(%r29) %r31	# 639
 	jal	min_caml_sin	# 639
 	ld	0(%r29) %r31	# 639
-	addi	%r29 %r29 $5	# 639
+	addi	%r29 %r29 $4	# 639
 	addi	%r2 %r0 $1	# 640
 	ld	-2(%r29) %r3	# 640
 	add	%r25 %r3 %r2	# 640
 	fld	0(%r25) %f1	# 640
-	fst	-5(%r29) %f0	# 640
+	fst	-4(%r29) %f0	# 640
 	fmov	%f0 %f1	# 640
-	addi	%r29 %r29 $-7	# 640
+	addi	%r29 %r29 $-5	# 640
 	st	0(%r29) %r31	# 640
 	jal	min_caml_cos	# 640
 	ld	0(%r29) %r31	# 640
-	addi	%r29 %r29 $7	# 640
+	addi	%r29 %r29 $5	# 640
 	addi	%r2 %r0 $1	# 641
 	ld	-2(%r29) %r3	# 641
 	add	%r25 %r3 %r2	# 641
 	fld	0(%r25) %f1	# 641
-	fst	-7(%r29) %f0	# 641
+	fst	-5(%r29) %f0	# 641
 	fmov	%f0 %f1	# 641
-	addi	%r29 %r29 $-9	# 641
+	addi	%r29 %r29 $-6	# 641
 	st	0(%r29) %r31	# 641
 	jal	min_caml_sin	# 641
 	ld	0(%r29) %r31	# 641
-	addi	%r29 %r29 $9	# 641
+	addi	%r29 %r29 $6	# 641
 	addi	%r2 %r0 $2	# 642
 	ld	-2(%r29) %r3	# 642
 	add	%r25 %r3 %r2	# 642
 	fld	0(%r25) %f1	# 642
-	fst	-9(%r29) %f0	# 642
+	fst	-6(%r29) %f0	# 642
 	fmov	%f0 %f1	# 642
-	addi	%r29 %r29 $-11	# 642
+	addi	%r29 %r29 $-7	# 642
 	st	0(%r29) %r31	# 642
 	jal	min_caml_cos	# 642
 	ld	0(%r29) %r31	# 642
-	addi	%r29 %r29 $11	# 642
+	addi	%r29 %r29 $7	# 642
 	addi	%r2 %r0 $2	# 643
 	ld	-2(%r29) %r3	# 643
 	add	%r25 %r3 %r2	# 643
 	fld	0(%r25) %f1	# 643
-	fst	-11(%r29) %f0	# 643
+	fst	-7(%r29) %f0	# 643
 	fmov	%f0 %f1	# 643
-	addi	%r29 %r29 $-13	# 643
+	addi	%r29 %r29 $-8	# 643
 	st	0(%r29) %r31	# 643
 	jal	min_caml_sin	# 643
 	ld	0(%r29) %r31	# 643
-	addi	%r29 %r29 $13	# 643
-	fld	-11(%r29) %f1	# 645
-	fld	-7(%r29) %f2	# 645
+	addi	%r29 %r29 $8	# 643
+	fld	-7(%r29) %f1	# 645
+	fld	-5(%r29) %f2	# 645
 	fmul	%f3 %f2 %f1	# 645
-	fld	-9(%r29) %f4	# 646
-	fld	-5(%r29) %f5	# 646
+	fld	-6(%r29) %f4	# 646
+	fld	-4(%r29) %f5	# 646
 	fmul	%f6 %f5 %f4	# 646
 	fmul	%f6 %f6 %f1	# 646
 	fld	-3(%r29) %f7	# 646
 	fmul	%f8 %f7 %f0	# 646
-	fneg	%f8 %f8	# 646
-	fadd	%f6 %f6 %f8	# 646
+	fneg	%f31 %f8	# 646
+	fadd	%f6 %f6 %f31	# 646
 	fmul	%f8 %f7 %f4	# 647
 	fmul	%f8 %f8 %f1	# 647
 	fmul	%f9 %f5 %f0	# 647
@@ -727,8 +729,8 @@ rotate_quadratic_matrix.2614:
 	fmul	%f11 %f7 %f4	# 651
 	fmul	%f11 %f11 %f0	# 651
 	fmul	%f1 %f5 %f1	# 651
-	fneg	%f1 %f1	# 651
-	fadd	%f11 %f11 %f1	# 651
+	fneg	%f31 %f1	# 651
+	fadd	%f11 %f11 %f31	# 651
 	fneg	%f4 %f4	# 95
 	fmul	%f5 %f5 %f2	# 654
 	fmul	%f7 %f7 %f2	# 655
@@ -1033,8 +1035,7 @@ bclt_cont.10421:
 	addi	%r29 %r29 $23	# 707
 	ld	-6(%r29) %r3	# 708
 	st	-23(%r29) %r2	# 708
-	addi	%r25 %r3 $0	# 708
-	beq	%r25 %r0 beq_true.10422	# 708
+	beq	%r3 %r0 beq_true.10422	# 708
 	addi	%r8 %r0 $0	# 710
 	st	-24(%r29) %r8	# 710
 	addi	%r29 %r29 $-25	# 710
@@ -1132,8 +1133,7 @@ beq_cont.10425:
 	beq	%r0 %r0 beq_cont.10429	# 743
 beq_true.10428:
 	ld	-15(%r29) %r3	# 745
-	addi	%r25 %r3 $0	# 745
-	beq	%r25 %r0 beq_true.10430	# 745
+	beq	%r3 %r0 beq_true.10430	# 745
 	addi	%r3 %r0 $0	# 745
 	beq	%r0 %r0 beq_cont.10431	# 745
 beq_true.10430:
@@ -1161,8 +1161,7 @@ beq_true.10426:
 bclt_true.10432:
 	addi	%r10 %r0 $1	# 92
 bclt_cont.10433:
-	addi	%r25 %r10 $0	# 737
-	beq	%r25 %r0 beq_true.10434	# 737
+	beq	%r10 %r0 beq_true.10434	# 737
 	addi	%r10 %r0 l.8518	# 737
 	fld	0(%r10) %f1	# 737
 	beq	%r0 %r0 beq_cont.10435	# 737
@@ -1176,8 +1175,7 @@ beq_true.10434:
 bclt_true.10436:
 	addi	%r10 %r0 $1	# 92
 bclt_cont.10437:
-	addi	%r25 %r10 $0	# 118
-	beq	%r25 %r0 beq_true.10438	# 118
+	beq	%r10 %r0 beq_true.10438	# 118
 	addi	%r10 %r0 l.8518	# 118
 	fld	0(%r10) %f1	# 118
 	beq	%r0 %r0 beq_cont.10439	# 118
@@ -1191,8 +1189,7 @@ beq_true.10438:
 bclt_true.10440:
 	addi	%r10 %r0 $1	# 90
 bclt_cont.10441:
-	addi	%r25 %r10 $0	# 119
-	beq	%r25 %r0 beq_true.10442	# 119
+	beq	%r10 %r0 beq_true.10442	# 119
 	addi	%r10 %r0 l.8520	# 119
 	fld	0(%r10) %f1	# 119
 	beq	%r0 %r0 beq_cont.10443	# 119
@@ -1202,8 +1199,8 @@ beq_true.10442:
 beq_cont.10443:
 beq_cont.10439:
 	fmul	%f0 %f0 %f0	# 94
-	finv	%f0 %f0	# 737
-	fmul	%f1 %f1 %f0	# 737
+	finv	%f31 %f0	# 737
+	fmul	%f1 %f1 %f31	# 737
 beq_cont.10435:
 	add	%r25 %r8 %r3	# 737
 	fst	0(%r25) %f1	# 737
@@ -1220,8 +1217,7 @@ beq_cont.10435:
 bclt_true.10444:
 	addi	%r10 %r0 $1	# 92
 bclt_cont.10445:
-	addi	%r25 %r10 $0	# 739
-	beq	%r25 %r0 beq_true.10446	# 739
+	beq	%r10 %r0 beq_true.10446	# 739
 	addi	%r10 %r0 l.8518	# 739
 	fld	0(%r10) %f1	# 739
 	beq	%r0 %r0 beq_cont.10447	# 739
@@ -1235,8 +1231,7 @@ beq_true.10446:
 bclt_true.10448:
 	addi	%r10 %r0 $1	# 92
 bclt_cont.10449:
-	addi	%r25 %r10 $0	# 118
-	beq	%r25 %r0 beq_true.10450	# 118
+	beq	%r10 %r0 beq_true.10450	# 118
 	addi	%r10 %r0 l.8518	# 118
 	fld	0(%r10) %f1	# 118
 	beq	%r0 %r0 beq_cont.10451	# 118
@@ -1250,8 +1245,7 @@ beq_true.10450:
 bclt_true.10452:
 	addi	%r10 %r0 $1	# 90
 bclt_cont.10453:
-	addi	%r25 %r10 $0	# 119
-	beq	%r25 %r0 beq_true.10454	# 119
+	beq	%r10 %r0 beq_true.10454	# 119
 	addi	%r10 %r0 l.8520	# 119
 	fld	0(%r10) %f1	# 119
 	beq	%r0 %r0 beq_cont.10455	# 119
@@ -1261,8 +1255,8 @@ beq_true.10454:
 beq_cont.10455:
 beq_cont.10451:
 	fmul	%f0 %f0 %f0	# 94
-	finv	%f0 %f0	# 739
-	fmul	%f1 %f1 %f0	# 739
+	finv	%f31 %f0	# 739
+	fmul	%f1 %f1 %f31	# 739
 beq_cont.10447:
 	add	%r25 %r8 %r3	# 739
 	fst	0(%r25) %f1	# 739
@@ -1279,8 +1273,7 @@ beq_cont.10447:
 bclt_true.10456:
 	addi	%r10 %r0 $1	# 92
 bclt_cont.10457:
-	addi	%r25 %r10 $0	# 741
-	beq	%r25 %r0 beq_true.10458	# 741
+	beq	%r10 %r0 beq_true.10458	# 741
 	addi	%r10 %r0 l.8518	# 741
 	fld	0(%r10) %f1	# 741
 	beq	%r0 %r0 beq_cont.10459	# 741
@@ -1294,8 +1287,7 @@ beq_true.10458:
 bclt_true.10460:
 	addi	%r10 %r0 $1	# 92
 bclt_cont.10461:
-	addi	%r25 %r10 $0	# 118
-	beq	%r25 %r0 beq_true.10462	# 118
+	beq	%r10 %r0 beq_true.10462	# 118
 	addi	%r10 %r0 l.8518	# 118
 	fld	0(%r10) %f1	# 118
 	beq	%r0 %r0 beq_cont.10463	# 118
@@ -1309,8 +1301,7 @@ beq_true.10462:
 bclt_true.10464:
 	addi	%r10 %r0 $1	# 90
 bclt_cont.10465:
-	addi	%r25 %r10 $0	# 119
-	beq	%r25 %r0 beq_true.10466	# 119
+	beq	%r10 %r0 beq_true.10466	# 119
 	addi	%r10 %r0 l.8520	# 119
 	fld	0(%r10) %f1	# 119
 	beq	%r0 %r0 beq_cont.10467	# 119
@@ -1320,15 +1311,14 @@ beq_true.10466:
 beq_cont.10467:
 beq_cont.10463:
 	fmul	%f0 %f0 %f0	# 94
-	finv	%f0 %f0	# 741
-	fmul	%f1 %f1 %f0	# 741
+	finv	%f31 %f0	# 741
+	fmul	%f1 %f1 %f31	# 741
 beq_cont.10459:
 	add	%r25 %r8 %r3	# 741
 	fst	0(%r25) %f1	# 741
 beq_cont.10427:
 	ld	-6(%r29) %r2	# 749
-	addi	%r25 %r2 $0	# 749
-	beq	%r25 %r0 beq_true.10468	# 749
+	beq	%r2 %r0 beq_true.10468	# 749
 	ld	-8(%r29) %r2	# 750
 	ld	-23(%r29) %r3	# 750
 	addi	%r29 %r29 $-28	# 750
@@ -1362,8 +1352,7 @@ read_object.2619:
 	jalr	%r24	# 762
 	ld	0(%r29) %r31	# 762
 	addi	%r29 %r29 $5	# 762
-	addi	%r25 %r2 $0	# 762
-	beq	%r25 %r0 beq.10471	# 762
+	beq	%r2 %r0 beq.10471	# 762
 	ld	-4(%r29) %r2	# 763
 	addi	%r2 %r2 $1	# 763
 	sub	%r25 %r0 %r2	# 761
@@ -1379,8 +1368,7 @@ read_object.2619:
 	jalr	%r24	# 762
 	ld	0(%r29) %r31	# 762
 	addi	%r29 %r29 $6	# 762
-	addi	%r25 %r2 $0	# 762
-	beq	%r25 %r0 beq.10473	# 762
+	beq	%r2 %r0 beq.10473	# 762
 	ld	-5(%r29) %r2	# 763
 	addi	%r2 %r2 $1	# 763
 	ld	-1(%r29) %r3	# 763
@@ -1606,8 +1594,7 @@ solver_rect_surface.2631:
 bclt_true.10487:
 	addi	%r12 %r0 $1	# 92
 bclt_cont.10488:
-	addi	%r25 %r12 $0	# 829
-	beq	%r25 %r0 beq.10489	# 829
+	beq	%r12 %r0 beq.10489	# 829
 	addi	%r2 %r0 $0	# 829
 	jr	%r31	# 829
 beq.10489:
@@ -1624,10 +1611,8 @@ beq.10489:
 bclt_true.10490:
 	addi	%r13 %r0 $1	# 91
 bclt_cont.10491:
-	addi	%r25 %r2 $0	# 110
-	beq	%r25 %r0 beq_true.10492	# 110
-	addi	%r25 %r13 $0	# 110
-	beq	%r25 %r0 beq_true.10494	# 110
+	beq	%r2 %r0 beq_true.10492	# 110
+	beq	%r13 %r0 beq_true.10494	# 110
 	addi	%r13 %r0 $0	# 110
 	beq	%r0 %r0 beq_cont.10495	# 110
 beq_true.10494:
@@ -1638,76 +1623,73 @@ beq_true.10492:
 beq_cont.10493:
 	add	%r25 %r12 %r8	# 831
 	fld	0(%r25) %f3	# 831
-	addi	%r25 %r13 $0	# 125
-	beq	%r25 %r0 beq_true.10496	# 125
+	beq	%r13 %r0 beq_true.10496	# 125
 	beq	%r0 %r0 beq_cont.10497	# 125
 beq_true.10496:
 	fneg	%f3 %f3	# 95
 beq_cont.10497:
-	fneg	%f0 %f0	# 833
-	fadd	%f3 %f3 %f0	# 833
+	fneg	%f31 %f0	# 833
+	fadd	%f3 %f3 %f31	# 833
 	add	%r25 %r3 %r8	# 833
 	fld	0(%r25) %f0	# 833
-	finv	%f0 %f0	# 833
-	fmul	%f3 %f3 %f0	# 833
+	finv	%f31 %f0	# 833
+	fmul	%f3 %f3 %f31	# 833
 	add	%r25 %r3 %r9	# 834
 	fld	0(%r25) %f0	# 834
 	fmul	%f0 %f3 %f0	# 834
 	fadd	%f0 %f0 %f1	# 834
 	st	-1(%r29) %r11	# 834
-	fst	-3(%r29) %f2	# 834
-	fst	-5(%r29) %f3	# 834
-	st	-7(%r29) %r10	# 834
-	st	-8(%r29) %r3	# 834
-	st	-9(%r29) %r9	# 834
-	st	-10(%r29) %r12	# 834
+	fst	-2(%r29) %f2	# 834
+	fst	-3(%r29) %f3	# 834
+	st	-4(%r29) %r10	# 834
+	st	-5(%r29) %r3	# 834
+	st	-6(%r29) %r9	# 834
+	st	-7(%r29) %r12	# 834
 	fabs	%f0 %f0	# 834
-	ld	-9(%r29) %r2	# 834
-	ld	-10(%r29) %r3	# 834
+	ld	-6(%r29) %r2	# 834
+	ld	-7(%r29) %r3	# 834
 	add	%r25 %r3 %r2	# 834
 	fld	0(%r25) %f1	# 834
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10499	# 89
+	bclt	bclt_true.10498	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10500	# 89
-bclt_true.10499:
+	beq	%r0 %r0 bclt_cont.10499	# 89
+bclt_true.10498:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10500:
-	addi	%r25 %r2 $0	# 834
-	beq	%r25 %r0 beq.10501	# 834
-	ld	-7(%r29) %r2	# 835
-	ld	-8(%r29) %r8	# 835
+bclt_cont.10499:
+	beq	%r2 %r0 beq.10500	# 834
+	ld	-4(%r29) %r2	# 835
+	ld	-5(%r29) %r8	# 835
 	add	%r25 %r8 %r2	# 835
 	fld	0(%r25) %f0	# 835
-	fld	-5(%r29) %f1	# 835
+	fld	-3(%r29) %f1	# 835
 	fmul	%f0 %f1 %f0	# 835
-	fld	-3(%r29) %f2	# 835
+	fld	-2(%r29) %f2	# 835
 	fadd	%f0 %f0 %f2	# 835
 	fabs	%f0 %f0	# 835
-	ld	-7(%r29) %r2	# 835
-	ld	-10(%r29) %r3	# 835
+	ld	-4(%r29) %r2	# 835
+	ld	-7(%r29) %r3	# 835
 	add	%r25 %r3 %r2	# 835
 	fld	0(%r25) %f1	# 835
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10502	# 89
+	bclt	bclt_true.10501	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10503	# 89
-bclt_true.10502:
+	beq	%r0 %r0 bclt_cont.10502	# 89
+bclt_true.10501:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10503:
-	addi	%r25 %r2 $0	# 835
-	beq	%r25 %r0 beq.10504	# 835
+bclt_cont.10502:
+	beq	%r2 %r0 beq.10503	# 835
 	addi	%r2 %r0 $0	# 836
 	ld	-1(%r29) %r3	# 836
-	fld	-5(%r29) %f0	# 836
+	fld	-3(%r29) %f0	# 836
 	add	%r25 %r3 %r2	# 836
 	fst	0(%r25) %f0	# 836
 	addi	%r2 %r0 $1	# 836
 	jr	%r31	# 836
-beq.10504:
+beq.10503:
 	addi	%r2 %r0 $0	# 837
 	jr	%r31	# 837
-beq.10501:
+beq.10500:
 	addi	%r2 %r0 $0	# 838
 	jr	%r31	# 838
 solver_rect.2640:
@@ -1716,124 +1698,120 @@ solver_rect.2640:
 	addi	%r10 %r0 $1	# 844
 	addi	%r11 %r0 $2	# 844
 	fst	-1(%r29) %f0	# 844
-	fst	-3(%r29) %f2	# 844
-	fst	-5(%r29) %f1	# 844
-	st	-7(%r29) %r3	# 844
-	st	-8(%r29) %r2	# 844
-	st	-9(%r29) %r8	# 844
+	fst	-2(%r29) %f2	# 844
+	fst	-3(%r29) %f1	# 844
+	st	-4(%r29) %r3	# 844
+	st	-5(%r29) %r2	# 844
+	st	-6(%r29) %r8	# 844
 	add	%r16 %r0 %r8	# 844
 	add	%r8 %r0 %r9	# 844
 	add	%r9 %r0 %r10	# 844
 	add	%r10 %r0 %r11	# 844
-	addi	%r29 %r29 $-10	# 844
+	addi	%r29 %r29 $-7	# 844
 	st	0(%r29) %r31	# 844
 	ld	0(%r16) %r24	# 844
 	jalr	%r24	# 844
 	ld	0(%r29) %r31	# 844
-	addi	%r29 %r29 $10	# 844
-	addi	%r25 %r2 $0	# 844
-	beq	%r25 %r0 beq.10505	# 844
+	addi	%r29 %r29 $7	# 844
+	beq	%r2 %r0 beq.10504	# 844
 	addi	%r2 %r0 $1	# 844
 	jr	%r31	# 844
-beq.10505:
+beq.10504:
 	addi	%r8 %r0 $1	# 845
 	addi	%r9 %r0 $2	# 845
 	addi	%r10 %r0 $0	# 845
-	fld	-5(%r29) %f0	# 845
-	fld	-3(%r29) %f1	# 845
+	fld	-3(%r29) %f0	# 845
+	fld	-2(%r29) %f1	# 845
 	fld	-1(%r29) %f2	# 845
-	ld	-8(%r29) %r2	# 845
-	ld	-7(%r29) %r3	# 845
-	ld	-9(%r29) %r11	# 845
+	ld	-5(%r29) %r2	# 845
+	ld	-4(%r29) %r3	# 845
+	ld	-6(%r29) %r11	# 845
 	add	%r16 %r0 %r11	# 845
-	addi	%r29 %r29 $-10	# 845
+	addi	%r29 %r29 $-7	# 845
 	st	0(%r29) %r31	# 845
 	ld	0(%r16) %r24	# 845
 	jalr	%r24	# 845
 	ld	0(%r29) %r31	# 845
-	addi	%r29 %r29 $10	# 845
-	addi	%r25 %r2 $0	# 845
-	beq	%r25 %r0 beq.10506	# 845
+	addi	%r29 %r29 $7	# 845
+	beq	%r2 %r0 beq.10505	# 845
 	addi	%r2 %r0 $2	# 845
 	jr	%r31	# 845
-beq.10506:
+beq.10505:
 	addi	%r8 %r0 $2	# 846
 	addi	%r9 %r0 $0	# 846
 	addi	%r10 %r0 $1	# 846
-	fld	-3(%r29) %f0	# 846
+	fld	-2(%r29) %f0	# 846
 	fld	-1(%r29) %f1	# 846
-	fld	-5(%r29) %f2	# 846
-	ld	-8(%r29) %r2	# 846
-	ld	-7(%r29) %r3	# 846
-	ld	-9(%r29) %r11	# 846
+	fld	-3(%r29) %f2	# 846
+	ld	-5(%r29) %r2	# 846
+	ld	-4(%r29) %r3	# 846
+	ld	-6(%r29) %r11	# 846
 	add	%r16 %r0 %r11	# 846
-	addi	%r29 %r29 $-10	# 846
+	addi	%r29 %r29 $-7	# 846
 	st	0(%r29) %r31	# 846
 	ld	0(%r16) %r24	# 846
 	jalr	%r24	# 846
 	ld	0(%r29) %r31	# 846
-	addi	%r29 %r29 $10	# 846
-	addi	%r25 %r2 $0	# 846
-	beq	%r25 %r0 beq.10507	# 846
+	addi	%r29 %r29 $7	# 846
+	beq	%r2 %r0 beq.10506	# 846
 	addi	%r2 %r0 $3	# 846
 	jr	%r31	# 846
-beq.10507:
+beq.10506:
 	addi	%r2 %r0 $0	# 847
 	jr	%r31	# 847
 solver_surface.2646:
 	ld	1(%r16) %r8	# 0
 	ld	4(%r2) %r2	# 321
 	st	-1(%r29) %r8	# 856
-	fst	-3(%r29) %f2	# 856
-	fst	-5(%r29) %f1	# 856
-	fst	-7(%r29) %f0	# 856
-	st	-9(%r29) %r2	# 856
+	fst	-2(%r29) %f2	# 856
+	fst	-3(%r29) %f1	# 856
+	fst	-4(%r29) %f0	# 856
+	st	-5(%r29) %r2	# 856
 	add	%r24 %r0 %r3	# 856
 	add	%r3 %r0 %r2	# 856
 	add	%r2 %r0 %r24	# 856
-	addi	%r29 %r29 $-10	# 856
+	addi	%r29 %r29 $-6	# 856
 	st	0(%r29) %r31	# 856
 	jal	veciprod.2512	# 856
 	ld	0(%r29) %r31	# 856
-	addi	%r29 %r29 $10	# 856
+	addi	%r29 %r29 $6	# 856
 	addi	%r2 %r0 l.8518	# 90
 	fld	0(%r2) %f1	# 90
 	fslt	%f1 %f0	# 90
-	bclt	bclt_true.10509	# 90
+	bclt	bclt_true.10507	# 90
 	addi	%r2 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10510	# 90
-bclt_true.10509:
+	beq	%r0 %r0 bclt_cont.10508	# 90
+bclt_true.10507:
 	addi	%r2 %r0 $1	# 90
-bclt_cont.10510:
-	addi	%r25 %r2 $0	# 857
-	beq	%r25 %r0 beq.10511	# 857
+bclt_cont.10508:
+	beq	%r2 %r0 beq.10509	# 857
 	addi	%r2 %r0 $0	# 858
-	fld	-7(%r29) %f1	# 858
-	fld	-5(%r29) %f2	# 858
-	fld	-3(%r29) %f3	# 858
-	ld	-9(%r29) %r3	# 858
-	st	-10(%r29) %r2	# 858
-	fst	-11(%r29) %f0	# 858
+	fld	-4(%r29) %f1	# 858
+	fld	-3(%r29) %f2	# 858
+	fld	-2(%r29) %f3	# 858
+	ld	-5(%r29) %r3	# 858
+	st	-6(%r29) %r2	# 858
+	fst	-7(%r29) %f0	# 858
 	add	%r2 %r0 %r3	# 858
 	fmov	%f0 %f1	# 858
 	fmov	%f1 %f2	# 858
 	fmov	%f2 %f3	# 858
-	addi	%r29 %r29 $-13	# 858
+	addi	%r29 %r29 $-8	# 858
 	st	0(%r29) %r31	# 858
 	jal	veciprod2.2515	# 858
 	ld	0(%r29) %r31	# 858
-	addi	%r29 %r29 $13	# 858
+	addi	%r29 %r29 $8	# 858
 	fneg	%f0 %f0	# 95
-	fld	-11(%r29) %f1	# 858
-	finv	%f1 %f1	# 858
-	fmul	%f0 %f0 %f1	# 858
-	ld	-10(%r29) %r2	# 858
+	fld	-7(%r29) %f1	# 858
+	finv	%f31 %f1	# 858
+	fmul	%f0 %f0 %f31	# 858
+	ld	-6(%r29) %r2	# 858
 	ld	-1(%r29) %r3	# 858
 	add	%r25 %r3 %r2	# 858
 	fst	0(%r25) %f0	# 858
 	addi	%r2 %r0 $1	# 859
 	jr	%r31	# 859
-beq.10511:
+beq.10509:
 	addi	%r2 %r0 $0	# 860
 	jr	%r31	# 860
 quadratic.2652:
@@ -1858,8 +1836,7 @@ quadratic.2652:
 	fmul	%f4 %f4 %f5	# 868
 	fadd	%f3 %f3 %f4	# 868
 	ld	3(%r2) %r3	# 282
-	addi	%r25 %r3 $0	# 870
-	beq	%r25 %r0 beq.10512	# 870
+	beq	%r3 %r0 beq.10510	# 870
 	fmul	%f4 %f1 %f2	# 874
 	ld	9(%r2) %r3	# 411
 	addi	%r8 %r0 $0	# 416
@@ -1882,8 +1859,8 @@ quadratic.2652:
 	fmul	%f0 %f0 %f1	# 876
 	fadd	%f0 %f3 %f0	# 876
 	jr	%r31	# 876
-beq.10512:
-	fmov	%f3 %f0	# 871
+beq.10510:
+	fmov	%f0 %f3	# 871
 	jr	%r31	# 871
 bilinear.2657:
 	fmul	%f6 %f0 %f3	# 883
@@ -1907,8 +1884,7 @@ bilinear.2657:
 	fmul	%f7 %f7 %f8	# 885
 	fadd	%f6 %f6 %f7	# 885
 	ld	3(%r2) %r3	# 282
-	addi	%r25 %r3 $0	# 887
-	beq	%r25 %r0 beq.10513	# 887
+	beq	%r3 %r0 beq.10511	# 887
 	fmul	%f7 %f2 %f4	# 891
 	fmul	%f8 %f1 %f5	# 891
 	fadd	%f7 %f7 %f8	# 891
@@ -1940,8 +1916,8 @@ bilinear.2657:
 	fmul	%f7 %f7 %f0	# 93
 	fadd	%f0 %f6 %f7	# 890
 	jr	%r31	# 890
-beq.10513:
-	fmov	%f6 %f0	# 888
+beq.10511:
+	fmov	%f0 %f6	# 888
 	jr	%r31	# 888
 solver_second.2665:
 	ld	1(%r16) %r8	# 0
@@ -1955,35 +1931,34 @@ solver_second.2665:
 	add	%r25 %r3 %r9	# 908
 	fld	0(%r25) %f5	# 908
 	st	-1(%r29) %r8	# 908
-	fst	-3(%r29) %f2	# 908
-	fst	-5(%r29) %f1	# 908
-	fst	-7(%r29) %f0	# 908
-	st	-9(%r29) %r2	# 908
-	st	-10(%r29) %r3	# 908
+	fst	-2(%r29) %f2	# 908
+	fst	-3(%r29) %f1	# 908
+	fst	-4(%r29) %f0	# 908
+	st	-5(%r29) %r2	# 908
+	st	-6(%r29) %r3	# 908
 	fmov	%f2 %f5	# 908
 	fmov	%f1 %f4	# 908
 	fmov	%f0 %f3	# 908
-	addi	%r29 %r29 $-11	# 908
+	addi	%r29 %r29 $-7	# 908
 	st	0(%r29) %r31	# 908
 	jal	quadratic.2652	# 908
 	ld	0(%r29) %r31	# 908
-	addi	%r29 %r29 $11	# 908
+	addi	%r29 %r29 $7	# 908
 	addi	%r2 %r0 l.8518	# 92
 	fld	0(%r2) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10515	# 92
+	bclt	bclt_true.10512	# 92
 	addi	%r2 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10516	# 92
-bclt_true.10515:
+	beq	%r0 %r0 bclt_cont.10513	# 92
+bclt_true.10512:
 	addi	%r2 %r0 $1	# 92
-bclt_cont.10516:
-	addi	%r25 %r2 $0	# 910
-	beq	%r25 %r0 beq.10517	# 910
+bclt_cont.10513:
+	beq	%r2 %r0 beq.10514	# 910
 	addi	%r2 %r0 $0	# 911
 	jr	%r31	# 911
-beq.10517:
+beq.10514:
 	addi	%r2 %r0 $0	# 915
-	ld	-10(%r29) %r3	# 915
+	ld	-6(%r29) %r3	# 915
 	add	%r25 %r3 %r2	# 915
 	fld	0(%r25) %f1	# 915
 	addi	%r2 %r0 $1	# 915
@@ -1992,85 +1967,83 @@ beq.10517:
 	addi	%r2 %r0 $2	# 915
 	add	%r25 %r3 %r2	# 915
 	fld	0(%r25) %f3	# 915
-	fld	-7(%r29) %f4	# 915
-	fld	-5(%r29) %f5	# 915
-	fld	-3(%r29) %f6	# 915
-	ld	-9(%r29) %r2	# 915
-	fst	-11(%r29) %f0	# 915
+	fld	-4(%r29) %f4	# 915
+	fld	-3(%r29) %f5	# 915
+	fld	-2(%r29) %f6	# 915
+	ld	-5(%r29) %r2	# 915
+	fst	-7(%r29) %f0	# 915
 	fmov	%f0 %f1	# 915
 	fmov	%f1 %f2	# 915
 	fmov	%f2 %f3	# 915
 	fmov	%f3 %f4	# 915
 	fmov	%f4 %f5	# 915
 	fmov	%f5 %f6	# 915
-	addi	%r29 %r29 $-13	# 915
+	addi	%r29 %r29 $-8	# 915
 	st	0(%r29) %r31	# 915
 	jal	bilinear.2657	# 915
 	ld	0(%r29) %r31	# 915
-	addi	%r29 %r29 $13	# 915
-	fld	-7(%r29) %f1	# 917
-	fld	-5(%r29) %f2	# 917
-	fld	-3(%r29) %f3	# 917
-	ld	-9(%r29) %r2	# 917
-	fst	-13(%r29) %f0	# 917
+	addi	%r29 %r29 $8	# 915
+	fld	-4(%r29) %f1	# 917
+	fld	-3(%r29) %f2	# 917
+	fld	-2(%r29) %f3	# 917
+	ld	-5(%r29) %r2	# 917
+	fst	-8(%r29) %f0	# 917
 	fmov	%f0 %f1	# 917
 	fmov	%f1 %f2	# 917
 	fmov	%f2 %f3	# 917
-	addi	%r29 %r29 $-15	# 917
+	addi	%r29 %r29 $-9	# 917
 	st	0(%r29) %r31	# 917
 	jal	quadratic.2652	# 917
 	ld	0(%r29) %r31	# 917
-	addi	%r29 %r29 $15	# 917
-	ld	-9(%r29) %r2	# 253
+	addi	%r29 %r29 $9	# 917
+	ld	-5(%r29) %r2	# 253
 	ld	1(%r2) %r3	# 253
 	addi	%r25 %r3 $-3	# 918
-	beq	%r25 %r0 beq_true.10518	# 918
-	beq	%r0 %r0 beq_cont.10519	# 918
-beq_true.10518:
+	beq	%r25 %r0 beq_true.10515	# 918
+	beq	%r0 %r0 beq_cont.10516	# 918
+beq_true.10515:
 	addi	%r3 %r0 l.8520	# 918
 	fld	0(%r3) %f1	# 918
-	fneg	%f1 %f1	# 918
-	fadd	%f0 %f0 %f1	# 918
-beq_cont.10519:
-	fld	-13(%r29) %f1	# 94
+	fneg	%f31 %f1	# 918
+	fadd	%f0 %f0 %f31	# 918
+beq_cont.10516:
+	fld	-8(%r29) %f1	# 94
 	fmul	%f2 %f1 %f1	# 94
-	fld	-11(%r29) %f3	# 920
+	fld	-7(%r29) %f3	# 920
 	fmul	%f0 %f3 %f0	# 920
-	fneg	%f0 %f0	# 920
-	fadd	%f0 %f2 %f0	# 920
+	fneg	%f31 %f0	# 920
+	fadd	%f0 %f2 %f31	# 920
 	addi	%r3 %r0 l.8518	# 90
 	fld	0(%r3) %f2	# 90
 	fslt	%f2 %f0	# 90
-	bclt	bclt_true.10520	# 90
+	bclt	bclt_true.10517	# 90
 	addi	%r3 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10521	# 90
-bclt_true.10520:
+	beq	%r0 %r0 bclt_cont.10518	# 90
+bclt_true.10517:
 	addi	%r3 %r0 $1	# 90
-bclt_cont.10521:
-	addi	%r25 %r3 $0	# 922
-	beq	%r25 %r0 beq.10522	# 922
+bclt_cont.10518:
+	beq	%r3 %r0 beq.10519	# 922
 	fsqrt	%f0 %f0	# 923
-	ld	-9(%r29) %r2	# 273
+	ld	-5(%r29) %r2	# 273
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 924
-	beq	%r25 %r0 beq_true.10523	# 924
-	beq	%r0 %r0 beq_cont.10524	# 924
-beq_true.10523:
+	beq	%r2 %r0 beq_true.10520	# 924
+	beq	%r0 %r0 beq_cont.10521	# 924
+beq_true.10520:
 	fneg	%f0 %f0	# 95
-beq_cont.10524:
+beq_cont.10521:
 	addi	%r2 %r0 $0	# 925
-	fld	-13(%r29) %f1	# 925
-	fneg	%f1 %f1	# 925
-	fadd	%f0 %f0 %f1	# 925
-	fld	-11(%r29) %f1	# 925
-	finv	%f1 %f1	# 925
-	fmul	%f0 %f0 %f1	# 925
+	fld	-8(%r29) %f1	# 925
+	fneg	%f31 %f1	# 925
+	fadd	%f0 %f0 %f31	# 925
+	fld	-7(%r29) %f1	# 925
+	finv	%f31 %f1	# 925
+	fmul	%f0 %f0 %f31	# 925
 	ld	-1(%r29) %r3	# 925
 	add	%r25 %r3 %r2	# 925
 	fst	0(%r25) %f0	# 925
 	addi	%r2 %r0 $1	# 925
 	jr	%r31	# 925
-beq.10522:
+beq.10519:
 	addi	%r2 %r0 $0	# 928
 	jr	%r31	# 928
 solver.2671:
@@ -2087,8 +2060,8 @@ solver.2671:
 	addi	%r13 %r0 $0	# 336
 	add	%r25 %r12 %r13	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 936
-	fadd	%f0 %f0 %f1	# 936
+	fneg	%f31 %f1	# 936
+	fadd	%f0 %f0 %f31	# 936
 	addi	%r12 %r0 $1	# 937
 	add	%r25 %r8 %r12	# 937
 	fld	0(%r25) %f1	# 937
@@ -2096,8 +2069,8 @@ solver.2671:
 	addi	%r13 %r0 $1	# 346
 	add	%r25 %r12 %r13	# 346
 	fld	0(%r25) %f2	# 346
-	fneg	%f2 %f2	# 937
-	fadd	%f1 %f1 %f2	# 937
+	fneg	%f31 %f2	# 937
+	fadd	%f1 %f1 %f31	# 937
 	addi	%r12 %r0 $2	# 938
 	add	%r25 %r8 %r12	# 938
 	fld	0(%r25) %f2	# 938
@@ -2105,21 +2078,21 @@ solver.2671:
 	addi	%r12 %r0 $2	# 356
 	add	%r25 %r8 %r12	# 356
 	fld	0(%r25) %f3	# 356
-	fneg	%f3 %f3	# 938
-	fadd	%f2 %f2 %f3	# 938
+	fneg	%f31 %f3	# 938
+	fadd	%f2 %f2 %f31	# 938
 	ld	1(%r2) %r8	# 253
 	addi	%r25 %r8 $-1	# 941
-	beq	%r25 %r0 beq.10525	# 941
+	beq	%r25 %r0 beq.10522	# 941
 	addi	%r25 %r8 $-2	# 942
-	beq	%r25 %r0 beq.10526	# 942
+	beq	%r25 %r0 beq.10523	# 942
 	add	%r16 %r0 %r10	# 943
 	ld	0(%r16) %r24	# 943
 	jr	%r24	# 943
-beq.10526:
+beq.10523:
 	add	%r16 %r0 %r9	# 942
 	ld	0(%r16) %r24	# 942
 	jr	%r24	# 942
-beq.10525:
+beq.10522:
 	add	%r16 %r0 %r11	# 941
 	ld	0(%r16) %r24	# 941
 	jr	%r24	# 941
@@ -2128,8 +2101,8 @@ solver_rect_fast.2675:
 	addi	%r10 %r0 $0	# 966
 	add	%r25 %r8 %r10	# 966
 	fld	0(%r25) %f3	# 966
-	fneg	%f0 %f0	# 966
-	fadd	%f3 %f3 %f0	# 966
+	fneg	%f31 %f0	# 966
+	fadd	%f3 %f3 %f31	# 966
 	addi	%r10 %r0 $1	# 966
 	add	%r25 %r8 %r10	# 966
 	fld	0(%r25) %f4	# 966
@@ -2140,279 +2113,267 @@ solver_rect_fast.2675:
 	fmul	%f4 %f3 %f4	# 968
 	fadd	%f4 %f4 %f1	# 968
 	st	-1(%r29) %r9	# 968
-	fst	-3(%r29) %f0	# 968
-	fst	-5(%r29) %f1	# 968
-	st	-7(%r29) %r8	# 968
-	fst	-9(%r29) %f2	# 968
-	fst	-11(%r29) %f3	# 968
-	st	-13(%r29) %r3	# 968
-	st	-14(%r29) %r2	# 968
+	fst	-2(%r29) %f0	# 968
+	fst	-3(%r29) %f1	# 968
+	st	-4(%r29) %r8	# 968
+	fst	-5(%r29) %f2	# 968
+	fst	-6(%r29) %f3	# 968
+	st	-7(%r29) %r3	# 968
+	st	-8(%r29) %r2	# 968
 	fabs	%f0 %f4	# 968
-	ld	-14(%r29) %r2	# 301
+	ld	-8(%r29) %r2	# 301
 	ld	4(%r2) %r3	# 301
 	addi	%r8 %r0 $1	# 306
 	add	%r25 %r3 %r8	# 306
 	fld	0(%r25) %f1	# 306
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10529	# 89
+	bclt	bclt_true.10524	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10530	# 89
-bclt_true.10529:
+	beq	%r0 %r0 bclt_cont.10525	# 89
+bclt_true.10524:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10530:
-	addi	%r25 %r3 $0	# 968
-	beq	%r25 %r0 beq_true.10531	# 968
+bclt_cont.10525:
+	beq	%r3 %r0 beq_true.10526	# 968
 	addi	%r3 %r0 $2	# 969
-	ld	-13(%r29) %r8	# 969
+	ld	-7(%r29) %r8	# 969
 	add	%r25 %r8 %r3	# 969
 	fld	0(%r25) %f0	# 969
-	fld	-11(%r29) %f1	# 969
+	fld	-6(%r29) %f1	# 969
 	fmul	%f0 %f1 %f0	# 969
-	fld	-9(%r29) %f2	# 969
+	fld	-5(%r29) %f2	# 969
 	fadd	%f0 %f0 %f2	# 969
 	fabs	%f0 %f0	# 969
-	ld	-14(%r29) %r2	# 311
+	ld	-8(%r29) %r2	# 311
 	ld	4(%r2) %r3	# 311
 	addi	%r8 %r0 $2	# 316
 	add	%r25 %r3 %r8	# 316
 	fld	0(%r25) %f1	# 316
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10533	# 89
+	bclt	bclt_true.10528	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10534	# 89
-bclt_true.10533:
+	beq	%r0 %r0 bclt_cont.10529	# 89
+bclt_true.10528:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10534:
-	addi	%r25 %r3 $0	# 969
-	beq	%r25 %r0 beq_true.10535	# 969
+bclt_cont.10529:
+	beq	%r3 %r0 beq_true.10530	# 969
 	addi	%r3 %r0 $1	# 970
-	ld	-7(%r29) %r8	# 970
+	ld	-4(%r29) %r8	# 970
 	add	%r25 %r8 %r3	# 970
 	fld	0(%r25) %f0	# 970
 	addi	%r3 %r0 l.8518	# 92
 	fld	0(%r3) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10537	# 92
+	bclt	bclt_true.10532	# 92
 	addi	%r3 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10538	# 92
-bclt_true.10537:
+	beq	%r0 %r0 bclt_cont.10533	# 92
+bclt_true.10532:
 	addi	%r3 %r0 $1	# 92
-bclt_cont.10538:
-	addi	%r25 %r3 $0	# 970
-	beq	%r25 %r0 beq_true.10539	# 970
+bclt_cont.10533:
+	beq	%r3 %r0 beq_true.10534	# 970
 	addi	%r3 %r0 $0	# 970
-	beq	%r0 %r0 beq_cont.10540	# 970
-beq_true.10539:
+	beq	%r0 %r0 beq_cont.10535	# 970
+beq_true.10534:
 	addi	%r3 %r0 $1	# 970
-beq_cont.10540:
-	beq	%r0 %r0 beq_cont.10536	# 969
-beq_true.10535:
+beq_cont.10535:
+	beq	%r0 %r0 beq_cont.10531	# 969
+beq_true.10530:
 	addi	%r3 %r0 $0	# 971
-beq_cont.10536:
-	beq	%r0 %r0 beq_cont.10532	# 968
-beq_true.10531:
+beq_cont.10531:
+	beq	%r0 %r0 beq_cont.10527	# 968
+beq_true.10526:
 	addi	%r3 %r0 $0	# 972
-beq_cont.10532:
-	addi	%r25 %r3 $0	# 967
-	beq	%r25 %r0 beq.10541	# 967
+beq_cont.10527:
+	beq	%r3 %r0 beq.10536	# 967
 	addi	%r2 %r0 $0	# 974
 	ld	-1(%r29) %r3	# 974
-	fld	-11(%r29) %f0	# 974
+	fld	-6(%r29) %f0	# 974
 	add	%r25 %r3 %r2	# 974
 	fst	0(%r25) %f0	# 974
 	addi	%r2 %r0 $1	# 974
 	jr	%r31	# 974
-beq.10541:
+beq.10536:
 	addi	%r3 %r0 $2	# 975
-	ld	-7(%r29) %r8	# 975
+	ld	-4(%r29) %r8	# 975
 	add	%r25 %r8 %r3	# 975
 	fld	0(%r25) %f0	# 975
-	fld	-5(%r29) %f1	# 975
-	fneg	%f1 %f1	# 975
-	fadd	%f0 %f0 %f1	# 975
+	fld	-3(%r29) %f1	# 975
+	fneg	%f31 %f1	# 975
+	fadd	%f0 %f0 %f31	# 975
 	addi	%r3 %r0 $3	# 975
 	add	%r25 %r8 %r3	# 975
 	fld	0(%r25) %f2	# 975
 	fmul	%f0 %f0 %f2	# 975
 	addi	%r3 %r0 $0	# 977
-	ld	-13(%r29) %r9	# 977
+	ld	-7(%r29) %r9	# 977
 	add	%r25 %r9 %r3	# 977
 	fld	0(%r25) %f2	# 977
 	fmul	%f2 %f0 %f2	# 977
-	fld	-3(%r29) %f3	# 977
+	fld	-2(%r29) %f3	# 977
 	fadd	%f2 %f2 %f3	# 977
-	fst	-15(%r29) %f0	# 977
+	fst	-9(%r29) %f0	# 977
 	fabs	%f0 %f2	# 977
-	ld	-14(%r29) %r2	# 291
+	ld	-8(%r29) %r2	# 291
 	ld	4(%r2) %r3	# 291
 	addi	%r8 %r0 $0	# 296
 	add	%r25 %r3 %r8	# 296
 	fld	0(%r25) %f1	# 296
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10542	# 89
+	bclt	bclt_true.10537	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10543	# 89
-bclt_true.10542:
+	beq	%r0 %r0 bclt_cont.10538	# 89
+bclt_true.10537:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10543:
-	addi	%r25 %r3 $0	# 977
-	beq	%r25 %r0 beq_true.10544	# 977
+bclt_cont.10538:
+	beq	%r3 %r0 beq_true.10539	# 977
 	addi	%r3 %r0 $2	# 978
-	ld	-13(%r29) %r8	# 978
+	ld	-7(%r29) %r8	# 978
 	add	%r25 %r8 %r3	# 978
 	fld	0(%r25) %f0	# 978
-	fld	-15(%r29) %f1	# 978
+	fld	-9(%r29) %f1	# 978
 	fmul	%f0 %f1 %f0	# 978
-	fld	-9(%r29) %f2	# 978
+	fld	-5(%r29) %f2	# 978
 	fadd	%f0 %f0 %f2	# 978
 	fabs	%f0 %f0	# 978
-	ld	-14(%r29) %r2	# 311
+	ld	-8(%r29) %r2	# 311
 	ld	4(%r2) %r3	# 311
 	addi	%r8 %r0 $2	# 316
 	add	%r25 %r3 %r8	# 316
 	fld	0(%r25) %f1	# 316
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10546	# 89
+	bclt	bclt_true.10541	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10547	# 89
-bclt_true.10546:
+	beq	%r0 %r0 bclt_cont.10542	# 89
+bclt_true.10541:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10547:
-	addi	%r25 %r3 $0	# 978
-	beq	%r25 %r0 beq_true.10548	# 978
+bclt_cont.10542:
+	beq	%r3 %r0 beq_true.10543	# 978
 	addi	%r3 %r0 $3	# 979
-	ld	-7(%r29) %r8	# 979
+	ld	-4(%r29) %r8	# 979
 	add	%r25 %r8 %r3	# 979
 	fld	0(%r25) %f0	# 979
 	addi	%r3 %r0 l.8518	# 92
 	fld	0(%r3) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10550	# 92
+	bclt	bclt_true.10545	# 92
 	addi	%r3 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10551	# 92
-bclt_true.10550:
+	beq	%r0 %r0 bclt_cont.10546	# 92
+bclt_true.10545:
 	addi	%r3 %r0 $1	# 92
-bclt_cont.10551:
-	addi	%r25 %r3 $0	# 979
-	beq	%r25 %r0 beq_true.10552	# 979
+bclt_cont.10546:
+	beq	%r3 %r0 beq_true.10547	# 979
 	addi	%r3 %r0 $0	# 979
-	beq	%r0 %r0 beq_cont.10553	# 979
-beq_true.10552:
+	beq	%r0 %r0 beq_cont.10548	# 979
+beq_true.10547:
 	addi	%r3 %r0 $1	# 979
-beq_cont.10553:
-	beq	%r0 %r0 beq_cont.10549	# 978
-beq_true.10548:
+beq_cont.10548:
+	beq	%r0 %r0 beq_cont.10544	# 978
+beq_true.10543:
 	addi	%r3 %r0 $0	# 980
-beq_cont.10549:
-	beq	%r0 %r0 beq_cont.10545	# 977
-beq_true.10544:
+beq_cont.10544:
+	beq	%r0 %r0 beq_cont.10540	# 977
+beq_true.10539:
 	addi	%r3 %r0 $0	# 981
-beq_cont.10545:
-	addi	%r25 %r3 $0	# 976
-	beq	%r25 %r0 beq.10554	# 976
+beq_cont.10540:
+	beq	%r3 %r0 beq.10549	# 976
 	addi	%r2 %r0 $0	# 983
 	ld	-1(%r29) %r3	# 983
-	fld	-15(%r29) %f0	# 983
+	fld	-9(%r29) %f0	# 983
 	add	%r25 %r3 %r2	# 983
 	fst	0(%r25) %f0	# 983
 	addi	%r2 %r0 $2	# 983
 	jr	%r31	# 983
-beq.10554:
+beq.10549:
 	addi	%r3 %r0 $4	# 984
-	ld	-7(%r29) %r8	# 984
+	ld	-4(%r29) %r8	# 984
 	add	%r25 %r8 %r3	# 984
 	fld	0(%r25) %f0	# 984
-	fld	-9(%r29) %f1	# 984
-	fneg	%f1 %f1	# 984
-	fadd	%f0 %f0 %f1	# 984
+	fld	-5(%r29) %f1	# 984
+	fneg	%f31 %f1	# 984
+	fadd	%f0 %f0 %f31	# 984
 	addi	%r3 %r0 $5	# 984
 	add	%r25 %r8 %r3	# 984
 	fld	0(%r25) %f1	# 984
 	fmul	%f0 %f0 %f1	# 984
 	addi	%r3 %r0 $0	# 986
-	ld	-13(%r29) %r9	# 986
+	ld	-7(%r29) %r9	# 986
 	add	%r25 %r9 %r3	# 986
 	fld	0(%r25) %f1	# 986
 	fmul	%f1 %f0 %f1	# 986
-	fld	-3(%r29) %f2	# 986
+	fld	-2(%r29) %f2	# 986
 	fadd	%f1 %f1 %f2	# 986
-	fst	-17(%r29) %f0	# 986
+	fst	-10(%r29) %f0	# 986
 	fabs	%f0 %f1	# 986
-	ld	-14(%r29) %r2	# 291
+	ld	-8(%r29) %r2	# 291
 	ld	4(%r2) %r3	# 291
 	addi	%r8 %r0 $0	# 296
 	add	%r25 %r3 %r8	# 296
 	fld	0(%r25) %f1	# 296
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10555	# 89
+	bclt	bclt_true.10550	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10556	# 89
-bclt_true.10555:
+	beq	%r0 %r0 bclt_cont.10551	# 89
+bclt_true.10550:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10556:
-	addi	%r25 %r3 $0	# 986
-	beq	%r25 %r0 beq_true.10557	# 986
+bclt_cont.10551:
+	beq	%r3 %r0 beq_true.10552	# 986
 	addi	%r3 %r0 $1	# 987
-	ld	-13(%r29) %r8	# 987
+	ld	-7(%r29) %r8	# 987
 	add	%r25 %r8 %r3	# 987
 	fld	0(%r25) %f0	# 987
-	fld	-17(%r29) %f1	# 987
+	fld	-10(%r29) %f1	# 987
 	fmul	%f0 %f1 %f0	# 987
-	fld	-5(%r29) %f2	# 987
+	fld	-3(%r29) %f2	# 987
 	fadd	%f0 %f0 %f2	# 987
 	fabs	%f0 %f0	# 987
-	ld	-14(%r29) %r2	# 301
+	ld	-8(%r29) %r2	# 301
 	ld	4(%r2) %r2	# 301
 	addi	%r3 %r0 $1	# 306
 	add	%r25 %r2 %r3	# 306
 	fld	0(%r25) %f1	# 306
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10559	# 89
+	bclt	bclt_true.10554	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10560	# 89
-bclt_true.10559:
+	beq	%r0 %r0 bclt_cont.10555	# 89
+bclt_true.10554:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10560:
-	addi	%r25 %r2 $0	# 987
-	beq	%r25 %r0 beq_true.10561	# 987
+bclt_cont.10555:
+	beq	%r2 %r0 beq_true.10556	# 987
 	addi	%r2 %r0 $5	# 988
-	ld	-7(%r29) %r3	# 988
+	ld	-4(%r29) %r3	# 988
 	add	%r25 %r3 %r2	# 988
 	fld	0(%r25) %f0	# 988
 	addi	%r2 %r0 l.8518	# 92
 	fld	0(%r2) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10563	# 92
+	bclt	bclt_true.10558	# 92
 	addi	%r2 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10564	# 92
-bclt_true.10563:
+	beq	%r0 %r0 bclt_cont.10559	# 92
+bclt_true.10558:
 	addi	%r2 %r0 $1	# 92
-bclt_cont.10564:
-	addi	%r25 %r2 $0	# 988
-	beq	%r25 %r0 beq_true.10565	# 988
+bclt_cont.10559:
+	beq	%r2 %r0 beq_true.10560	# 988
 	addi	%r2 %r0 $0	# 988
-	beq	%r0 %r0 beq_cont.10566	# 988
-beq_true.10565:
+	beq	%r0 %r0 beq_cont.10561	# 988
+beq_true.10560:
 	addi	%r2 %r0 $1	# 988
-beq_cont.10566:
-	beq	%r0 %r0 beq_cont.10562	# 987
-beq_true.10561:
+beq_cont.10561:
+	beq	%r0 %r0 beq_cont.10557	# 987
+beq_true.10556:
 	addi	%r2 %r0 $0	# 989
-beq_cont.10562:
-	beq	%r0 %r0 beq_cont.10558	# 986
-beq_true.10557:
+beq_cont.10557:
+	beq	%r0 %r0 beq_cont.10553	# 986
+beq_true.10552:
 	addi	%r2 %r0 $0	# 990
-beq_cont.10558:
-	addi	%r25 %r2 $0	# 985
-	beq	%r25 %r0 beq.10567	# 985
+beq_cont.10553:
+	beq	%r2 %r0 beq.10562	# 985
 	addi	%r2 %r0 $0	# 992
 	ld	-1(%r29) %r3	# 992
-	fld	-17(%r29) %f0	# 992
+	fld	-10(%r29) %f0	# 992
 	add	%r25 %r3 %r2	# 992
 	fst	0(%r25) %f0	# 992
 	addi	%r2 %r0 $3	# 992
 	jr	%r31	# 992
-beq.10567:
+beq.10562:
 	addi	%r2 %r0 $0	# 994
 	jr	%r31	# 994
 solver_surface_fast.2682:
@@ -2423,14 +2384,13 @@ solver_surface_fast.2682:
 	addi	%r8 %r0 l.8518	# 91
 	fld	0(%r8) %f4	# 91
 	fslt	%f3 %f4	# 91
-	bclt	bclt_true.10568	# 91
+	bclt	bclt_true.10563	# 91
 	addi	%r8 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10569	# 91
-bclt_true.10568:
+	beq	%r0 %r0 bclt_cont.10564	# 91
+bclt_true.10563:
 	addi	%r8 %r0 $1	# 91
-bclt_cont.10569:
-	addi	%r25 %r8 $0	# 999
-	beq	%r25 %r0 beq.10570	# 999
+bclt_cont.10564:
+	beq	%r8 %r0 beq.10565	# 999
 	addi	%r8 %r0 $0	# 1000
 	addi	%r9 %r0 $1	# 1001
 	add	%r25 %r3 %r9	# 1001
@@ -2450,7 +2410,7 @@ bclt_cont.10569:
 	fst	0(%r25) %f3	# 1000
 	addi	%r2 %r0 $1	# 1002
 	jr	%r31	# 1002
-beq.10570:
+beq.10565:
 	addi	%r2 %r0 $0	# 1003
 	jr	%r31	# 1003
 solver_second_fast.2688:
@@ -2461,17 +2421,16 @@ solver_second_fast.2688:
 	addi	%r9 %r0 l.8518	# 92
 	fld	0(%r9) %f4	# 92
 	fseq	%f3 %f4	# 92
-	bclt	bclt_true.10571	# 92
+	bclt	bclt_true.10566	# 92
 	addi	%r9 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10572	# 92
-bclt_true.10571:
+	beq	%r0 %r0 bclt_cont.10567	# 92
+bclt_true.10566:
 	addi	%r9 %r0 $1	# 92
-bclt_cont.10572:
-	addi	%r25 %r9 $0	# 1010
-	beq	%r25 %r0 beq.10573	# 1010
+bclt_cont.10567:
+	beq	%r9 %r0 beq.10568	# 1010
 	addi	%r2 %r0 $0	# 1011
 	jr	%r31	# 1011
-beq.10573:
+beq.10568:
 	addi	%r9 %r0 $1	# 1013
 	add	%r25 %r3 %r9	# 1013
 	fld	0(%r25) %f4	# 1013
@@ -2489,79 +2448,77 @@ beq.10573:
 	st	-1(%r29) %r8	# 1014
 	st	-2(%r29) %r3	# 1014
 	fst	-3(%r29) %f3	# 1014
-	fst	-5(%r29) %f4	# 1014
-	st	-7(%r29) %r2	# 1014
-	addi	%r29 %r29 $-8	# 1014
+	fst	-4(%r29) %f4	# 1014
+	st	-5(%r29) %r2	# 1014
+	addi	%r29 %r29 $-6	# 1014
 	st	0(%r29) %r31	# 1014
 	jal	quadratic.2652	# 1014
 	ld	0(%r29) %r31	# 1014
-	addi	%r29 %r29 $8	# 1014
-	ld	-7(%r29) %r2	# 253
+	addi	%r29 %r29 $6	# 1014
+	ld	-5(%r29) %r2	# 253
 	ld	1(%r2) %r3	# 253
 	addi	%r25 %r3 $-3	# 1015
-	beq	%r25 %r0 beq_true.10574	# 1015
-	beq	%r0 %r0 beq_cont.10575	# 1015
-beq_true.10574:
+	beq	%r25 %r0 beq_true.10569	# 1015
+	beq	%r0 %r0 beq_cont.10570	# 1015
+beq_true.10569:
 	addi	%r3 %r0 l.8520	# 1015
 	fld	0(%r3) %f1	# 1015
-	fneg	%f1 %f1	# 1015
-	fadd	%f0 %f0 %f1	# 1015
-beq_cont.10575:
-	fld	-5(%r29) %f1	# 94
+	fneg	%f31 %f1	# 1015
+	fadd	%f0 %f0 %f31	# 1015
+beq_cont.10570:
+	fld	-4(%r29) %f1	# 94
 	fmul	%f2 %f1 %f1	# 94
 	fld	-3(%r29) %f3	# 1016
 	fmul	%f3 %f3 %f0	# 1016
-	fneg	%f3 %f3	# 1016
-	fadd	%f0 %f2 %f3	# 1016
+	fneg	%f31 %f3	# 1016
+	fadd	%f0 %f2 %f31	# 1016
 	addi	%r3 %r0 l.8518	# 90
 	fld	0(%r3) %f2	# 90
 	fslt	%f2 %f0	# 90
-	bclt	bclt_true.10576	# 90
+	bclt	bclt_true.10571	# 90
 	addi	%r3 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10577	# 90
-bclt_true.10576:
+	beq	%r0 %r0 bclt_cont.10572	# 90
+bclt_true.10571:
 	addi	%r3 %r0 $1	# 90
-bclt_cont.10577:
-	addi	%r25 %r3 $0	# 1017
-	beq	%r25 %r0 beq.10578	# 1017
+bclt_cont.10572:
+	beq	%r3 %r0 beq.10573	# 1017
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 1018
-	beq	%r25 %r0 beq_true.10579	# 1018
+	beq	%r2 %r0 beq_true.10574	# 1018
 	addi	%r2 %r0 $0	# 1019
-	st	-8(%r29) %r2	# 1019
+	st	-6(%r29) %r2	# 1019
 	fsqrt	%f0 %f0	# 1019
-	fld	-5(%r29) %f1	# 1019
+	fld	-4(%r29) %f1	# 1019
 	fadd	%f1 %f1 %f0	# 1019
 	addi	%r2 %r0 $4	# 1019
 	ld	-2(%r29) %r3	# 1019
 	add	%r25 %r3 %r2	# 1019
 	fld	0(%r25) %f0	# 1019
 	fmul	%f1 %f1 %f0	# 1019
-	ld	-8(%r29) %r2	# 1019
+	ld	-6(%r29) %r2	# 1019
 	ld	-1(%r29) %r3	# 1019
 	add	%r25 %r3 %r2	# 1019
 	fst	0(%r25) %f1	# 1019
-	beq	%r0 %r0 beq_cont.10580	# 1018
-beq_true.10579:
+	beq	%r0 %r0 beq_cont.10575	# 1018
+beq_true.10574:
 	addi	%r2 %r0 $0	# 1021
-	st	-9(%r29) %r2	# 1021
+	st	-7(%r29) %r2	# 1021
 	fsqrt	%f0 %f0	# 1021
-	fld	-5(%r29) %f1	# 1021
-	fneg	%f0 %f0	# 1021
-	fadd	%f1 %f1 %f0	# 1021
+	fld	-4(%r29) %f1	# 1021
+	fneg	%f31 %f0	# 1021
+	fadd	%f1 %f1 %f31	# 1021
 	addi	%r2 %r0 $4	# 1021
 	ld	-2(%r29) %r3	# 1021
 	add	%r25 %r3 %r2	# 1021
 	fld	0(%r25) %f0	# 1021
 	fmul	%f1 %f1 %f0	# 1021
-	ld	-9(%r29) %r2	# 1021
+	ld	-7(%r29) %r2	# 1021
 	ld	-1(%r29) %r3	# 1021
 	add	%r25 %r3 %r2	# 1021
 	fst	0(%r25) %f1	# 1021
-beq_cont.10580:
+beq_cont.10575:
 	addi	%r2 %r0 $1	# 1022
 	jr	%r31	# 1022
-beq.10578:
+beq.10573:
 	addi	%r2 %r0 $0	# 1023
 	jr	%r31	# 1023
 solver_fast.2694:
@@ -2578,8 +2535,8 @@ solver_fast.2694:
 	addi	%r14 %r0 $0	# 336
 	add	%r25 %r13 %r14	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 1029
-	fadd	%f0 %f0 %f1	# 1029
+	fneg	%f31 %f1	# 1029
+	fadd	%f0 %f0 %f31	# 1029
 	addi	%r13 %r0 $1	# 1030
 	add	%r25 %r8 %r13	# 1030
 	fld	0(%r25) %f1	# 1030
@@ -2587,8 +2544,8 @@ solver_fast.2694:
 	addi	%r14 %r0 $1	# 346
 	add	%r25 %r13 %r14	# 346
 	fld	0(%r25) %f2	# 346
-	fneg	%f2 %f2	# 1030
-	fadd	%f1 %f1 %f2	# 1030
+	fneg	%f31 %f2	# 1030
+	fadd	%f1 %f1 %f31	# 1030
 	addi	%r13 %r0 $2	# 1031
 	add	%r25 %r8 %r13	# 1031
 	fld	0(%r25) %f2	# 1031
@@ -2596,28 +2553,28 @@ solver_fast.2694:
 	addi	%r13 %r0 $2	# 356
 	add	%r25 %r8 %r13	# 356
 	fld	0(%r25) %f3	# 356
-	fneg	%f3 %f3	# 1031
-	fadd	%f2 %f2 %f3	# 1031
+	fneg	%f31 %f3	# 1031
+	fadd	%f2 %f2 %f31	# 1031
 	ld	1(%r3) %r8	# 545
 	add	%r25 %r8 %r2	# 1033
 	ld	0(%r25) %r8	# 1033
 	ld	1(%r12) %r2	# 253
 	addi	%r25 %r2 $-1	# 1035
-	beq	%r25 %r0 beq.10581	# 1035
+	beq	%r25 %r0 beq.10576	# 1035
 	addi	%r25 %r2 $-2	# 1037
-	beq	%r25 %r0 beq.10582	# 1037
+	beq	%r25 %r0 beq.10577	# 1037
 	add	%r3 %r0 %r8	# 1040
 	add	%r2 %r0 %r12	# 1040
 	add	%r16 %r0 %r10	# 1040
 	ld	0(%r16) %r24	# 1040
 	jr	%r24	# 1040
-beq.10582:
+beq.10577:
 	add	%r3 %r0 %r8	# 1038
 	add	%r2 %r0 %r12	# 1038
 	add	%r16 %r0 %r9	# 1038
 	ld	0(%r16) %r24	# 1038
 	jr	%r24	# 1038
-beq.10581:
+beq.10576:
 	ld	0(%r3) %r3	# 539
 	add	%r2 %r0 %r12	# 1036
 	add	%r16 %r0 %r11	# 1036
@@ -2631,14 +2588,13 @@ solver_surface_fast2.2698:
 	addi	%r9 %r0 l.8518	# 91
 	fld	0(%r9) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10583	# 91
+	bclt	bclt_true.10578	# 91
 	addi	%r9 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10584	# 91
-bclt_true.10583:
+	beq	%r0 %r0 bclt_cont.10579	# 91
+bclt_true.10578:
 	addi	%r9 %r0 $1	# 91
-bclt_cont.10584:
-	addi	%r25 %r9 $0	# 1048
-	beq	%r25 %r0 beq.10585	# 1048
+bclt_cont.10579:
+	beq	%r9 %r0 beq.10580	# 1048
 	addi	%r9 %r0 $0	# 1049
 	addi	%r10 %r0 $0	# 1049
 	add	%r25 %r3 %r10	# 1049
@@ -2651,7 +2607,7 @@ bclt_cont.10584:
 	fst	0(%r25) %f0	# 1049
 	addi	%r2 %r0 $1	# 1050
 	jr	%r31	# 1050
-beq.10585:
+beq.10580:
 	addi	%r2 %r0 $0	# 1051
 	jr	%r31	# 1051
 solver_second_fast2.2705:
@@ -2662,17 +2618,16 @@ solver_second_fast2.2705:
 	addi	%r10 %r0 l.8518	# 92
 	fld	0(%r10) %f4	# 92
 	fseq	%f3 %f4	# 92
-	bclt	bclt_true.10586	# 92
+	bclt	bclt_true.10581	# 92
 	addi	%r10 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10587	# 92
-bclt_true.10586:
+	beq	%r0 %r0 bclt_cont.10582	# 92
+bclt_true.10581:
 	addi	%r10 %r0 $1	# 92
-bclt_cont.10587:
-	addi	%r25 %r10 $0	# 1058
-	beq	%r25 %r0 beq.10588	# 1058
+bclt_cont.10582:
+	beq	%r10 %r0 beq.10583	# 1058
 	addi	%r2 %r0 $0	# 1059
 	jr	%r31	# 1059
-beq.10588:
+beq.10583:
 	addi	%r10 %r0 $1	# 1061
 	add	%r25 %r3 %r10	# 1061
 	fld	0(%r25) %f4	# 1061
@@ -2692,29 +2647,27 @@ beq.10588:
 	fld	0(%r25) %f0	# 1062
 	fmul	%f1 %f4 %f4	# 94
 	fmul	%f3 %f3 %f0	# 1063
-	fneg	%f3 %f3	# 1063
-	fadd	%f0 %f1 %f3	# 1063
+	fneg	%f31 %f3	# 1063
+	fadd	%f0 %f1 %f31	# 1063
 	addi	%r8 %r0 l.8518	# 90
 	fld	0(%r8) %f1	# 90
 	fslt	%f1 %f0	# 90
-	bclt	bclt_true.10589	# 90
+	bclt	bclt_true.10584	# 90
 	addi	%r8 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10590	# 90
-bclt_true.10589:
+	beq	%r0 %r0 bclt_cont.10585	# 90
+bclt_true.10584:
 	addi	%r8 %r0 $1	# 90
-bclt_cont.10590:
-	addi	%r25 %r8 $0	# 1064
-	beq	%r25 %r0 beq.10591	# 1064
+bclt_cont.10585:
+	beq	%r8 %r0 beq.10586	# 1064
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 1065
-	beq	%r25 %r0 beq_true.10592	# 1065
+	beq	%r2 %r0 beq_true.10587	# 1065
 	addi	%r2 %r0 $0	# 1066
 	st	-1(%r29) %r2	# 1066
 	st	-2(%r29) %r9	# 1066
 	st	-3(%r29) %r3	# 1066
-	fst	-5(%r29) %f4	# 1066
+	fst	-4(%r29) %f4	# 1066
 	fsqrt	%f0 %f0	# 1066
-	fld	-5(%r29) %f1	# 1066
+	fld	-4(%r29) %f1	# 1066
 	fadd	%f1 %f1 %f0	# 1066
 	addi	%r2 %r0 $4	# 1066
 	ld	-3(%r29) %r3	# 1066
@@ -2725,30 +2678,30 @@ bclt_cont.10590:
 	ld	-2(%r29) %r3	# 1066
 	add	%r25 %r3 %r2	# 1066
 	fst	0(%r25) %f1	# 1066
-	beq	%r0 %r0 beq_cont.10593	# 1065
-beq_true.10592:
+	beq	%r0 %r0 beq_cont.10588	# 1065
+beq_true.10587:
 	addi	%r2 %r0 $0	# 1068
-	st	-7(%r29) %r2	# 1068
+	st	-5(%r29) %r2	# 1068
 	st	-2(%r29) %r9	# 1068
 	st	-3(%r29) %r3	# 1068
-	fst	-5(%r29) %f4	# 1068
+	fst	-4(%r29) %f4	# 1068
 	fsqrt	%f0 %f0	# 1068
-	fld	-5(%r29) %f1	# 1068
-	fneg	%f0 %f0	# 1068
-	fadd	%f1 %f1 %f0	# 1068
+	fld	-4(%r29) %f1	# 1068
+	fneg	%f31 %f0	# 1068
+	fadd	%f1 %f1 %f31	# 1068
 	addi	%r2 %r0 $4	# 1068
 	ld	-3(%r29) %r3	# 1068
 	add	%r25 %r3 %r2	# 1068
 	fld	0(%r25) %f0	# 1068
 	fmul	%f1 %f1 %f0	# 1068
-	ld	-7(%r29) %r2	# 1068
+	ld	-5(%r29) %r2	# 1068
 	ld	-2(%r29) %r3	# 1068
 	add	%r25 %r3 %r2	# 1068
 	fst	0(%r25) %f1	# 1068
-beq_cont.10593:
+beq_cont.10588:
 	addi	%r2 %r0 $1	# 1069
 	jr	%r31	# 1069
-beq.10591:
+beq.10586:
 	addi	%r2 %r0 $0	# 1070
 	jr	%r31	# 1070
 solver_fast2.2712:
@@ -2773,23 +2726,23 @@ solver_fast2.2712:
 	ld	0(%r25) %r2	# 1081
 	ld	1(%r11) %r13	# 253
 	addi	%r25 %r13 $-1	# 1083
-	beq	%r25 %r0 beq.10595	# 1083
+	beq	%r25 %r0 beq.10589	# 1083
 	addi	%r25 %r13 $-2	# 1085
-	beq	%r25 %r0 beq.10596	# 1085
+	beq	%r25 %r0 beq.10590	# 1085
 	add	%r8 %r0 %r12	# 1088
 	add	%r3 %r0 %r2	# 1088
 	add	%r16 %r0 %r9	# 1088
 	add	%r2 %r0 %r11	# 1088
 	ld	0(%r16) %r24	# 1088
 	jr	%r24	# 1088
-beq.10596:
+beq.10590:
 	add	%r3 %r0 %r2	# 1086
 	add	%r16 %r0 %r8	# 1086
 	add	%r8 %r0 %r12	# 1086
 	add	%r2 %r0 %r11	# 1086
 	ld	0(%r16) %r24	# 1086
 	jr	%r24	# 1086
-beq.10595:
+beq.10589:
 	ld	0(%r3) %r3	# 539
 	add	%r8 %r0 %r2	# 1084
 	add	%r16 %r0 %r10	# 1084
@@ -2815,21 +2768,20 @@ setup_rect_table.2715:
 	addi	%r3 %r0 l.8518	# 92
 	fld	0(%r3) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10597	# 92
+	bclt	bclt_true.10591	# 92
 	addi	%r3 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10598	# 92
-bclt_true.10597:
+	beq	%r0 %r0 bclt_cont.10592	# 92
+bclt_true.10591:
 	addi	%r3 %r0 $1	# 92
-bclt_cont.10598:
-	addi	%r25 %r3 $0	# 1099
-	beq	%r25 %r0 beq_true.10599	# 1099
+bclt_cont.10592:
+	beq	%r3 %r0 beq_true.10593	# 1099
 	addi	%r3 %r0 $1	# 1100
 	addi	%r9 %r0 l.8518	# 1100
 	fld	0(%r9) %f0	# 1100
 	add	%r25 %r2 %r3	# 1100
 	fst	0(%r25) %f0	# 1100
-	beq	%r0 %r0 beq_cont.10600	# 1099
-beq_true.10599:
+	beq	%r0 %r0 beq_cont.10594	# 1099
+beq_true.10593:
 	addi	%r3 %r0 $0	# 1103
 	ld	-1(%r29) %r9	# 273
 	ld	6(%r9) %r10	# 273
@@ -2839,34 +2791,31 @@ beq_true.10599:
 	addi	%r11 %r0 l.8518	# 91
 	fld	0(%r11) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10601	# 91
+	bclt	bclt_true.10595	# 91
 	addi	%r11 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10602	# 91
-bclt_true.10601:
+	beq	%r0 %r0 bclt_cont.10596	# 91
+bclt_true.10595:
 	addi	%r11 %r0 $1	# 91
-bclt_cont.10602:
-	addi	%r25 %r10 $0	# 110
-	beq	%r25 %r0 beq_true.10603	# 110
-	addi	%r25 %r11 $0	# 110
-	beq	%r25 %r0 beq_true.10605	# 110
+bclt_cont.10596:
+	beq	%r10 %r0 beq_true.10597	# 110
+	beq	%r11 %r0 beq_true.10599	# 110
 	addi	%r11 %r0 $0	# 110
-	beq	%r0 %r0 beq_cont.10606	# 110
-beq_true.10605:
+	beq	%r0 %r0 beq_cont.10600	# 110
+beq_true.10599:
 	addi	%r11 %r0 $1	# 110
-beq_cont.10606:
-	beq	%r0 %r0 beq_cont.10604	# 110
-beq_true.10603:
-beq_cont.10604:
+beq_cont.10600:
+	beq	%r0 %r0 beq_cont.10598	# 110
+beq_true.10597:
+beq_cont.10598:
 	ld	4(%r9) %r10	# 291
 	addi	%r12 %r0 $0	# 296
 	add	%r25 %r10 %r12	# 296
 	fld	0(%r25) %f0	# 296
-	addi	%r25 %r11 $0	# 125
-	beq	%r25 %r0 beq_true.10607	# 125
-	beq	%r0 %r0 beq_cont.10608	# 125
-beq_true.10607:
+	beq	%r11 %r0 beq_true.10601	# 125
+	beq	%r0 %r0 beq_cont.10602	# 125
+beq_true.10601:
 	fneg	%f0 %f0	# 95
-beq_cont.10608:
+beq_cont.10602:
 	add	%r25 %r2 %r3	# 1103
 	fst	0(%r25) %f0	# 1103
 	addi	%r3 %r0 $1	# 1105
@@ -2875,32 +2824,31 @@ beq_cont.10608:
 	addi	%r10 %r0 $0	# 1105
 	add	%r25 %r8 %r10	# 1105
 	fld	0(%r25) %f1	# 1105
-	finv	%f1 %f1	# 1105
-	fmul	%f0 %f0 %f1	# 1105
+	finv	%f31 %f1	# 1105
+	fmul	%f0 %f0 %f31	# 1105
 	add	%r25 %r2 %r3	# 1105
 	fst	0(%r25) %f0	# 1105
-beq_cont.10600:
+beq_cont.10594:
 	addi	%r3 %r0 $1	# 1107
 	add	%r25 %r8 %r3	# 1107
 	fld	0(%r25) %f0	# 1107
 	addi	%r3 %r0 l.8518	# 92
 	fld	0(%r3) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10609	# 92
+	bclt	bclt_true.10603	# 92
 	addi	%r3 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10610	# 92
-bclt_true.10609:
+	beq	%r0 %r0 bclt_cont.10604	# 92
+bclt_true.10603:
 	addi	%r3 %r0 $1	# 92
-bclt_cont.10610:
-	addi	%r25 %r3 $0	# 1107
-	beq	%r25 %r0 beq_true.10611	# 1107
+bclt_cont.10604:
+	beq	%r3 %r0 beq_true.10605	# 1107
 	addi	%r3 %r0 $3	# 1108
 	addi	%r9 %r0 l.8518	# 1108
 	fld	0(%r9) %f0	# 1108
 	add	%r25 %r2 %r3	# 1108
 	fst	0(%r25) %f0	# 1108
-	beq	%r0 %r0 beq_cont.10612	# 1107
-beq_true.10611:
+	beq	%r0 %r0 beq_cont.10606	# 1107
+beq_true.10605:
 	addi	%r3 %r0 $2	# 1110
 	ld	-1(%r29) %r9	# 273
 	ld	6(%r9) %r10	# 273
@@ -2910,34 +2858,31 @@ beq_true.10611:
 	addi	%r11 %r0 l.8518	# 91
 	fld	0(%r11) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10613	# 91
+	bclt	bclt_true.10607	# 91
 	addi	%r11 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10614	# 91
-bclt_true.10613:
+	beq	%r0 %r0 bclt_cont.10608	# 91
+bclt_true.10607:
 	addi	%r11 %r0 $1	# 91
-bclt_cont.10614:
-	addi	%r25 %r10 $0	# 110
-	beq	%r25 %r0 beq_true.10615	# 110
-	addi	%r25 %r11 $0	# 110
-	beq	%r25 %r0 beq_true.10617	# 110
+bclt_cont.10608:
+	beq	%r10 %r0 beq_true.10609	# 110
+	beq	%r11 %r0 beq_true.10611	# 110
 	addi	%r11 %r0 $0	# 110
-	beq	%r0 %r0 beq_cont.10618	# 110
-beq_true.10617:
+	beq	%r0 %r0 beq_cont.10612	# 110
+beq_true.10611:
 	addi	%r11 %r0 $1	# 110
-beq_cont.10618:
-	beq	%r0 %r0 beq_cont.10616	# 110
-beq_true.10615:
-beq_cont.10616:
+beq_cont.10612:
+	beq	%r0 %r0 beq_cont.10610	# 110
+beq_true.10609:
+beq_cont.10610:
 	ld	4(%r9) %r10	# 301
 	addi	%r12 %r0 $1	# 306
 	add	%r25 %r10 %r12	# 306
 	fld	0(%r25) %f0	# 306
-	addi	%r25 %r11 $0	# 125
-	beq	%r25 %r0 beq_true.10619	# 125
-	beq	%r0 %r0 beq_cont.10620	# 125
-beq_true.10619:
+	beq	%r11 %r0 beq_true.10613	# 125
+	beq	%r0 %r0 beq_cont.10614	# 125
+beq_true.10613:
 	fneg	%f0 %f0	# 95
-beq_cont.10620:
+beq_cont.10614:
 	add	%r25 %r2 %r3	# 1110
 	fst	0(%r25) %f0	# 1110
 	addi	%r3 %r0 $3	# 1111
@@ -2946,32 +2891,31 @@ beq_cont.10620:
 	addi	%r10 %r0 $1	# 1111
 	add	%r25 %r8 %r10	# 1111
 	fld	0(%r25) %f1	# 1111
-	finv	%f1 %f1	# 1111
-	fmul	%f0 %f0 %f1	# 1111
+	finv	%f31 %f1	# 1111
+	fmul	%f0 %f0 %f31	# 1111
 	add	%r25 %r2 %r3	# 1111
 	fst	0(%r25) %f0	# 1111
-beq_cont.10612:
+beq_cont.10606:
 	addi	%r3 %r0 $2	# 1113
 	add	%r25 %r8 %r3	# 1113
 	fld	0(%r25) %f0	# 1113
 	addi	%r3 %r0 l.8518	# 92
 	fld	0(%r3) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10621	# 92
+	bclt	bclt_true.10615	# 92
 	addi	%r3 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10622	# 92
-bclt_true.10621:
+	beq	%r0 %r0 bclt_cont.10616	# 92
+bclt_true.10615:
 	addi	%r3 %r0 $1	# 92
-bclt_cont.10622:
-	addi	%r25 %r3 $0	# 1113
-	beq	%r25 %r0 beq_true.10623	# 1113
+bclt_cont.10616:
+	beq	%r3 %r0 beq_true.10617	# 1113
 	addi	%r3 %r0 $5	# 1114
 	addi	%r8 %r0 l.8518	# 1114
 	fld	0(%r8) %f0	# 1114
 	add	%r25 %r2 %r3	# 1114
 	fst	0(%r25) %f0	# 1114
-	beq	%r0 %r0 beq_cont.10624	# 1113
-beq_true.10623:
+	beq	%r0 %r0 beq_cont.10618	# 1113
+beq_true.10617:
 	addi	%r3 %r0 $4	# 1116
 	ld	-1(%r29) %r9	# 273
 	ld	6(%r9) %r10	# 273
@@ -2981,34 +2925,31 @@ beq_true.10623:
 	addi	%r11 %r0 l.8518	# 91
 	fld	0(%r11) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10625	# 91
+	bclt	bclt_true.10619	# 91
 	addi	%r11 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10626	# 91
-bclt_true.10625:
+	beq	%r0 %r0 bclt_cont.10620	# 91
+bclt_true.10619:
 	addi	%r11 %r0 $1	# 91
-bclt_cont.10626:
-	addi	%r25 %r10 $0	# 110
-	beq	%r25 %r0 beq_true.10627	# 110
-	addi	%r25 %r11 $0	# 110
-	beq	%r25 %r0 beq_true.10629	# 110
+bclt_cont.10620:
+	beq	%r10 %r0 beq_true.10621	# 110
+	beq	%r11 %r0 beq_true.10623	# 110
 	addi	%r11 %r0 $0	# 110
-	beq	%r0 %r0 beq_cont.10630	# 110
-beq_true.10629:
+	beq	%r0 %r0 beq_cont.10624	# 110
+beq_true.10623:
 	addi	%r11 %r0 $1	# 110
-beq_cont.10630:
-	beq	%r0 %r0 beq_cont.10628	# 110
-beq_true.10627:
-beq_cont.10628:
+beq_cont.10624:
+	beq	%r0 %r0 beq_cont.10622	# 110
+beq_true.10621:
+beq_cont.10622:
 	ld	4(%r9) %r9	# 311
 	addi	%r10 %r0 $2	# 316
 	add	%r25 %r9 %r10	# 316
 	fld	0(%r25) %f0	# 316
-	addi	%r25 %r11 $0	# 125
-	beq	%r25 %r0 beq_true.10631	# 125
-	beq	%r0 %r0 beq_cont.10632	# 125
-beq_true.10631:
+	beq	%r11 %r0 beq_true.10625	# 125
+	beq	%r0 %r0 beq_cont.10626	# 125
+beq_true.10625:
 	fneg	%f0 %f0	# 95
-beq_cont.10632:
+beq_cont.10626:
 	add	%r25 %r2 %r3	# 1116
 	fst	0(%r25) %f0	# 1116
 	addi	%r3 %r0 $5	# 1117
@@ -3017,11 +2958,11 @@ beq_cont.10632:
 	addi	%r9 %r0 $2	# 1117
 	add	%r25 %r8 %r9	# 1117
 	fld	0(%r25) %f1	# 1117
-	finv	%f1 %f1	# 1117
-	fmul	%f0 %f0 %f1	# 1117
+	finv	%f31 %f1	# 1117
+	fmul	%f0 %f0 %f31	# 1117
 	add	%r25 %r2 %r3	# 1117
 	fst	0(%r25) %f0	# 1117
-beq_cont.10624:
+beq_cont.10618:
 	jr	%r31	# 1119
 setup_surface_table.2718:
 	addi	%r8 %r0 $4	# 1124
@@ -3066,19 +3007,18 @@ setup_surface_table.2718:
 	addi	%r8 %r0 l.8518	# 90
 	fld	0(%r8) %f1	# 90
 	fslt	%f1 %f0	# 90
-	bclt	bclt_true.10633	# 90
+	bclt	bclt_true.10627	# 90
 	addi	%r8 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10634	# 90
-bclt_true.10633:
+	beq	%r0 %r0 bclt_cont.10628	# 90
+bclt_true.10627:
 	addi	%r8 %r0 $1	# 90
-bclt_cont.10634:
-	addi	%r25 %r8 $0	# 1128
-	beq	%r25 %r0 beq_true.10635	# 1128
+bclt_cont.10628:
+	beq	%r8 %r0 beq_true.10629	# 1128
 	addi	%r8 %r0 $0	# 1130
 	addi	%r9 %r0 l.8522	# 1130
 	fld	0(%r9) %f1	# 1130
-	finv	%f0 %f0	# 1130
-	fmul	%f1 %f1 %f0	# 1130
+	finv	%f31 %f0	# 1130
+	fmul	%f1 %f1 %f31	# 1130
 	add	%r25 %r2 %r8	# 1130
 	fst	0(%r25) %f1	# 1130
 	addi	%r8 %r0 $1	# 1132
@@ -3086,8 +3026,8 @@ bclt_cont.10634:
 	addi	%r10 %r0 $0	# 296
 	add	%r25 %r9 %r10	# 296
 	fld	0(%r25) %f1	# 296
-	finv	%f0 %f0	# 1132
-	fmul	%f1 %f1 %f0	# 1132
+	finv	%f31 %f0	# 1132
+	fmul	%f1 %f1 %f31	# 1132
 	fneg	%f1 %f1	# 95
 	add	%r25 %r2 %r8	# 1132
 	fst	0(%r25) %f1	# 1132
@@ -3096,8 +3036,8 @@ bclt_cont.10634:
 	addi	%r10 %r0 $1	# 306
 	add	%r25 %r9 %r10	# 306
 	fld	0(%r25) %f1	# 306
-	finv	%f0 %f0	# 1133
-	fmul	%f1 %f1 %f0	# 1133
+	finv	%f31 %f0	# 1133
+	fmul	%f1 %f1 %f31	# 1133
 	fneg	%f1 %f1	# 95
 	add	%r25 %r2 %r8	# 1133
 	fst	0(%r25) %f1	# 1133
@@ -3106,19 +3046,19 @@ bclt_cont.10634:
 	addi	%r9 %r0 $2	# 316
 	add	%r25 %r3 %r9	# 316
 	fld	0(%r25) %f1	# 316
-	finv	%f0 %f0	# 1134
-	fmul	%f1 %f1 %f0	# 1134
+	finv	%f31 %f0	# 1134
+	fmul	%f1 %f1 %f31	# 1134
 	fneg	%f1 %f1	# 95
 	add	%r25 %r2 %r8	# 1134
 	fst	0(%r25) %f1	# 1134
-	beq	%r0 %r0 beq_cont.10636	# 1128
-beq_true.10635:
+	beq	%r0 %r0 beq_cont.10630	# 1128
+beq_true.10629:
 	addi	%r3 %r0 $0	# 1136
 	addi	%r8 %r0 l.8518	# 1136
 	fld	0(%r8) %f0	# 1136
 	add	%r25 %r2 %r3	# 1136
 	fst	0(%r25) %f0	# 1136
-beq_cont.10636:
+beq_cont.10630:
 	jr	%r31	# 1137
 setup_second_table.2721:
 	addi	%r8 %r0 $5	# 1143
@@ -3184,8 +3124,7 @@ setup_second_table.2721:
 	add	%r25 %r9 %r8	# 1150
 	fst	0(%r25) %f0	# 1150
 	ld	3(%r2) %r8	# 282
-	addi	%r25 %r8 $0	# 1154
-	beq	%r25 %r0 beq_true.10637	# 1154
+	beq	%r8 %r0 beq_true.10631	# 1154
 	addi	%r8 %r0 $1	# 1155
 	addi	%r10 %r0 $2	# 1155
 	add	%r25 %r3 %r10	# 1155
@@ -3207,8 +3146,8 @@ setup_second_table.2721:
 	addi	%r10 %r0 l.8586	# 93
 	fld	0(%r10) %f5	# 93
 	fmul	%f4 %f4 %f5	# 93
-	fneg	%f4 %f4	# 1155
-	fadd	%f1 %f1 %f4	# 1155
+	fneg	%f31 %f4	# 1155
+	fadd	%f1 %f1 %f31	# 1155
 	add	%r25 %r9 %r8	# 1155
 	fst	0(%r25) %f1	# 1155
 	addi	%r8 %r0 $2	# 1156
@@ -3232,8 +3171,8 @@ setup_second_table.2721:
 	addi	%r10 %r0 l.8586	# 93
 	fld	0(%r10) %f4	# 93
 	fmul	%f1 %f1 %f4	# 93
-	fneg	%f1 %f1	# 1156
-	fadd	%f2 %f2 %f1	# 1156
+	fneg	%f31 %f1	# 1156
+	fadd	%f2 %f2 %f31	# 1156
 	add	%r25 %r9 %r8	# 1156
 	fst	0(%r25) %f2	# 1156
 	addi	%r8 %r0 $3	# 1157
@@ -3257,12 +3196,12 @@ setup_second_table.2721:
 	addi	%r2 %r0 l.8586	# 93
 	fld	0(%r2) %f2	# 93
 	fmul	%f1 %f1 %f2	# 93
-	fneg	%f1 %f1	# 1157
-	fadd	%f3 %f3 %f1	# 1157
+	fneg	%f31 %f1	# 1157
+	fadd	%f3 %f3 %f31	# 1157
 	add	%r25 %r9 %r8	# 1157
 	fst	0(%r25) %f3	# 1157
-	beq	%r0 %r0 beq_cont.10638	# 1154
-beq_true.10637:
+	beq	%r0 %r0 beq_cont.10632	# 1154
+beq_true.10631:
 	addi	%r2 %r0 $1	# 1159
 	add	%r25 %r9 %r2	# 1159
 	fst	0(%r25) %f1	# 1159
@@ -3272,28 +3211,27 @@ beq_true.10637:
 	addi	%r2 %r0 $3	# 1161
 	add	%r25 %r9 %r2	# 1161
 	fst	0(%r25) %f3	# 1161
-beq_cont.10638:
+beq_cont.10632:
 	addi	%r2 %r0 l.8518	# 92
 	fld	0(%r2) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10639	# 92
+	bclt	bclt_true.10633	# 92
 	addi	%r2 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10640	# 92
-bclt_true.10639:
+	beq	%r0 %r0 bclt_cont.10634	# 92
+bclt_true.10633:
 	addi	%r2 %r0 $1	# 92
-bclt_cont.10640:
-	addi	%r25 %r2 $0	# 1163
-	beq	%r25 %r0 beq_true.10641	# 1163
-	beq	%r0 %r0 beq_cont.10642	# 1163
-beq_true.10641:
+bclt_cont.10634:
+	beq	%r2 %r0 beq_true.10635	# 1163
+	beq	%r0 %r0 beq_cont.10636	# 1163
+beq_true.10635:
 	addi	%r2 %r0 $4	# 1164
 	addi	%r3 %r0 l.8520	# 1164
 	fld	0(%r3) %f1	# 1164
-	finv	%f0 %f0	# 1164
-	fmul	%f1 %f1 %f0	# 1164
+	finv	%f31 %f0	# 1164
+	fmul	%f1 %f1 %f31	# 1164
 	add	%r25 %r9 %r2	# 1164
 	fst	0(%r25) %f1	# 1164
-beq_cont.10642:
+beq_cont.10636:
 	add	%r2 %r0 %r9	# 1166
 	jr	%r31	# 1166
 iter_setup_dirvec_constants.2724:
@@ -3301,9 +3239,9 @@ iter_setup_dirvec_constants.2724:
 	sub	%r25 %r0 %r3	# 1172
 	addi	%r25 %r25 $0	# 1172
 	slt	%r25 %r0 %r25	# 1172
-	beq	%r25 %r0 beq.10643	# 1172
+	beq	%r25 %r0 beq.10637	# 1172
 	jr	%r31	# 1185
-beq.10643:
+beq.10637:
 	add	%r25 %r8 %r3	# 1173
 	ld	0(%r25) %r8	# 1173
 	ld	1(%r2) %r9	# 545
@@ -3312,9 +3250,9 @@ beq.10643:
 	st	-1(%r29) %r2	# 1177
 	st	-2(%r29) %r16	# 1177
 	addi	%r25 %r11 $-1	# 1177
-	beq	%r25 %r0 beq_true.10645	# 1177
+	beq	%r25 %r0 beq_true.10639	# 1177
 	addi	%r25 %r11 $-2	# 1179
-	beq	%r25 %r0 beq_true.10647	# 1179
+	beq	%r25 %r0 beq_true.10641	# 1179
 	st	-3(%r29) %r3	# 1182
 	st	-4(%r29) %r9	# 1182
 	add	%r3 %r0 %r8	# 1182
@@ -3328,8 +3266,8 @@ beq.10643:
 	ld	-4(%r29) %r8	# 1182
 	add	%r25 %r8 %r3	# 1182
 	st	0(%r25) %r2	# 1182
-	beq	%r0 %r0 beq_cont.10648	# 1179
-beq_true.10647:
+	beq	%r0 %r0 beq_cont.10642	# 1179
+beq_true.10641:
 	st	-3(%r29) %r3	# 1180
 	st	-4(%r29) %r9	# 1180
 	add	%r3 %r0 %r8	# 1180
@@ -3343,9 +3281,9 @@ beq_true.10647:
 	ld	-4(%r29) %r8	# 1180
 	add	%r25 %r8 %r3	# 1180
 	st	0(%r25) %r2	# 1180
-beq_cont.10648:
-	beq	%r0 %r0 beq_cont.10646	# 1177
-beq_true.10645:
+beq_cont.10642:
+	beq	%r0 %r0 beq_cont.10640	# 1177
+beq_true.10639:
 	st	-3(%r29) %r3	# 1178
 	st	-4(%r29) %r9	# 1178
 	add	%r3 %r0 %r8	# 1178
@@ -3359,7 +3297,7 @@ beq_true.10645:
 	ld	-4(%r29) %r8	# 1178
 	add	%r25 %r8 %r3	# 1178
 	st	0(%r25) %r2	# 1178
-beq_cont.10646:
+beq_cont.10640:
 	addi	%r3 %r3 $-1	# 1184
 	ld	-1(%r29) %r2	# 1184
 	ld	-2(%r29) %r8	# 1184
@@ -3371,9 +3309,9 @@ setup_startp_constants.2729:
 	sub	%r25 %r0 %r3	# 1197
 	addi	%r25 %r25 $0	# 1197
 	slt	%r25 %r0 %r25	# 1197
-	beq	%r25 %r0 beq.10649	# 1197
+	beq	%r25 %r0 beq.10643	# 1197
 	jr	%r31	# 1212
-beq.10649:
+beq.10643:
 	add	%r25 %r8 %r3	# 1198
 	ld	0(%r25) %r8	# 1198
 	ld	10(%r8) %r9	# 448
@@ -3386,8 +3324,8 @@ beq.10649:
 	addi	%r13 %r0 $0	# 336
 	add	%r25 %r12 %r13	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 1201
-	fadd	%f0 %f0 %f1	# 1201
+	fneg	%f31 %f1	# 1201
+	fadd	%f0 %f0 %f31	# 1201
 	add	%r25 %r9 %r11	# 1201
 	fst	0(%r25) %f0	# 1201
 	addi	%r11 %r0 $1	# 1202
@@ -3398,8 +3336,8 @@ beq.10649:
 	addi	%r13 %r0 $1	# 346
 	add	%r25 %r12 %r13	# 346
 	fld	0(%r25) %f1	# 346
-	fneg	%f1 %f1	# 1202
-	fadd	%f0 %f0 %f1	# 1202
+	fneg	%f31 %f1	# 1202
+	fadd	%f0 %f0 %f31	# 1202
 	add	%r25 %r9 %r11	# 1202
 	fst	0(%r25) %f0	# 1202
 	addi	%r11 %r0 $2	# 1203
@@ -3410,19 +3348,19 @@ beq.10649:
 	addi	%r13 %r0 $2	# 356
 	add	%r25 %r12 %r13	# 356
 	fld	0(%r25) %f1	# 356
-	fneg	%f1 %f1	# 1203
-	fadd	%f0 %f0 %f1	# 1203
+	fneg	%f31 %f1	# 1203
+	fadd	%f0 %f0 %f31	# 1203
 	add	%r25 %r9 %r11	# 1203
 	fst	0(%r25) %f0	# 1203
 	st	-1(%r29) %r2	# 1204
 	st	-2(%r29) %r16	# 1204
 	st	-3(%r29) %r3	# 1204
 	addi	%r25 %r10 $-2	# 1204
-	beq	%r25 %r0 beq_true.10651	# 1204
+	beq	%r25 %r0 beq_true.10645	# 1204
 	sub	%r25 %r0 %r10	# 1207
 	addi	%r25 %r25 $2	# 1207
 	slt	%r25 %r25 %r0	# 1207
-	beq	%r25 %r0 beq_true.10653	# 1207
+	beq	%r25 %r0 beq_true.10647	# 1207
 	addi	%r11 %r0 $0	# 1208
 	add	%r25 %r9 %r11	# 1208
 	fld	0(%r25) %f0	# 1208
@@ -3443,22 +3381,22 @@ beq.10649:
 	addi	%r2 %r0 $3	# 1209
 	ld	-5(%r29) %r3	# 1209
 	addi	%r25 %r3 $-3	# 1209
-	beq	%r25 %r0 beq_true.10655	# 1209
-	beq	%r0 %r0 beq_cont.10656	# 1209
-beq_true.10655:
+	beq	%r25 %r0 beq_true.10649	# 1209
+	beq	%r0 %r0 beq_cont.10650	# 1209
+beq_true.10649:
 	addi	%r3 %r0 l.8520	# 1209
 	fld	0(%r3) %f1	# 1209
-	fneg	%f1 %f1	# 1209
-	fadd	%f0 %f0 %f1	# 1209
-beq_cont.10656:
+	fneg	%f31 %f1	# 1209
+	fadd	%f0 %f0 %f31	# 1209
+beq_cont.10650:
 	ld	-4(%r29) %r3	# 1209
 	add	%r25 %r3 %r2	# 1209
 	fst	0(%r25) %f0	# 1209
-	beq	%r0 %r0 beq_cont.10654	# 1207
-beq_true.10653:
-beq_cont.10654:
-	beq	%r0 %r0 beq_cont.10652	# 1204
-beq_true.10651:
+	beq	%r0 %r0 beq_cont.10648	# 1207
+beq_true.10647:
+beq_cont.10648:
+	beq	%r0 %r0 beq_cont.10646	# 1204
+beq_true.10645:
 	addi	%r10 %r0 $3	# 1205
 	ld	4(%r8) %r8	# 321
 	addi	%r11 %r0 $0	# 1206
@@ -3482,7 +3420,7 @@ beq_true.10651:
 	ld	-4(%r29) %r3	# 1205
 	add	%r25 %r3 %r2	# 1205
 	fst	0(%r25) %f0	# 1205
-beq_cont.10652:
+beq_cont.10646:
 	ld	-3(%r29) %r2	# 1211
 	addi	%r3 %r2 $-1	# 1211
 	ld	-1(%r29) %r2	# 1211
@@ -3492,72 +3430,68 @@ beq_cont.10652:
 	jr	%r24	# 1211
 is_rect_outside.2734:
 	fst	-1(%r29) %f2	# 1229
-	fst	-3(%r29) %f1	# 1229
-	st	-5(%r29) %r2	# 1229
+	fst	-2(%r29) %f1	# 1229
+	st	-3(%r29) %r2	# 1229
 	fabs	%f0 %f0	# 1229
-	ld	-5(%r29) %r2	# 291
+	ld	-3(%r29) %r2	# 291
 	ld	4(%r2) %r3	# 291
 	addi	%r8 %r0 $0	# 296
 	add	%r25 %r3 %r8	# 296
 	fld	0(%r25) %f1	# 296
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10657	# 89
+	bclt	bclt_true.10651	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10658	# 89
-bclt_true.10657:
+	beq	%r0 %r0 bclt_cont.10652	# 89
+bclt_true.10651:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10658:
-	addi	%r25 %r3 $0	# 1229
-	beq	%r25 %r0 beq_true.10659	# 1229
-	fld	-3(%r29) %f0	# 1230
+bclt_cont.10652:
+	beq	%r3 %r0 beq_true.10653	# 1229
+	fld	-2(%r29) %f0	# 1230
 	fabs	%f0 %f0	# 1230
-	ld	-5(%r29) %r2	# 301
+	ld	-3(%r29) %r2	# 301
 	ld	4(%r2) %r3	# 301
 	addi	%r8 %r0 $1	# 306
 	add	%r25 %r3 %r8	# 306
 	fld	0(%r25) %f1	# 306
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10661	# 89
+	bclt	bclt_true.10655	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10662	# 89
-bclt_true.10661:
+	beq	%r0 %r0 bclt_cont.10656	# 89
+bclt_true.10655:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10662:
-	addi	%r25 %r3 $0	# 1230
-	beq	%r25 %r0 beq_true.10663	# 1230
+bclt_cont.10656:
+	beq	%r3 %r0 beq_true.10657	# 1230
 	fld	-1(%r29) %f0	# 1231
 	fabs	%f0 %f0	# 1231
-	ld	-5(%r29) %r2	# 311
+	ld	-3(%r29) %r2	# 311
 	ld	4(%r2) %r3	# 311
 	addi	%r8 %r0 $2	# 316
 	add	%r25 %r3 %r8	# 316
 	fld	0(%r25) %f1	# 316
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10665	# 89
+	bclt	bclt_true.10659	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10666	# 89
-bclt_true.10665:
+	beq	%r0 %r0 bclt_cont.10660	# 89
+bclt_true.10659:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10666:
-	beq	%r0 %r0 beq_cont.10664	# 1230
-beq_true.10663:
+bclt_cont.10660:
+	beq	%r0 %r0 beq_cont.10658	# 1230
+beq_true.10657:
 	addi	%r3 %r0 $0	# 1232
-beq_cont.10664:
-	beq	%r0 %r0 beq_cont.10660	# 1229
-beq_true.10659:
+beq_cont.10658:
+	beq	%r0 %r0 beq_cont.10654	# 1229
+beq_true.10653:
 	addi	%r3 %r0 $0	# 1233
-beq_cont.10660:
-	addi	%r25 %r3 $0	# 1228
-	beq	%r25 %r0 beq.10667	# 1228
+beq_cont.10654:
+	beq	%r3 %r0 beq.10661	# 1228
 	ld	6(%r2) %r2	# 273
 	jr	%r31	# 277
-beq.10667:
+beq.10661:
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 1234
-	beq	%r25 %r0 beq.10668	# 1234
+	beq	%r2 %r0 beq.10662	# 1234
 	addi	%r2 %r0 $0	# 1234
 	jr	%r31	# 1234
-beq.10668:
+beq.10662:
 	addi	%r2 %r0 $1	# 1234
 	jr	%r31	# 1234
 is_second_outside.2744:
@@ -3570,41 +3504,38 @@ is_second_outside.2744:
 	ld	-1(%r29) %r2	# 253
 	ld	1(%r2) %r3	# 253
 	addi	%r25 %r3 $-3	# 1246
-	beq	%r25 %r0 beq_true.10669	# 1246
-	beq	%r0 %r0 beq_cont.10670	# 1246
-beq_true.10669:
+	beq	%r25 %r0 beq_true.10663	# 1246
+	beq	%r0 %r0 beq_cont.10664	# 1246
+beq_true.10663:
 	addi	%r3 %r0 l.8520	# 1246
 	fld	0(%r3) %f1	# 1246
-	fneg	%f1 %f1	# 1246
-	fadd	%f0 %f0 %f1	# 1246
-beq_cont.10670:
+	fneg	%f31 %f1	# 1246
+	fadd	%f0 %f0 %f31	# 1246
+beq_cont.10664:
 	ld	6(%r2) %r2	# 273
 	addi	%r3 %r0 l.8518	# 91
 	fld	0(%r3) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10671	# 91
+	bclt	bclt_true.10665	# 91
 	addi	%r3 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10672	# 91
-bclt_true.10671:
+	beq	%r0 %r0 bclt_cont.10666	# 91
+bclt_true.10665:
 	addi	%r3 %r0 $1	# 91
-bclt_cont.10672:
-	addi	%r25 %r2 $0	# 110
-	beq	%r25 %r0 beq_true.10673	# 110
-	addi	%r25 %r3 $0	# 110
-	beq	%r25 %r0 beq_true.10675	# 110
+bclt_cont.10666:
+	beq	%r2 %r0 beq_true.10667	# 110
+	beq	%r3 %r0 beq_true.10669	# 110
 	addi	%r3 %r0 $0	# 110
-	beq	%r0 %r0 beq_cont.10676	# 110
-beq_true.10675:
+	beq	%r0 %r0 beq_cont.10670	# 110
+beq_true.10669:
 	addi	%r3 %r0 $1	# 110
-beq_cont.10676:
-	beq	%r0 %r0 beq_cont.10674	# 110
-beq_true.10673:
-beq_cont.10674:
-	addi	%r25 %r3 $0	# 1247
-	beq	%r25 %r0 beq.10677	# 1247
+beq_cont.10670:
+	beq	%r0 %r0 beq_cont.10668	# 110
+beq_true.10667:
+beq_cont.10668:
+	beq	%r3 %r0 beq.10671	# 1247
 	addi	%r2 %r0 $0	# 1247
 	jr	%r31	# 1247
-beq.10677:
+beq.10671:
 	addi	%r2 %r0 $1	# 1247
 	jr	%r31	# 1247
 is_outside.2749:
@@ -3612,27 +3543,27 @@ is_outside.2749:
 	addi	%r8 %r0 $0	# 336
 	add	%r25 %r3 %r8	# 336
 	fld	0(%r25) %f3	# 336
-	fneg	%f3 %f3	# 1252
-	fadd	%f0 %f0 %f3	# 1252
+	fneg	%f31 %f3	# 1252
+	fadd	%f0 %f0 %f31	# 1252
 	ld	5(%r2) %r3	# 341
 	addi	%r8 %r0 $1	# 346
 	add	%r25 %r3 %r8	# 346
 	fld	0(%r25) %f3	# 346
-	fneg	%f3 %f3	# 1253
-	fadd	%f1 %f1 %f3	# 1253
+	fneg	%f31 %f3	# 1253
+	fadd	%f1 %f1 %f31	# 1253
 	ld	5(%r2) %r3	# 351
 	addi	%r8 %r0 $2	# 356
 	add	%r25 %r3 %r8	# 356
 	fld	0(%r25) %f3	# 356
-	fneg	%f3 %f3	# 1254
-	fadd	%f2 %f2 %f3	# 1254
+	fneg	%f31 %f3	# 1254
+	fadd	%f2 %f2 %f31	# 1254
 	ld	1(%r2) %r3	# 253
 	addi	%r25 %r3 $-1	# 1256
-	beq	%r25 %r0 beq.10678	# 1256
+	beq	%r25 %r0 beq.10672	# 1256
 	addi	%r25 %r3 $-2	# 1258
-	beq	%r25 %r0 beq.10679	# 1258
+	beq	%r25 %r0 beq.10673	# 1258
 	beq	%r0 %r0 is_second_outside.2744	# 1261
-beq.10679:
+beq.10673:
 	ld	4(%r2) %r3	# 321
 	st	-1(%r29) %r2	# 1239
 	add	%r2 %r0 %r3	# 1239
@@ -3646,98 +3577,93 @@ beq.10679:
 	addi	%r3 %r0 l.8518	# 91
 	fld	0(%r3) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10680	# 91
+	bclt	bclt_true.10674	# 91
 	addi	%r3 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10681	# 91
-bclt_true.10680:
+	beq	%r0 %r0 bclt_cont.10675	# 91
+bclt_true.10674:
 	addi	%r3 %r0 $1	# 91
-bclt_cont.10681:
-	addi	%r25 %r2 $0	# 110
-	beq	%r25 %r0 beq_true.10682	# 110
-	addi	%r25 %r3 $0	# 110
-	beq	%r25 %r0 beq_true.10684	# 110
+bclt_cont.10675:
+	beq	%r2 %r0 beq_true.10676	# 110
+	beq	%r3 %r0 beq_true.10678	# 110
 	addi	%r3 %r0 $0	# 110
-	beq	%r0 %r0 beq_cont.10685	# 110
-beq_true.10684:
+	beq	%r0 %r0 beq_cont.10679	# 110
+beq_true.10678:
 	addi	%r3 %r0 $1	# 110
-beq_cont.10685:
-	beq	%r0 %r0 beq_cont.10683	# 110
-beq_true.10682:
-beq_cont.10683:
-	addi	%r25 %r3 $0	# 1240
-	beq	%r25 %r0 beq.10686	# 1240
+beq_cont.10679:
+	beq	%r0 %r0 beq_cont.10677	# 110
+beq_true.10676:
+beq_cont.10677:
+	beq	%r3 %r0 beq.10680	# 1240
 	addi	%r2 %r0 $0	# 1240
 	jr	%r31	# 1240
-beq.10686:
+beq.10680:
 	addi	%r2 %r0 $1	# 1240
 	jr	%r31	# 1240
-beq.10678:
+beq.10672:
 	beq	%r0 %r0 is_rect_outside.2734	# 1257
 check_all_inside.2754:
 	ld	1(%r16) %r8	# 0
 	add	%r25 %r3 %r2	# 1266
 	ld	0(%r25) %r9	# 1266
 	addi	%r25 %r9 $1	# 1267
-	beq	%r25 %r0 beq.10687	# 1267
+	beq	%r25 %r0 beq.10681	# 1267
 	add	%r25 %r8 %r9	# 1270
 	ld	0(%r25) %r9	# 1270
 	st	-1(%r29) %r16	# 1270
-	fst	-3(%r29) %f2	# 1270
-	fst	-5(%r29) %f1	# 1270
-	fst	-7(%r29) %f0	# 1270
-	st	-9(%r29) %r8	# 1270
-	st	-10(%r29) %r3	# 1270
-	st	-11(%r29) %r2	# 1270
+	fst	-2(%r29) %f2	# 1270
+	fst	-3(%r29) %f1	# 1270
+	fst	-4(%r29) %f0	# 1270
+	st	-5(%r29) %r8	# 1270
+	st	-6(%r29) %r3	# 1270
+	st	-7(%r29) %r2	# 1270
 	add	%r2 %r0 %r9	# 1270
-	addi	%r29 %r29 $-12	# 1270
+	addi	%r29 %r29 $-8	# 1270
 	st	0(%r29) %r31	# 1270
 	jal	is_outside.2749	# 1270
 	ld	0(%r29) %r31	# 1270
-	addi	%r29 %r29 $12	# 1270
-	addi	%r25 %r2 $0	# 1270
-	beq	%r25 %r0 beq.10689	# 1270
+	addi	%r29 %r29 $8	# 1270
+	beq	%r2 %r0 beq.10682	# 1270
 	addi	%r2 %r0 $0	# 1271
 	jr	%r31	# 1271
-beq.10689:
-	ld	-11(%r29) %r2	# 1273
+beq.10682:
+	ld	-7(%r29) %r2	# 1273
 	addi	%r2 %r2 $1	# 1273
-	ld	-10(%r29) %r3	# 1266
+	ld	-6(%r29) %r3	# 1266
 	add	%r25 %r3 %r2	# 1266
 	ld	0(%r25) %r8	# 1266
 	addi	%r25 %r8 $1	# 1267
-	beq	%r25 %r0 beq.10690	# 1267
-	ld	-9(%r29) %r9	# 1270
+	beq	%r25 %r0 beq.10683	# 1267
+	ld	-5(%r29) %r9	# 1270
 	add	%r25 %r9 %r8	# 1270
 	ld	0(%r25) %r8	# 1270
-	fld	-7(%r29) %f0	# 1270
-	fld	-5(%r29) %f1	# 1270
-	fld	-3(%r29) %f2	# 1270
-	st	-12(%r29) %r2	# 1270
+	fld	-4(%r29) %f0	# 1270
+	fld	-3(%r29) %f1	# 1270
+	fld	-2(%r29) %f2	# 1270
+	st	-8(%r29) %r2	# 1270
 	add	%r2 %r0 %r8	# 1270
-	addi	%r29 %r29 $-13	# 1270
+	addi	%r29 %r29 $-9	# 1270
 	st	0(%r29) %r31	# 1270
 	jal	is_outside.2749	# 1270
 	ld	0(%r29) %r31	# 1270
-	addi	%r29 %r29 $13	# 1270
-	addi	%r25 %r2 $0	# 1270
-	beq	%r25 %r0 beq.10691	# 1270
+	addi	%r29 %r29 $9	# 1270
+	beq	%r2 %r0 beq.10684	# 1270
 	addi	%r2 %r0 $0	# 1271
 	jr	%r31	# 1271
-beq.10691:
-	ld	-12(%r29) %r2	# 1273
+beq.10684:
+	ld	-8(%r29) %r2	# 1273
 	addi	%r2 %r2 $1	# 1273
-	fld	-7(%r29) %f0	# 1273
-	fld	-5(%r29) %f1	# 1273
-	fld	-3(%r29) %f2	# 1273
-	ld	-10(%r29) %r3	# 1273
+	fld	-4(%r29) %f0	# 1273
+	fld	-3(%r29) %f1	# 1273
+	fld	-2(%r29) %f2	# 1273
+	ld	-6(%r29) %r3	# 1273
 	ld	-1(%r29) %r8	# 1273
 	add	%r16 %r0 %r8	# 1273
 	ld	0(%r16) %r24	# 1273
 	jr	%r24	# 1273
-beq.10690:
+beq.10683:
 	addi	%r2 %r0 $1	# 1268
 	jr	%r31	# 1268
-beq.10687:
+beq.10681:
 	addi	%r2 %r0 $1	# 1268
 	jr	%r31	# 1268
 shadow_check_and_group.2760:
@@ -3751,7 +3677,7 @@ shadow_check_and_group.2760:
 	add	%r25 %r3 %r2	# 1286
 	ld	0(%r25) %r15	# 1286
 	addi	%r25 %r15 $1	# 1286
-	beq	%r25 %r0 beq.10692	# 1286
+	beq	%r25 %r0 beq.10685	# 1286
 	add	%r25 %r3 %r2	# 1289
 	ld	0(%r25) %r15	# 1289
 	st	-1(%r29) %r14	# 1290
@@ -3777,23 +3703,21 @@ shadow_check_and_group.2760:
 	ld	-9(%r29) %r8	# 1291
 	add	%r25 %r8 %r3	# 1291
 	fld	0(%r25) %f0	# 1291
-	addi	%r25 %r2 $0	# 1292
-	beq	%r25 %r0 beq_true.10693	# 1292
+	beq	%r2 %r0 beq_true.10686	# 1292
 	addi	%r2 %r0 l.8628	# 1292
 	fld	0(%r2) %f1	# 1292
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10695	# 89
+	bclt	bclt_true.10688	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10696	# 89
-bclt_true.10695:
+	beq	%r0 %r0 bclt_cont.10689	# 89
+bclt_true.10688:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10696:
-	beq	%r0 %r0 beq_cont.10694	# 1292
-beq_true.10693:
+bclt_cont.10689:
+	beq	%r0 %r0 beq_cont.10687	# 1292
+beq_true.10686:
 	addi	%r2 %r0 $0	# 1292
-beq_cont.10694:
-	addi	%r25 %r2 $0	# 1292
-	beq	%r25 %r0 beq.10697	# 1292
+beq_cont.10687:
+	beq	%r2 %r0 beq.10690	# 1292
 	addi	%r2 %r0 l.8630	# 1295
 	fld	0(%r2) %f1	# 1295
 	fadd	%f0 %f0 %f1	# 1295
@@ -3828,49 +3752,47 @@ beq_cont.10694:
 	add	%r25 %r3 %r2	# 1266
 	ld	0(%r25) %r2	# 1266
 	addi	%r25 %r2 $1	# 1267
-	beq	%r25 %r0 beq_true.10698	# 1267
+	beq	%r25 %r0 beq_true.10691	# 1267
 	ld	-8(%r29) %r8	# 1270
 	add	%r25 %r8 %r2	# 1270
 	ld	0(%r25) %r2	# 1270
-	fst	-11(%r29) %f3	# 1270
-	fst	-13(%r29) %f2	# 1270
-	fst	-15(%r29) %f1	# 1270
+	fst	-10(%r29) %f3	# 1270
+	fst	-11(%r29) %f2	# 1270
+	fst	-12(%r29) %f1	# 1270
 	fmov	%f0 %f1	# 1270
 	fmov	%f1 %f2	# 1270
 	fmov	%f2 %f3	# 1270
-	addi	%r29 %r29 $-17	# 1270
+	addi	%r29 %r29 $-13	# 1270
 	st	0(%r29) %r31	# 1270
 	jal	is_outside.2749	# 1270
 	ld	0(%r29) %r31	# 1270
-	addi	%r29 %r29 $17	# 1270
-	addi	%r25 %r2 $0	# 1270
-	beq	%r25 %r0 beq_true.10701	# 1270
+	addi	%r29 %r29 $13	# 1270
+	beq	%r2 %r0 beq_true.10693	# 1270
 	addi	%r2 %r0 $0	# 1271
-	beq	%r0 %r0 beq_cont.10702	# 1270
-beq_true.10701:
+	beq	%r0 %r0 beq_cont.10694	# 1270
+beq_true.10693:
 	addi	%r2 %r0 $1	# 1273
-	fld	-15(%r29) %f0	# 1273
-	fld	-13(%r29) %f1	# 1273
-	fld	-11(%r29) %f2	# 1273
+	fld	-12(%r29) %f0	# 1273
+	fld	-11(%r29) %f1	# 1273
+	fld	-10(%r29) %f2	# 1273
 	ld	-4(%r29) %r3	# 1273
 	ld	-1(%r29) %r8	# 1273
 	add	%r16 %r0 %r8	# 1273
-	addi	%r29 %r29 $-17	# 1273
+	addi	%r29 %r29 $-13	# 1273
 	st	0(%r29) %r31	# 1273
 	ld	0(%r16) %r24	# 1273
 	jalr	%r24	# 1273
 	ld	0(%r29) %r31	# 1273
-	addi	%r29 %r29 $17	# 1273
-beq_cont.10702:
-	beq	%r0 %r0 beq_cont.10699	# 1267
-beq_true.10698:
+	addi	%r29 %r29 $13	# 1273
+beq_cont.10694:
+	beq	%r0 %r0 beq_cont.10692	# 1267
+beq_true.10691:
 	addi	%r2 %r0 $1	# 1268
-beq_cont.10699:
-	addi	%r25 %r2 $0	# 1299
-	beq	%r25 %r0 beq.10703	# 1299
+beq_cont.10692:
+	beq	%r2 %r0 beq.10695	# 1299
 	addi	%r2 %r0 $1	# 1300
 	jr	%r31	# 1300
-beq.10703:
+beq.10695:
 	ld	-6(%r29) %r2	# 1302
 	addi	%r2 %r2 $1	# 1302
 	ld	-4(%r29) %r3	# 1302
@@ -3878,14 +3800,13 @@ beq.10703:
 	add	%r16 %r0 %r8	# 1302
 	ld	0(%r16) %r24	# 1302
 	jr	%r24	# 1302
-beq.10697:
+beq.10690:
 	ld	-7(%r29) %r2	# 1308
 	ld	-8(%r29) %r3	# 1308
 	add	%r25 %r3 %r2	# 1308
 	ld	0(%r25) %r2	# 1308
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 1308
-	beq	%r25 %r0 beq.10704	# 1308
+	beq	%r2 %r0 beq.10696	# 1308
 	ld	-6(%r29) %r2	# 1309
 	addi	%r2 %r2 $1	# 1309
 	ld	-4(%r29) %r3	# 1309
@@ -3893,10 +3814,10 @@ beq.10697:
 	add	%r16 %r0 %r8	# 1309
 	ld	0(%r16) %r24	# 1309
 	jr	%r24	# 1309
-beq.10704:
+beq.10696:
 	addi	%r2 %r0 $0	# 1311
 	jr	%r31	# 1311
-beq.10692:
+beq.10685:
 	addi	%r2 %r0 $0	# 1287
 	jr	%r31	# 1287
 shadow_check_one_or_group.2763:
@@ -3905,7 +3826,7 @@ shadow_check_one_or_group.2763:
 	add	%r25 %r3 %r2	# 1316
 	ld	0(%r25) %r10	# 1316
 	addi	%r25 %r10 $1	# 1317
-	beq	%r25 %r0 beq.10705	# 1317
+	beq	%r25 %r0 beq.10697	# 1317
 	add	%r25 %r9 %r10	# 1320
 	ld	0(%r25) %r9	# 1320
 	addi	%r10 %r0 $0	# 1321
@@ -3921,11 +3842,10 @@ shadow_check_one_or_group.2763:
 	jalr	%r24	# 1321
 	ld	0(%r29) %r31	# 1321
 	addi	%r29 %r29 $4	# 1321
-	addi	%r25 %r2 $0	# 1322
-	beq	%r25 %r0 beq.10706	# 1322
+	beq	%r2 %r0 beq.10698	# 1322
 	addi	%r2 %r0 $1	# 1323
 	jr	%r31	# 1323
-beq.10706:
+beq.10698:
 	ld	-3(%r29) %r2	# 1325
 	addi	%r2 %r2 $1	# 1325
 	ld	-1(%r29) %r3	# 1325
@@ -3933,7 +3853,7 @@ beq.10706:
 	add	%r16 %r0 %r8	# 1325
 	ld	0(%r16) %r24	# 1325
 	jr	%r24	# 1325
-beq.10705:
+beq.10697:
 	addi	%r2 %r0 $0	# 1318
 	jr	%r31	# 1318
 shadow_check_one_or_matrix.2766:
@@ -3948,14 +3868,14 @@ shadow_check_one_or_matrix.2766:
 	add	%r25 %r13 %r14	# 1332
 	ld	0(%r25) %r14	# 1332
 	addi	%r25 %r14 $1	# 1333
-	beq	%r25 %r0 beq.10707	# 1333
+	beq	%r25 %r0 beq.10699	# 1333
 	st	-1(%r29) %r13	# 1337
 	st	-2(%r29) %r10	# 1337
 	st	-3(%r29) %r3	# 1337
 	st	-4(%r29) %r16	# 1337
 	st	-5(%r29) %r2	# 1337
 	addi	%r25 %r14 $-99	# 1337
-	beq	%r25 %r0 beq_true.10708	# 1337
+	beq	%r25 %r0 beq_true.10700	# 1337
 	st	-6(%r29) %r9	# 1340
 	add	%r3 %r0 %r11	# 1340
 	add	%r2 %r0 %r14	# 1340
@@ -3967,8 +3887,7 @@ shadow_check_one_or_matrix.2766:
 	jalr	%r24	# 1340
 	ld	0(%r29) %r31	# 1340
 	addi	%r29 %r29 $7	# 1340
-	addi	%r25 %r2 $0	# 1343
-	beq	%r25 %r0 beq_true.10710	# 1343
+	beq	%r2 %r0 beq_true.10702	# 1343
 	addi	%r2 %r0 $0	# 1344
 	ld	-6(%r29) %r3	# 1344
 	add	%r25 %r3 %r2	# 1344
@@ -3976,14 +3895,13 @@ shadow_check_one_or_matrix.2766:
 	addi	%r2 %r0 l.8632	# 1344
 	fld	0(%r2) %f1	# 1344
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10712	# 89
+	bclt	bclt_true.10704	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10713	# 89
-bclt_true.10712:
+	beq	%r0 %r0 bclt_cont.10705	# 89
+bclt_true.10704:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10713:
-	addi	%r25 %r2 $0	# 1344
-	beq	%r25 %r0 beq_true.10714	# 1344
+bclt_cont.10705:
+	beq	%r2 %r0 beq_true.10706	# 1344
 	addi	%r2 %r0 $1	# 1345
 	ld	-1(%r29) %r3	# 1345
 	ld	-2(%r29) %r8	# 1345
@@ -3994,27 +3912,25 @@ bclt_cont.10713:
 	jalr	%r24	# 1345
 	ld	0(%r29) %r31	# 1345
 	addi	%r29 %r29 $7	# 1345
-	addi	%r25 %r2 $0	# 1345
-	beq	%r25 %r0 beq_true.10716	# 1345
+	beq	%r2 %r0 beq_true.10708	# 1345
 	addi	%r2 %r0 $1	# 1346
-	beq	%r0 %r0 beq_cont.10717	# 1345
-beq_true.10716:
-	addi	%r2 %r0 $0	# 1347
-beq_cont.10717:
-	beq	%r0 %r0 beq_cont.10715	# 1344
-beq_true.10714:
-	addi	%r2 %r0 $0	# 1348
-beq_cont.10715:
-	beq	%r0 %r0 beq_cont.10711	# 1343
-beq_true.10710:
-	addi	%r2 %r0 $0	# 1349
-beq_cont.10711:
-	beq	%r0 %r0 beq_cont.10709	# 1337
+	beq	%r0 %r0 beq_cont.10709	# 1345
 beq_true.10708:
-	addi	%r2 %r0 $1	# 1338
+	addi	%r2 %r0 $0	# 1347
 beq_cont.10709:
-	addi	%r25 %r2 $0	# 1336
-	beq	%r25 %r0 beq.10718	# 1336
+	beq	%r0 %r0 beq_cont.10707	# 1344
+beq_true.10706:
+	addi	%r2 %r0 $0	# 1348
+beq_cont.10707:
+	beq	%r0 %r0 beq_cont.10703	# 1343
+beq_true.10702:
+	addi	%r2 %r0 $0	# 1349
+beq_cont.10703:
+	beq	%r0 %r0 beq_cont.10701	# 1337
+beq_true.10700:
+	addi	%r2 %r0 $1	# 1338
+beq_cont.10701:
+	beq	%r2 %r0 beq.10710	# 1336
 	addi	%r2 %r0 $1	# 1351
 	ld	-1(%r29) %r3	# 1351
 	ld	-2(%r29) %r8	# 1351
@@ -4025,11 +3941,10 @@ beq_cont.10709:
 	jalr	%r24	# 1351
 	ld	0(%r29) %r31	# 1351
 	addi	%r29 %r29 $7	# 1351
-	addi	%r25 %r2 $0	# 1351
-	beq	%r25 %r0 beq.10719	# 1351
+	beq	%r2 %r0 beq.10711	# 1351
 	addi	%r2 %r0 $1	# 1352
 	jr	%r31	# 1352
-beq.10719:
+beq.10711:
 	ld	-5(%r29) %r2	# 1354
 	addi	%r2 %r2 $1	# 1354
 	ld	-3(%r29) %r3	# 1354
@@ -4037,7 +3952,7 @@ beq.10719:
 	add	%r16 %r0 %r8	# 1354
 	ld	0(%r16) %r24	# 1354
 	jr	%r24	# 1354
-beq.10718:
+beq.10710:
 	ld	-5(%r29) %r2	# 1356
 	addi	%r2 %r2 $1	# 1356
 	ld	-3(%r29) %r3	# 1356
@@ -4045,7 +3960,7 @@ beq.10718:
 	add	%r16 %r0 %r8	# 1356
 	ld	0(%r16) %r24	# 1356
 	jr	%r24	# 1356
-beq.10707:
+beq.10699:
 	addi	%r2 %r0 $0	# 1334
 	jr	%r31	# 1334
 solve_each_element.2769:
@@ -4064,7 +3979,7 @@ solve_each_element.2769:
 	add	%r25 %r3 %r2	# 1367
 	ld	0(%r25) %r15	# 1367
 	addi	%r25 %r15 $1	# 1368
-	beq	%r25 %r0 beq.10720	# 1368
+	beq	%r25 %r0 beq.10712	# 1368
 	st	-4(%r29) %r14	# 1370
 	st	-5(%r29) %r10	# 1370
 	st	-6(%r29) %r9	# 1370
@@ -4085,8 +4000,7 @@ solve_each_element.2769:
 	jalr	%r24	# 1370
 	ld	0(%r29) %r31	# 1370
 	addi	%r29 %r29 $14	# 1370
-	addi	%r25 %r2 $0	# 1371
-	beq	%r25 %r0 beq.10721	# 1371
+	beq	%r2 %r0 beq.10713	# 1371
 	addi	%r3 %r0 $0	# 1375
 	ld	-7(%r29) %r8	# 1375
 	add	%r25 %r8 %r3	# 1375
@@ -4094,27 +4008,25 @@ solve_each_element.2769:
 	addi	%r3 %r0 l.8518	# 1377
 	fld	0(%r3) %f1	# 1377
 	fslt	%f1 %f0	# 89
-	bclt	bclt_true.10722	# 89
+	bclt	bclt_true.10714	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10723	# 89
-bclt_true.10722:
+	beq	%r0 %r0 bclt_cont.10715	# 89
+bclt_true.10714:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10723:
-	addi	%r25 %r3 $0	# 1377
-	beq	%r25 %r0 beq_true.10724	# 1377
+bclt_cont.10715:
+	beq	%r3 %r0 beq_true.10716	# 1377
 	addi	%r3 %r0 $0	# 1378
 	ld	-6(%r29) %r8	# 1378
 	add	%r25 %r8 %r3	# 1378
 	fld	0(%r25) %f1	# 1378
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10726	# 89
+	bclt	bclt_true.10718	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10727	# 89
-bclt_true.10726:
+	beq	%r0 %r0 bclt_cont.10719	# 89
+bclt_true.10718:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10727:
-	addi	%r25 %r3 $0	# 1378
-	beq	%r25 %r0 beq_true.10728	# 1378
+bclt_cont.10719:
+	beq	%r3 %r0 beq_true.10720	# 1378
 	addi	%r3 %r0 l.8630	# 1380
 	fld	0(%r3) %f1	# 1380
 	fadd	%f0 %f0 %f1	# 1380
@@ -4150,11 +4062,11 @@ bclt_cont.10727:
 	ld	0(%r25) %r3	# 1266
 	st	-14(%r29) %r2	# 1267
 	fst	-15(%r29) %f3	# 1267
-	fst	-17(%r29) %f2	# 1267
-	fst	-19(%r29) %f1	# 1267
-	fst	-21(%r29) %f0	# 1267
+	fst	-16(%r29) %f2	# 1267
+	fst	-17(%r29) %f1	# 1267
+	fst	-18(%r29) %f0	# 1267
 	addi	%r25 %r3 $1	# 1267
-	beq	%r25 %r0 beq_true.10730	# 1267
+	beq	%r25 %r0 beq_true.10722	# 1267
 	ld	-13(%r29) %r11	# 1270
 	add	%r25 %r11 %r3	# 1270
 	ld	0(%r25) %r3	# 1270
@@ -4162,48 +4074,46 @@ bclt_cont.10727:
 	fmov	%f0 %f1	# 1270
 	fmov	%f1 %f2	# 1270
 	fmov	%f2 %f3	# 1270
-	addi	%r29 %r29 $-23	# 1270
+	addi	%r29 %r29 $-19	# 1270
 	st	0(%r29) %r31	# 1270
 	jal	is_outside.2749	# 1270
 	ld	0(%r29) %r31	# 1270
-	addi	%r29 %r29 $23	# 1270
-	addi	%r25 %r2 $0	# 1270
-	beq	%r25 %r0 beq_true.10732	# 1270
+	addi	%r29 %r29 $19	# 1270
+	beq	%r2 %r0 beq_true.10724	# 1270
 	addi	%r2 %r0 $0	# 1271
-	beq	%r0 %r0 beq_cont.10733	# 1270
-beq_true.10732:
+	beq	%r0 %r0 beq_cont.10725	# 1270
+beq_true.10724:
 	addi	%r2 %r0 $1	# 1273
-	fld	-19(%r29) %f0	# 1273
-	fld	-17(%r29) %f1	# 1273
+	fld	-17(%r29) %f0	# 1273
+	fld	-16(%r29) %f1	# 1273
 	fld	-15(%r29) %f2	# 1273
 	ld	-9(%r29) %r3	# 1273
 	ld	-4(%r29) %r8	# 1273
 	add	%r16 %r0 %r8	# 1273
-	addi	%r29 %r29 $-23	# 1273
+	addi	%r29 %r29 $-19	# 1273
 	st	0(%r29) %r31	# 1273
 	ld	0(%r16) %r24	# 1273
 	jalr	%r24	# 1273
 	ld	0(%r29) %r31	# 1273
-	addi	%r29 %r29 $23	# 1273
-beq_cont.10733:
-	beq	%r0 %r0 beq_cont.10731	# 1267
-beq_true.10730:
+	addi	%r29 %r29 $19	# 1273
+beq_cont.10725:
+	beq	%r0 %r0 beq_cont.10723	# 1267
+beq_true.10722:
 	addi	%r2 %r0 $1	# 1268
-beq_cont.10731:
-	addi	%r25 %r2 $0	# 1384
-	beq	%r25 %r0 beq_true.10734	# 1384
+beq_cont.10723:
+	beq	%r2 %r0 beq_true.10726	# 1384
 	addi	%r2 %r0 $0	# 1386
 	ld	-6(%r29) %r3	# 1386
-	fld	-21(%r29) %f0	# 1386
+	fld	-18(%r29) %f0	# 1386
 	add	%r25 %r3 %r2	# 1386
 	fst	0(%r25) %f0	# 1386
 	addi	%r2 %r0 $0	# 146
 	ld	-3(%r29) %r3	# 146
-	fld	-19(%r29) %f0	# 146
+	fld	-17(%r29) %f0	# 146
 	add	%r25 %r3 %r2	# 146
 	fst	0(%r25) %f0	# 146
 	addi	%r2 %r0 $1	# 147
-	fld	-17(%r29) %f0	# 147
+	fld	-16(%r29) %f0	# 147
 	add	%r25 %r3 %r2	# 147
 	fst	0(%r25) %f0	# 147
 	addi	%r2 %r0 $2	# 148
@@ -4220,15 +4130,15 @@ beq_cont.10731:
 	ld	-14(%r29) %r8	# 1389
 	add	%r25 %r3 %r2	# 1389
 	st	0(%r25) %r8	# 1389
-	beq	%r0 %r0 beq_cont.10735	# 1384
-beq_true.10734:
-beq_cont.10735:
-	beq	%r0 %r0 beq_cont.10729	# 1378
-beq_true.10728:
-beq_cont.10729:
-	beq	%r0 %r0 beq_cont.10725	# 1377
-beq_true.10724:
-beq_cont.10725:
+	beq	%r0 %r0 beq_cont.10727	# 1384
+beq_true.10726:
+beq_cont.10727:
+	beq	%r0 %r0 beq_cont.10721	# 1378
+beq_true.10720:
+beq_cont.10721:
+	beq	%r0 %r0 beq_cont.10717	# 1377
+beq_true.10716:
+beq_cont.10717:
 	ld	-11(%r29) %r2	# 1395
 	addi	%r2 %r2 $1	# 1395
 	ld	-9(%r29) %r3	# 1395
@@ -4237,14 +4147,13 @@ beq_cont.10725:
 	add	%r16 %r0 %r9	# 1395
 	ld	0(%r16) %r24	# 1395
 	jr	%r24	# 1395
-beq.10721:
+beq.10713:
 	ld	-12(%r29) %r2	# 1399
 	ld	-13(%r29) %r3	# 1399
 	add	%r25 %r3 %r2	# 1399
 	ld	0(%r25) %r2	# 1399
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 1399
-	beq	%r25 %r0 beq.10736	# 1399
+	beq	%r2 %r0 beq.10728	# 1399
 	ld	-11(%r29) %r2	# 1400
 	addi	%r2 %r2 $1	# 1400
 	ld	-9(%r29) %r3	# 1400
@@ -4253,9 +4162,9 @@ beq.10721:
 	add	%r16 %r0 %r9	# 1400
 	ld	0(%r16) %r24	# 1400
 	jr	%r24	# 1400
-beq.10736:
+beq.10728:
 	jr	%r31	# 1401
-beq.10720:
+beq.10712:
 	jr	%r31	# 1368
 solve_one_or_network.2773:
 	ld	2(%r16) %r9	# 0
@@ -4263,7 +4172,7 @@ solve_one_or_network.2773:
 	add	%r25 %r3 %r2	# 1408
 	ld	0(%r25) %r11	# 1408
 	addi	%r25 %r11 $1	# 1409
-	beq	%r25 %r0 beq.10739	# 1409
+	beq	%r25 %r0 beq.10731	# 1409
 	add	%r25 %r10 %r11	# 1410
 	ld	0(%r25) %r11	# 1410
 	addi	%r12 %r0 $0	# 1411
@@ -4288,7 +4197,7 @@ solve_one_or_network.2773:
 	add	%r25 %r3 %r2	# 1408
 	ld	0(%r25) %r8	# 1408
 	addi	%r25 %r8 $1	# 1409
-	beq	%r25 %r0 beq.10740	# 1409
+	beq	%r25 %r0 beq.10732	# 1409
 	ld	-4(%r29) %r9	# 1410
 	add	%r25 %r9 %r8	# 1410
 	ld	0(%r25) %r8	# 1410
@@ -4314,9 +4223,9 @@ solve_one_or_network.2773:
 	add	%r16 %r0 %r9	# 1412
 	ld	0(%r16) %r24	# 1412
 	jr	%r24	# 1412
-beq.10740:
+beq.10732:
 	jr	%r31	# 1413
-beq.10739:
+beq.10731:
 	jr	%r31	# 1413
 trace_or_matrix.2777:
 	ld	7(%r16) %r9	# 0
@@ -4334,11 +4243,11 @@ trace_or_matrix.2777:
 	add	%r25 %r3 %r2	# 1419
 	ld	0(%r25) %r2	# 1419
 	addi	%r25 %r2 $1	# 1420
-	beq	%r25 %r0 beq.10743	# 1420
+	beq	%r25 %r0 beq.10735	# 1420
 	st	-3(%r29) %r8	# 1423
 	st	-4(%r29) %r16	# 1423
 	addi	%r25 %r2 $-99	# 1423
-	beq	%r25 %r0 beq_true.10744	# 1423
+	beq	%r25 %r0 beq_true.10736	# 1423
 	st	-5(%r29) %r13	# 1428
 	st	-6(%r29) %r14	# 1428
 	st	-7(%r29) %r15	# 1428
@@ -4354,8 +4263,7 @@ trace_or_matrix.2777:
 	jalr	%r24	# 1428
 	ld	0(%r29) %r31	# 1428
 	addi	%r29 %r29 $11	# 1428
-	addi	%r25 %r2 $0	# 1429
-	beq	%r25 %r0 beq_true.10746	# 1429
+	beq	%r2 %r0 beq_true.10738	# 1429
 	addi	%r2 %r0 $0	# 1430
 	ld	-10(%r29) %r3	# 1430
 	add	%r25 %r3 %r2	# 1430
@@ -4365,20 +4273,19 @@ trace_or_matrix.2777:
 	add	%r25 %r3 %r2	# 1431
 	fld	0(%r25) %f1	# 1431
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10748	# 89
+	bclt	bclt_true.10740	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10749	# 89
-bclt_true.10748:
+	beq	%r0 %r0 bclt_cont.10741	# 89
+bclt_true.10740:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10749:
-	addi	%r25 %r2 $0	# 1431
-	beq	%r25 %r0 beq_true.10750	# 1431
+bclt_cont.10741:
+	beq	%r2 %r0 beq_true.10742	# 1431
 	addi	%r2 %r0 $1	# 1432
 	ld	-8(%r29) %r3	# 1408
 	add	%r25 %r3 %r2	# 1408
 	ld	0(%r25) %r2	# 1408
 	addi	%r25 %r2 $1	# 1409
-	beq	%r25 %r0 beq_true.10752	# 1409
+	beq	%r25 %r0 beq_true.10744	# 1409
 	ld	-7(%r29) %r8	# 1410
 	add	%r25 %r8 %r2	# 1410
 	ld	0(%r25) %r2	# 1410
@@ -4406,22 +4313,22 @@ bclt_cont.10749:
 	jalr	%r24	# 1412
 	ld	0(%r29) %r31	# 1412
 	addi	%r29 %r29 $11	# 1412
-	beq	%r0 %r0 beq_cont.10753	# 1409
-beq_true.10752:
-beq_cont.10753:
-	beq	%r0 %r0 beq_cont.10751	# 1431
-beq_true.10750:
-beq_cont.10751:
-	beq	%r0 %r0 beq_cont.10747	# 1429
-beq_true.10746:
-beq_cont.10747:
-	beq	%r0 %r0 beq_cont.10745	# 1423
+	beq	%r0 %r0 beq_cont.10745	# 1409
 beq_true.10744:
+beq_cont.10745:
+	beq	%r0 %r0 beq_cont.10743	# 1431
+beq_true.10742:
+beq_cont.10743:
+	beq	%r0 %r0 beq_cont.10739	# 1429
+beq_true.10738:
+beq_cont.10739:
+	beq	%r0 %r0 beq_cont.10737	# 1423
+beq_true.10736:
 	addi	%r2 %r0 $1	# 1424
 	add	%r25 %r3 %r2	# 1408
 	ld	0(%r25) %r2	# 1408
 	addi	%r25 %r2 $1	# 1409
-	beq	%r25 %r0 beq_true.10754	# 1409
+	beq	%r25 %r0 beq_true.10746	# 1409
 	add	%r25 %r15 %r2	# 1410
 	ld	0(%r25) %r2	# 1410
 	addi	%r9 %r0 $0	# 1411
@@ -4447,10 +4354,10 @@ beq_true.10744:
 	jalr	%r24	# 1412
 	ld	0(%r29) %r31	# 1412
 	addi	%r29 %r29 $11	# 1412
-	beq	%r0 %r0 beq_cont.10755	# 1409
-beq_true.10754:
-beq_cont.10755:
-beq_cont.10745:
+	beq	%r0 %r0 beq_cont.10747	# 1409
+beq_true.10746:
+beq_cont.10747:
+beq_cont.10737:
 	ld	-2(%r29) %r2	# 1436
 	addi	%r2 %r2 $1	# 1436
 	ld	-1(%r29) %r3	# 1436
@@ -4459,7 +4366,7 @@ beq_cont.10745:
 	add	%r16 %r0 %r9	# 1436
 	ld	0(%r16) %r24	# 1436
 	jr	%r24	# 1436
-beq.10743:
+beq.10735:
 	jr	%r31	# 1421
 judge_intersection.2781:
 	ld	3(%r16) %r3	# 0
@@ -4492,24 +4399,23 @@ judge_intersection.2781:
 	addi	%r2 %r0 l.8632	# 1449
 	fld	0(%r2) %f1	# 1449
 	fslt	%f1 %f0	# 89
-	bclt	bclt_true.10757	# 89
+	bclt	bclt_true.10749	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10758	# 89
-bclt_true.10757:
+	beq	%r0 %r0 bclt_cont.10750	# 89
+bclt_true.10749:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10758:
-	addi	%r25 %r2 $0	# 1449
-	beq	%r25 %r0 beq.10759	# 1449
+bclt_cont.10750:
+	beq	%r2 %r0 beq.10751	# 1449
 	addi	%r2 %r0 l.8639	# 1450
 	fld	0(%r2) %f1	# 1450
 	fslt	%f0 %f1	# 89
-	bclt	bclt.10760	# 89
+	bclt	bclt.10752	# 89
 	addi	%r2 %r0 $0	# 89
 	jr	%r31	# 89
-bclt.10760:
+bclt.10752:
 	addi	%r2 %r0 $1	# 89
 	jr	%r31	# 89
-beq.10759:
+beq.10751:
 	addi	%r2 %r0 $0	# 1451
 	jr	%r31	# 1451
 solve_each_element_fast.2783:
@@ -4530,7 +4436,7 @@ solve_each_element_fast.2783:
 	add	%r25 %r3 %r2	# 1461
 	ld	0(%r25) %r14	# 1461
 	addi	%r25 %r14 $1	# 1462
-	beq	%r25 %r0 beq.10761	# 1462
+	beq	%r25 %r0 beq.10753	# 1462
 	st	-5(%r29) %r10	# 1464
 	st	-6(%r29) %r15	# 1464
 	st	-7(%r29) %r9	# 1464
@@ -4550,8 +4456,7 @@ solve_each_element_fast.2783:
 	jalr	%r24	# 1464
 	ld	0(%r29) %r31	# 1464
 	addi	%r29 %r29 $15	# 1464
-	addi	%r25 %r2 $0	# 1465
-	beq	%r25 %r0 beq.10762	# 1465
+	beq	%r2 %r0 beq.10754	# 1465
 	addi	%r3 %r0 $0	# 1469
 	ld	-8(%r29) %r8	# 1469
 	add	%r25 %r8 %r3	# 1469
@@ -4559,27 +4464,25 @@ solve_each_element_fast.2783:
 	addi	%r3 %r0 l.8518	# 1471
 	fld	0(%r3) %f1	# 1471
 	fslt	%f1 %f0	# 89
-	bclt	bclt_true.10763	# 89
+	bclt	bclt_true.10755	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10764	# 89
-bclt_true.10763:
+	beq	%r0 %r0 bclt_cont.10756	# 89
+bclt_true.10755:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10764:
-	addi	%r25 %r3 $0	# 1471
-	beq	%r25 %r0 beq_true.10765	# 1471
+bclt_cont.10756:
+	beq	%r3 %r0 beq_true.10757	# 1471
 	addi	%r3 %r0 $0	# 1472
 	ld	-7(%r29) %r8	# 1472
 	add	%r25 %r8 %r3	# 1472
 	fld	0(%r25) %f1	# 1472
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10767	# 89
+	bclt	bclt_true.10759	# 89
 	addi	%r3 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10768	# 89
-bclt_true.10767:
+	beq	%r0 %r0 bclt_cont.10760	# 89
+bclt_true.10759:
 	addi	%r3 %r0 $1	# 89
-bclt_cont.10768:
-	addi	%r25 %r3 $0	# 1472
-	beq	%r25 %r0 beq_true.10769	# 1472
+bclt_cont.10760:
+	beq	%r3 %r0 beq_true.10761	# 1472
 	addi	%r3 %r0 l.8630	# 1474
 	fld	0(%r3) %f1	# 1474
 	fadd	%f0 %f0 %f1	# 1474
@@ -4614,12 +4517,12 @@ bclt_cont.10768:
 	add	%r25 %r9 %r3	# 1266
 	ld	0(%r25) %r3	# 1266
 	st	-15(%r29) %r2	# 1267
-	fst	-17(%r29) %f3	# 1267
-	fst	-19(%r29) %f2	# 1267
-	fst	-21(%r29) %f1	# 1267
-	fst	-23(%r29) %f0	# 1267
+	fst	-16(%r29) %f3	# 1267
+	fst	-17(%r29) %f2	# 1267
+	fst	-18(%r29) %f1	# 1267
+	fst	-19(%r29) %f0	# 1267
 	addi	%r25 %r3 $1	# 1267
-	beq	%r25 %r0 beq_true.10772	# 1267
+	beq	%r25 %r0 beq_true.10763	# 1267
 	ld	-14(%r29) %r10	# 1270
 	add	%r25 %r10 %r3	# 1270
 	ld	0(%r25) %r3	# 1270
@@ -4627,52 +4530,50 @@ bclt_cont.10768:
 	fmov	%f0 %f1	# 1270
 	fmov	%f1 %f2	# 1270
 	fmov	%f2 %f3	# 1270
-	addi	%r29 %r29 $-25	# 1270
+	addi	%r29 %r29 $-20	# 1270
 	st	0(%r29) %r31	# 1270
 	jal	is_outside.2749	# 1270
 	ld	0(%r29) %r31	# 1270
-	addi	%r29 %r29 $25	# 1270
-	addi	%r25 %r2 $0	# 1270
-	beq	%r25 %r0 beq_true.10774	# 1270
+	addi	%r29 %r29 $20	# 1270
+	beq	%r2 %r0 beq_true.10765	# 1270
 	addi	%r2 %r0 $0	# 1271
-	beq	%r0 %r0 beq_cont.10775	# 1270
-beq_true.10774:
+	beq	%r0 %r0 beq_cont.10766	# 1270
+beq_true.10765:
 	addi	%r2 %r0 $1	# 1273
-	fld	-21(%r29) %f0	# 1273
-	fld	-19(%r29) %f1	# 1273
-	fld	-17(%r29) %f2	# 1273
+	fld	-18(%r29) %f0	# 1273
+	fld	-17(%r29) %f1	# 1273
+	fld	-16(%r29) %f2	# 1273
 	ld	-10(%r29) %r3	# 1273
 	ld	-4(%r29) %r8	# 1273
 	add	%r16 %r0 %r8	# 1273
-	addi	%r29 %r29 $-25	# 1273
+	addi	%r29 %r29 $-20	# 1273
 	st	0(%r29) %r31	# 1273
 	ld	0(%r16) %r24	# 1273
 	jalr	%r24	# 1273
 	ld	0(%r29) %r31	# 1273
-	addi	%r29 %r29 $25	# 1273
-beq_cont.10775:
-	beq	%r0 %r0 beq_cont.10773	# 1267
-beq_true.10772:
+	addi	%r29 %r29 $20	# 1273
+beq_cont.10766:
+	beq	%r0 %r0 beq_cont.10764	# 1267
+beq_true.10763:
 	addi	%r2 %r0 $1	# 1268
-beq_cont.10773:
-	addi	%r25 %r2 $0	# 1478
-	beq	%r25 %r0 beq_true.10776	# 1478
+beq_cont.10764:
+	beq	%r2 %r0 beq_true.10767	# 1478
 	addi	%r2 %r0 $0	# 1480
 	ld	-7(%r29) %r3	# 1480
-	fld	-23(%r29) %f0	# 1480
+	fld	-19(%r29) %f0	# 1480
 	add	%r25 %r3 %r2	# 1480
 	fst	0(%r25) %f0	# 1480
 	addi	%r2 %r0 $0	# 146
 	ld	-3(%r29) %r3	# 146
-	fld	-21(%r29) %f0	# 146
+	fld	-18(%r29) %f0	# 146
 	add	%r25 %r3 %r2	# 146
 	fst	0(%r25) %f0	# 146
 	addi	%r2 %r0 $1	# 147
-	fld	-19(%r29) %f0	# 147
+	fld	-17(%r29) %f0	# 147
 	add	%r25 %r3 %r2	# 147
 	fst	0(%r25) %f0	# 147
 	addi	%r2 %r0 $2	# 148
-	fld	-17(%r29) %f0	# 148
+	fld	-16(%r29) %f0	# 148
 	add	%r25 %r3 %r2	# 148
 	fst	0(%r25) %f0	# 148
 	addi	%r2 %r0 $0	# 1482
@@ -4685,15 +4586,15 @@ beq_cont.10773:
 	ld	-15(%r29) %r8	# 1483
 	add	%r25 %r3 %r2	# 1483
 	st	0(%r25) %r8	# 1483
-	beq	%r0 %r0 beq_cont.10777	# 1478
-beq_true.10776:
-beq_cont.10777:
-	beq	%r0 %r0 beq_cont.10770	# 1472
-beq_true.10769:
-beq_cont.10770:
-	beq	%r0 %r0 beq_cont.10766	# 1471
-beq_true.10765:
-beq_cont.10766:
+	beq	%r0 %r0 beq_cont.10768	# 1478
+beq_true.10767:
+beq_cont.10768:
+	beq	%r0 %r0 beq_cont.10762	# 1472
+beq_true.10761:
+beq_cont.10762:
+	beq	%r0 %r0 beq_cont.10758	# 1471
+beq_true.10757:
+beq_cont.10758:
 	ld	-12(%r29) %r2	# 1489
 	addi	%r2 %r2 $1	# 1489
 	ld	-10(%r29) %r3	# 1489
@@ -4702,14 +4603,13 @@ beq_cont.10766:
 	add	%r16 %r0 %r9	# 1489
 	ld	0(%r16) %r24	# 1489
 	jr	%r24	# 1489
-beq.10762:
+beq.10754:
 	ld	-13(%r29) %r2	# 1493
 	ld	-14(%r29) %r3	# 1493
 	add	%r25 %r3 %r2	# 1493
 	ld	0(%r25) %r2	# 1493
 	ld	6(%r2) %r2	# 273
-	addi	%r25 %r2 $0	# 1493
-	beq	%r25 %r0 beq.10778	# 1493
+	beq	%r2 %r0 beq.10769	# 1493
 	ld	-12(%r29) %r2	# 1494
 	addi	%r2 %r2 $1	# 1494
 	ld	-10(%r29) %r3	# 1494
@@ -4718,9 +4618,9 @@ beq.10762:
 	add	%r16 %r0 %r9	# 1494
 	ld	0(%r16) %r24	# 1494
 	jr	%r24	# 1494
-beq.10778:
+beq.10769:
 	jr	%r31	# 1495
-beq.10761:
+beq.10753:
 	jr	%r31	# 1462
 solve_one_or_network_fast.2787:
 	ld	2(%r16) %r9	# 0
@@ -4728,7 +4628,7 @@ solve_one_or_network_fast.2787:
 	add	%r25 %r3 %r2	# 1501
 	ld	0(%r25) %r11	# 1501
 	addi	%r25 %r11 $1	# 1502
-	beq	%r25 %r0 beq.10781	# 1502
+	beq	%r25 %r0 beq.10772	# 1502
 	add	%r25 %r10 %r11	# 1503
 	ld	0(%r25) %r11	# 1503
 	addi	%r12 %r0 $0	# 1504
@@ -4753,7 +4653,7 @@ solve_one_or_network_fast.2787:
 	add	%r25 %r3 %r2	# 1501
 	ld	0(%r25) %r8	# 1501
 	addi	%r25 %r8 $1	# 1502
-	beq	%r25 %r0 beq.10782	# 1502
+	beq	%r25 %r0 beq.10773	# 1502
 	ld	-4(%r29) %r9	# 1503
 	add	%r25 %r9 %r8	# 1503
 	ld	0(%r25) %r8	# 1503
@@ -4779,9 +4679,9 @@ solve_one_or_network_fast.2787:
 	add	%r16 %r0 %r9	# 1505
 	ld	0(%r16) %r24	# 1505
 	jr	%r24	# 1505
-beq.10782:
+beq.10773:
 	jr	%r31	# 1506
-beq.10781:
+beq.10772:
 	jr	%r31	# 1506
 trace_or_matrix_fast.2791:
 	ld	6(%r16) %r9	# 0
@@ -4797,12 +4697,12 @@ trace_or_matrix_fast.2791:
 	add	%r25 %r15 %r3	# 1512
 	ld	0(%r25) %r3	# 1512
 	addi	%r25 %r3 $1	# 1513
-	beq	%r25 %r0 beq.10785	# 1513
+	beq	%r25 %r0 beq.10776	# 1513
 	st	-2(%r29) %r8	# 1516
 	st	-3(%r29) %r16	# 1516
 	st	-4(%r29) %r2	# 1516
 	addi	%r25 %r3 $-99	# 1516
-	beq	%r25 %r0 beq_true.10786	# 1516
+	beq	%r25 %r0 beq_true.10777	# 1516
 	st	-5(%r29) %r12	# 1521
 	st	-6(%r29) %r13	# 1521
 	st	-7(%r29) %r14	# 1521
@@ -4818,8 +4718,7 @@ trace_or_matrix_fast.2791:
 	jalr	%r24	# 1521
 	ld	0(%r29) %r31	# 1521
 	addi	%r29 %r29 $11	# 1521
-	addi	%r25 %r2 $0	# 1522
-	beq	%r25 %r0 beq_true.10788	# 1522
+	beq	%r2 %r0 beq_true.10779	# 1522
 	addi	%r2 %r0 $0	# 1523
 	ld	-10(%r29) %r3	# 1523
 	add	%r25 %r3 %r2	# 1523
@@ -4829,20 +4728,19 @@ trace_or_matrix_fast.2791:
 	add	%r25 %r3 %r2	# 1524
 	fld	0(%r25) %f1	# 1524
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10790	# 89
+	bclt	bclt_true.10781	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10791	# 89
-bclt_true.10790:
+	beq	%r0 %r0 bclt_cont.10782	# 89
+bclt_true.10781:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10791:
-	addi	%r25 %r2 $0	# 1524
-	beq	%r25 %r0 beq_true.10792	# 1524
+bclt_cont.10782:
+	beq	%r2 %r0 beq_true.10783	# 1524
 	addi	%r2 %r0 $1	# 1525
 	ld	-8(%r29) %r3	# 1501
 	add	%r25 %r3 %r2	# 1501
 	ld	0(%r25) %r2	# 1501
 	addi	%r25 %r2 $1	# 1502
-	beq	%r25 %r0 beq_true.10794	# 1502
+	beq	%r25 %r0 beq_true.10785	# 1502
 	ld	-7(%r29) %r8	# 1503
 	add	%r25 %r8 %r2	# 1503
 	ld	0(%r25) %r2	# 1503
@@ -4870,22 +4768,22 @@ bclt_cont.10791:
 	jalr	%r24	# 1505
 	ld	0(%r29) %r31	# 1505
 	addi	%r29 %r29 $11	# 1505
-	beq	%r0 %r0 beq_cont.10795	# 1502
-beq_true.10794:
-beq_cont.10795:
-	beq	%r0 %r0 beq_cont.10793	# 1524
-beq_true.10792:
-beq_cont.10793:
-	beq	%r0 %r0 beq_cont.10789	# 1522
-beq_true.10788:
-beq_cont.10789:
-	beq	%r0 %r0 beq_cont.10787	# 1516
-beq_true.10786:
+	beq	%r0 %r0 beq_cont.10786	# 1502
+beq_true.10785:
+beq_cont.10786:
+	beq	%r0 %r0 beq_cont.10784	# 1524
+beq_true.10783:
+beq_cont.10784:
+	beq	%r0 %r0 beq_cont.10780	# 1522
+beq_true.10779:
+beq_cont.10780:
+	beq	%r0 %r0 beq_cont.10778	# 1516
+beq_true.10777:
 	addi	%r3 %r0 $1	# 1517
 	add	%r25 %r15 %r3	# 1501
 	ld	0(%r25) %r3	# 1501
 	addi	%r25 %r3 $1	# 1502
-	beq	%r25 %r0 beq_true.10796	# 1502
+	beq	%r25 %r0 beq_true.10787	# 1502
 	add	%r25 %r14 %r3	# 1503
 	ld	0(%r25) %r3	# 1503
 	addi	%r9 %r0 $0	# 1504
@@ -4910,10 +4808,10 @@ beq_true.10786:
 	jalr	%r24	# 1505
 	ld	0(%r29) %r31	# 1505
 	addi	%r29 %r29 $11	# 1505
-	beq	%r0 %r0 beq_cont.10797	# 1502
-beq_true.10796:
-beq_cont.10797:
-beq_cont.10787:
+	beq	%r0 %r0 beq_cont.10788	# 1502
+beq_true.10787:
+beq_cont.10788:
+beq_cont.10778:
 	ld	-4(%r29) %r2	# 1529
 	addi	%r2 %r2 $1	# 1529
 	ld	-1(%r29) %r3	# 1529
@@ -4922,7 +4820,7 @@ beq_cont.10787:
 	add	%r16 %r0 %r9	# 1529
 	ld	0(%r16) %r24	# 1529
 	jr	%r24	# 1529
-beq.10785:
+beq.10776:
 	jr	%r31	# 1514
 judge_intersection_fast.2795:
 	ld	3(%r16) %r3	# 0
@@ -4955,24 +4853,23 @@ judge_intersection_fast.2795:
 	addi	%r2 %r0 l.8632	# 1540
 	fld	0(%r2) %f1	# 1540
 	fslt	%f1 %f0	# 89
-	bclt	bclt_true.10799	# 89
+	bclt	bclt_true.10790	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10800	# 89
-bclt_true.10799:
+	beq	%r0 %r0 bclt_cont.10791	# 89
+bclt_true.10790:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10800:
-	addi	%r25 %r2 $0	# 1540
-	beq	%r25 %r0 beq.10801	# 1540
+bclt_cont.10791:
+	beq	%r2 %r0 beq.10792	# 1540
 	addi	%r2 %r0 l.8639	# 1541
 	fld	0(%r2) %f1	# 1541
 	fslt	%f0 %f1	# 89
-	bclt	bclt.10802	# 89
+	bclt	bclt.10793	# 89
 	addi	%r2 %r0 $0	# 89
 	jr	%r31	# 89
-bclt.10802:
+bclt.10793:
 	addi	%r2 %r0 $1	# 89
 	jr	%r31	# 89
-beq.10801:
+beq.10792:
 	addi	%r2 %r0 $0	# 1542
 	jr	%r31	# 1542
 get_nvector_rect.2797:
@@ -4999,37 +4896,35 @@ get_nvector_rect.2797:
 	addi	%r2 %r0 l.8518	# 92
 	fld	0(%r2) %f1	# 92
 	fseq	%f0 %f1	# 92
-	bclt	bclt_true.10803	# 92
+	bclt	bclt_true.10794	# 92
 	addi	%r2 %r0 $0	# 92
-	beq	%r0 %r0 bclt_cont.10804	# 92
-bclt_true.10803:
+	beq	%r0 %r0 bclt_cont.10795	# 92
+bclt_true.10794:
 	addi	%r2 %r0 $1	# 92
-bclt_cont.10804:
-	addi	%r25 %r2 $0	# 118
-	beq	%r25 %r0 beq_true.10805	# 118
+bclt_cont.10795:
+	beq	%r2 %r0 beq_true.10796	# 118
 	addi	%r2 %r0 l.8518	# 118
 	fld	0(%r2) %f0	# 118
-	beq	%r0 %r0 beq_cont.10806	# 118
-beq_true.10805:
+	beq	%r0 %r0 beq_cont.10797	# 118
+beq_true.10796:
 	addi	%r2 %r0 l.8518	# 90
 	fld	0(%r2) %f1	# 90
 	fslt	%f1 %f0	# 90
-	bclt	bclt_true.10807	# 90
+	bclt	bclt_true.10798	# 90
 	addi	%r2 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10808	# 90
-bclt_true.10807:
+	beq	%r0 %r0 bclt_cont.10799	# 90
+bclt_true.10798:
 	addi	%r2 %r0 $1	# 90
-bclt_cont.10808:
-	addi	%r25 %r2 $0	# 119
-	beq	%r25 %r0 beq_true.10809	# 119
+bclt_cont.10799:
+	beq	%r2 %r0 beq_true.10800	# 119
 	addi	%r2 %r0 l.8520	# 119
 	fld	0(%r2) %f0	# 119
-	beq	%r0 %r0 beq_cont.10810	# 119
-beq_true.10809:
+	beq	%r0 %r0 beq_cont.10801	# 119
+beq_true.10800:
 	addi	%r2 %r0 l.8522	# 120
 	fld	0(%r2) %f0	# 120
-beq_cont.10810:
-beq_cont.10806:
+beq_cont.10801:
+beq_cont.10797:
 	fneg	%f0 %f0	# 95
 	add	%r25 %r3 %r9	# 1559
 	fst	0(%r25) %f0	# 1559
@@ -5071,8 +4966,8 @@ get_nvector_second.2801:
 	addi	%r10 %r0 $0	# 336
 	add	%r25 %r9 %r10	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 1572
-	fadd	%f0 %f0 %f1	# 1572
+	fneg	%f31 %f1	# 1572
+	fadd	%f0 %f0 %f31	# 1572
 	addi	%r9 %r0 $1	# 1573
 	add	%r25 %r8 %r9	# 1573
 	fld	0(%r25) %f1	# 1573
@@ -5080,8 +4975,8 @@ get_nvector_second.2801:
 	addi	%r10 %r0 $1	# 346
 	add	%r25 %r9 %r10	# 346
 	fld	0(%r25) %f2	# 346
-	fneg	%f2 %f2	# 1573
-	fadd	%f1 %f1 %f2	# 1573
+	fneg	%f31 %f2	# 1573
+	fadd	%f1 %f1 %f31	# 1573
 	addi	%r9 %r0 $2	# 1574
 	add	%r25 %r8 %r9	# 1574
 	fld	0(%r25) %f2	# 1574
@@ -5089,8 +4984,8 @@ get_nvector_second.2801:
 	addi	%r9 %r0 $2	# 356
 	add	%r25 %r8 %r9	# 356
 	fld	0(%r25) %f3	# 356
-	fneg	%f3 %f3	# 1574
-	fadd	%f2 %f2 %f3	# 1574
+	fneg	%f31 %f3	# 1574
+	fadd	%f2 %f2 %f31	# 1574
 	ld	4(%r2) %r8	# 291
 	addi	%r9 %r0 $0	# 296
 	add	%r25 %r8 %r9	# 296
@@ -5107,8 +5002,7 @@ get_nvector_second.2801:
 	fld	0(%r25) %f5	# 316
 	fmul	%f5 %f2 %f5	# 1578
 	ld	3(%r2) %r8	# 282
-	addi	%r25 %r8 $0	# 1580
-	beq	%r25 %r0 beq_true.10813	# 1580
+	beq	%r8 %r0 beq_true.10804	# 1580
 	addi	%r8 %r0 $0	# 1585
 	ld	9(%r2) %r9	# 431
 	addi	%r10 %r0 $2	# 436
@@ -5163,8 +5057,8 @@ get_nvector_second.2801:
 	fadd	%f5 %f5 %f0	# 1587
 	add	%r25 %r3 %r8	# 1587
 	fst	0(%r25) %f5	# 1587
-	beq	%r0 %r0 beq_cont.10814	# 1580
-beq_true.10813:
+	beq	%r0 %r0 beq_cont.10805	# 1580
+beq_true.10804:
 	addi	%r8 %r0 $0	# 1581
 	add	%r25 %r3 %r8	# 1581
 	fst	0(%r25) %f3	# 1581
@@ -5174,7 +5068,7 @@ beq_true.10813:
 	addi	%r8 %r0 $2	# 1583
 	add	%r25 %r3 %r8	# 1583
 	fst	0(%r25) %f5	# 1583
-beq_cont.10814:
+beq_cont.10805:
 	ld	6(%r2) %r2	# 273
 	add	%r24 %r0 %r3	# 1589
 	add	%r3 %r0 %r2	# 1589
@@ -5205,15 +5099,15 @@ utexture.2806:
 	add	%r25 %r8 %r10	# 1614
 	fst	0(%r25) %f0	# 1614
 	addi	%r25 %r9 $-1	# 1615
-	beq	%r25 %r0 beq.10815	# 1615
+	beq	%r25 %r0 beq.10806	# 1615
 	addi	%r25 %r9 $-2	# 1633
-	beq	%r25 %r0 beq.10816	# 1633
+	beq	%r25 %r0 beq.10807	# 1633
 	addi	%r25 %r9 $-3	# 1640
-	beq	%r25 %r0 beq.10817	# 1640
+	beq	%r25 %r0 beq.10808	# 1640
 	addi	%r25 %r9 $-4	# 1651
-	beq	%r25 %r0 beq.10818	# 1651
+	beq	%r25 %r0 beq.10809	# 1651
 	jr	%r31	# 1679
-beq.10818:
+beq.10809:
 	addi	%r9 %r0 $0	# 1653
 	add	%r25 %r3 %r9	# 1653
 	fld	0(%r25) %f0	# 1653
@@ -5221,8 +5115,8 @@ beq.10818:
 	addi	%r10 %r0 $0	# 336
 	add	%r25 %r9 %r10	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 1653
-	fadd	%f0 %f0 %f1	# 1653
+	fneg	%f31 %f1	# 1653
+	fadd	%f0 %f0 %f31	# 1653
 	ld	4(%r2) %r9	# 291
 	addi	%r10 %r0 $0	# 296
 	add	%r25 %r9 %r10	# 296
@@ -5230,9 +5124,9 @@ beq.10818:
 	st	-1(%r29) %r8	# 1653
 	st	-2(%r29) %r2	# 1653
 	st	-3(%r29) %r3	# 1653
-	fst	-5(%r29) %f0	# 1653
+	fst	-4(%r29) %f0	# 1653
 	fsqrt	%f0 %f1	# 1653
-	fld	-5(%r29) %f1	# 1653
+	fld	-4(%r29) %f1	# 1653
 	fmul	%f1 %f1 %f0	# 1653
 	addi	%r2 %r0 $2	# 1654
 	ld	-3(%r29) %r3	# 1654
@@ -5243,66 +5137,65 @@ beq.10818:
 	addi	%r9 %r0 $2	# 356
 	add	%r25 %r8 %r9	# 356
 	fld	0(%r25) %f2	# 356
-	fneg	%f2 %f2	# 1654
-	fadd	%f0 %f0 %f2	# 1654
+	fneg	%f31 %f2	# 1654
+	fadd	%f0 %f0 %f31	# 1654
 	ld	4(%r2) %r8	# 311
 	addi	%r9 %r0 $2	# 316
 	add	%r25 %r8 %r9	# 316
 	fld	0(%r25) %f2	# 316
-	fst	-7(%r29) %f1	# 1654
-	fst	-9(%r29) %f0	# 1654
+	fst	-5(%r29) %f1	# 1654
+	fst	-6(%r29) %f0	# 1654
 	fsqrt	%f0 %f2	# 1654
-	fld	-9(%r29) %f1	# 1654
+	fld	-6(%r29) %f1	# 1654
 	fmul	%f1 %f1 %f0	# 1654
-	fld	-7(%r29) %f0	# 94
+	fld	-5(%r29) %f0	# 94
 	fmul	%f2 %f0 %f0	# 94
 	fmul	%f3 %f1 %f1	# 94
 	fadd	%f2 %f2 %f3	# 1655
-	fst	-11(%r29) %f2	# 1657
-	fst	-13(%r29) %f1	# 1657
+	fst	-7(%r29) %f2	# 1657
+	fst	-8(%r29) %f1	# 1657
 	fabs	%f0 %f0	# 1657
 	addi	%r2 %r0 l.8655	# 1657
 	fld	0(%r2) %f1	# 1657
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10821	# 89
+	bclt	bclt_true.10811	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10822	# 89
-bclt_true.10821:
+	beq	%r0 %r0 bclt_cont.10812	# 89
+bclt_true.10811:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10822:
-	addi	%r25 %r2 $0	# 1657
-	beq	%r25 %r0 beq_true.10823	# 1657
+bclt_cont.10812:
+	beq	%r2 %r0 beq_true.10813	# 1657
 	addi	%r2 %r0 l.8657	# 1658
 	fld	0(%r2) %f0	# 1658
-	beq	%r0 %r0 beq_cont.10824	# 1657
-beq_true.10823:
-	fld	-7(%r29) %f0	# 1660
-	fld	-13(%r29) %f1	# 1660
-	finv	%f0 %f0	# 1660
-	fmul	%f0 %f1 %f0	# 1660
+	beq	%r0 %r0 beq_cont.10814	# 1657
+beq_true.10813:
+	fld	-5(%r29) %f0	# 1660
+	fld	-8(%r29) %f1	# 1660
+	finv	%f31 %f0	# 1660
+	fmul	%f0 %f1 %f31	# 1660
 	fabs	%f0 %f0	# 1660
-	addi	%r29 %r29 $-15	# 1662
+	addi	%r29 %r29 $-9	# 1662
 	st	0(%r29) %r31	# 1662
 	jal	min_caml_atan	# 1662
 	ld	0(%r29) %r31	# 1662
-	addi	%r29 %r29 $15	# 1662
+	addi	%r29 %r29 $9	# 1662
 	addi	%r2 %r0 l.8659	# 1662
 	fld	0(%r2) %f1	# 1662
 	fmul	%f0 %f0 %f1	# 1662
 	addi	%r2 %r0 l.8661	# 1662
 	fld	0(%r2) %f1	# 1662
-	finv	%f1 %f1	# 1662
-	fmul	%f0 %f0 %f1	# 1662
-beq_cont.10824:
-	fst	-15(%r29) %f0	# 1664
-	addi	%r29 %r29 $-17	# 1664
+	finv	%f31 %f1	# 1662
+	fmul	%f0 %f0 %f31	# 1662
+beq_cont.10814:
+	fst	-9(%r29) %f0	# 1664
+	addi	%r29 %r29 $-10	# 1664
 	st	0(%r29) %r31	# 1664
 	jal	min_caml_floor	# 1664
 	ld	0(%r29) %r31	# 1664
-	addi	%r29 %r29 $17	# 1664
-	fld	-15(%r29) %f1	# 1664
-	fneg	%f0 %f0	# 1664
-	fadd	%f1 %f1 %f0	# 1664
+	addi	%r29 %r29 $10	# 1664
+	fld	-9(%r29) %f1	# 1664
+	fneg	%f31 %f0	# 1664
+	fadd	%f1 %f1 %f31	# 1664
 	addi	%r2 %r0 $1	# 1666
 	ld	-3(%r29) %r3	# 1666
 	add	%r25 %r3 %r2	# 1666
@@ -5312,108 +5205,106 @@ beq_cont.10824:
 	addi	%r8 %r0 $1	# 346
 	add	%r25 %r3 %r8	# 346
 	fld	0(%r25) %f2	# 346
-	fneg	%f2 %f2	# 1666
-	fadd	%f0 %f0 %f2	# 1666
+	fneg	%f31 %f2	# 1666
+	fadd	%f0 %f0 %f31	# 1666
 	ld	4(%r2) %r2	# 301
 	addi	%r3 %r0 $1	# 306
 	add	%r25 %r2 %r3	# 306
 	fld	0(%r25) %f2	# 306
-	fst	-17(%r29) %f1	# 1666
-	fst	-19(%r29) %f0	# 1666
+	fst	-10(%r29) %f1	# 1666
+	fst	-11(%r29) %f0	# 1666
 	fsqrt	%f0 %f2	# 1666
-	fld	-19(%r29) %f1	# 1666
+	fld	-11(%r29) %f1	# 1666
 	fmul	%f1 %f1 %f0	# 1666
-	fld	-11(%r29) %f0	# 1668
-	fst	-21(%r29) %f1	# 1668
+	fld	-7(%r29) %f0	# 1668
+	fst	-12(%r29) %f1	# 1668
 	fabs	%f0 %f0	# 1668
 	addi	%r2 %r0 l.8655	# 1668
 	fld	0(%r2) %f1	# 1668
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10825	# 89
+	bclt	bclt_true.10815	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10826	# 89
-bclt_true.10825:
+	beq	%r0 %r0 bclt_cont.10816	# 89
+bclt_true.10815:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10826:
-	addi	%r25 %r2 $0	# 1668
-	beq	%r25 %r0 beq_true.10827	# 1668
+bclt_cont.10816:
+	beq	%r2 %r0 beq_true.10817	# 1668
 	addi	%r2 %r0 l.8657	# 1669
 	fld	0(%r2) %f0	# 1669
-	beq	%r0 %r0 beq_cont.10828	# 1668
-beq_true.10827:
-	fld	-11(%r29) %f0	# 1671
-	fld	-21(%r29) %f1	# 1671
-	finv	%f0 %f0	# 1671
-	fmul	%f0 %f1 %f0	# 1671
+	beq	%r0 %r0 beq_cont.10818	# 1668
+beq_true.10817:
+	fld	-7(%r29) %f0	# 1671
+	fld	-12(%r29) %f1	# 1671
+	finv	%f31 %f0	# 1671
+	fmul	%f0 %f1 %f31	# 1671
 	fabs	%f0 %f0	# 1671
-	addi	%r29 %r29 $-23	# 1672
+	addi	%r29 %r29 $-13	# 1672
 	st	0(%r29) %r31	# 1672
 	jal	min_caml_atan	# 1672
 	ld	0(%r29) %r31	# 1672
-	addi	%r29 %r29 $23	# 1672
+	addi	%r29 %r29 $13	# 1672
 	addi	%r2 %r0 l.8659	# 1672
 	fld	0(%r2) %f1	# 1672
 	fmul	%f0 %f0 %f1	# 1672
 	addi	%r2 %r0 l.8661	# 1672
 	fld	0(%r2) %f1	# 1672
-	finv	%f1 %f1	# 1672
-	fmul	%f0 %f0 %f1	# 1672
-beq_cont.10828:
-	fst	-23(%r29) %f0	# 1674
-	addi	%r29 %r29 $-25	# 1674
+	finv	%f31 %f1	# 1672
+	fmul	%f0 %f0 %f31	# 1672
+beq_cont.10818:
+	fst	-13(%r29) %f0	# 1674
+	addi	%r29 %r29 $-14	# 1674
 	st	0(%r29) %r31	# 1674
 	jal	min_caml_floor	# 1674
 	ld	0(%r29) %r31	# 1674
-	addi	%r29 %r29 $25	# 1674
-	fld	-23(%r29) %f1	# 1674
-	fneg	%f0 %f0	# 1674
-	fadd	%f1 %f1 %f0	# 1674
+	addi	%r29 %r29 $14	# 1674
+	fld	-13(%r29) %f1	# 1674
+	fneg	%f31 %f0	# 1674
+	fadd	%f1 %f1 %f31	# 1674
 	addi	%r2 %r0 l.8667	# 1675
 	fld	0(%r2) %f0	# 1675
 	addi	%r2 %r0 l.8586	# 1675
 	fld	0(%r2) %f2	# 1675
-	fld	-17(%r29) %f3	# 1675
-	fneg	%f3 %f3	# 1675
-	fadd	%f2 %f2 %f3	# 1675
+	fld	-10(%r29) %f3	# 1675
+	fneg	%f31 %f3	# 1675
+	fadd	%f2 %f2 %f31	# 1675
 	fmul	%f2 %f2 %f2	# 94
-	fneg	%f2 %f2	# 1675
-	fadd	%f0 %f0 %f2	# 1675
+	fneg	%f31 %f2	# 1675
+	fadd	%f0 %f0 %f31	# 1675
 	addi	%r2 %r0 l.8586	# 1675
 	fld	0(%r2) %f2	# 1675
-	fneg	%f1 %f1	# 1675
-	fadd	%f2 %f2 %f1	# 1675
+	fneg	%f31 %f1	# 1675
+	fadd	%f2 %f2 %f31	# 1675
 	fmul	%f2 %f2 %f2	# 94
-	fneg	%f2 %f2	# 1675
-	fadd	%f0 %f0 %f2	# 1675
+	fneg	%f31 %f2	# 1675
+	fadd	%f0 %f0 %f31	# 1675
 	addi	%r2 %r0 l.8518	# 91
 	fld	0(%r2) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10829	# 91
+	bclt	bclt_true.10819	# 91
 	addi	%r2 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10830	# 91
-bclt_true.10829:
+	beq	%r0 %r0 bclt_cont.10820	# 91
+bclt_true.10819:
 	addi	%r2 %r0 $1	# 91
-bclt_cont.10830:
-	addi	%r25 %r2 $0	# 1676
-	beq	%r25 %r0 beq_true.10831	# 1676
+bclt_cont.10820:
+	beq	%r2 %r0 beq_true.10821	# 1676
 	addi	%r2 %r0 l.8518	# 1676
 	fld	0(%r2) %f0	# 1676
-	beq	%r0 %r0 beq_cont.10832	# 1676
-beq_true.10831:
-beq_cont.10832:
+	beq	%r0 %r0 beq_cont.10822	# 1676
+beq_true.10821:
+beq_cont.10822:
 	addi	%r2 %r0 $2	# 1677
 	addi	%r3 %r0 l.8673	# 1677
 	fld	0(%r3) %f1	# 1677
 	fmul	%f1 %f1 %f0	# 1677
 	addi	%r3 %r0 l.8675	# 1677
 	fld	0(%r3) %f0	# 1677
-	finv	%f0 %f0	# 1677
-	fmul	%f1 %f1 %f0	# 1677
+	finv	%f31 %f0	# 1677
+	fmul	%f1 %f1 %f31	# 1677
 	ld	-1(%r29) %r3	# 1677
 	add	%r25 %r3 %r2	# 1677
 	fst	0(%r25) %f1	# 1677
 	jr	%r31	# 1677
-beq.10817:
+beq.10808:
 	addi	%r9 %r0 $0	# 1643
 	add	%r25 %r3 %r9	# 1643
 	fld	0(%r25) %f0	# 1643
@@ -5421,8 +5312,8 @@ beq.10817:
 	addi	%r10 %r0 $0	# 336
 	add	%r25 %r9 %r10	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 1643
-	fadd	%f0 %f0 %f1	# 1643
+	fneg	%f31 %f1	# 1643
+	fadd	%f0 %f0 %f31	# 1643
 	addi	%r9 %r0 $2	# 1644
 	add	%r25 %r3 %r9	# 1644
 	fld	0(%r25) %f1	# 1644
@@ -5430,8 +5321,8 @@ beq.10817:
 	addi	%r3 %r0 $2	# 356
 	add	%r25 %r2 %r3	# 356
 	fld	0(%r25) %f2	# 356
-	fneg	%f2 %f2	# 1644
-	fadd	%f1 %f1 %f2	# 1644
+	fneg	%f31 %f2	# 1644
+	fadd	%f1 %f1 %f31	# 1644
 	fmul	%f0 %f0 %f0	# 94
 	fmul	%f1 %f1 %f1	# 94
 	fadd	%f0 %f0 %f1	# 1645
@@ -5439,25 +5330,25 @@ beq.10817:
 	fsqrt	%f0 %f0	# 1645
 	addi	%r2 %r0 l.8677	# 1645
 	fld	0(%r2) %f1	# 1645
-	finv	%f1 %f1	# 1645
-	fmul	%f0 %f0 %f1	# 1645
-	fst	-25(%r29) %f0	# 1646
-	addi	%r29 %r29 $-27	# 1646
+	finv	%f31 %f1	# 1645
+	fmul	%f0 %f0 %f31	# 1645
+	fst	-14(%r29) %f0	# 1646
+	addi	%r29 %r29 $-15	# 1646
 	st	0(%r29) %r31	# 1646
 	jal	min_caml_floor	# 1646
 	ld	0(%r29) %r31	# 1646
-	addi	%r29 %r29 $27	# 1646
-	fld	-25(%r29) %f1	# 1646
-	fneg	%f0 %f0	# 1646
-	fadd	%f1 %f1 %f0	# 1646
+	addi	%r29 %r29 $15	# 1646
+	fld	-14(%r29) %f1	# 1646
+	fneg	%f31 %f0	# 1646
+	fadd	%f1 %f1 %f31	# 1646
 	addi	%r2 %r0 l.8661	# 1646
 	fld	0(%r2) %f0	# 1646
 	fmul	%f0 %f1 %f0	# 1646
-	addi	%r29 %r29 $-27	# 1647
+	addi	%r29 %r29 $-15	# 1647
 	st	0(%r29) %r31	# 1647
 	jal	min_caml_cos	# 1647
 	ld	0(%r29) %r31	# 1647
-	addi	%r29 %r29 $27	# 1647
+	addi	%r29 %r29 $15	# 1647
 	fmul	%f0 %f0 %f0	# 94
 	addi	%r2 %r0 $1	# 1648
 	addi	%r3 %r0 l.8673	# 1648
@@ -5469,15 +5360,15 @@ beq.10817:
 	addi	%r2 %r0 $2	# 1649
 	addi	%r8 %r0 l.8520	# 1649
 	fld	0(%r8) %f1	# 1649
-	fneg	%f0 %f0	# 1649
-	fadd	%f1 %f1 %f0	# 1649
+	fneg	%f31 %f0	# 1649
+	fadd	%f1 %f1 %f31	# 1649
 	addi	%r8 %r0 l.8673	# 1649
 	fld	0(%r8) %f0	# 1649
 	fmul	%f1 %f1 %f0	# 1649
 	add	%r25 %r3 %r2	# 1649
 	fst	0(%r25) %f1	# 1649
 	jr	%r31	# 1649
-beq.10816:
+beq.10807:
 	addi	%r2 %r0 $1	# 1636
 	add	%r25 %r3 %r2	# 1636
 	fld	0(%r25) %f0	# 1636
@@ -5485,11 +5376,11 @@ beq.10816:
 	fld	0(%r2) %f1	# 1636
 	fmul	%f0 %f0 %f1	# 1636
 	st	-1(%r29) %r8	# 1636
-	addi	%r29 %r29 $-27	# 1636
+	addi	%r29 %r29 $-15	# 1636
 	st	0(%r29) %r31	# 1636
 	jal	min_caml_sin	# 1636
 	ld	0(%r29) %r31	# 1636
-	addi	%r29 %r29 $27	# 1636
+	addi	%r29 %r29 $15	# 1636
 	fmul	%f0 %f0 %f0	# 94
 	addi	%r2 %r0 $0	# 1637
 	addi	%r3 %r0 l.8673	# 1637
@@ -5503,13 +5394,13 @@ beq.10816:
 	fld	0(%r8) %f1	# 1638
 	addi	%r8 %r0 l.8520	# 1638
 	fld	0(%r8) %f2	# 1638
-	fneg	%f0 %f0	# 1638
-	fadd	%f2 %f2 %f0	# 1638
+	fneg	%f31 %f0	# 1638
+	fadd	%f2 %f2 %f31	# 1638
 	fmul	%f1 %f1 %f2	# 1638
 	add	%r25 %r3 %r2	# 1638
 	fst	0(%r25) %f1	# 1638
 	jr	%r31	# 1638
-beq.10815:
+beq.10806:
 	addi	%r9 %r0 $0	# 1618
 	add	%r25 %r3 %r9	# 1618
 	fld	0(%r25) %f0	# 1618
@@ -5517,36 +5408,36 @@ beq.10815:
 	addi	%r10 %r0 $0	# 336
 	add	%r25 %r9 %r10	# 336
 	fld	0(%r25) %f1	# 336
-	fneg	%f1 %f1	# 1618
-	fadd	%f0 %f0 %f1	# 1618
+	fneg	%f31 %f1	# 1618
+	fadd	%f0 %f0 %f31	# 1618
 	addi	%r9 %r0 l.8688	# 1620
 	fld	0(%r9) %f1	# 1620
 	fmul	%f1 %f0 %f1	# 1620
 	st	-1(%r29) %r8	# 1620
 	st	-2(%r29) %r2	# 1620
 	st	-3(%r29) %r3	# 1620
-	fst	-27(%r29) %f0	# 1620
+	fst	-15(%r29) %f0	# 1620
 	fmov	%f0 %f1	# 1620
-	addi	%r29 %r29 $-29	# 1620
+	addi	%r29 %r29 $-16	# 1620
 	st	0(%r29) %r31	# 1620
 	jal	min_caml_floor	# 1620
 	ld	0(%r29) %r31	# 1620
-	addi	%r29 %r29 $29	# 1620
+	addi	%r29 %r29 $16	# 1620
 	addi	%r2 %r0 l.8690	# 1620
 	fld	0(%r2) %f1	# 1620
 	fmul	%f0 %f0 %f1	# 1620
-	fld	-27(%r29) %f1	# 1621
-	fneg	%f0 %f0	# 1621
-	fadd	%f1 %f1 %f0	# 1621
+	fld	-15(%r29) %f1	# 1621
+	fneg	%f31 %f0	# 1621
+	fadd	%f1 %f1 %f31	# 1621
 	addi	%r2 %r0 l.8677	# 1621
 	fld	0(%r2) %f0	# 1621
 	fslt	%f1 %f0	# 89
-	bclt	bclt_true.10836	# 89
+	bclt	bclt_true.10826	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10837	# 89
-bclt_true.10836:
+	beq	%r0 %r0 bclt_cont.10827	# 89
+bclt_true.10826:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10837:
+bclt_cont.10827:
 	addi	%r3 %r0 $2	# 1623
 	ld	-3(%r29) %r8	# 1623
 	add	%r25 %r8 %r3	# 1623
@@ -5556,59 +5447,56 @@ bclt_cont.10837:
 	addi	%r8 %r0 $2	# 356
 	add	%r25 %r3 %r8	# 356
 	fld	0(%r25) %f1	# 356
-	fneg	%f1 %f1	# 1623
-	fadd	%f0 %f0 %f1	# 1623
+	fneg	%f31 %f1	# 1623
+	fadd	%f0 %f0 %f31	# 1623
 	addi	%r3 %r0 l.8688	# 1625
 	fld	0(%r3) %f1	# 1625
 	fmul	%f1 %f0 %f1	# 1625
-	st	-29(%r29) %r2	# 1625
-	fst	-31(%r29) %f0	# 1625
+	st	-16(%r29) %r2	# 1625
+	fst	-17(%r29) %f0	# 1625
 	fmov	%f0 %f1	# 1625
-	addi	%r29 %r29 $-33	# 1625
+	addi	%r29 %r29 $-18	# 1625
 	st	0(%r29) %r31	# 1625
 	jal	min_caml_floor	# 1625
 	ld	0(%r29) %r31	# 1625
-	addi	%r29 %r29 $33	# 1625
+	addi	%r29 %r29 $18	# 1625
 	addi	%r2 %r0 l.8690	# 1625
 	fld	0(%r2) %f1	# 1625
 	fmul	%f0 %f0 %f1	# 1625
-	fld	-31(%r29) %f1	# 1626
-	fneg	%f0 %f0	# 1626
-	fadd	%f1 %f1 %f0	# 1626
+	fld	-17(%r29) %f1	# 1626
+	fneg	%f31 %f0	# 1626
+	fadd	%f1 %f1 %f31	# 1626
 	addi	%r2 %r0 l.8677	# 1626
 	fld	0(%r2) %f0	# 1626
 	fslt	%f1 %f0	# 89
-	bclt	bclt_true.10839	# 89
+	bclt	bclt_true.10828	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10840	# 89
-bclt_true.10839:
+	beq	%r0 %r0 bclt_cont.10829	# 89
+bclt_true.10828:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10840:
+bclt_cont.10829:
 	addi	%r3 %r0 $1	# 1628
-	ld	-29(%r29) %r8	# 1629
-	addi	%r25 %r8 $0	# 1629
-	beq	%r25 %r0 beq_true.10841	# 1629
-	addi	%r25 %r2 $0	# 1630
-	beq	%r25 %r0 beq_true.10843	# 1630
+	ld	-16(%r29) %r8	# 1629
+	beq	%r8 %r0 beq_true.10830	# 1629
+	beq	%r2 %r0 beq_true.10832	# 1630
 	addi	%r2 %r0 l.8673	# 1630
 	fld	0(%r2) %f0	# 1630
-	beq	%r0 %r0 beq_cont.10844	# 1630
-beq_true.10843:
+	beq	%r0 %r0 beq_cont.10833	# 1630
+beq_true.10832:
 	addi	%r2 %r0 l.8518	# 1630
 	fld	0(%r2) %f0	# 1630
-beq_cont.10844:
-	beq	%r0 %r0 beq_cont.10842	# 1629
-beq_true.10841:
-	addi	%r25 %r2 $0	# 1631
-	beq	%r25 %r0 beq_true.10845	# 1631
+beq_cont.10833:
+	beq	%r0 %r0 beq_cont.10831	# 1629
+beq_true.10830:
+	beq	%r2 %r0 beq_true.10834	# 1631
 	addi	%r2 %r0 l.8518	# 1631
 	fld	0(%r2) %f0	# 1631
-	beq	%r0 %r0 beq_cont.10846	# 1631
-beq_true.10845:
+	beq	%r0 %r0 beq_cont.10835	# 1631
+beq_true.10834:
 	addi	%r2 %r0 l.8673	# 1631
 	fld	0(%r2) %f0	# 1631
-beq_cont.10846:
-beq_cont.10842:
+beq_cont.10835:
+beq_cont.10831:
 	ld	-1(%r29) %r2	# 1628
 	add	%r25 %r2 %r3	# 1628
 	fst	0(%r25) %f0	# 1628
@@ -5619,40 +5507,38 @@ add_light.2809:
 	addi	%r8 %r0 l.8518	# 90
 	fld	0(%r8) %f3	# 90
 	fslt	%f3 %f0	# 90
-	bclt	bclt_true.10848	# 90
+	bclt	bclt_true.10837	# 90
 	addi	%r8 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10849	# 90
-bclt_true.10848:
+	beq	%r0 %r0 bclt_cont.10838	# 90
+bclt_true.10837:
 	addi	%r8 %r0 $1	# 90
-bclt_cont.10849:
+bclt_cont.10838:
 	st	-1(%r29) %r2	# 1690
-	fst	-3(%r29) %f2	# 1690
-	fst	-5(%r29) %f1	# 1690
-	addi	%r25 %r8 $0	# 1690
-	beq	%r25 %r0 beq_true.10851	# 1690
-	addi	%r29 %r29 $-7	# 1691
+	fst	-2(%r29) %f2	# 1690
+	fst	-3(%r29) %f1	# 1690
+	beq	%r8 %r0 beq_true.10839	# 1690
+	addi	%r29 %r29 $-4	# 1691
 	st	0(%r29) %r31	# 1691
 	jal	vecaccum.2520	# 1691
 	ld	0(%r29) %r31	# 1691
-	addi	%r29 %r29 $7	# 1691
-	beq	%r0 %r0 beq_cont.10852	# 1690
-beq_true.10851:
-beq_cont.10852:
+	addi	%r29 %r29 $4	# 1691
+	beq	%r0 %r0 beq_cont.10840	# 1690
+beq_true.10839:
+beq_cont.10840:
 	addi	%r2 %r0 l.8518	# 90
 	fld	0(%r2) %f0	# 90
-	fld	-5(%r29) %f1	# 90
+	fld	-3(%r29) %f1	# 90
 	fslt	%f0 %f1	# 90
-	bclt	bclt_true.10853	# 90
+	bclt	bclt_true.10841	# 90
 	addi	%r2 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10854	# 90
-bclt_true.10853:
+	beq	%r0 %r0 bclt_cont.10842	# 90
+bclt_true.10841:
 	addi	%r2 %r0 $1	# 90
-bclt_cont.10854:
-	addi	%r25 %r2 $0	# 1695
-	beq	%r25 %r0 beq.10855	# 1695
+bclt_cont.10842:
+	beq	%r2 %r0 beq.10843	# 1695
 	fmul	%f1 %f1 %f1	# 94
 	fmul	%f1 %f1 %f1	# 94
-	fld	-3(%r29) %f0	# 1696
+	fld	-2(%r29) %f0	# 1696
 	fmul	%f1 %f1 %f0	# 1696
 	addi	%r2 %r0 $0	# 1697
 	addi	%r3 %r0 $0	# 1697
@@ -5677,7 +5563,7 @@ bclt_cont.10854:
 	add	%r25 %r8 %r2	# 1699
 	fst	0(%r25) %f0	# 1699
 	jr	%r31	# 1699
-beq.10855:
+beq.10843:
 	jr	%r31	# 1700
 trace_reflections.2813:
 	ld	8(%r16) %r8	# 0
@@ -5691,114 +5577,112 @@ trace_reflections.2813:
 	sub	%r25 %r0 %r2	# 1706
 	addi	%r25 %r25 $0	# 1706
 	slt	%r25 %r0 %r25	# 1706
-	beq	%r25 %r0 beq.10858	# 1706
+	beq	%r25 %r0 beq.10846	# 1706
 	jr	%r31	# 1726
-beq.10858:
+beq.10846:
 	add	%r25 %r9 %r2	# 1707
 	ld	0(%r25) %r9	# 1707
 	st	-1(%r29) %r2	# 561
 	ld	1(%r9) %r2	# 561
 	st	-2(%r29) %r16	# 1711
 	fst	-3(%r29) %f1	# 1711
-	st	-5(%r29) %r15	# 1711
-	st	-6(%r29) %r3	# 1711
-	fst	-7(%r29) %f0	# 1711
-	st	-9(%r29) %r11	# 1711
-	st	-10(%r29) %r2	# 1711
-	st	-11(%r29) %r8	# 1711
-	st	-12(%r29) %r10	# 1711
-	st	-13(%r29) %r9	# 1711
-	st	-14(%r29) %r13	# 1711
-	st	-15(%r29) %r14	# 1711
+	st	-4(%r29) %r15	# 1711
+	st	-5(%r29) %r3	# 1711
+	fst	-6(%r29) %f0	# 1711
+	st	-7(%r29) %r11	# 1711
+	st	-8(%r29) %r2	# 1711
+	st	-9(%r29) %r8	# 1711
+	st	-10(%r29) %r10	# 1711
+	st	-11(%r29) %r9	# 1711
+	st	-12(%r29) %r13	# 1711
+	st	-13(%r29) %r14	# 1711
 	add	%r16 %r0 %r12	# 1711
-	addi	%r29 %r29 $-16	# 1711
+	addi	%r29 %r29 $-14	# 1711
 	st	0(%r29) %r31	# 1711
 	ld	0(%r16) %r24	# 1711
 	jalr	%r24	# 1711
 	ld	0(%r29) %r31	# 1711
-	addi	%r29 %r29 $16	# 1711
-	addi	%r25 %r2 $0	# 1711
-	beq	%r25 %r0 beq_true.10860	# 1711
+	addi	%r29 %r29 $14	# 1711
+	beq	%r2 %r0 beq_true.10848	# 1711
 	addi	%r2 %r0 $0	# 1712
-	ld	-15(%r29) %r3	# 1712
+	ld	-13(%r29) %r3	# 1712
 	add	%r25 %r3 %r2	# 1712
 	ld	0(%r25) %r2	# 1712
 	addi	%r25 %r0 $2	# 1712
 	sll	%r2 %r2 %r25	# 1712
 	addi	%r3 %r0 $0	# 1712
-	ld	-14(%r29) %r8	# 1712
+	ld	-12(%r29) %r8	# 1712
 	add	%r25 %r8 %r3	# 1712
 	ld	0(%r25) %r3	# 1712
 	add	%r2 %r2 %r3	# 1712
-	ld	-13(%r29) %r3	# 555
+	ld	-11(%r29) %r3	# 555
 	ld	0(%r3) %r8	# 555
-	beq	%r2 %r8 beq_true.10862	# 1713
-	beq	%r0 %r0 beq_cont.10863	# 1713
-beq_true.10862:
+	beq	%r2 %r8 beq_true.10850	# 1713
+	beq	%r0 %r0 beq_cont.10851	# 1713
+beq_true.10850:
 	addi	%r2 %r0 $0	# 1715
 	addi	%r8 %r0 $0	# 1715
-	ld	-12(%r29) %r9	# 1715
+	ld	-10(%r29) %r9	# 1715
 	add	%r25 %r9 %r8	# 1715
 	ld	0(%r25) %r8	# 1715
-	ld	-11(%r29) %r9	# 1715
+	ld	-9(%r29) %r9	# 1715
 	add	%r3 %r0 %r8	# 1715
 	add	%r16 %r0 %r9	# 1715
-	addi	%r29 %r29 $-16	# 1715
+	addi	%r29 %r29 $-14	# 1715
 	st	0(%r29) %r31	# 1715
 	ld	0(%r16) %r24	# 1715
 	jalr	%r24	# 1715
 	ld	0(%r29) %r31	# 1715
-	addi	%r29 %r29 $16	# 1715
-	addi	%r25 %r2 $0	# 1715
-	beq	%r25 %r0 beq_true.10864	# 1715
-	beq	%r0 %r0 beq_cont.10865	# 1715
-beq_true.10864:
-	ld	-10(%r29) %r2	# 539
+	addi	%r29 %r29 $14	# 1715
+	beq	%r2 %r0 beq_true.10852	# 1715
+	beq	%r0 %r0 beq_cont.10853	# 1715
+beq_true.10852:
+	ld	-8(%r29) %r2	# 539
 	ld	0(%r2) %r3	# 539
-	ld	-9(%r29) %r8	# 1717
+	ld	-7(%r29) %r8	# 1717
 	add	%r2 %r0 %r8	# 1717
-	addi	%r29 %r29 $-16	# 1717
+	addi	%r29 %r29 $-14	# 1717
 	st	0(%r29) %r31	# 1717
 	jal	veciprod.2512	# 1717
 	ld	0(%r29) %r31	# 1717
-	addi	%r29 %r29 $16	# 1717
-	ld	-13(%r29) %r2	# 567
+	addi	%r29 %r29 $14	# 1717
+	ld	-11(%r29) %r2	# 567
 	fld	2(%r2) %f1	# 567
-	fld	-7(%r29) %f2	# 1719
+	fld	-6(%r29) %f2	# 1719
 	fmul	%f3 %f1 %f2	# 1719
 	fmul	%f3 %f3 %f0	# 1719
-	ld	-10(%r29) %r2	# 539
+	ld	-8(%r29) %r2	# 539
 	ld	0(%r2) %r3	# 539
-	ld	-6(%r29) %r2	# 1720
-	fst	-17(%r29) %f3	# 1720
-	fst	-19(%r29) %f1	# 1720
-	addi	%r29 %r29 $-21	# 1720
+	ld	-5(%r29) %r2	# 1720
+	fst	-14(%r29) %f3	# 1720
+	fst	-15(%r29) %f1	# 1720
+	addi	%r29 %r29 $-16	# 1720
 	st	0(%r29) %r31	# 1720
 	jal	veciprod.2512	# 1720
 	ld	0(%r29) %r31	# 1720
-	addi	%r29 %r29 $21	# 1720
-	fld	-19(%r29) %f1	# 1720
+	addi	%r29 %r29 $16	# 1720
+	fld	-15(%r29) %f1	# 1720
 	fmul	%f1 %f1 %f0	# 1720
-	fld	-17(%r29) %f0	# 1721
+	fld	-14(%r29) %f0	# 1721
 	fld	-3(%r29) %f2	# 1721
-	ld	-5(%r29) %r2	# 1721
+	ld	-4(%r29) %r2	# 1721
 	add	%r16 %r0 %r2	# 1721
-	addi	%r29 %r29 $-21	# 1721
+	addi	%r29 %r29 $-16	# 1721
 	st	0(%r29) %r31	# 1721
 	ld	0(%r16) %r24	# 1721
 	jalr	%r24	# 1721
 	ld	0(%r29) %r31	# 1721
-	addi	%r29 %r29 $21	# 1721
-beq_cont.10865:
-beq_cont.10863:
-	beq	%r0 %r0 beq_cont.10861	# 1711
-beq_true.10860:
-beq_cont.10861:
+	addi	%r29 %r29 $16	# 1721
+beq_cont.10853:
+beq_cont.10851:
+	beq	%r0 %r0 beq_cont.10849	# 1711
+beq_true.10848:
+beq_cont.10849:
 	ld	-1(%r29) %r2	# 1725
 	addi	%r2 %r2 $-1	# 1725
-	fld	-7(%r29) %f0	# 1725
+	fld	-6(%r29) %f0	# 1725
 	fld	-3(%r29) %f1	# 1725
-	ld	-6(%r29) %r3	# 1725
+	ld	-5(%r29) %r3	# 1725
 	ld	-2(%r29) %r8	# 1725
 	add	%r16 %r0 %r8	# 1725
 	ld	0(%r16) %r24	# 1725
@@ -5848,38 +5732,37 @@ trace_ray.2818:
 	sub	%r25 %r0 %r2	# 1734
 	addi	%r25 %r25 $4	# 1734
 	slt	%r25 %r25 %r0	# 1734
-	beq	%r25 %r0 beq.10867	# 1734
+	beq	%r25 %r0 beq.10854	# 1734
 	jr	%r31	# 1815
-beq.10867:
+beq.10854:
 	st	-18(%r29) %r14	# 477
 	ld	2(%r8) %r14	# 477
 	st	-19(%r29) %r16	# 1736
-	fst	-21(%r29) %f1	# 1736
-	st	-23(%r29) %r8	# 1736
-	st	-24(%r29) %r13	# 1736
-	st	-25(%r29) %r9	# 1736
-	st	-26(%r29) %r10	# 1736
-	st	-27(%r29) %r12	# 1736
-	fst	-29(%r29) %f0	# 1736
-	st	-31(%r29) %r11	# 1736
-	st	-32(%r29) %r3	# 1736
-	st	-33(%r29) %r2	# 1736
-	st	-34(%r29) %r14	# 1736
+	fst	-20(%r29) %f1	# 1736
+	st	-21(%r29) %r8	# 1736
+	st	-22(%r29) %r13	# 1736
+	st	-23(%r29) %r9	# 1736
+	st	-24(%r29) %r10	# 1736
+	st	-25(%r29) %r12	# 1736
+	fst	-26(%r29) %f0	# 1736
+	st	-27(%r29) %r11	# 1736
+	st	-28(%r29) %r3	# 1736
+	st	-29(%r29) %r2	# 1736
+	st	-30(%r29) %r14	# 1736
 	add	%r2 %r0 %r3	# 1736
 	add	%r16 %r0 %r15	# 1736
-	addi	%r29 %r29 $-35	# 1736
+	addi	%r29 %r29 $-31	# 1736
 	st	0(%r29) %r31	# 1736
 	ld	0(%r16) %r24	# 1736
 	jalr	%r24	# 1736
 	ld	0(%r29) %r31	# 1736
-	addi	%r29 %r29 $35	# 1736
-	addi	%r25 %r2 $0	# 1736
-	beq	%r25 %r0 beq.10871	# 1736
+	addi	%r29 %r29 $31	# 1736
+	beq	%r2 %r0 beq.10856	# 1736
 	addi	%r2 %r0 $0	# 1738
-	ld	-25(%r29) %r3	# 1738
+	ld	-23(%r29) %r3	# 1738
 	add	%r25 %r3 %r2	# 1738
 	ld	0(%r25) %r2	# 1738
-	ld	-24(%r29) %r3	# 1739
+	ld	-22(%r29) %r3	# 1739
 	add	%r25 %r3 %r2	# 1739
 	ld	0(%r25) %r3	# 1739
 	ld	2(%r3) %r8	# 263
@@ -5887,69 +5770,69 @@ beq.10867:
 	addi	%r10 %r0 $0	# 366
 	add	%r25 %r9 %r10	# 366
 	fld	0(%r25) %f0	# 366
-	fld	-29(%r29) %f1	# 1741
+	fld	-26(%r29) %f1	# 1741
 	fmul	%f0 %f0 %f1	# 1741
 	ld	1(%r3) %r9	# 253
-	st	-35(%r29) %r8	# 1595
-	fst	-37(%r29) %f0	# 1595
-	st	-39(%r29) %r2	# 1595
-	st	-40(%r29) %r3	# 1595
+	st	-31(%r29) %r8	# 1595
+	fst	-32(%r29) %f0	# 1595
+	st	-33(%r29) %r2	# 1595
+	st	-34(%r29) %r3	# 1595
 	addi	%r25 %r9 $-1	# 1595
-	beq	%r25 %r0 beq_true.10873	# 1595
+	beq	%r25 %r0 beq_true.10857	# 1595
 	addi	%r25 %r9 $-2	# 1597
-	beq	%r25 %r0 beq_true.10875	# 1597
+	beq	%r25 %r0 beq_true.10859	# 1597
 	ld	-15(%r29) %r9	# 1600
 	add	%r2 %r0 %r3	# 1600
 	add	%r16 %r0 %r9	# 1600
-	addi	%r29 %r29 $-41	# 1600
+	addi	%r29 %r29 $-35	# 1600
 	st	0(%r29) %r31	# 1600
 	ld	0(%r16) %r24	# 1600
 	jalr	%r24	# 1600
 	ld	0(%r29) %r31	# 1600
-	addi	%r29 %r29 $41	# 1600
-	beq	%r0 %r0 beq_cont.10876	# 1597
-beq_true.10875:
+	addi	%r29 %r29 $35	# 1600
+	beq	%r0 %r0 beq_cont.10860	# 1597
+beq_true.10859:
 	ld	-16(%r29) %r9	# 1598
 	add	%r2 %r0 %r3	# 1598
 	add	%r16 %r0 %r9	# 1598
-	addi	%r29 %r29 $-41	# 1598
+	addi	%r29 %r29 $-35	# 1598
 	st	0(%r29) %r31	# 1598
 	ld	0(%r16) %r24	# 1598
 	jalr	%r24	# 1598
 	ld	0(%r29) %r31	# 1598
-	addi	%r29 %r29 $41	# 1598
-beq_cont.10876:
-	beq	%r0 %r0 beq_cont.10874	# 1595
-beq_true.10873:
-	ld	-32(%r29) %r9	# 1596
+	addi	%r29 %r29 $35	# 1598
+beq_cont.10860:
+	beq	%r0 %r0 beq_cont.10858	# 1595
+beq_true.10857:
+	ld	-28(%r29) %r9	# 1596
 	ld	-17(%r29) %r10	# 1596
 	add	%r2 %r0 %r9	# 1596
 	add	%r16 %r0 %r10	# 1596
-	addi	%r29 %r29 $-41	# 1596
+	addi	%r29 %r29 $-35	# 1596
 	st	0(%r29) %r31	# 1596
 	ld	0(%r16) %r24	# 1596
 	jalr	%r24	# 1596
 	ld	0(%r29) %r31	# 1596
-	addi	%r29 %r29 $41	# 1596
-beq_cont.10874:
+	addi	%r29 %r29 $35	# 1596
+beq_cont.10858:
 	ld	-14(%r29) %r2	# 1744
 	ld	-13(%r29) %r3	# 1744
-	addi	%r29 %r29 $-41	# 1744
+	addi	%r29 %r29 $-35	# 1744
 	st	0(%r29) %r31	# 1744
 	jal	veccpy.2501	# 1744
 	ld	0(%r29) %r31	# 1744
-	addi	%r29 %r29 $41	# 1744
-	ld	-40(%r29) %r2	# 1745
+	addi	%r29 %r29 $35	# 1744
+	ld	-34(%r29) %r2	# 1745
 	ld	-13(%r29) %r3	# 1745
 	ld	-12(%r29) %r8	# 1745
 	add	%r16 %r0 %r8	# 1745
-	addi	%r29 %r29 $-41	# 1745
+	addi	%r29 %r29 $-35	# 1745
 	st	0(%r29) %r31	# 1745
 	ld	0(%r16) %r24	# 1745
 	jalr	%r24	# 1745
 	ld	0(%r29) %r31	# 1745
-	addi	%r29 %r29 $41	# 1745
-	ld	-39(%r29) %r2	# 1748
+	addi	%r29 %r29 $35	# 1745
+	ld	-33(%r29) %r2	# 1748
 	addi	%r25 %r0 $2	# 1748
 	sll	%r2 %r2 %r25	# 1748
 	addi	%r3 %r0 $0	# 1748
@@ -5957,25 +5840,25 @@ beq_cont.10874:
 	add	%r25 %r8 %r3	# 1748
 	ld	0(%r25) %r3	# 1748
 	add	%r2 %r2 %r3	# 1748
-	ld	-33(%r29) %r3	# 1748
-	ld	-34(%r29) %r8	# 1748
+	ld	-29(%r29) %r3	# 1748
+	ld	-30(%r29) %r8	# 1748
 	add	%r25 %r8 %r3	# 1748
 	st	0(%r25) %r2	# 1748
-	ld	-23(%r29) %r2	# 469
+	ld	-21(%r29) %r2	# 469
 	ld	1(%r2) %r9	# 469
 	add	%r25 %r9 %r3	# 1750
 	ld	0(%r25) %r9	# 1750
 	ld	-13(%r29) %r10	# 1750
 	add	%r3 %r0 %r10	# 1750
 	add	%r2 %r0 %r9	# 1750
-	addi	%r29 %r29 $-41	# 1750
+	addi	%r29 %r29 $-35	# 1750
 	st	0(%r29) %r31	# 1750
 	jal	veccpy.2501	# 1750
 	ld	0(%r29) %r31	# 1750
-	addi	%r29 %r29 $41	# 1750
-	ld	-23(%r29) %r2	# 484
+	addi	%r29 %r29 $35	# 1750
+	ld	-21(%r29) %r2	# 484
 	ld	3(%r2) %r3	# 484
-	ld	-40(%r29) %r8	# 361
+	ld	-34(%r29) %r8	# 361
 	ld	7(%r8) %r9	# 361
 	addi	%r10 %r0 $0	# 366
 	add	%r25 %r9 %r10	# 366
@@ -5983,89 +5866,88 @@ beq_cont.10874:
 	addi	%r9 %r0 l.8586	# 1754
 	fld	0(%r9) %f1	# 1754
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10877	# 89
+	bclt	bclt_true.10861	# 89
 	addi	%r9 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10878	# 89
-bclt_true.10877:
+	beq	%r0 %r0 bclt_cont.10862	# 89
+bclt_true.10861:
 	addi	%r9 %r0 $1	# 89
-bclt_cont.10878:
-	addi	%r25 %r9 $0	# 1754
-	beq	%r25 %r0 beq_true.10879	# 1754
+bclt_cont.10862:
+	beq	%r9 %r0 beq_true.10863	# 1754
 	addi	%r9 %r0 $0	# 1755
-	ld	-33(%r29) %r10	# 1755
+	ld	-29(%r29) %r10	# 1755
 	add	%r25 %r3 %r10	# 1755
 	st	0(%r25) %r9	# 1755
-	beq	%r0 %r0 beq_cont.10880	# 1754
-beq_true.10879:
+	beq	%r0 %r0 beq_cont.10864	# 1754
+beq_true.10863:
 	addi	%r9 %r0 $1	# 1757
-	ld	-33(%r29) %r10	# 1757
+	ld	-29(%r29) %r10	# 1757
 	add	%r25 %r3 %r10	# 1757
 	st	0(%r25) %r9	# 1757
 	ld	4(%r2) %r3	# 491
 	add	%r25 %r3 %r10	# 1759
 	ld	0(%r25) %r9	# 1759
 	ld	-10(%r29) %r11	# 1759
-	st	-41(%r29) %r3	# 1759
+	st	-35(%r29) %r3	# 1759
 	add	%r3 %r0 %r11	# 1759
 	add	%r2 %r0 %r9	# 1759
-	addi	%r29 %r29 $-42	# 1759
+	addi	%r29 %r29 $-36	# 1759
 	st	0(%r29) %r31	# 1759
 	jal	veccpy.2501	# 1759
 	ld	0(%r29) %r31	# 1759
-	addi	%r29 %r29 $42	# 1759
-	ld	-33(%r29) %r2	# 1760
-	ld	-41(%r29) %r3	# 1760
+	addi	%r29 %r29 $36	# 1759
+	ld	-29(%r29) %r2	# 1760
+	ld	-35(%r29) %r3	# 1760
 	add	%r25 %r3 %r2	# 1760
 	ld	0(%r25) %r3	# 1760
 	addi	%r8 %r0 l.8703	# 1760
 	fld	0(%r8) %f0	# 1760
-	fld	-37(%r29) %f1	# 1760
+	fld	-32(%r29) %f1	# 1760
 	fmul	%f0 %f0 %f1	# 1760
 	add	%r2 %r0 %r3	# 1760
-	addi	%r29 %r29 $-42	# 1760
+	addi	%r29 %r29 $-36	# 1760
 	st	0(%r29) %r31	# 1760
 	jal	vecscale.2530	# 1760
 	ld	0(%r29) %r31	# 1760
-	addi	%r29 %r29 $42	# 1760
-	ld	-23(%r29) %r2	# 528
+	addi	%r29 %r29 $36	# 1760
+	ld	-21(%r29) %r2	# 528
 	ld	7(%r2) %r3	# 528
-	ld	-33(%r29) %r8	# 1762
+	ld	-29(%r29) %r8	# 1762
 	add	%r25 %r3 %r8	# 1762
 	ld	0(%r25) %r3	# 1762
 	ld	-9(%r29) %r9	# 1762
 	add	%r2 %r0 %r3	# 1762
 	add	%r3 %r0 %r9	# 1762
-	addi	%r29 %r29 $-42	# 1762
+	addi	%r29 %r29 $-36	# 1762
 	st	0(%r29) %r31	# 1762
 	jal	veccpy.2501	# 1762
 	ld	0(%r29) %r31	# 1762
-	addi	%r29 %r29 $42	# 1762
-beq_cont.10880:
+	addi	%r29 %r29 $36	# 1762
+beq_cont.10864:
 	addi	%r2 %r0 l.8705	# 1765
 	fld	0(%r2) %f0	# 1765
-	ld	-32(%r29) %r2	# 1765
+	ld	-28(%r29) %r2	# 1765
 	ld	-9(%r29) %r3	# 1765
-	fst	-43(%r29) %f0	# 1765
-	addi	%r29 %r29 $-45	# 1765
+	fst	-36(%r29) %f0	# 1765
+	addi	%r29 %r29 $-37	# 1765
 	st	0(%r29) %r31	# 1765
 	jal	veciprod.2512	# 1765
 	ld	0(%r29) %r31	# 1765
-	addi	%r29 %r29 $45	# 1765
-	fld	-43(%r29) %f1	# 1765
+	addi	%r29 %r29 $37	# 1765
+	fld	-36(%r29) %f1	# 1765
 	fmul	%f0 %f1 %f0	# 1765
-	ld	-32(%r29) %r2	# 1767
+	ld	-28(%r29) %r2	# 1767
 	ld	-9(%r29) %r3	# 1767
-	addi	%r29 %r29 $-45	# 1767
+	addi	%r29 %r29 $-37	# 1767
 	st	0(%r29) %r31	# 1767
 	jal	vecaccum.2520	# 1767
 	ld	0(%r29) %r31	# 1767
-	addi	%r29 %r29 $45	# 1767
-	ld	-40(%r29) %r2	# 371
+	addi	%r29 %r29 $37	# 1767
+	ld	-34(%r29) %r2	# 371
 	ld	7(%r2) %r3	# 371
 	addi	%r8 %r0 $1	# 376
 	add	%r25 %r3 %r8	# 376
 	fld	0(%r25) %f0	# 376
-	fld	-29(%r29) %f1	# 1769
+	fld	-26(%r29) %f1	# 1769
 	fmul	%f0 %f1 %f0	# 1769
 	addi	%r3 %r0 $0	# 1772
 	addi	%r8 %r0 $0	# 1772
@@ -6073,57 +5955,56 @@ beq_cont.10880:
 	add	%r25 %r9 %r8	# 1772
 	ld	0(%r25) %r8	# 1772
 	ld	-5(%r29) %r9	# 1772
-	fst	-45(%r29) %f0	# 1772
+	fst	-37(%r29) %f0	# 1772
 	add	%r2 %r0 %r3	# 1772
 	add	%r16 %r0 %r9	# 1772
 	add	%r3 %r0 %r8	# 1772
-	addi	%r29 %r29 $-47	# 1772
+	addi	%r29 %r29 $-38	# 1772
 	st	0(%r29) %r31	# 1772
 	ld	0(%r16) %r24	# 1772
 	jalr	%r24	# 1772
 	ld	0(%r29) %r31	# 1772
-	addi	%r29 %r29 $47	# 1772
-	addi	%r25 %r2 $0	# 1772
-	beq	%r25 %r0 beq_true.10882	# 1772
-	beq	%r0 %r0 beq_cont.10883	# 1772
-beq_true.10882:
+	addi	%r29 %r29 $38	# 1772
+	beq	%r2 %r0 beq_true.10865	# 1772
+	beq	%r0 %r0 beq_cont.10866	# 1772
+beq_true.10865:
 	ld	-9(%r29) %r2	# 1773
-	ld	-31(%r29) %r3	# 1773
-	addi	%r29 %r29 $-47	# 1773
+	ld	-27(%r29) %r3	# 1773
+	addi	%r29 %r29 $-38	# 1773
 	st	0(%r29) %r31	# 1773
 	jal	veciprod.2512	# 1773
 	ld	0(%r29) %r31	# 1773
-	addi	%r29 %r29 $47	# 1773
+	addi	%r29 %r29 $38	# 1773
 	fneg	%f0 %f0	# 95
-	fld	-37(%r29) %f1	# 1773
+	fld	-32(%r29) %f1	# 1773
 	fmul	%f0 %f0 %f1	# 1773
-	ld	-32(%r29) %r2	# 1774
-	ld	-31(%r29) %r3	# 1774
-	fst	-47(%r29) %f0	# 1774
-	addi	%r29 %r29 $-49	# 1774
+	ld	-28(%r29) %r2	# 1774
+	ld	-27(%r29) %r3	# 1774
+	fst	-38(%r29) %f0	# 1774
+	addi	%r29 %r29 $-39	# 1774
 	st	0(%r29) %r31	# 1774
 	jal	veciprod.2512	# 1774
 	ld	0(%r29) %r31	# 1774
-	addi	%r29 %r29 $49	# 1774
+	addi	%r29 %r29 $39	# 1774
 	fneg	%f1 %f0	# 95
-	fld	-47(%r29) %f0	# 1775
-	fld	-45(%r29) %f2	# 1775
+	fld	-38(%r29) %f0	# 1775
+	fld	-37(%r29) %f2	# 1775
 	ld	-18(%r29) %r2	# 1775
 	add	%r16 %r0 %r2	# 1775
-	addi	%r29 %r29 $-49	# 1775
+	addi	%r29 %r29 $-39	# 1775
 	st	0(%r29) %r31	# 1775
 	ld	0(%r16) %r24	# 1775
 	jalr	%r24	# 1775
 	ld	0(%r29) %r31	# 1775
-	addi	%r29 %r29 $49	# 1775
-beq_cont.10883:
+	addi	%r29 %r29 $39	# 1775
+beq_cont.10866:
 	ld	-4(%r29) %r2	# 1216
 	ld	-13(%r29) %r3	# 1216
-	addi	%r29 %r29 $-49	# 1216
+	addi	%r29 %r29 $-39	# 1216
 	st	0(%r29) %r31	# 1216
 	jal	veccpy.2501	# 1216
 	ld	0(%r29) %r31	# 1216
-	addi	%r29 %r29 $49	# 1216
+	addi	%r29 %r29 $39	# 1216
 	addi	%r2 %r0 $0	# 1217
 	ld	-8(%r29) %r3	# 1217
 	add	%r25 %r3 %r2	# 1217
@@ -6132,122 +6013,119 @@ beq_cont.10883:
 	ld	-13(%r29) %r2	# 1217
 	ld	-3(%r29) %r8	# 1217
 	add	%r16 %r0 %r8	# 1217
-	addi	%r29 %r29 $-49	# 1217
+	addi	%r29 %r29 $-39	# 1217
 	st	0(%r29) %r31	# 1217
 	ld	0(%r16) %r24	# 1217
 	jalr	%r24	# 1217
 	ld	0(%r29) %r31	# 1217
-	addi	%r29 %r29 $49	# 1217
+	addi	%r29 %r29 $39	# 1217
 	addi	%r2 %r0 $0	# 1780
 	ld	-7(%r29) %r3	# 1780
 	add	%r25 %r3 %r2	# 1780
 	ld	0(%r25) %r2	# 1780
 	addi	%r2 %r2 $-1	# 1780
-	fld	-37(%r29) %f0	# 1780
-	fld	-45(%r29) %f1	# 1780
-	ld	-32(%r29) %r3	# 1780
+	fld	-32(%r29) %f0	# 1780
+	fld	-37(%r29) %f1	# 1780
+	ld	-28(%r29) %r3	# 1780
 	ld	-2(%r29) %r8	# 1780
 	add	%r16 %r0 %r8	# 1780
-	addi	%r29 %r29 $-49	# 1780
+	addi	%r29 %r29 $-39	# 1780
 	st	0(%r29) %r31	# 1780
 	ld	0(%r16) %r24	# 1780
 	jalr	%r24	# 1780
 	ld	0(%r29) %r31	# 1780
-	addi	%r29 %r29 $49	# 1780
+	addi	%r29 %r29 $39	# 1780
 	addi	%r2 %r0 l.8707	# 1783
 	fld	0(%r2) %f0	# 1783
-	fld	-29(%r29) %f1	# 89
+	fld	-26(%r29) %f1	# 89
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.10884	# 89
+	bclt	bclt_true.10867	# 89
 	addi	%r2 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.10885	# 89
-bclt_true.10884:
+	beq	%r0 %r0 bclt_cont.10868	# 89
+bclt_true.10867:
 	addi	%r2 %r0 $1	# 89
-bclt_cont.10885:
-	addi	%r25 %r2 $0	# 1783
-	beq	%r25 %r0 beq.10886	# 1783
-	ld	-33(%r29) %r2	# 1785
+bclt_cont.10868:
+	beq	%r2 %r0 beq.10869	# 1783
+	ld	-29(%r29) %r2	# 1785
 	sub	%r25 %r0 %r2	# 1785
 	addi	%r25 %r25 $4	# 1785
 	slt	%r25 %r0 %r25	# 1785
-	beq	%r25 %r0 beq_true.10887	# 1785
+	beq	%r25 %r0 beq_true.10870	# 1785
 	addi	%r3 %r2 $1	# 1786
 	addi	%r8 %r0 $-1	# 1786
-	ld	-34(%r29) %r9	# 1786
+	ld	-30(%r29) %r9	# 1786
 	add	%r25 %r9 %r3	# 1786
 	st	0(%r25) %r8	# 1786
-	beq	%r0 %r0 beq_cont.10888	# 1785
-beq_true.10887:
-beq_cont.10888:
-	ld	-35(%r29) %r3	# 1789
+	beq	%r0 %r0 beq_cont.10871	# 1785
+beq_true.10870:
+beq_cont.10871:
+	ld	-31(%r29) %r3	# 1789
 	addi	%r25 %r3 $-2	# 1789
-	beq	%r25 %r0 beq.10889	# 1789
+	beq	%r25 %r0 beq.10872	# 1789
 	jr	%r31	# 1792
-beq.10889:
+beq.10872:
 	addi	%r3 %r0 l.8520	# 1790
 	fld	0(%r3) %f0	# 1790
-	ld	-40(%r29) %r3	# 361
+	ld	-34(%r29) %r3	# 361
 	ld	7(%r3) %r3	# 361
 	addi	%r8 %r0 $0	# 366
 	add	%r25 %r3 %r8	# 366
 	fld	0(%r25) %f2	# 366
-	fneg	%f2 %f2	# 1790
-	fadd	%f0 %f0 %f2	# 1790
+	fneg	%f31 %f2	# 1790
+	fadd	%f0 %f0 %f31	# 1790
 	fmul	%f0 %f1 %f0	# 1790
 	addi	%r2 %r2 $1	# 1791
 	addi	%r3 %r0 $0	# 1791
 	ld	-1(%r29) %r8	# 1791
 	add	%r25 %r8 %r3	# 1791
 	fld	0(%r25) %f1	# 1791
-	fld	-21(%r29) %f2	# 1791
+	fld	-20(%r29) %f2	# 1791
 	fadd	%f1 %f2 %f1	# 1791
-	ld	-32(%r29) %r3	# 1791
-	ld	-23(%r29) %r8	# 1791
+	ld	-28(%r29) %r3	# 1791
+	ld	-21(%r29) %r8	# 1791
 	ld	-19(%r29) %r9	# 1791
 	add	%r16 %r0 %r9	# 1791
 	ld	0(%r16) %r24	# 1791
 	jr	%r24	# 1791
-beq.10886:
+beq.10869:
 	jr	%r31	# 1794
-beq.10871:
+beq.10856:
 	addi	%r2 %r0 $-1	# 1799
-	ld	-33(%r29) %r3	# 1799
-	ld	-34(%r29) %r8	# 1799
+	ld	-29(%r29) %r3	# 1799
+	ld	-30(%r29) %r8	# 1799
 	add	%r25 %r8 %r3	# 1799
 	st	0(%r25) %r2	# 1799
-	addi	%r25 %r3 $0	# 1801
-	beq	%r25 %r0 beq.10892	# 1801
-	ld	-32(%r29) %r2	# 1802
-	ld	-31(%r29) %r3	# 1802
-	addi	%r29 %r29 $-49	# 1802
+	beq	%r3 %r0 beq.10875	# 1801
+	ld	-28(%r29) %r2	# 1802
+	ld	-27(%r29) %r3	# 1802
+	addi	%r29 %r29 $-39	# 1802
 	st	0(%r29) %r31	# 1802
 	jal	veciprod.2512	# 1802
 	ld	0(%r29) %r31	# 1802
-	addi	%r29 %r29 $49	# 1802
+	addi	%r29 %r29 $39	# 1802
 	fneg	%f0 %f0	# 95
 	addi	%r2 %r0 l.8518	# 90
 	fld	0(%r2) %f1	# 90
 	fslt	%f1 %f0	# 90
-	bclt	bclt_true.10893	# 90
+	bclt	bclt_true.10876	# 90
 	addi	%r2 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10894	# 90
-bclt_true.10893:
+	beq	%r0 %r0 bclt_cont.10877	# 90
+bclt_true.10876:
 	addi	%r2 %r0 $1	# 90
-bclt_cont.10894:
-	addi	%r25 %r2 $0	# 1804
-	beq	%r25 %r0 beq.10895	# 1804
+bclt_cont.10877:
+	beq	%r2 %r0 beq.10878	# 1804
 	fmul	%f1 %f0 %f0	# 94
 	fmul	%f1 %f1 %f0	# 1807
-	fld	-29(%r29) %f0	# 1807
+	fld	-26(%r29) %f0	# 1807
 	fmul	%f1 %f1 %f0	# 1807
 	addi	%r2 %r0 $0	# 1807
-	ld	-27(%r29) %r3	# 1807
+	ld	-25(%r29) %r3	# 1807
 	add	%r25 %r3 %r2	# 1807
 	fld	0(%r25) %f0	# 1807
 	fmul	%f1 %f1 %f0	# 1807
 	addi	%r2 %r0 $0	# 1808
 	addi	%r3 %r0 $0	# 1808
-	ld	-26(%r29) %r8	# 1808
+	ld	-24(%r29) %r8	# 1808
 	add	%r25 %r8 %r3	# 1808
 	fld	0(%r25) %f0	# 1808
 	fadd	%f0 %f0 %f1	# 1808
@@ -6268,9 +6146,9 @@ bclt_cont.10894:
 	add	%r25 %r8 %r2	# 1810
 	fst	0(%r25) %f0	# 1810
 	jr	%r31	# 1810
-beq.10895:
+beq.10878:
 	jr	%r31	# 1812
-beq.10892:
+beq.10875:
 	jr	%r31	# 1813
 trace_diffuse_ray.2824:
 	ld	14(%r16) %r3	# 0
@@ -6294,79 +6172,78 @@ trace_diffuse_ray.2824:
 	ld	1(%r16) %r10	# 0
 	st	-6(%r29) %r10	# 1829
 	fst	-7(%r29) %f0	# 1829
-	st	-9(%r29) %r15	# 1829
-	st	-10(%r29) %r3	# 1829
-	st	-11(%r29) %r13	# 1829
-	st	-12(%r29) %r9	# 1829
-	st	-13(%r29) %r12	# 1829
-	st	-14(%r29) %r2	# 1829
-	st	-15(%r29) %r11	# 1829
-	st	-16(%r29) %r8	# 1829
+	st	-8(%r29) %r15	# 1829
+	st	-9(%r29) %r3	# 1829
+	st	-10(%r29) %r13	# 1829
+	st	-11(%r29) %r9	# 1829
+	st	-12(%r29) %r12	# 1829
+	st	-13(%r29) %r2	# 1829
+	st	-14(%r29) %r11	# 1829
+	st	-15(%r29) %r8	# 1829
 	add	%r16 %r0 %r14	# 1829
-	addi	%r29 %r29 $-17	# 1829
+	addi	%r29 %r29 $-16	# 1829
 	st	0(%r29) %r31	# 1829
 	ld	0(%r16) %r24	# 1829
 	jalr	%r24	# 1829
 	ld	0(%r29) %r31	# 1829
-	addi	%r29 %r29 $17	# 1829
-	addi	%r25 %r2 $0	# 1829
-	beq	%r25 %r0 beq.10899	# 1829
+	addi	%r29 %r29 $16	# 1829
+	beq	%r2 %r0 beq.10882	# 1829
 	addi	%r2 %r0 $0	# 1830
-	ld	-16(%r29) %r3	# 1830
-	add	%r25 %r3 %r2	# 1830
-	ld	0(%r25) %r2	# 1830
 	ld	-15(%r29) %r3	# 1830
 	add	%r25 %r3 %r2	# 1830
 	ld	0(%r25) %r2	# 1830
-	ld	-14(%r29) %r3	# 539
+	ld	-14(%r29) %r3	# 1830
+	add	%r25 %r3 %r2	# 1830
+	ld	0(%r25) %r2	# 1830
+	ld	-13(%r29) %r3	# 539
 	ld	0(%r3) %r3	# 539
 	ld	1(%r2) %r8	# 253
-	st	-17(%r29) %r2	# 1595
+	st	-16(%r29) %r2	# 1595
 	addi	%r25 %r8 $-1	# 1595
-	beq	%r25 %r0 beq_true.10900	# 1595
+	beq	%r25 %r0 beq_true.10883	# 1595
 	addi	%r25 %r8 $-2	# 1597
-	beq	%r25 %r0 beq_true.10902	# 1597
-	ld	-11(%r29) %r3	# 1600
+	beq	%r25 %r0 beq_true.10885	# 1597
+	ld	-10(%r29) %r3	# 1600
 	add	%r16 %r0 %r3	# 1600
-	addi	%r29 %r29 $-18	# 1600
+	addi	%r29 %r29 $-17	# 1600
 	st	0(%r29) %r31	# 1600
 	ld	0(%r16) %r24	# 1600
 	jalr	%r24	# 1600
 	ld	0(%r29) %r31	# 1600
-	addi	%r29 %r29 $18	# 1600
-	beq	%r0 %r0 beq_cont.10903	# 1597
-beq_true.10902:
-	ld	-12(%r29) %r3	# 1598
+	addi	%r29 %r29 $17	# 1600
+	beq	%r0 %r0 beq_cont.10886	# 1597
+beq_true.10885:
+	ld	-11(%r29) %r3	# 1598
 	add	%r16 %r0 %r3	# 1598
-	addi	%r29 %r29 $-18	# 1598
+	addi	%r29 %r29 $-17	# 1598
 	st	0(%r29) %r31	# 1598
 	ld	0(%r16) %r24	# 1598
 	jalr	%r24	# 1598
 	ld	0(%r29) %r31	# 1598
-	addi	%r29 %r29 $18	# 1598
-beq_cont.10903:
-	beq	%r0 %r0 beq_cont.10901	# 1595
-beq_true.10900:
-	ld	-13(%r29) %r8	# 1596
+	addi	%r29 %r29 $17	# 1598
+beq_cont.10886:
+	beq	%r0 %r0 beq_cont.10884	# 1595
+beq_true.10883:
+	ld	-12(%r29) %r8	# 1596
 	add	%r2 %r0 %r3	# 1596
 	add	%r16 %r0 %r8	# 1596
-	addi	%r29 %r29 $-18	# 1596
+	addi	%r29 %r29 $-17	# 1596
 	st	0(%r29) %r31	# 1596
 	ld	0(%r16) %r24	# 1596
 	jalr	%r24	# 1596
 	ld	0(%r29) %r31	# 1596
-	addi	%r29 %r29 $18	# 1596
-beq_cont.10901:
-	ld	-17(%r29) %r2	# 1832
-	ld	-9(%r29) %r3	# 1832
-	ld	-10(%r29) %r8	# 1832
+	addi	%r29 %r29 $17	# 1596
+beq_cont.10884:
+	ld	-16(%r29) %r2	# 1832
+	ld	-8(%r29) %r3	# 1832
+	ld	-9(%r29) %r8	# 1832
 	add	%r16 %r0 %r8	# 1832
-	addi	%r29 %r29 $-18	# 1832
+	addi	%r29 %r29 $-17	# 1832
 	st	0(%r29) %r31	# 1832
 	ld	0(%r16) %r24	# 1832
 	jalr	%r24	# 1832
 	ld	0(%r29) %r31	# 1832
-	addi	%r29 %r29 $18	# 1832
+	addi	%r29 %r29 $17	# 1832
 	addi	%r2 %r0 $0	# 1835
 	addi	%r3 %r0 $0	# 1835
 	ld	-5(%r29) %r8	# 1835
@@ -6374,43 +6251,41 @@ beq_cont.10901:
 	ld	0(%r25) %r3	# 1835
 	ld	-4(%r29) %r8	# 1835
 	add	%r16 %r0 %r8	# 1835
-	addi	%r29 %r29 $-18	# 1835
+	addi	%r29 %r29 $-17	# 1835
 	st	0(%r29) %r31	# 1835
 	ld	0(%r16) %r24	# 1835
 	jalr	%r24	# 1835
 	ld	0(%r29) %r31	# 1835
-	addi	%r29 %r29 $18	# 1835
-	addi	%r25 %r2 $0	# 1835
-	beq	%r25 %r0 beq.10904	# 1835
+	addi	%r29 %r29 $17	# 1835
+	beq	%r2 %r0 beq.10887	# 1835
 	jr	%r31	# 1839
-beq.10904:
+beq.10887:
 	ld	-3(%r29) %r2	# 1836
 	ld	-2(%r29) %r3	# 1836
-	addi	%r29 %r29 $-18	# 1836
+	addi	%r29 %r29 $-17	# 1836
 	st	0(%r29) %r31	# 1836
 	jal	veciprod.2512	# 1836
 	ld	0(%r29) %r31	# 1836
-	addi	%r29 %r29 $18	# 1836
+	addi	%r29 %r29 $17	# 1836
 	fneg	%f0 %f0	# 95
 	addi	%r2 %r0 l.8518	# 90
 	fld	0(%r2) %f1	# 90
 	fslt	%f1 %f0	# 90
-	bclt	bclt_true.10906	# 90
+	bclt	bclt_true.10889	# 90
 	addi	%r2 %r0 $0	# 90
-	beq	%r0 %r0 bclt_cont.10907	# 90
-bclt_true.10906:
+	beq	%r0 %r0 bclt_cont.10890	# 90
+bclt_true.10889:
 	addi	%r2 %r0 $1	# 90
-bclt_cont.10907:
-	addi	%r25 %r2 $0	# 1837
-	beq	%r25 %r0 beq_true.10908	# 1837
-	beq	%r0 %r0 beq_cont.10909	# 1837
-beq_true.10908:
+bclt_cont.10890:
+	beq	%r2 %r0 beq_true.10891	# 1837
+	beq	%r0 %r0 beq_cont.10892	# 1837
+beq_true.10891:
 	addi	%r2 %r0 l.8518	# 1837
 	fld	0(%r2) %f0	# 1837
-beq_cont.10909:
+beq_cont.10892:
 	fld	-7(%r29) %f1	# 1838
 	fmul	%f1 %f1 %f0	# 1838
-	ld	-17(%r29) %r2	# 361
+	ld	-16(%r29) %r2	# 361
 	ld	7(%r2) %r2	# 361
 	addi	%r3 %r0 $0	# 366
 	add	%r25 %r2 %r3	# 366
@@ -6419,16 +6294,16 @@ beq_cont.10909:
 	ld	-6(%r29) %r2	# 1838
 	ld	-1(%r29) %r3	# 1838
 	beq	%r0 %r0 vecaccum.2520	# 1838
-beq.10899:
+beq.10882:
 	jr	%r31	# 1840
 iter_trace_diffuse_rays.2827:
 	ld	1(%r16) %r10	# 0
 	sub	%r25 %r0 %r9	# 1846
 	addi	%r25 %r25 $0	# 1846
 	slt	%r25 %r0 %r25	# 1846
-	beq	%r25 %r0 beq.10911	# 1846
+	beq	%r25 %r0 beq.10894	# 1846
 	jr	%r31	# 1857
-beq.10911:
+beq.10894:
 	add	%r25 %r2 %r9	# 1847
 	ld	0(%r25) %r11	# 1847
 	ld	0(%r11) %r11	# 539
@@ -6447,14 +6322,13 @@ beq.10911:
 	addi	%r2 %r0 l.8518	# 91
 	fld	0(%r2) %f1	# 91
 	fslt	%f0 %f1	# 91
-	bclt	bclt_true.10913	# 91
+	bclt	bclt_true.10896	# 91
 	addi	%r2 %r0 $0	# 91
-	beq	%r0 %r0 bclt_cont.10914	# 91
-bclt_true.10913:
+	beq	%r0 %r0 bclt_cont.10897	# 91
+bclt_true.10896:
 	addi	%r2 %r0 $1	# 91
-bclt_cont.10914:
-	addi	%r25 %r2 $0	# 1851
-	beq	%r25 %r0 beq_true.10915	# 1851
+bclt_cont.10897:
+	beq	%r2 %r0 beq_true.10898	# 1851
 	ld	-5(%r29) %r2	# 1852
 	addi	%r3 %r2 $1	# 1852
 	ld	-6(%r29) %r8	# 1852
@@ -6462,8 +6336,8 @@ bclt_cont.10914:
 	ld	0(%r25) %r3	# 1852
 	addi	%r9 %r0 l.8714	# 1852
 	fld	0(%r9) %f1	# 1852
-	finv	%f1 %f1	# 1852
-	fmul	%f0 %f0 %f1	# 1852
+	finv	%f31 %f1	# 1852
+	fmul	%f0 %f0 %f31	# 1852
 	ld	-4(%r29) %r9	# 1852
 	add	%r2 %r0 %r3	# 1852
 	add	%r16 %r0 %r9	# 1852
@@ -6473,16 +6347,16 @@ bclt_cont.10914:
 	jalr	%r24	# 1852
 	ld	0(%r29) %r31	# 1852
 	addi	%r29 %r29 $7	# 1852
-	beq	%r0 %r0 beq_cont.10916	# 1851
-beq_true.10915:
+	beq	%r0 %r0 beq_cont.10899	# 1851
+beq_true.10898:
 	ld	-5(%r29) %r2	# 1854
 	ld	-6(%r29) %r3	# 1854
 	add	%r25 %r3 %r2	# 1854
 	ld	0(%r25) %r8	# 1854
 	addi	%r9 %r0 l.8716	# 1854
 	fld	0(%r9) %f1	# 1854
-	finv	%f1 %f1	# 1854
-	fmul	%f0 %f0 %f1	# 1854
+	finv	%f31 %f1	# 1854
+	fmul	%f0 %f0 %f31	# 1854
 	ld	-4(%r29) %r9	# 1854
 	add	%r2 %r0 %r8	# 1854
 	add	%r16 %r0 %r9	# 1854
@@ -6492,7 +6366,7 @@ beq_true.10915:
 	jalr	%r24	# 1854
 	ld	0(%r29) %r31	# 1854
 	addi	%r29 %r29 $7	# 1854
-beq_cont.10916:
+beq_cont.10899:
 	ld	-5(%r29) %r2	# 1856
 	addi	%r9 %r2 $-2	# 1856
 	ld	-6(%r29) %r2	# 1856
@@ -6516,8 +6390,7 @@ trace_diffuse_ray_80percent.2836:
 	st	-6(%r29) %r9	# 1873
 	st	-7(%r29) %r13	# 1873
 	st	-8(%r29) %r2	# 1873
-	addi	%r25 %r2 $0	# 1873
-	beq	%r25 %r0 beq_true.10917	# 1873
+	beq	%r2 %r0 beq_true.10900	# 1873
 	addi	%r14 %r0 $0	# 1874
 	add	%r25 %r13 %r14	# 1874
 	ld	0(%r25) %r14	# 1874
@@ -6557,12 +6430,12 @@ trace_diffuse_ray_80percent.2836:
 	jalr	%r24	# 1866
 	ld	0(%r29) %r31	# 1866
 	addi	%r29 %r29 $10	# 1866
-	beq	%r0 %r0 beq_cont.10918	# 1873
-beq_true.10917:
-beq_cont.10918:
+	beq	%r0 %r0 beq_cont.10901	# 1873
+beq_true.10900:
+beq_cont.10901:
 	ld	-8(%r29) %r2	# 1877
 	addi	%r25 %r2 $-1	# 1877
-	beq	%r25 %r0 beq_true.10919	# 1877
+	beq	%r25 %r0 beq_true.10902	# 1877
 	addi	%r3 %r0 $1	# 1878
 	ld	-7(%r29) %r8	# 1878
 	add	%r25 %r8 %r3	# 1878
@@ -6605,12 +6478,12 @@ beq_cont.10918:
 	jalr	%r24	# 1866
 	ld	0(%r29) %r31	# 1866
 	addi	%r29 %r29 $11	# 1866
-	beq	%r0 %r0 beq_cont.10920	# 1877
-beq_true.10919:
-beq_cont.10920:
+	beq	%r0 %r0 beq_cont.10903	# 1877
+beq_true.10902:
+beq_cont.10903:
 	ld	-8(%r29) %r2	# 1881
 	addi	%r25 %r2 $-2	# 1881
-	beq	%r25 %r0 beq_true.10921	# 1881
+	beq	%r25 %r0 beq_true.10904	# 1881
 	addi	%r3 %r0 $2	# 1882
 	ld	-7(%r29) %r8	# 1882
 	add	%r25 %r8 %r3	# 1882
@@ -6653,12 +6526,12 @@ beq_cont.10920:
 	jalr	%r24	# 1866
 	ld	0(%r29) %r31	# 1866
 	addi	%r29 %r29 $12	# 1866
-	beq	%r0 %r0 beq_cont.10922	# 1881
-beq_true.10921:
-beq_cont.10922:
+	beq	%r0 %r0 beq_cont.10905	# 1881
+beq_true.10904:
+beq_cont.10905:
 	ld	-8(%r29) %r2	# 1885
 	addi	%r25 %r2 $-3	# 1885
-	beq	%r25 %r0 beq_true.10923	# 1885
+	beq	%r25 %r0 beq_true.10906	# 1885
 	addi	%r3 %r0 $3	# 1886
 	ld	-7(%r29) %r8	# 1886
 	add	%r25 %r8 %r3	# 1886
@@ -6701,12 +6574,12 @@ beq_cont.10922:
 	jalr	%r24	# 1866
 	ld	0(%r29) %r31	# 1866
 	addi	%r29 %r29 $13	# 1866
-	beq	%r0 %r0 beq_cont.10924	# 1885
-beq_true.10923:
-beq_cont.10924:
+	beq	%r0 %r0 beq_cont.10907	# 1885
+beq_true.10906:
+beq_cont.10907:
 	ld	-8(%r29) %r2	# 1889
 	addi	%r25 %r2 $-4	# 1889
-	beq	%r25 %r0 beq.10925	# 1889
+	beq	%r25 %r0 beq.10908	# 1889
 	addi	%r2 %r0 $4	# 1890
 	ld	-7(%r29) %r3	# 1890
 	add	%r25 %r3 %r2	# 1890
@@ -6743,7 +6616,7 @@ beq_cont.10924:
 	add	%r16 %r0 %r10	# 1866
 	ld	0(%r16) %r24	# 1866
 	jr	%r24	# 1866
-beq.10925:
+beq.10908:
 	jr	%r31	# 1891
 calc_diffuse_using_1point.2840:
 	ld	3(%r16) %r8	# 0
@@ -6896,26 +6769,25 @@ do_without_neighbors.2849:
 	sub	%r25 %r0 %r3	# 1937
 	addi	%r25 %r25 $4	# 1937
 	slt	%r25 %r25 %r0	# 1937
-	beq	%r25 %r0 beq.10927	# 1937
+	beq	%r25 %r0 beq.10910	# 1937
 	jr	%r31	# 1947
-beq.10927:
+beq.10910:
 	ld	2(%r2) %r9	# 477
 	add	%r25 %r9 %r3	# 1940
 	ld	0(%r25) %r9	# 1940
 	sub	%r25 %r0 %r9	# 1940
 	addi	%r25 %r25 $0	# 1940
 	slt	%r25 %r0 %r25	# 1940
-	beq	%r25 %r0 beq.10929	# 1940
+	beq	%r25 %r0 beq.10912	# 1940
 	jr	%r31	# 1946
-beq.10929:
+beq.10912:
 	ld	3(%r2) %r9	# 484
 	add	%r25 %r9 %r3	# 1942
 	ld	0(%r25) %r9	# 1942
 	st	-1(%r29) %r2	# 1942
 	st	-2(%r29) %r16	# 1942
 	st	-3(%r29) %r3	# 1942
-	addi	%r25 %r9 $0	# 1942
-	beq	%r25 %r0 beq_true.10931	# 1942
+	beq	%r9 %r0 beq_true.10914	# 1942
 	add	%r16 %r0 %r8	# 1943
 	addi	%r29 %r29 $-4	# 1943
 	st	0(%r29) %r31	# 1943
@@ -6923,9 +6795,9 @@ beq.10929:
 	jalr	%r24	# 1943
 	ld	0(%r29) %r31	# 1943
 	addi	%r29 %r29 $4	# 1943
-	beq	%r0 %r0 beq_cont.10932	# 1942
-beq_true.10931:
-beq_cont.10932:
+	beq	%r0 %r0 beq_cont.10915	# 1942
+beq_true.10914:
+beq_cont.10915:
 	ld	-3(%r29) %r2	# 1945
 	addi	%r3 %r2 $1	# 1945
 	ld	-1(%r29) %r2	# 1945
@@ -6940,33 +6812,33 @@ neighbors_exist.2852:
 	ld	0(%r25) %r9	# 1952
 	addi	%r10 %r3 $1	# 1952
 	slt	%r25 %r10 %r9	# 1952
-	beq	%r25 %r0 beq.10933	# 1952
+	beq	%r25 %r0 beq.10916	# 1952
 	sub	%r25 %r0 %r3	# 1953
 	addi	%r25 %r25 $0	# 1953
 	slt	%r25 %r25 %r0	# 1953
-	beq	%r25 %r0 beq.10934	# 1953
+	beq	%r25 %r0 beq.10917	# 1953
 	addi	%r3 %r0 $0	# 1954
 	add	%r25 %r8 %r3	# 1954
 	ld	0(%r25) %r3	# 1954
 	addi	%r8 %r2 $1	# 1954
 	slt	%r25 %r8 %r3	# 1954
-	beq	%r25 %r0 beq.10935	# 1954
+	beq	%r25 %r0 beq.10918	# 1954
 	sub	%r25 %r0 %r2	# 1955
 	addi	%r25 %r25 $0	# 1955
 	slt	%r25 %r25 %r0	# 1955
-	beq	%r25 %r0 beq.10936	# 1955
+	beq	%r25 %r0 beq.10919	# 1955
 	addi	%r2 %r0 $1	# 1956
 	jr	%r31	# 1956
-beq.10936:
+beq.10919:
 	addi	%r2 %r0 $0	# 1957
 	jr	%r31	# 1957
-beq.10935:
+beq.10918:
 	addi	%r2 %r0 $0	# 1958
 	jr	%r31	# 1958
-beq.10934:
+beq.10917:
 	addi	%r2 %r0 $0	# 1959
 	jr	%r31	# 1959
-beq.10933:
+beq.10916:
 	addi	%r2 %r0 $0	# 1960
 	jr	%r31	# 1960
 neighbors_are_available.2859:
@@ -6980,39 +6852,39 @@ neighbors_are_available.2859:
 	ld	2(%r3) %r3	# 477
 	add	%r25 %r3 %r10	# 1965
 	ld	0(%r25) %r3	# 1965
-	beq	%r3 %r11 beq.10937	# 1973
+	beq	%r3 %r11 beq.10920	# 1973
 	addi	%r2 %r0 $0	# 1981
 	jr	%r31	# 1981
-beq.10937:
+beq.10920:
 	add	%r25 %r9 %r2	# 1974
 	ld	0(%r25) %r3	# 1974
 	ld	2(%r3) %r3	# 477
 	add	%r25 %r3 %r10	# 1965
 	ld	0(%r25) %r3	# 1965
-	beq	%r3 %r11 beq.10938	# 1974
+	beq	%r3 %r11 beq.10921	# 1974
 	addi	%r2 %r0 $0	# 1980
 	jr	%r31	# 1980
-beq.10938:
+beq.10921:
 	addi	%r3 %r2 $-1	# 1975
 	add	%r25 %r8 %r3	# 1975
 	ld	0(%r25) %r3	# 1975
 	ld	2(%r3) %r3	# 477
 	add	%r25 %r3 %r10	# 1965
 	ld	0(%r25) %r3	# 1965
-	beq	%r3 %r11 beq.10939	# 1975
+	beq	%r3 %r11 beq.10922	# 1975
 	addi	%r2 %r0 $0	# 1979
 	jr	%r31	# 1979
-beq.10939:
+beq.10922:
 	addi	%r2 %r2 $1	# 1976
 	add	%r25 %r8 %r2	# 1976
 	ld	0(%r25) %r2	# 1976
 	ld	2(%r2) %r2	# 477
 	add	%r25 %r2 %r10	# 1965
 	ld	0(%r25) %r2	# 1965
-	beq	%r2 %r11 beq.10940	# 1976
+	beq	%r2 %r11 beq.10923	# 1976
 	addi	%r2 %r0 $0	# 1978
 	jr	%r31	# 1978
-beq.10940:
+beq.10923:
 	addi	%r2 %r0 $1	# 1977
 	jr	%r31	# 1977
 try_exploit_neighbors.2865:
@@ -7023,18 +6895,18 @@ try_exploit_neighbors.2865:
 	sub	%r25 %r0 %r11	# 1990
 	addi	%r25 %r25 $4	# 1990
 	slt	%r25 %r25 %r0	# 1990
-	beq	%r25 %r0 beq.10941	# 1990
+	beq	%r25 %r0 beq.10924	# 1990
 	jr	%r31	# 2009
-beq.10941:
+beq.10924:
 	ld	2(%r14) %r15	# 477
 	add	%r25 %r15 %r11	# 1965
 	ld	0(%r25) %r15	# 1965
 	sub	%r25 %r0 %r15	# 1993
 	addi	%r25 %r25 $0	# 1993
 	slt	%r25 %r0 %r25	# 1993
-	beq	%r25 %r0 beq.10943	# 1993
+	beq	%r25 %r0 beq.10926	# 1993
 	jr	%r31	# 2008
-beq.10943:
+beq.10926:
 	st	-1(%r29) %r3	# 1995
 	st	-2(%r29) %r16	# 1995
 	st	-3(%r29) %r10	# 1995
@@ -7054,15 +6926,13 @@ beq.10943:
 	jal	neighbors_are_available.2859	# 1995
 	ld	0(%r29) %r31	# 1995
 	addi	%r29 %r29 $11	# 1995
-	addi	%r25 %r2 $0	# 1995
-	beq	%r25 %r0 beq.10945	# 1995
+	beq	%r2 %r0 beq.10928	# 1995
 	ld	-6(%r29) %r2	# 484
 	ld	3(%r2) %r2	# 484
 	ld	-7(%r29) %r10	# 1999
 	add	%r25 %r2 %r10	# 1999
 	ld	0(%r25) %r2	# 1999
-	addi	%r25 %r2 $0	# 1999
-	beq	%r25 %r0 beq_true.10946	# 1999
+	beq	%r2 %r0 beq_true.10929	# 1999
 	ld	-9(%r29) %r2	# 2000
 	ld	-4(%r29) %r3	# 2000
 	ld	-10(%r29) %r8	# 2000
@@ -7075,9 +6945,9 @@ beq.10943:
 	jalr	%r24	# 2000
 	ld	0(%r29) %r31	# 2000
 	addi	%r29 %r29 $11	# 2000
-	beq	%r0 %r0 beq_cont.10947	# 1999
-beq_true.10946:
-beq_cont.10947:
+	beq	%r0 %r0 beq_cont.10930	# 1999
+beq_true.10929:
+beq_cont.10930:
 	ld	-7(%r29) %r2	# 2004
 	addi	%r11 %r2 $1	# 2004
 	ld	-9(%r29) %r2	# 2004
@@ -7089,7 +6959,7 @@ beq_cont.10947:
 	add	%r16 %r0 %r12	# 2004
 	ld	0(%r16) %r24	# 2004
 	jr	%r24	# 2004
-beq.10945:
+beq.10928:
 	ld	-9(%r29) %r2	# 2007
 	ld	-10(%r29) %r3	# 2007
 	add	%r25 %r3 %r2	# 2007
@@ -7173,19 +7043,19 @@ write_rgb.2876:
 	sub	%r25 %r0 %r2	# 2031
 	addi	%r25 %r25 $255	# 2031
 	slt	%r25 %r25 %r0	# 2031
-	beq	%r25 %r0 beq_true.10948	# 2031
+	beq	%r25 %r0 beq_true.10931	# 2031
 	addi	%r2 %r0 $255	# 2031
-	beq	%r0 %r0 beq_cont.10949	# 2031
-beq_true.10948:
+	beq	%r0 %r0 beq_cont.10932	# 2031
+beq_true.10931:
 	sub	%r25 %r0 %r2	# 2031
 	addi	%r25 %r25 $0	# 2031
 	slt	%r25 %r0 %r25	# 2031
-	beq	%r25 %r0 beq_true.10950	# 2031
+	beq	%r25 %r0 beq_true.10933	# 2031
 	addi	%r2 %r0 $0	# 2031
-	beq	%r0 %r0 beq_cont.10951	# 2031
-beq_true.10950:
-beq_cont.10951:
-beq_cont.10949:
+	beq	%r0 %r0 beq_cont.10934	# 2031
+beq_true.10933:
+beq_cont.10934:
+beq_cont.10932:
 	addi	%r29 %r29 $-2	# 2032
 	st	0(%r29) %r31	# 2032
 	jal	min_caml_print_int	# 2032
@@ -7209,19 +7079,19 @@ beq_cont.10949:
 	sub	%r25 %r0 %r2	# 2031
 	addi	%r25 %r25 $255	# 2031
 	slt	%r25 %r25 %r0	# 2031
-	beq	%r25 %r0 beq_true.10952	# 2031
+	beq	%r25 %r0 beq_true.10935	# 2031
 	addi	%r2 %r0 $255	# 2031
-	beq	%r0 %r0 beq_cont.10953	# 2031
-beq_true.10952:
+	beq	%r0 %r0 beq_cont.10936	# 2031
+beq_true.10935:
 	sub	%r25 %r0 %r2	# 2031
 	addi	%r25 %r25 $0	# 2031
 	slt	%r25 %r0 %r25	# 2031
-	beq	%r25 %r0 beq_true.10954	# 2031
+	beq	%r25 %r0 beq_true.10937	# 2031
 	addi	%r2 %r0 $0	# 2031
-	beq	%r0 %r0 beq_cont.10955	# 2031
-beq_true.10954:
-beq_cont.10955:
-beq_cont.10953:
+	beq	%r0 %r0 beq_cont.10938	# 2031
+beq_true.10937:
+beq_cont.10938:
+beq_cont.10936:
 	addi	%r29 %r29 $-2	# 2032
 	st	0(%r29) %r31	# 2032
 	jal	min_caml_print_int	# 2032
@@ -7245,19 +7115,19 @@ beq_cont.10953:
 	sub	%r25 %r0 %r2	# 2031
 	addi	%r25 %r25 $255	# 2031
 	slt	%r25 %r25 %r0	# 2031
-	beq	%r25 %r0 beq_true.10956	# 2031
+	beq	%r25 %r0 beq_true.10939	# 2031
 	addi	%r2 %r0 $255	# 2031
-	beq	%r0 %r0 beq_cont.10957	# 2031
-beq_true.10956:
+	beq	%r0 %r0 beq_cont.10940	# 2031
+beq_true.10939:
 	sub	%r25 %r0 %r2	# 2031
 	addi	%r25 %r25 $0	# 2031
 	slt	%r25 %r0 %r25	# 2031
-	beq	%r25 %r0 beq_true.10958	# 2031
+	beq	%r25 %r0 beq_true.10941	# 2031
 	addi	%r2 %r0 $0	# 2031
-	beq	%r0 %r0 beq_cont.10959	# 2031
-beq_true.10958:
-beq_cont.10959:
-beq_cont.10957:
+	beq	%r0 %r0 beq_cont.10942	# 2031
+beq_true.10941:
+beq_cont.10942:
+beq_cont.10940:
 	addi	%r29 %r29 $-2	# 2032
 	st	0(%r29) %r31	# 2032
 	jal	min_caml_print_int	# 2032
@@ -7275,26 +7145,25 @@ pretrace_diffuse_rays.2878:
 	sub	%r25 %r0 %r3	# 2053
 	addi	%r25 %r25 $4	# 2053
 	slt	%r25 %r25 %r0	# 2053
-	beq	%r25 %r0 beq.10960	# 2053
+	beq	%r25 %r0 beq.10943	# 2053
 	jr	%r31	# 2077
-beq.10960:
+beq.10943:
 	ld	2(%r2) %r14	# 477
 	add	%r25 %r14 %r3	# 1965
 	ld	0(%r25) %r14	# 1965
 	sub	%r25 %r0 %r14	# 2057
 	addi	%r25 %r25 $0	# 2057
 	slt	%r25 %r0 %r25	# 2057
-	beq	%r25 %r0 beq.10962	# 2057
+	beq	%r25 %r0 beq.10945	# 2057
 	jr	%r31	# 2076
-beq.10962:
+beq.10945:
 	ld	3(%r2) %r14	# 484
 	add	%r25 %r14 %r3	# 2060
 	ld	0(%r25) %r14	# 2060
 	st	-1(%r29) %r2	# 2060
 	st	-2(%r29) %r16	# 2060
 	st	-3(%r29) %r3	# 2060
-	addi	%r25 %r14 $0	# 2060
-	beq	%r25 %r0 beq_true.10964	# 2060
+	beq	%r14 %r0 beq_true.10947	# 2060
 	ld	6(%r2) %r14	# 514
 	addi	%r15 %r0 $0	# 516
 	add	%r25 %r14 %r15	# 516
@@ -7371,9 +7240,9 @@ beq.10962:
 	jal	veccpy.2501	# 2073
 	ld	0(%r29) %r31	# 2073
 	addi	%r29 %r29 $11	# 2073
-	beq	%r0 %r0 beq_cont.10965	# 2060
-beq_true.10964:
-beq_cont.10965:
+	beq	%r0 %r0 beq_cont.10948	# 2060
+beq_true.10947:
+beq_cont.10948:
 	ld	-3(%r29) %r2	# 2075
 	addi	%r3 %r2 $1	# 2075
 	ld	-1(%r29) %r2	# 2075
@@ -7396,9 +7265,9 @@ pretrace_pixels.2881:
 	sub	%r25 %r0 %r3	# 2083
 	addi	%r25 %r25 $0	# 2083
 	slt	%r25 %r0 %r25	# 2083
-	beq	%r25 %r0 beq.10966	# 2083
+	beq	%r25 %r0 beq.10949	# 2083
 	jr	%r31	# 2103
-beq.10966:
+beq.10949:
 	st	-3(%r29) %r10	# 2085
 	addi	%r10 %r0 $0	# 2085
 	add	%r25 %r13 %r10	# 2085
@@ -7413,29 +7282,29 @@ beq.10966:
 	st	-7(%r29) %r9	# 2085
 	st	-8(%r29) %r11	# 2085
 	st	-9(%r29) %r14	# 2085
-	fst	-11(%r29) %f2	# 2085
-	fst	-13(%r29) %f1	# 2085
-	st	-15(%r29) %r15	# 2085
-	fst	-17(%r29) %f0	# 2085
-	st	-19(%r29) %r12	# 2085
-	fst	-21(%r29) %f3	# 2085
+	fst	-10(%r29) %f2	# 2085
+	fst	-11(%r29) %f1	# 2085
+	st	-12(%r29) %r15	# 2085
+	fst	-13(%r29) %f0	# 2085
+	st	-14(%r29) %r12	# 2085
+	fst	-15(%r29) %f3	# 2085
 	add	%r2 %r0 %r8	# 2085
-	addi	%r29 %r29 $-23	# 2085
+	addi	%r29 %r29 $-16	# 2085
 	st	0(%r29) %r31	# 2085
 	jal	min_caml_float_of_int	# 2085
 	ld	0(%r29) %r31	# 2085
-	addi	%r29 %r29 $23	# 2085
-	fld	-21(%r29) %f1	# 2085
+	addi	%r29 %r29 $16	# 2085
+	fld	-15(%r29) %f1	# 2085
 	fmul	%f1 %f1 %f0	# 2085
 	addi	%r2 %r0 $0	# 2086
 	addi	%r3 %r0 $0	# 2086
-	ld	-19(%r29) %r8	# 2086
+	ld	-14(%r29) %r8	# 2086
 	add	%r25 %r8 %r3	# 2086
 	fld	0(%r25) %f0	# 2086
 	fmul	%f0 %f1 %f0	# 2086
-	fld	-17(%r29) %f2	# 2086
+	fld	-13(%r29) %f2	# 2086
 	fadd	%f0 %f0 %f2	# 2086
-	ld	-15(%r29) %r3	# 2086
+	ld	-12(%r29) %r3	# 2086
 	add	%r25 %r3 %r2	# 2086
 	fst	0(%r25) %f0	# 2086
 	addi	%r2 %r0 $1	# 2087
@@ -7443,7 +7312,7 @@ beq.10966:
 	add	%r25 %r8 %r9	# 2087
 	fld	0(%r25) %f0	# 2087
 	fmul	%f0 %f1 %f0	# 2087
-	fld	-13(%r29) %f3	# 2087
+	fld	-11(%r29) %f3	# 2087
 	fadd	%f0 %f0 %f3	# 2087
 	add	%r25 %r3 %r2	# 2087
 	fst	0(%r25) %f0	# 2087
@@ -7452,7 +7321,7 @@ beq.10966:
 	add	%r25 %r8 %r9	# 2088
 	fld	0(%r25) %f0	# 2088
 	fmul	%f1 %f1 %f0	# 2088
-	fld	-11(%r29) %f0	# 2088
+	fld	-10(%r29) %f0	# 2088
 	fadd	%f1 %f1 %f0	# 2088
 	add	%r25 %r3 %r2	# 2088
 	fst	0(%r25) %f1	# 2088
@@ -7460,11 +7329,11 @@ beq.10966:
 	add	%r24 %r0 %r3	# 2089
 	add	%r3 %r0 %r2	# 2089
 	add	%r2 %r0 %r24	# 2089
-	addi	%r29 %r29 $-23	# 2089
+	addi	%r29 %r29 $-16	# 2089
 	st	0(%r29) %r31	# 2089
 	jal	vecunit_sgn.2509	# 2089
 	ld	0(%r29) %r31	# 2089
-	addi	%r29 %r29 $23	# 2089
+	addi	%r29 %r29 $16	# 2089
 	addi	%r2 %r0 l.8518	# 160
 	fld	0(%r2) %f0	# 160
 	addi	%r2 %r0 $0	# 153
@@ -7480,11 +7349,11 @@ beq.10966:
 	ld	-8(%r29) %r2	# 2091
 	ld	-7(%r29) %r8	# 2091
 	add	%r3 %r0 %r8	# 2091
-	addi	%r29 %r29 $-23	# 2091
+	addi	%r29 %r29 $-16	# 2091
 	st	0(%r29) %r31	# 2091
 	jal	veccpy.2501	# 2091
 	ld	0(%r29) %r31	# 2091
-	addi	%r29 %r29 $23	# 2091
+	addi	%r29 %r29 $16	# 2091
 	addi	%r2 %r0 $0	# 2094
 	addi	%r3 %r0 l.8520	# 2094
 	fld	0(%r3) %f0	# 2094
@@ -7494,17 +7363,17 @@ beq.10966:
 	ld	0(%r25) %r9	# 2094
 	addi	%r10 %r0 l.8518	# 2094
 	fld	0(%r10) %f1	# 2094
-	ld	-15(%r29) %r10	# 2094
+	ld	-12(%r29) %r10	# 2094
 	ld	-3(%r29) %r11	# 2094
 	add	%r8 %r0 %r9	# 2094
 	add	%r3 %r0 %r10	# 2094
 	add	%r16 %r0 %r11	# 2094
-	addi	%r29 %r29 $-23	# 2094
+	addi	%r29 %r29 $-16	# 2094
 	st	0(%r29) %r31	# 2094
 	ld	0(%r16) %r24	# 2094
 	jalr	%r24	# 2094
 	ld	0(%r29) %r31	# 2094
-	addi	%r29 %r29 $23	# 2094
+	addi	%r29 %r29 $16	# 2094
 	ld	-5(%r29) %r2	# 2095
 	ld	-6(%r29) %r3	# 2095
 	add	%r25 %r3 %r2	# 2095
@@ -7513,11 +7382,11 @@ beq.10966:
 	ld	-9(%r29) %r9	# 2095
 	add	%r3 %r0 %r9	# 2095
 	add	%r2 %r0 %r8	# 2095
-	addi	%r29 %r29 $-23	# 2095
+	addi	%r29 %r29 $-16	# 2095
 	st	0(%r29) %r31	# 2095
 	jal	veccpy.2501	# 2095
 	ld	0(%r29) %r31	# 2095
-	addi	%r29 %r29 $23	# 2095
+	addi	%r29 %r29 $16	# 2095
 	ld	-5(%r29) %r2	# 2096
 	ld	-6(%r29) %r3	# 2096
 	add	%r25 %r3 %r2	# 2096
@@ -7534,12 +7403,12 @@ beq.10966:
 	add	%r3 %r0 %r9	# 2099
 	add	%r2 %r0 %r8	# 2099
 	add	%r16 %r0 %r11	# 2099
-	addi	%r29 %r29 $-23	# 2099
+	addi	%r29 %r29 $-16	# 2099
 	st	0(%r29) %r31	# 2099
 	ld	0(%r16) %r24	# 2099
 	jalr	%r24	# 2099
 	ld	0(%r29) %r31	# 2099
-	addi	%r29 %r29 $23	# 2099
+	addi	%r29 %r29 $16	# 2099
 	ld	-5(%r29) %r2	# 2101
 	addi	%r3 %r2 $-1	# 2101
 	ld	-1(%r29) %r2	# 130
@@ -7547,15 +7416,15 @@ beq.10966:
 	sub	%r25 %r0 %r2	# 131
 	addi	%r25 %r25 $5	# 131
 	slt	%r25 %r0 %r25	# 131
-	beq	%r25 %r0 beq_true.10971	# 131
+	beq	%r25 %r0 beq_true.10951	# 131
 	add	%r8 %r0 %r2	# 131
-	beq	%r0 %r0 beq_cont.10972	# 131
-beq_true.10971:
+	beq	%r0 %r0 beq_cont.10952	# 131
+beq_true.10951:
 	addi	%r8 %r2 $-5	# 131
-beq_cont.10972:
-	fld	-17(%r29) %f0	# 2101
-	fld	-13(%r29) %f1	# 2101
-	fld	-11(%r29) %f2	# 2101
+beq_cont.10952:
+	fld	-13(%r29) %f0	# 2101
+	fld	-11(%r29) %f1	# 2101
+	fld	-10(%r29) %f2	# 2101
 	ld	-6(%r29) %r2	# 2101
 	ld	-4(%r29) %r9	# 2101
 	add	%r16 %r0 %r9	# 2101
@@ -7583,11 +7452,11 @@ pretrace_line.2888:
 	st	-6(%r29) %r10	# 2108
 	fst	-7(%r29) %f0	# 2108
 	add	%r2 %r0 %r3	# 2108
-	addi	%r29 %r29 $-9	# 2108
+	addi	%r29 %r29 $-8	# 2108
 	st	0(%r29) %r31	# 2108
 	jal	min_caml_float_of_int	# 2108
 	ld	0(%r29) %r31	# 2108
-	addi	%r29 %r29 $9	# 2108
+	addi	%r29 %r29 $8	# 2108
 	fld	-7(%r29) %f1	# 2108
 	fmul	%f1 %f1 %f0	# 2108
 	addi	%r2 %r0 $0	# 2111
@@ -7625,9 +7494,9 @@ pretrace_line.2888:
 	ld	-1(%r29) %r8	# 2114
 	ld	-3(%r29) %r9	# 2114
 	add	%r16 %r0 %r9	# 2114
-	fmov	%f31 %f2	# 2114
+	fmov	%f30 %f2	# 2114
 	fmov	%f2 %f1	# 2114
-	fmov	%f1 %f31	# 2114
+	fmov	%f1 %f30	# 2114
 	ld	0(%r16) %r24	# 2114
 	jr	%r24	# 2114
 scan_pixel.2892:
@@ -7643,7 +7512,7 @@ scan_pixel.2892:
 	add	%r25 %r15 %r8	# 2124
 	ld	0(%r25) %r8	# 2124
 	slt	%r25 %r2 %r8	# 2124
-	beq	%r25 %r0 beq.10973	# 2124
+	beq	%r25 %r0 beq.10953	# 2124
 	add	%r25 %r9 %r2	# 2127
 	ld	0(%r25) %r8	# 2127
 	ld	0(%r8) %r8	# 462
@@ -7673,8 +7542,7 @@ scan_pixel.2892:
 	jalr	%r24	# 2130
 	ld	0(%r29) %r31	# 2130
 	addi	%r29 %r29 $11	# 2130
-	addi	%r25 %r2 $0	# 2130
-	beq	%r25 %r0 beq_true.10974	# 2130
+	beq	%r2 %r0 beq_true.10954	# 2130
 	addi	%r11 %r0 $0	# 2131
 	ld	-9(%r29) %r2	# 2131
 	ld	-8(%r29) %r3	# 2131
@@ -7689,8 +7557,8 @@ scan_pixel.2892:
 	jalr	%r24	# 2131
 	ld	0(%r29) %r31	# 2131
 	addi	%r29 %r29 $11	# 2131
-	beq	%r0 %r0 beq_cont.10975	# 2130
-beq_true.10974:
+	beq	%r0 %r0 beq_cont.10955	# 2130
+beq_true.10954:
 	ld	-9(%r29) %r2	# 2133
 	ld	-6(%r29) %r3	# 2133
 	add	%r25 %r3 %r2	# 2133
@@ -7706,7 +7574,7 @@ beq_true.10974:
 	jalr	%r24	# 2133
 	ld	0(%r29) %r31	# 2133
 	addi	%r29 %r29 $11	# 2133
-beq_cont.10975:
+beq_cont.10955:
 	ld	-1(%r29) %r2	# 2136
 	add	%r16 %r0 %r2	# 2136
 	addi	%r29 %r29 $-11	# 2136
@@ -7725,7 +7593,7 @@ beq_cont.10975:
 	add	%r16 %r0 %r11	# 2138
 	ld	0(%r16) %r24	# 2138
 	jr	%r24	# 2138
-beq.10973:
+beq.10953:
 	jr	%r31	# 2139
 scan_line.2898:
 	ld	3(%r16) %r11	# 0
@@ -7735,7 +7603,7 @@ scan_line.2898:
 	add	%r25 %r13 %r14	# 2145
 	ld	0(%r25) %r14	# 2145
 	slt	%r25 %r2 %r14	# 2145
-	beq	%r25 %r0 beq.10977	# 2145
+	beq	%r25 %r0 beq.10957	# 2145
 	addi	%r14 %r0 $1	# 2147
 	add	%r25 %r13 %r14	# 2147
 	ld	0(%r25) %r13	# 2147
@@ -7748,7 +7616,7 @@ scan_line.2898:
 	st	-6(%r29) %r2	# 2147
 	st	-7(%r29) %r11	# 2147
 	slt	%r25 %r2 %r13	# 2147
-	beq	%r25 %r0 beq_true.10978	# 2147
+	beq	%r25 %r0 beq_true.10958	# 2147
 	addi	%r13 %r2 $1	# 2148
 	add	%r8 %r0 %r10	# 2148
 	add	%r3 %r0 %r13	# 2148
@@ -7760,9 +7628,9 @@ scan_line.2898:
 	jalr	%r24	# 2148
 	ld	0(%r29) %r31	# 2148
 	addi	%r29 %r29 $8	# 2148
-	beq	%r0 %r0 beq_cont.10979	# 2147
-beq_true.10978:
-beq_cont.10979:
+	beq	%r0 %r0 beq_cont.10959	# 2147
+beq_true.10958:
+beq_cont.10959:
 	addi	%r2 %r0 $0	# 2150
 	ld	-6(%r29) %r3	# 2150
 	ld	-5(%r29) %r8	# 2150
@@ -7783,12 +7651,12 @@ beq_cont.10979:
 	sub	%r25 %r0 %r3	# 131
 	addi	%r25 %r25 $5	# 131
 	slt	%r25 %r0 %r25	# 131
-	beq	%r25 %r0 beq_true.10980	# 131
+	beq	%r25 %r0 beq_true.10960	# 131
 	add	%r10 %r0 %r3	# 131
-	beq	%r0 %r0 beq_cont.10981	# 131
-beq_true.10980:
+	beq	%r0 %r0 beq_cont.10961	# 131
+beq_true.10960:
 	addi	%r10 %r3 $-5	# 131
-beq_cont.10981:
+beq_cont.10961:
 	ld	-4(%r29) %r3	# 2151
 	ld	-3(%r29) %r8	# 2151
 	ld	-5(%r29) %r9	# 2151
@@ -7796,7 +7664,7 @@ beq_cont.10981:
 	add	%r16 %r0 %r11	# 2151
 	ld	0(%r16) %r24	# 2151
 	jr	%r24	# 2151
-beq.10977:
+beq.10957:
 	jr	%r31	# 2152
 create_float5x3array.2904:
 	addi	%r2 %r0 $3	# 2162
@@ -7963,9 +7831,9 @@ init_line_elements.2908:
 	sub	%r25 %r0 %r3	# 2187
 	addi	%r25 %r25 $0	# 2187
 	slt	%r25 %r0 %r25	# 2187
-	beq	%r25 %r0 beq.10983	# 2187
+	beq	%r25 %r0 beq.10963	# 2187
 	jr	%r31	# 2191
-beq.10983:
+beq.10963:
 	st	-1(%r29) %r3	# 2188
 	st	-2(%r29) %r2	# 2188
 	addi	%r29 %r29 $-3	# 2188
@@ -7981,10 +7849,10 @@ beq.10983:
 	sub	%r25 %r0 %r3	# 2187
 	addi	%r25 %r25 $0	# 2187
 	slt	%r25 %r0 %r25	# 2187
-	beq	%r25 %r0 beq.10984	# 2187
+	beq	%r25 %r0 beq.10964	# 2187
 	add	%r2 %r0 %r8	# 2191
 	jr	%r31	# 2191
-beq.10984:
+beq.10964:
 	st	-3(%r29) %r3	# 2188
 	addi	%r29 %r29 $-4	# 2188
 	st	0(%r29) %r31	# 2188
@@ -8003,7 +7871,7 @@ calc_dirvec.2918:
 	sub	%r25 %r0 %r2	# 2224
 	addi	%r25 %r25 $5	# 2224
 	slt	%r25 %r0 %r25	# 2224
-	beq	%r25 %r0 beq.10985	# 2224
+	beq	%r25 %r0 beq.10965	# 2224
 	fmul	%f1 %f1 %f1	# 2215
 	addi	%r9 %r0 l.8707	# 2215
 	fld	0(%r9) %f0	# 2215
@@ -8011,94 +7879,94 @@ calc_dirvec.2918:
 	st	-1(%r29) %r8	# 2215
 	st	-2(%r29) %r3	# 2215
 	st	-3(%r29) %r16	# 2215
-	fst	-5(%r29) %f3	# 2215
-	st	-7(%r29) %r2	# 2215
-	fst	-9(%r29) %f2	# 2215
+	fst	-4(%r29) %f3	# 2215
+	st	-5(%r29) %r2	# 2215
+	fst	-6(%r29) %f2	# 2215
 	fsqrt	%f0 %f0	# 2215
 	addi	%r2 %r0 l.8520	# 2216
 	fld	0(%r2) %f1	# 2216
-	finv	%f0 %f0	# 2216
-	fmul	%f1 %f1 %f0	# 2216
-	fst	-11(%r29) %f0	# 2217
+	finv	%f31 %f0	# 2216
+	fmul	%f1 %f1 %f31	# 2216
+	fst	-7(%r29) %f0	# 2217
+	fmov	%f0 %f1	# 2217
+	addi	%r29 %r29 $-8	# 2217
+	st	0(%r29) %r31	# 2217
+	jal	min_caml_atan	# 2217
+	ld	0(%r29) %r31	# 2217
+	addi	%r29 %r29 $8	# 2217
+	fld	-6(%r29) %f1	# 2218
+	fmul	%f0 %f0 %f1	# 2218
+	fst	-8(%r29) %f0	# 2210
+	addi	%r29 %r29 $-9	# 2210
+	st	0(%r29) %r31	# 2210
+	jal	min_caml_sin	# 2210
+	ld	0(%r29) %r31	# 2210
+	addi	%r29 %r29 $9	# 2210
+	fld	-8(%r29) %f1	# 2210
+	fst	-9(%r29) %f0	# 2210
+	fmov	%f0 %f1	# 2210
+	addi	%r29 %r29 $-10	# 2210
+	st	0(%r29) %r31	# 2210
+	jal	min_caml_cos	# 2210
+	ld	0(%r29) %r31	# 2210
+	addi	%r29 %r29 $10	# 2210
+	fld	-9(%r29) %f1	# 2210
+	finv	%f31 %f0	# 2210
+	fmul	%f1 %f1 %f31	# 2210
+	fld	-7(%r29) %f0	# 2219
+	fmul	%f1 %f1 %f0	# 2219
+	ld	-5(%r29) %r2	# 2240
+	addi	%r2 %r2 $1	# 2240
+	fmul	%f0 %f1 %f1	# 2215
+	addi	%r3 %r0 l.8707	# 2215
+	fld	0(%r3) %f2	# 2215
+	fadd	%f0 %f0 %f2	# 2215
+	fst	-10(%r29) %f1	# 2215
+	st	-11(%r29) %r2	# 2215
+	fsqrt	%f0 %f0	# 2215
+	addi	%r2 %r0 l.8520	# 2216
+	fld	0(%r2) %f1	# 2216
+	finv	%f31 %f0	# 2216
+	fmul	%f1 %f1 %f31	# 2216
+	fst	-12(%r29) %f0	# 2217
 	fmov	%f0 %f1	# 2217
 	addi	%r29 %r29 $-13	# 2217
 	st	0(%r29) %r31	# 2217
 	jal	min_caml_atan	# 2217
 	ld	0(%r29) %r31	# 2217
 	addi	%r29 %r29 $13	# 2217
-	fld	-9(%r29) %f1	# 2218
+	fld	-4(%r29) %f1	# 2218
 	fmul	%f0 %f0 %f1	# 2218
 	fst	-13(%r29) %f0	# 2210
+	addi	%r29 %r29 $-14	# 2210
+	st	0(%r29) %r31	# 2210
+	jal	min_caml_sin	# 2210
+	ld	0(%r29) %r31	# 2210
+	addi	%r29 %r29 $14	# 2210
+	fld	-13(%r29) %f1	# 2210
+	fst	-14(%r29) %f0	# 2210
+	fmov	%f0 %f1	# 2210
 	addi	%r29 %r29 $-15	# 2210
 	st	0(%r29) %r31	# 2210
-	jal	min_caml_sin	# 2210
+	jal	min_caml_cos	# 2210
 	ld	0(%r29) %r31	# 2210
 	addi	%r29 %r29 $15	# 2210
-	fld	-13(%r29) %f1	# 2210
-	fst	-15(%r29) %f0	# 2210
-	fmov	%f0 %f1	# 2210
-	addi	%r29 %r29 $-17	# 2210
-	st	0(%r29) %r31	# 2210
-	jal	min_caml_cos	# 2210
-	ld	0(%r29) %r31	# 2210
-	addi	%r29 %r29 $17	# 2210
-	fld	-15(%r29) %f1	# 2210
-	finv	%f0 %f0	# 2210
-	fmul	%f1 %f1 %f0	# 2210
-	fld	-11(%r29) %f0	# 2219
+	fld	-14(%r29) %f1	# 2210
+	finv	%f31 %f0	# 2210
+	fmul	%f1 %f1 %f31	# 2210
+	fld	-12(%r29) %f0	# 2219
 	fmul	%f1 %f1 %f0	# 2219
-	ld	-7(%r29) %r2	# 2240
-	addi	%r2 %r2 $1	# 2240
-	fmul	%f0 %f1 %f1	# 2215
-	addi	%r3 %r0 l.8707	# 2215
-	fld	0(%r3) %f2	# 2215
-	fadd	%f0 %f0 %f2	# 2215
-	fst	-17(%r29) %f1	# 2215
-	st	-19(%r29) %r2	# 2215
-	fsqrt	%f0 %f0	# 2215
-	addi	%r2 %r0 l.8520	# 2216
-	fld	0(%r2) %f1	# 2216
-	finv	%f0 %f0	# 2216
-	fmul	%f1 %f1 %f0	# 2216
-	fst	-21(%r29) %f0	# 2217
-	fmov	%f0 %f1	# 2217
-	addi	%r29 %r29 $-23	# 2217
-	st	0(%r29) %r31	# 2217
-	jal	min_caml_atan	# 2217
-	ld	0(%r29) %r31	# 2217
-	addi	%r29 %r29 $23	# 2217
-	fld	-5(%r29) %f1	# 2218
-	fmul	%f0 %f0 %f1	# 2218
-	fst	-23(%r29) %f0	# 2210
-	addi	%r29 %r29 $-25	# 2210
-	st	0(%r29) %r31	# 2210
-	jal	min_caml_sin	# 2210
-	ld	0(%r29) %r31	# 2210
-	addi	%r29 %r29 $25	# 2210
-	fld	-23(%r29) %f1	# 2210
-	fst	-25(%r29) %f0	# 2210
-	fmov	%f0 %f1	# 2210
-	addi	%r29 %r29 $-27	# 2210
-	st	0(%r29) %r31	# 2210
-	jal	min_caml_cos	# 2210
-	ld	0(%r29) %r31	# 2210
-	addi	%r29 %r29 $27	# 2210
-	fld	-25(%r29) %f1	# 2210
-	finv	%f0 %f0	# 2210
-	fmul	%f1 %f1 %f0	# 2210
-	fld	-21(%r29) %f0	# 2219
-	fmul	%f1 %f1 %f0	# 2219
-	fld	-17(%r29) %f0	# 2240
-	fld	-9(%r29) %f2	# 2240
-	fld	-5(%r29) %f3	# 2240
-	ld	-19(%r29) %r2	# 2240
+	fld	-10(%r29) %f0	# 2240
+	fld	-6(%r29) %f2	# 2240
+	fld	-4(%r29) %f3	# 2240
+	ld	-11(%r29) %r2	# 2240
 	ld	-2(%r29) %r3	# 2240
 	ld	-1(%r29) %r8	# 2240
 	ld	-3(%r29) %r9	# 2240
 	add	%r16 %r0 %r9	# 2240
 	ld	0(%r16) %r24	# 2240
 	jr	%r24	# 2240
-beq.10985:
+beq.10965:
 	fmul	%f2 %f0 %f0	# 94
 	fmul	%f3 %f1 %f1	# 94
 	fadd	%f2 %f2 %f3	# 2225
@@ -8107,22 +7975,22 @@ beq.10985:
 	fadd	%f2 %f2 %f3	# 2225
 	st	-1(%r29) %r8	# 2225
 	st	-2(%r29) %r3	# 2225
-	st	-27(%r29) %r9	# 2225
-	fst	-29(%r29) %f1	# 2225
-	fst	-31(%r29) %f0	# 2225
+	st	-15(%r29) %r9	# 2225
+	fst	-16(%r29) %f1	# 2225
+	fst	-17(%r29) %f0	# 2225
 	fsqrt	%f0 %f2	# 2225
-	fld	-31(%r29) %f1	# 2226
-	finv	%f0 %f0	# 2226
-	fmul	%f1 %f1 %f0	# 2226
-	fld	-29(%r29) %f2	# 2227
-	finv	%f0 %f0	# 2227
-	fmul	%f2 %f2 %f0	# 2227
+	fld	-17(%r29) %f1	# 2226
+	finv	%f31 %f0	# 2226
+	fmul	%f1 %f1 %f31	# 2226
+	fld	-16(%r29) %f2	# 2227
+	finv	%f31 %f0	# 2227
+	fmul	%f2 %f2 %f31	# 2227
 	addi	%r2 %r0 l.8520	# 2228
 	fld	0(%r2) %f3	# 2228
-	finv	%f0 %f0	# 2228
-	fmul	%f3 %f3 %f0	# 2228
+	finv	%f31 %f0	# 2228
+	fmul	%f3 %f3 %f31	# 2228
 	ld	-2(%r29) %r2	# 2231
-	ld	-27(%r29) %r3	# 2231
+	ld	-15(%r29) %r3	# 2231
 	add	%r25 %r3 %r2	# 2231
 	ld	0(%r25) %r2	# 2231
 	ld	-1(%r29) %r3	# 2232
@@ -8218,49 +8086,49 @@ calc_dirvecs.2926:
 	sub	%r25 %r0 %r2	# 2245
 	addi	%r25 %r25 $0	# 2245
 	slt	%r25 %r0 %r25	# 2245
-	beq	%r25 %r0 beq.10991	# 2245
+	beq	%r25 %r0 beq.10967	# 2245
 	jr	%r31	# 2254
-beq.10991:
+beq.10967:
 	st	-1(%r29) %r16	# 2247
 	st	-2(%r29) %r2	# 2247
 	fst	-3(%r29) %f0	# 2247
-	st	-5(%r29) %r8	# 2247
-	st	-6(%r29) %r3	# 2247
-	st	-7(%r29) %r9	# 2247
-	addi	%r29 %r29 $-8	# 2247
+	st	-4(%r29) %r8	# 2247
+	st	-5(%r29) %r3	# 2247
+	st	-6(%r29) %r9	# 2247
+	addi	%r29 %r29 $-7	# 2247
 	st	0(%r29) %r31	# 2247
 	jal	min_caml_float_of_int	# 2247
 	ld	0(%r29) %r31	# 2247
-	addi	%r29 %r29 $8	# 2247
+	addi	%r29 %r29 $7	# 2247
 	addi	%r2 %r0 l.8743	# 2247
 	fld	0(%r2) %f1	# 2247
 	fmul	%f0 %f0 %f1	# 2247
 	addi	%r2 %r0 l.8745	# 2247
 	fld	0(%r2) %f1	# 2247
-	fneg	%f1 %f1	# 2247
-	fadd	%f2 %f0 %f1	# 2247
+	fneg	%f31 %f1	# 2247
+	fadd	%f2 %f0 %f31	# 2247
 	addi	%r2 %r0 $0	# 2248
 	addi	%r3 %r0 l.8518	# 2248
 	fld	0(%r3) %f0	# 2248
 	addi	%r3 %r0 l.8518	# 2248
 	fld	0(%r3) %f1	# 2248
 	fld	-3(%r29) %f3	# 2248
-	ld	-6(%r29) %r3	# 2248
-	ld	-5(%r29) %r8	# 2248
-	ld	-7(%r29) %r9	# 2248
+	ld	-5(%r29) %r3	# 2248
+	ld	-4(%r29) %r8	# 2248
+	ld	-6(%r29) %r9	# 2248
 	add	%r16 %r0 %r9	# 2248
-	addi	%r29 %r29 $-8	# 2248
+	addi	%r29 %r29 $-7	# 2248
 	st	0(%r29) %r31	# 2248
 	ld	0(%r16) %r24	# 2248
 	jalr	%r24	# 2248
 	ld	0(%r29) %r31	# 2248
-	addi	%r29 %r29 $8	# 2248
+	addi	%r29 %r29 $7	# 2248
 	ld	-2(%r29) %r2	# 2250
-	addi	%r29 %r29 $-8	# 2250
+	addi	%r29 %r29 $-7	# 2250
 	st	0(%r29) %r31	# 2250
 	jal	min_caml_float_of_int	# 2250
 	ld	0(%r29) %r31	# 2250
-	addi	%r29 %r29 $8	# 2250
+	addi	%r29 %r29 $7	# 2250
 	addi	%r2 %r0 l.8743	# 2250
 	fld	0(%r2) %f1	# 2250
 	fmul	%f0 %f0 %f1	# 2250
@@ -8272,33 +8140,33 @@ beq.10991:
 	fld	0(%r3) %f0	# 2251
 	addi	%r3 %r0 l.8518	# 2251
 	fld	0(%r3) %f1	# 2251
-	ld	-5(%r29) %r3	# 2251
+	ld	-4(%r29) %r3	# 2251
 	addi	%r8 %r3 $2	# 2251
 	fld	-3(%r29) %f3	# 2251
-	ld	-6(%r29) %r9	# 2251
-	ld	-7(%r29) %r10	# 2251
+	ld	-5(%r29) %r9	# 2251
+	ld	-6(%r29) %r10	# 2251
 	add	%r3 %r0 %r9	# 2251
 	add	%r16 %r0 %r10	# 2251
-	addi	%r29 %r29 $-8	# 2251
+	addi	%r29 %r29 $-7	# 2251
 	st	0(%r29) %r31	# 2251
 	ld	0(%r16) %r24	# 2251
 	jalr	%r24	# 2251
 	ld	0(%r29) %r31	# 2251
-	addi	%r29 %r29 $8	# 2251
+	addi	%r29 %r29 $7	# 2251
 	ld	-2(%r29) %r2	# 2253
 	addi	%r2 %r2 $-1	# 2253
-	ld	-6(%r29) %r3	# 130
+	ld	-5(%r29) %r3	# 130
 	addi	%r3 %r3 $1	# 130
 	sub	%r25 %r0 %r3	# 131
 	addi	%r25 %r25 $5	# 131
 	slt	%r25 %r0 %r25	# 131
-	beq	%r25 %r0 beq_true.10993	# 131
-	beq	%r0 %r0 beq_cont.10994	# 131
-beq_true.10993:
+	beq	%r25 %r0 beq_true.10969	# 131
+	beq	%r0 %r0 beq_cont.10970	# 131
+beq_true.10969:
 	addi	%r3 %r3 $-5	# 131
-beq_cont.10994:
+beq_cont.10970:
 	fld	-3(%r29) %f0	# 2253
-	ld	-5(%r29) %r8	# 2253
+	ld	-4(%r29) %r8	# 2253
 	ld	-1(%r29) %r9	# 2253
 	add	%r16 %r0 %r9	# 2253
 	ld	0(%r16) %r24	# 2253
@@ -8308,9 +8176,9 @@ calc_dirvec_rows.2931:
 	sub	%r25 %r0 %r2	# 2259
 	addi	%r25 %r25 $0	# 2259
 	slt	%r25 %r0 %r25	# 2259
-	beq	%r25 %r0 beq.10995	# 2259
+	beq	%r25 %r0 beq.10971	# 2259
 	jr	%r31	# 2263
-beq.10995:
+beq.10971:
 	st	-1(%r29) %r16	# 2260
 	st	-2(%r29) %r2	# 2260
 	st	-3(%r29) %r8	# 2260
@@ -8326,8 +8194,8 @@ beq.10995:
 	fmul	%f0 %f0 %f1	# 2260
 	addi	%r2 %r0 l.8745	# 2260
 	fld	0(%r2) %f1	# 2260
-	fneg	%f1 %f1	# 2260
-	fadd	%f0 %f0 %f1	# 2260
+	fneg	%f31 %f1	# 2260
+	fadd	%f0 %f0 %f31	# 2260
 	addi	%r2 %r0 $4	# 2261
 	ld	-4(%r29) %r3	# 2261
 	ld	-3(%r29) %r8	# 2261
@@ -8346,11 +8214,11 @@ beq.10995:
 	sub	%r25 %r0 %r3	# 131
 	addi	%r25 %r25 $5	# 131
 	slt	%r25 %r0 %r25	# 131
-	beq	%r25 %r0 beq_true.10997	# 131
-	beq	%r0 %r0 beq_cont.10998	# 131
-beq_true.10997:
+	beq	%r25 %r0 beq_true.10973	# 131
+	beq	%r0 %r0 beq_cont.10974	# 131
+beq_true.10973:
 	addi	%r3 %r3 $-5	# 131
-beq_cont.10998:
+beq_cont.10974:
 	ld	-3(%r29) %r8	# 2262
 	addi	%r8 %r8 $4	# 2262
 	ld	-1(%r29) %r9	# 2262
@@ -8362,9 +8230,9 @@ create_dirvec_elements.2937:
 	sub	%r25 %r0 %r3	# 2278
 	addi	%r25 %r25 $0	# 2278
 	slt	%r25 %r0 %r25	# 2278
-	beq	%r25 %r0 beq.10999	# 2278
+	beq	%r25 %r0 beq.10975	# 2278
 	jr	%r31	# 2281
-beq.10999:
+beq.10975:
 	addi	%r9 %r0 $3	# 2272
 	addi	%r10 %r0 l.8518	# 2272
 	fld	0(%r10) %f0	# 2272
@@ -8402,9 +8270,9 @@ beq.10999:
 	sub	%r25 %r0 %r2	# 2278
 	addi	%r25 %r25 $0	# 2278
 	slt	%r25 %r0 %r25	# 2278
-	beq	%r25 %r0 beq.11001	# 2278
+	beq	%r25 %r0 beq.10977	# 2278
 	jr	%r31	# 2281
-beq.11001:
+beq.10977:
 	addi	%r3 %r0 $3	# 2272
 	addi	%r9 %r0 l.8518	# 2272
 	fld	0(%r9) %f0	# 2272
@@ -8448,9 +8316,9 @@ create_dirvecs.2940:
 	sub	%r25 %r0 %r2	# 2285
 	addi	%r25 %r25 $0	# 2285
 	slt	%r25 %r0 %r25	# 2285
-	beq	%r25 %r0 beq.11003	# 2285
+	beq	%r25 %r0 beq.10979	# 2285
 	jr	%r31	# 2289
-beq.11003:
+beq.10979:
 	addi	%r10 %r0 $120	# 2286
 	addi	%r11 %r0 $3	# 2272
 	addi	%r12 %r0 l.8518	# 2272
@@ -8549,9 +8417,9 @@ init_dirvec_constants.2942:
 	sub	%r25 %r0 %r3	# 2297
 	addi	%r25 %r25 $0	# 2297
 	slt	%r25 %r0 %r25	# 2297
-	beq	%r25 %r0 beq.11005	# 2297
+	beq	%r25 %r0 beq.10981	# 2297
 	jr	%r31	# 2300
-beq.11005:
+beq.10981:
 	add	%r25 %r2 %r3	# 2298
 	ld	0(%r25) %r10	# 2298
 	addi	%r11 %r0 $0	# 1189
@@ -8577,9 +8445,9 @@ beq.11005:
 	sub	%r25 %r0 %r2	# 2297
 	addi	%r25 %r25 $0	# 2297
 	slt	%r25 %r0 %r25	# 2297
-	beq	%r25 %r0 beq.11007	# 2297
+	beq	%r25 %r0 beq.10983	# 2297
 	jr	%r31	# 2300
-beq.11007:
+beq.10983:
 	ld	-4(%r29) %r3	# 2298
 	add	%r25 %r3 %r2	# 2298
 	ld	0(%r25) %r8	# 2298
@@ -8614,9 +8482,9 @@ init_vecset_constants.2945:
 	sub	%r25 %r0 %r2	# 2304
 	addi	%r25 %r25 $0	# 2304
 	slt	%r25 %r0 %r25	# 2304
-	beq	%r25 %r0 beq.11009	# 2304
+	beq	%r25 %r0 beq.10985	# 2304
 	jr	%r31	# 2307
-beq.11009:
+beq.10985:
 	add	%r25 %r10 %r2	# 2305
 	ld	0(%r25) %r11	# 2305
 	addi	%r12 %r0 $119	# 2305
@@ -8654,9 +8522,9 @@ beq.11009:
 	sub	%r25 %r0 %r2	# 2304
 	addi	%r25 %r25 $0	# 2304
 	slt	%r25 %r0 %r25	# 2304
-	beq	%r25 %r0 beq.11011	# 2304
+	beq	%r25 %r0 beq.10987	# 2304
 	jr	%r31	# 2307
-beq.11011:
+beq.10987:
 	ld	-2(%r29) %r3	# 2305
 	add	%r25 %r3 %r2	# 2305
 	ld	0(%r25) %r3	# 2305
@@ -8695,8 +8563,8 @@ setup_rect_reflection.2956:
 	addi	%r14 %r0 $0	# 366
 	add	%r25 %r3 %r14	# 366
 	fld	0(%r25) %f1	# 366
-	fneg	%f1 %f1	# 2333
-	fadd	%f0 %f0 %f1	# 2333
+	fneg	%f31 %f1	# 2333
+	fadd	%f0 %f0 %f31	# 2333
 	addi	%r3 %r0 $0	# 2334
 	add	%r25 %r11 %r3	# 2334
 	fld	0(%r25) %f1	# 2334
@@ -8717,239 +8585,239 @@ setup_rect_reflection.2956:
 	addi	%r15 %r0 l.8518	# 2272
 	fld	0(%r15) %f5	# 2272
 	st	-1(%r29) %r9	# 2272
-	fst	-3(%r29) %f1	# 2272
-	st	-5(%r29) %r11	# 2272
-	st	-6(%r29) %r2	# 2272
-	st	-7(%r29) %r13	# 2272
-	st	-8(%r29) %r8	# 2272
-	st	-9(%r29) %r3	# 2272
-	fst	-11(%r29) %f0	# 2272
-	st	-13(%r29) %r12	# 2272
-	fst	-15(%r29) %f3	# 2272
-	fst	-17(%r29) %f2	# 2272
-	fst	-19(%r29) %f4	# 2272
-	st	-21(%r29) %r10	# 2272
+	fst	-2(%r29) %f1	# 2272
+	st	-3(%r29) %r11	# 2272
+	st	-4(%r29) %r2	# 2272
+	st	-5(%r29) %r13	# 2272
+	st	-6(%r29) %r8	# 2272
+	st	-7(%r29) %r3	# 2272
+	fst	-8(%r29) %f0	# 2272
+	st	-9(%r29) %r12	# 2272
+	fst	-10(%r29) %f3	# 2272
+	fst	-11(%r29) %f2	# 2272
+	fst	-12(%r29) %f4	# 2272
+	st	-13(%r29) %r10	# 2272
 	add	%r2 %r0 %r14	# 2272
 	fmov	%f0 %f5	# 2272
-	addi	%r29 %r29 $-22	# 2272
+	addi	%r29 %r29 $-14	# 2272
 	st	0(%r29) %r31	# 2272
 	jal	min_caml_create_float_array	# 2272
 	ld	0(%r29) %r31	# 2272
-	addi	%r29 %r29 $22	# 2272
+	addi	%r29 %r29 $14	# 2272
 	add	%r3 %r0 %r2	# 2272
 	addi	%r2 %r0 $0	# 2273
-	ld	-21(%r29) %r8	# 2273
+	ld	-13(%r29) %r8	# 2273
 	add	%r25 %r8 %r2	# 2273
 	ld	0(%r25) %r2	# 2273
-	st	-22(%r29) %r3	# 2273
-	addi	%r29 %r29 $-23	# 2273
+	st	-14(%r29) %r3	# 2273
+	addi	%r29 %r29 $-15	# 2273
 	st	0(%r29) %r31	# 2273
 	jal	min_caml_create_array	# 2273
 	ld	0(%r29) %r31	# 2273
-	addi	%r29 %r29 $23	# 2273
+	addi	%r29 %r29 $15	# 2273
 	add	%r3 %r0 %r28	# 2274
 	addi	%r28 %r28 $2	# 2274
 	st	1(%r3) %r2	# 2274
-	ld	-22(%r29) %r2	# 2274
+	ld	-14(%r29) %r2	# 2274
 	st	0(%r3) %r2	# 2274
 	addi	%r8 %r0 $0	# 146
-	fld	-19(%r29) %f0	# 146
+	fld	-12(%r29) %f0	# 146
 	add	%r25 %r2 %r8	# 146
 	fst	0(%r25) %f0	# 146
 	addi	%r8 %r0 $1	# 147
-	fld	-17(%r29) %f0	# 147
+	fld	-11(%r29) %f0	# 147
 	add	%r25 %r2 %r8	# 147
 	fst	0(%r25) %f0	# 147
 	addi	%r8 %r0 $2	# 148
-	fld	-15(%r29) %f1	# 148
+	fld	-10(%r29) %f1	# 148
 	add	%r25 %r2 %r8	# 148
 	fst	0(%r25) %f1	# 148
 	addi	%r2 %r0 $0	# 1189
-	ld	-21(%r29) %r8	# 1189
+	ld	-13(%r29) %r8	# 1189
 	add	%r25 %r8 %r2	# 1189
 	ld	0(%r25) %r2	# 1189
 	addi	%r2 %r2 $-1	# 1189
-	ld	-13(%r29) %r9	# 1189
-	st	-23(%r29) %r3	# 1189
+	ld	-9(%r29) %r9	# 1189
+	st	-15(%r29) %r3	# 1189
 	add	%r16 %r0 %r9	# 1189
 	add	%r24 %r0 %r3	# 1189
 	add	%r3 %r0 %r2	# 1189
 	add	%r2 %r0 %r24	# 1189
-	addi	%r29 %r29 $-24	# 1189
+	addi	%r29 %r29 $-16	# 1189
 	st	0(%r29) %r31	# 1189
 	ld	0(%r16) %r24	# 1189
 	jalr	%r24	# 1189
 	ld	0(%r29) %r31	# 1189
-	addi	%r29 %r29 $24	# 1189
+	addi	%r29 %r29 $16	# 1189
 	add	%r2 %r0 %r28	# 2326
 	addi	%r28 %r28 $3	# 2326
-	fld	-11(%r29) %f0	# 2326
+	fld	-8(%r29) %f0	# 2326
 	fst	2(%r2) %f0	# 2326
-	ld	-23(%r29) %r3	# 2326
+	ld	-15(%r29) %r3	# 2326
 	st	1(%r2) %r3	# 2326
-	ld	-9(%r29) %r3	# 2326
-	st	0(%r2) %r3	# 2326
 	ld	-7(%r29) %r3	# 2326
-	ld	-8(%r29) %r8	# 2326
+	st	0(%r2) %r3	# 2326
+	ld	-5(%r29) %r3	# 2326
+	ld	-6(%r29) %r8	# 2326
 	add	%r25 %r8 %r3	# 2326
 	st	0(%r25) %r2	# 2326
 	addi	%r2 %r3 $1	# 2338
-	ld	-6(%r29) %r9	# 2338
+	ld	-4(%r29) %r9	# 2338
 	addi	%r10 %r9 $2	# 2338
 	addi	%r11 %r0 $1	# 2338
-	ld	-5(%r29) %r12	# 2338
+	ld	-3(%r29) %r12	# 2338
 	add	%r25 %r12 %r11	# 2338
 	fld	0(%r25) %f1	# 2338
 	addi	%r11 %r0 $3	# 2272
 	addi	%r13 %r0 l.8518	# 2272
 	fld	0(%r13) %f2	# 2272
-	st	-24(%r29) %r2	# 2272
-	st	-25(%r29) %r10	# 2272
-	fst	-27(%r29) %f1	# 2272
+	st	-16(%r29) %r2	# 2272
+	st	-17(%r29) %r10	# 2272
+	fst	-18(%r29) %f1	# 2272
 	add	%r2 %r0 %r11	# 2272
 	fmov	%f0 %f2	# 2272
-	addi	%r29 %r29 $-29	# 2272
+	addi	%r29 %r29 $-19	# 2272
 	st	0(%r29) %r31	# 2272
 	jal	min_caml_create_float_array	# 2272
 	ld	0(%r29) %r31	# 2272
-	addi	%r29 %r29 $29	# 2272
+	addi	%r29 %r29 $19	# 2272
 	add	%r3 %r0 %r2	# 2272
 	addi	%r2 %r0 $0	# 2273
-	ld	-21(%r29) %r8	# 2273
+	ld	-13(%r29) %r8	# 2273
 	add	%r25 %r8 %r2	# 2273
 	ld	0(%r25) %r2	# 2273
-	st	-29(%r29) %r3	# 2273
-	addi	%r29 %r29 $-30	# 2273
+	st	-19(%r29) %r3	# 2273
+	addi	%r29 %r29 $-20	# 2273
 	st	0(%r29) %r31	# 2273
 	jal	min_caml_create_array	# 2273
 	ld	0(%r29) %r31	# 2273
-	addi	%r29 %r29 $30	# 2273
+	addi	%r29 %r29 $20	# 2273
 	add	%r3 %r0 %r28	# 2274
 	addi	%r28 %r28 $2	# 2274
 	st	1(%r3) %r2	# 2274
-	ld	-29(%r29) %r2	# 2274
+	ld	-19(%r29) %r2	# 2274
 	st	0(%r3) %r2	# 2274
 	addi	%r8 %r0 $0	# 146
-	fld	-3(%r29) %f0	# 146
+	fld	-2(%r29) %f0	# 146
 	add	%r25 %r2 %r8	# 146
 	fst	0(%r25) %f0	# 146
 	addi	%r8 %r0 $1	# 147
-	fld	-27(%r29) %f1	# 147
+	fld	-18(%r29) %f1	# 147
 	add	%r25 %r2 %r8	# 147
 	fst	0(%r25) %f1	# 147
 	addi	%r8 %r0 $2	# 148
-	fld	-15(%r29) %f1	# 148
+	fld	-10(%r29) %f1	# 148
 	add	%r25 %r2 %r8	# 148
 	fst	0(%r25) %f1	# 148
 	addi	%r2 %r0 $0	# 1189
-	ld	-21(%r29) %r8	# 1189
+	ld	-13(%r29) %r8	# 1189
 	add	%r25 %r8 %r2	# 1189
 	ld	0(%r25) %r2	# 1189
 	addi	%r2 %r2 $-1	# 1189
-	ld	-13(%r29) %r9	# 1189
-	st	-30(%r29) %r3	# 1189
+	ld	-9(%r29) %r9	# 1189
+	st	-20(%r29) %r3	# 1189
 	add	%r16 %r0 %r9	# 1189
 	add	%r24 %r0 %r3	# 1189
 	add	%r3 %r0 %r2	# 1189
 	add	%r2 %r0 %r24	# 1189
-	addi	%r29 %r29 $-31	# 1189
+	addi	%r29 %r29 $-21	# 1189
 	st	0(%r29) %r31	# 1189
 	ld	0(%r16) %r24	# 1189
 	jalr	%r24	# 1189
 	ld	0(%r29) %r31	# 1189
-	addi	%r29 %r29 $31	# 1189
+	addi	%r29 %r29 $21	# 1189
 	add	%r2 %r0 %r28	# 2326
 	addi	%r28 %r28 $3	# 2326
-	fld	-11(%r29) %f0	# 2326
+	fld	-8(%r29) %f0	# 2326
 	fst	2(%r2) %f0	# 2326
-	ld	-30(%r29) %r3	# 2326
+	ld	-20(%r29) %r3	# 2326
 	st	1(%r2) %r3	# 2326
-	ld	-25(%r29) %r3	# 2326
+	ld	-17(%r29) %r3	# 2326
 	st	0(%r2) %r3	# 2326
-	ld	-24(%r29) %r3	# 2326
-	ld	-8(%r29) %r8	# 2326
+	ld	-16(%r29) %r3	# 2326
+	ld	-6(%r29) %r8	# 2326
 	add	%r25 %r8 %r3	# 2326
 	st	0(%r25) %r2	# 2326
-	ld	-7(%r29) %r2	# 2339
+	ld	-5(%r29) %r2	# 2339
 	addi	%r3 %r2 $2	# 2339
-	ld	-6(%r29) %r9	# 2339
+	ld	-4(%r29) %r9	# 2339
 	addi	%r9 %r9 $3	# 2339
 	addi	%r10 %r0 $2	# 2339
-	ld	-5(%r29) %r11	# 2339
+	ld	-3(%r29) %r11	# 2339
 	add	%r25 %r11 %r10	# 2339
 	fld	0(%r25) %f1	# 2339
 	addi	%r10 %r0 $3	# 2272
 	addi	%r11 %r0 l.8518	# 2272
 	fld	0(%r11) %f2	# 2272
-	st	-31(%r29) %r3	# 2272
-	st	-32(%r29) %r9	# 2272
-	fst	-33(%r29) %f1	# 2272
+	st	-21(%r29) %r3	# 2272
+	st	-22(%r29) %r9	# 2272
+	fst	-23(%r29) %f1	# 2272
 	add	%r2 %r0 %r10	# 2272
 	fmov	%f0 %f2	# 2272
-	addi	%r29 %r29 $-35	# 2272
+	addi	%r29 %r29 $-24	# 2272
 	st	0(%r29) %r31	# 2272
 	jal	min_caml_create_float_array	# 2272
 	ld	0(%r29) %r31	# 2272
-	addi	%r29 %r29 $35	# 2272
+	addi	%r29 %r29 $24	# 2272
 	add	%r3 %r0 %r2	# 2272
 	addi	%r2 %r0 $0	# 2273
-	ld	-21(%r29) %r8	# 2273
+	ld	-13(%r29) %r8	# 2273
 	add	%r25 %r8 %r2	# 2273
 	ld	0(%r25) %r2	# 2273
-	st	-35(%r29) %r3	# 2273
-	addi	%r29 %r29 $-36	# 2273
+	st	-24(%r29) %r3	# 2273
+	addi	%r29 %r29 $-25	# 2273
 	st	0(%r29) %r31	# 2273
 	jal	min_caml_create_array	# 2273
 	ld	0(%r29) %r31	# 2273
-	addi	%r29 %r29 $36	# 2273
+	addi	%r29 %r29 $25	# 2273
 	add	%r3 %r0 %r28	# 2274
 	addi	%r28 %r28 $2	# 2274
 	st	1(%r3) %r2	# 2274
-	ld	-35(%r29) %r2	# 2274
+	ld	-24(%r29) %r2	# 2274
 	st	0(%r3) %r2	# 2274
 	addi	%r8 %r0 $0	# 146
-	fld	-3(%r29) %f0	# 146
+	fld	-2(%r29) %f0	# 146
 	add	%r25 %r2 %r8	# 146
 	fst	0(%r25) %f0	# 146
 	addi	%r8 %r0 $1	# 147
-	fld	-17(%r29) %f0	# 147
+	fld	-11(%r29) %f0	# 147
 	add	%r25 %r2 %r8	# 147
 	fst	0(%r25) %f0	# 147
 	addi	%r8 %r0 $2	# 148
-	fld	-33(%r29) %f0	# 148
+	fld	-23(%r29) %f0	# 148
 	add	%r25 %r2 %r8	# 148
 	fst	0(%r25) %f0	# 148
 	addi	%r2 %r0 $0	# 1189
-	ld	-21(%r29) %r8	# 1189
+	ld	-13(%r29) %r8	# 1189
 	add	%r25 %r8 %r2	# 1189
 	ld	0(%r25) %r2	# 1189
 	addi	%r2 %r2 $-1	# 1189
-	ld	-13(%r29) %r8	# 1189
-	st	-36(%r29) %r3	# 1189
+	ld	-9(%r29) %r8	# 1189
+	st	-25(%r29) %r3	# 1189
 	add	%r16 %r0 %r8	# 1189
 	add	%r24 %r0 %r3	# 1189
 	add	%r3 %r0 %r2	# 1189
 	add	%r2 %r0 %r24	# 1189
-	addi	%r29 %r29 $-37	# 1189
+	addi	%r29 %r29 $-26	# 1189
 	st	0(%r29) %r31	# 1189
 	ld	0(%r16) %r24	# 1189
 	jalr	%r24	# 1189
 	ld	0(%r29) %r31	# 1189
-	addi	%r29 %r29 $37	# 1189
+	addi	%r29 %r29 $26	# 1189
 	add	%r2 %r0 %r28	# 2326
 	addi	%r28 %r28 $3	# 2326
-	fld	-11(%r29) %f0	# 2326
+	fld	-8(%r29) %f0	# 2326
 	fst	2(%r2) %f0	# 2326
-	ld	-36(%r29) %r3	# 2326
+	ld	-25(%r29) %r3	# 2326
 	st	1(%r2) %r3	# 2326
-	ld	-32(%r29) %r3	# 2326
+	ld	-22(%r29) %r3	# 2326
 	st	0(%r2) %r3	# 2326
-	ld	-31(%r29) %r3	# 2326
-	ld	-8(%r29) %r8	# 2326
+	ld	-21(%r29) %r3	# 2326
+	ld	-6(%r29) %r8	# 2326
 	add	%r25 %r8 %r3	# 2326
 	st	0(%r25) %r2	# 2326
 	addi	%r2 %r0 $0	# 2340
-	ld	-7(%r29) %r3	# 2340
+	ld	-5(%r29) %r3	# 2340
 	addi	%r3 %r3 $3	# 2340
 	ld	-1(%r29) %r8	# 2340
 	add	%r25 %r8 %r2	# 2340
@@ -8973,28 +8841,28 @@ setup_surface_reflection.2959:
 	addi	%r15 %r0 $0	# 366
 	add	%r25 %r14 %r15	# 366
 	fld	0(%r25) %f1	# 366
-	fneg	%f1 %f1	# 2347
-	fadd	%f0 %f0 %f1	# 2347
+	fneg	%f31 %f1	# 2347
+	fadd	%f0 %f0 %f31	# 2347
 	ld	4(%r3) %r14	# 321
 	st	-1(%r29) %r9	# 2348
 	st	-2(%r29) %r13	# 2348
 	st	-3(%r29) %r8	# 2348
 	st	-4(%r29) %r2	# 2348
 	fst	-5(%r29) %f0	# 2348
-	st	-7(%r29) %r12	# 2348
-	st	-8(%r29) %r10	# 2348
-	st	-9(%r29) %r11	# 2348
-	st	-10(%r29) %r3	# 2348
+	st	-6(%r29) %r12	# 2348
+	st	-7(%r29) %r10	# 2348
+	st	-8(%r29) %r11	# 2348
+	st	-9(%r29) %r3	# 2348
 	add	%r3 %r0 %r14	# 2348
 	add	%r2 %r0 %r11	# 2348
-	addi	%r29 %r29 $-11	# 2348
+	addi	%r29 %r29 $-10	# 2348
 	st	0(%r29) %r31	# 2348
 	jal	veciprod.2512	# 2348
 	ld	0(%r29) %r31	# 2348
-	addi	%r29 %r29 $11	# 2348
+	addi	%r29 %r29 $10	# 2348
 	addi	%r2 %r0 l.8536	# 2351
 	fld	0(%r2) %f1	# 2351
-	ld	-10(%r29) %r2	# 291
+	ld	-9(%r29) %r2	# 291
 	ld	4(%r2) %r3	# 291
 	addi	%r8 %r0 $0	# 296
 	add	%r25 %r3 %r8	# 296
@@ -9002,11 +8870,11 @@ setup_surface_reflection.2959:
 	fmul	%f1 %f1 %f2	# 2351
 	fmul	%f1 %f1 %f0	# 2351
 	addi	%r3 %r0 $0	# 2351
-	ld	-9(%r29) %r8	# 2351
+	ld	-8(%r29) %r8	# 2351
 	add	%r25 %r8 %r3	# 2351
 	fld	0(%r25) %f2	# 2351
-	fneg	%f2 %f2	# 2351
-	fadd	%f1 %f1 %f2	# 2351
+	fneg	%f31 %f2	# 2351
+	fadd	%f1 %f1 %f31	# 2351
 	addi	%r3 %r0 l.8536	# 2352
 	fld	0(%r3) %f2	# 2352
 	ld	4(%r2) %r3	# 301
@@ -9018,8 +8886,8 @@ setup_surface_reflection.2959:
 	addi	%r3 %r0 $1	# 2352
 	add	%r25 %r8 %r3	# 2352
 	fld	0(%r25) %f3	# 2352
-	fneg	%f3 %f3	# 2352
-	fadd	%f2 %f2 %f3	# 2352
+	fneg	%f31 %f3	# 2352
+	fadd	%f2 %f2 %f31	# 2352
 	addi	%r3 %r0 l.8536	# 2353
 	fld	0(%r3) %f3	# 2353
 	ld	4(%r2) %r2	# 311
@@ -9031,69 +8899,69 @@ setup_surface_reflection.2959:
 	addi	%r2 %r0 $2	# 2353
 	add	%r25 %r8 %r2	# 2353
 	fld	0(%r25) %f0	# 2353
-	fneg	%f0 %f0	# 2353
-	fadd	%f3 %f3 %f0	# 2353
+	fneg	%f31 %f0	# 2353
+	fadd	%f3 %f3 %f31	# 2353
 	addi	%r2 %r0 $3	# 2272
 	addi	%r3 %r0 l.8518	# 2272
 	fld	0(%r3) %f0	# 2272
-	fst	-11(%r29) %f3	# 2272
-	fst	-13(%r29) %f2	# 2272
-	fst	-15(%r29) %f1	# 2272
-	addi	%r29 %r29 $-17	# 2272
+	fst	-10(%r29) %f3	# 2272
+	fst	-11(%r29) %f2	# 2272
+	fst	-12(%r29) %f1	# 2272
+	addi	%r29 %r29 $-13	# 2272
 	st	0(%r29) %r31	# 2272
 	jal	min_caml_create_float_array	# 2272
 	ld	0(%r29) %r31	# 2272
-	addi	%r29 %r29 $17	# 2272
+	addi	%r29 %r29 $13	# 2272
 	add	%r3 %r0 %r2	# 2272
 	addi	%r2 %r0 $0	# 2273
-	ld	-8(%r29) %r8	# 2273
+	ld	-7(%r29) %r8	# 2273
 	add	%r25 %r8 %r2	# 2273
 	ld	0(%r25) %r2	# 2273
-	st	-17(%r29) %r3	# 2273
-	addi	%r29 %r29 $-18	# 2273
+	st	-13(%r29) %r3	# 2273
+	addi	%r29 %r29 $-14	# 2273
 	st	0(%r29) %r31	# 2273
 	jal	min_caml_create_array	# 2273
 	ld	0(%r29) %r31	# 2273
-	addi	%r29 %r29 $18	# 2273
+	addi	%r29 %r29 $14	# 2273
 	add	%r3 %r0 %r28	# 2274
 	addi	%r28 %r28 $2	# 2274
 	st	1(%r3) %r2	# 2274
-	ld	-17(%r29) %r2	# 2274
+	ld	-13(%r29) %r2	# 2274
 	st	0(%r3) %r2	# 2274
 	addi	%r8 %r0 $0	# 146
-	fld	-15(%r29) %f0	# 146
+	fld	-12(%r29) %f0	# 146
 	add	%r25 %r2 %r8	# 146
 	fst	0(%r25) %f0	# 146
 	addi	%r8 %r0 $1	# 147
-	fld	-13(%r29) %f0	# 147
+	fld	-11(%r29) %f0	# 147
 	add	%r25 %r2 %r8	# 147
 	fst	0(%r25) %f0	# 147
 	addi	%r8 %r0 $2	# 148
-	fld	-11(%r29) %f0	# 148
+	fld	-10(%r29) %f0	# 148
 	add	%r25 %r2 %r8	# 148
 	fst	0(%r25) %f0	# 148
 	addi	%r2 %r0 $0	# 1189
-	ld	-8(%r29) %r8	# 1189
+	ld	-7(%r29) %r8	# 1189
 	add	%r25 %r8 %r2	# 1189
 	ld	0(%r25) %r2	# 1189
 	addi	%r2 %r2 $-1	# 1189
-	ld	-7(%r29) %r8	# 1189
-	st	-18(%r29) %r3	# 1189
+	ld	-6(%r29) %r8	# 1189
+	st	-14(%r29) %r3	# 1189
 	add	%r16 %r0 %r8	# 1189
 	add	%r24 %r0 %r3	# 1189
 	add	%r3 %r0 %r2	# 1189
 	add	%r2 %r0 %r24	# 1189
-	addi	%r29 %r29 $-19	# 1189
+	addi	%r29 %r29 $-15	# 1189
 	st	0(%r29) %r31	# 1189
 	ld	0(%r16) %r24	# 1189
 	jalr	%r24	# 1189
 	ld	0(%r29) %r31	# 1189
-	addi	%r29 %r29 $19	# 1189
+	addi	%r29 %r29 $15	# 1189
 	add	%r2 %r0 %r28	# 2326
 	addi	%r28 %r28 $3	# 2326
 	fld	-5(%r29) %f0	# 2326
 	fst	2(%r2) %f0	# 2326
-	ld	-18(%r29) %r3	# 2326
+	ld	-14(%r29) %r3	# 2326
 	st	1(%r2) %r3	# 2326
 	ld	-4(%r29) %r3	# 2326
 	st	0(%r2) %r3	# 2326
@@ -9114,16 +8982,16 @@ setup_reflections.2962:
 	sub	%r25 %r0 %r2	# 2360
 	addi	%r25 %r25 $0	# 2360
 	slt	%r25 %r0 %r25	# 2360
-	beq	%r25 %r0 beq.11019	# 2360
+	beq	%r25 %r0 beq.10991	# 2360
 	jr	%r31	# 2373
-beq.11019:
+beq.10991:
 	add	%r25 %r9 %r2	# 2361
 	ld	0(%r25) %r9	# 2361
 	ld	2(%r9) %r10	# 263
 	addi	%r25 %r10 $-2	# 2362
-	beq	%r25 %r0 beq.11021	# 2362
+	beq	%r25 %r0 beq.10993	# 2362
 	jr	%r31	# 2372
-beq.11021:
+beq.10993:
 	ld	7(%r9) %r10	# 361
 	addi	%r11 %r0 $0	# 366
 	add	%r25 %r10 %r11	# 366
@@ -9131,31 +8999,30 @@ beq.11021:
 	addi	%r10 %r0 l.8520	# 2363
 	fld	0(%r10) %f1	# 2363
 	fslt	%f0 %f1	# 89
-	bclt	bclt_true.11023	# 89
+	bclt	bclt_true.10995	# 89
 	addi	%r10 %r0 $0	# 89
-	beq	%r0 %r0 bclt_cont.11024	# 89
-bclt_true.11023:
+	beq	%r0 %r0 bclt_cont.10996	# 89
+bclt_true.10995:
 	addi	%r10 %r0 $1	# 89
-bclt_cont.11024:
-	addi	%r25 %r10 $0	# 2363
-	beq	%r25 %r0 beq.11025	# 2363
+bclt_cont.10996:
+	beq	%r10 %r0 beq.10997	# 2363
 	ld	1(%r9) %r10	# 253
 	addi	%r25 %r10 $-1	# 2366
-	beq	%r25 %r0 beq.11026	# 2366
+	beq	%r25 %r0 beq.10998	# 2366
 	addi	%r25 %r10 $-2	# 2368
-	beq	%r25 %r0 beq.11027	# 2368
+	beq	%r25 %r0 beq.10999	# 2368
 	jr	%r31	# 2370
-beq.11027:
+beq.10999:
 	add	%r16 %r0 %r3	# 2369
 	add	%r3 %r0 %r9	# 2369
 	ld	0(%r16) %r24	# 2369
 	jr	%r24	# 2369
-beq.11026:
+beq.10998:
 	add	%r3 %r0 %r9	# 2367
 	add	%r16 %r0 %r8	# 2367
 	ld	0(%r16) %r24	# 2367
 	jr	%r24	# 2367
-beq.11025:
+beq.10997:
 	jr	%r31	# 2371
 rt.2964:
 	ld	16(%r16) %r8	# 0
@@ -9192,30 +9059,30 @@ rt.2964:
 	addi	%r12 %r0 $0	# 2385
 	st	-10(%r29) %r9	# 2385
 	slt	%r25 %r2 %r0	# 2385
-	beq	%r25 %r0 div_positive.11030	# 2385
+	beq	%r25 %r0 div_positive.11002	# 2385
 	sub	%r9 %r0 %r2	# 2385
 	addi	%r25 %r0 $1	# 2385
 	srl	%r25 %r9 %r25	# 2385
 	sub	%r9 %r0 %r25	# 2385
-	beq	%r0 %r0 div_exit.11031	# 2385
-div_positive.11030:
+	beq	%r0 %r0 div_exit.11003	# 2385
+div_positive.11002:
 	addi	%r25 %r0 $1	# 2385
 	srl	%r9 %r2 %r25	# 2385
-div_exit.11031:
+div_exit.11003:
 	add	%r25 %r15 %r12	# 2385
 	st	0(%r25) %r9	# 2385
 	addi	%r9 %r0 $1	# 2386
 	slt	%r25 %r3 %r0	# 2386
-	beq	%r25 %r0 div_positive.11032	# 2386
+	beq	%r25 %r0 div_positive.11004	# 2386
 	sub	%r3 %r0 %r3	# 2386
 	addi	%r25 %r0 $1	# 2386
 	srl	%r25 %r3 %r25	# 2386
 	sub	%r3 %r0 %r25	# 2386
-	beq	%r0 %r0 div_exit.11033	# 2386
-div_positive.11032:
+	beq	%r0 %r0 div_exit.11005	# 2386
+div_positive.11004:
 	addi	%r25 %r0 $1	# 2386
 	srl	%r3 %r3 %r25	# 2386
-div_exit.11033:
+div_exit.11005:
 	add	%r25 %r15 %r9	# 2386
 	st	0(%r25) %r3	# 2386
 	addi	%r3 %r0 $0	# 2387
@@ -9228,14 +9095,14 @@ div_exit.11033:
 	st	-15(%r29) %r3	# 2387
 	st	-16(%r29) %r11	# 2387
 	fst	-17(%r29) %f0	# 2387
-	addi	%r29 %r29 $-19	# 2387
+	addi	%r29 %r29 $-18	# 2387
 	st	0(%r29) %r31	# 2387
 	jal	min_caml_float_of_int	# 2387
 	ld	0(%r29) %r31	# 2387
-	addi	%r29 %r29 $19	# 2387
+	addi	%r29 %r29 $18	# 2387
 	fld	-17(%r29) %f1	# 2387
-	finv	%f0 %f0	# 2387
-	fmul	%f1 %f1 %f0	# 2387
+	finv	%f31 %f0	# 2387
+	fmul	%f1 %f1 %f31	# 2387
 	ld	-15(%r29) %r2	# 2387
 	ld	-16(%r29) %r3	# 2387
 	add	%r25 %r3 %r2	# 2387
@@ -9244,138 +9111,138 @@ div_exit.11033:
 	ld	-14(%r29) %r3	# 2196
 	add	%r25 %r3 %r2	# 2196
 	ld	0(%r25) %r2	# 2196
+	st	-18(%r29) %r2	# 2196
+	addi	%r29 %r29 $-19	# 2196
+	st	0(%r29) %r31	# 2196
+	jal	create_pixel.2906	# 2196
+	ld	0(%r29) %r31	# 2196
+	addi	%r29 %r29 $19	# 2196
+	add	%r3 %r0 %r2	# 2196
+	ld	-18(%r29) %r2	# 2196
+	addi	%r29 %r29 $-19	# 2196
+	st	0(%r29) %r31	# 2196
+	jal	min_caml_create_array	# 2196
+	ld	0(%r29) %r31	# 2196
+	addi	%r29 %r29 $19	# 2196
+	addi	%r3 %r0 $0	# 2197
+	ld	-14(%r29) %r8	# 2197
+	add	%r25 %r8 %r3	# 2197
+	ld	0(%r25) %r3	# 2197
+	addi	%r3 %r3 $-2	# 2197
+	addi	%r29 %r29 $-19	# 2197
+	st	0(%r29) %r31	# 2197
+	jal	init_line_elements.2908	# 2197
+	ld	0(%r29) %r31	# 2197
+	addi	%r29 %r29 $19	# 2197
+	addi	%r3 %r0 $0	# 2196
+	ld	-14(%r29) %r8	# 2196
+	add	%r25 %r8 %r3	# 2196
+	ld	0(%r25) %r3	# 2196
 	st	-19(%r29) %r2	# 2196
-	addi	%r29 %r29 $-20	# 2196
+	st	-20(%r29) %r3	# 2196
+	addi	%r29 %r29 $-21	# 2196
 	st	0(%r29) %r31	# 2196
 	jal	create_pixel.2906	# 2196
 	ld	0(%r29) %r31	# 2196
-	addi	%r29 %r29 $20	# 2196
+	addi	%r29 %r29 $21	# 2196
 	add	%r3 %r0 %r2	# 2196
-	ld	-19(%r29) %r2	# 2196
-	addi	%r29 %r29 $-20	# 2196
+	ld	-20(%r29) %r2	# 2196
+	addi	%r29 %r29 $-21	# 2196
 	st	0(%r29) %r31	# 2196
 	jal	min_caml_create_array	# 2196
 	ld	0(%r29) %r31	# 2196
-	addi	%r29 %r29 $20	# 2196
+	addi	%r29 %r29 $21	# 2196
 	addi	%r3 %r0 $0	# 2197
 	ld	-14(%r29) %r8	# 2197
 	add	%r25 %r8 %r3	# 2197
 	ld	0(%r25) %r3	# 2197
 	addi	%r3 %r3 $-2	# 2197
-	addi	%r29 %r29 $-20	# 2197
+	addi	%r29 %r29 $-21	# 2197
 	st	0(%r29) %r31	# 2197
 	jal	init_line_elements.2908	# 2197
 	ld	0(%r29) %r31	# 2197
-	addi	%r29 %r29 $20	# 2197
+	addi	%r29 %r29 $21	# 2197
 	addi	%r3 %r0 $0	# 2196
 	ld	-14(%r29) %r8	# 2196
 	add	%r25 %r8 %r3	# 2196
 	ld	0(%r25) %r3	# 2196
-	st	-20(%r29) %r2	# 2196
-	st	-21(%r29) %r3	# 2196
-	addi	%r29 %r29 $-22	# 2196
+	st	-21(%r29) %r2	# 2196
+	st	-22(%r29) %r3	# 2196
+	addi	%r29 %r29 $-23	# 2196
 	st	0(%r29) %r31	# 2196
 	jal	create_pixel.2906	# 2196
 	ld	0(%r29) %r31	# 2196
-	addi	%r29 %r29 $22	# 2196
+	addi	%r29 %r29 $23	# 2196
 	add	%r3 %r0 %r2	# 2196
-	ld	-21(%r29) %r2	# 2196
-	addi	%r29 %r29 $-22	# 2196
+	ld	-22(%r29) %r2	# 2196
+	addi	%r29 %r29 $-23	# 2196
 	st	0(%r29) %r31	# 2196
 	jal	min_caml_create_array	# 2196
 	ld	0(%r29) %r31	# 2196
-	addi	%r29 %r29 $22	# 2196
+	addi	%r29 %r29 $23	# 2196
 	addi	%r3 %r0 $0	# 2197
 	ld	-14(%r29) %r8	# 2197
 	add	%r25 %r8 %r3	# 2197
 	ld	0(%r25) %r3	# 2197
 	addi	%r3 %r3 $-2	# 2197
-	addi	%r29 %r29 $-22	# 2197
+	addi	%r29 %r29 $-23	# 2197
 	st	0(%r29) %r31	# 2197
 	jal	init_line_elements.2908	# 2197
 	ld	0(%r29) %r31	# 2197
-	addi	%r29 %r29 $22	# 2197
-	addi	%r3 %r0 $0	# 2196
-	ld	-14(%r29) %r8	# 2196
-	add	%r25 %r8 %r3	# 2196
-	ld	0(%r25) %r3	# 2196
-	st	-22(%r29) %r2	# 2196
-	st	-23(%r29) %r3	# 2196
-	addi	%r29 %r29 $-24	# 2196
-	st	0(%r29) %r31	# 2196
-	jal	create_pixel.2906	# 2196
-	ld	0(%r29) %r31	# 2196
-	addi	%r29 %r29 $24	# 2196
-	add	%r3 %r0 %r2	# 2196
-	ld	-23(%r29) %r2	# 2196
-	addi	%r29 %r29 $-24	# 2196
-	st	0(%r29) %r31	# 2196
-	jal	min_caml_create_array	# 2196
-	ld	0(%r29) %r31	# 2196
-	addi	%r29 %r29 $24	# 2196
-	addi	%r3 %r0 $0	# 2197
-	ld	-14(%r29) %r8	# 2197
-	add	%r25 %r8 %r3	# 2197
-	ld	0(%r25) %r3	# 2197
-	addi	%r3 %r3 $-2	# 2197
-	addi	%r29 %r29 $-24	# 2197
-	st	0(%r29) %r31	# 2197
-	jal	init_line_elements.2908	# 2197
-	ld	0(%r29) %r31	# 2197
-	addi	%r29 %r29 $24	# 2197
+	addi	%r29 %r29 $23	# 2197
 	ld	-13(%r29) %r3	# 2391
-	st	-24(%r29) %r2	# 2391
+	st	-23(%r29) %r2	# 2391
 	add	%r16 %r0 %r3	# 2391
-	addi	%r29 %r29 $-25	# 2391
+	addi	%r29 %r29 $-24	# 2391
 	st	0(%r29) %r31	# 2391
 	ld	0(%r16) %r24	# 2391
 	jalr	%r24	# 2391
 	ld	0(%r29) %r31	# 2391
-	addi	%r29 %r29 $25	# 2391
+	addi	%r29 %r29 $24	# 2391
 	ld	-12(%r29) %r2	# 2392
 	add	%r16 %r0 %r2	# 2392
-	addi	%r29 %r29 $-25	# 2392
+	addi	%r29 %r29 $-24	# 2392
 	st	0(%r29) %r31	# 2392
 	ld	0(%r16) %r24	# 2392
 	jalr	%r24	# 2392
 	ld	0(%r29) %r31	# 2392
-	addi	%r29 %r29 $25	# 2392
+	addi	%r29 %r29 $24	# 2392
 	addi	%r2 %r0 $4	# 2311
 	ld	-11(%r29) %r3	# 2311
 	add	%r16 %r0 %r3	# 2311
-	addi	%r29 %r29 $-25	# 2311
+	addi	%r29 %r29 $-24	# 2311
 	st	0(%r29) %r31	# 2311
 	ld	0(%r16) %r24	# 2311
 	jalr	%r24	# 2311
 	ld	0(%r29) %r31	# 2311
-	addi	%r29 %r29 $25	# 2311
+	addi	%r29 %r29 $24	# 2311
 	addi	%r2 %r0 $9	# 2312
 	addi	%r3 %r0 $0	# 2312
 	addi	%r8 %r0 $0	# 2312
 	ld	-10(%r29) %r9	# 2312
 	add	%r16 %r0 %r9	# 2312
-	addi	%r29 %r29 $-25	# 2312
+	addi	%r29 %r29 $-24	# 2312
 	st	0(%r29) %r31	# 2312
 	ld	0(%r16) %r24	# 2312
 	jalr	%r24	# 2312
 	ld	0(%r29) %r31	# 2312
-	addi	%r29 %r29 $25	# 2312
+	addi	%r29 %r29 $24	# 2312
 	addi	%r2 %r0 $4	# 2313
 	ld	-9(%r29) %r3	# 2313
 	add	%r16 %r0 %r3	# 2313
-	addi	%r29 %r29 $-25	# 2313
+	addi	%r29 %r29 $-24	# 2313
 	st	0(%r29) %r31	# 2313
 	ld	0(%r16) %r24	# 2313
 	jalr	%r24	# 2313
 	ld	0(%r29) %r31	# 2313
-	addi	%r29 %r29 $25	# 2313
+	addi	%r29 %r29 $24	# 2313
 	ld	-8(%r29) %r2	# 2394
 	ld	-7(%r29) %r3	# 2394
-	addi	%r29 %r29 $-25	# 2394
+	addi	%r29 %r29 $-24	# 2394
 	st	0(%r29) %r31	# 2394
 	jal	veccpy.2501	# 2394
 	ld	0(%r29) %r31	# 2394
-	addi	%r29 %r29 $25	# 2394
+	addi	%r29 %r29 $24	# 2394
 	addi	%r2 %r0 $0	# 1189
 	ld	-6(%r29) %r3	# 1189
 	add	%r25 %r3 %r2	# 1189
@@ -9386,12 +9253,12 @@ div_exit.11033:
 	add	%r3 %r0 %r2	# 1189
 	add	%r16 %r0 %r9	# 1189
 	add	%r2 %r0 %r8	# 1189
-	addi	%r29 %r29 $-25	# 1189
+	addi	%r29 %r29 $-24	# 1189
 	st	0(%r29) %r31	# 1189
 	ld	0(%r16) %r24	# 1189
 	jalr	%r24	# 1189
 	ld	0(%r29) %r31	# 1189
-	addi	%r29 %r29 $25	# 1189
+	addi	%r29 %r29 $24	# 1189
 	addi	%r2 %r0 $0	# 2396
 	ld	-6(%r29) %r3	# 2396
 	add	%r25 %r3 %r2	# 2396
@@ -9399,28 +9266,28 @@ div_exit.11033:
 	addi	%r2 %r2 $-1	# 2396
 	ld	-3(%r29) %r3	# 2396
 	add	%r16 %r0 %r3	# 2396
-	addi	%r29 %r29 $-25	# 2396
+	addi	%r29 %r29 $-24	# 2396
 	st	0(%r29) %r31	# 2396
 	ld	0(%r16) %r24	# 2396
 	jalr	%r24	# 2396
 	ld	0(%r29) %r31	# 2396
-	addi	%r29 %r29 $25	# 2396
+	addi	%r29 %r29 $24	# 2396
 	addi	%r3 %r0 $0	# 2397
 	addi	%r8 %r0 $0	# 2397
-	ld	-22(%r29) %r2	# 2397
+	ld	-21(%r29) %r2	# 2397
 	ld	-2(%r29) %r9	# 2397
 	add	%r16 %r0 %r9	# 2397
-	addi	%r29 %r29 $-25	# 2397
+	addi	%r29 %r29 $-24	# 2397
 	st	0(%r29) %r31	# 2397
 	ld	0(%r16) %r24	# 2397
 	jalr	%r24	# 2397
 	ld	0(%r29) %r31	# 2397
-	addi	%r29 %r29 $25	# 2397
+	addi	%r29 %r29 $24	# 2397
 	addi	%r2 %r0 $0	# 2398
 	addi	%r10 %r0 $2	# 2398
-	ld	-20(%r29) %r3	# 2398
-	ld	-22(%r29) %r8	# 2398
-	ld	-24(%r29) %r9	# 2398
+	ld	-19(%r29) %r3	# 2398
+	ld	-21(%r29) %r8	# 2398
+	ld	-23(%r29) %r9	# 2398
 	ld	-1(%r29) %r11	# 2398
 	add	%r16 %r0 %r11	# 2398
 	ld	0(%r16) %r24	# 2398
@@ -10681,26 +10548,30 @@ min_caml_print_int_exit:
 	jr	%r31
 # print_int (32bit, byte -> byte)
 min_caml_print_int_byte:
-	addi	%r8 %r0 $8
+	addi	%r9 %r0 $24
+	srl	%r10 %r2 %r9
+	send8	%r10
+	addi	%r9 %r0 $16
+	srl	%r10 %r2 %r9
+	send8	%r10
+	addi	%r9 %r0 $8
+	srl	%r10 %r2 %r9
+	send8	%r10
 	send8	%r2
-	srl	%r2 %r2 %r8
-	send8	%r2
-	srl	%r2 %r2 %r8
-	send8	%r2
-	srl	%r2 %r2 %r8
-	send8	%r2
-	jr	%r31
+	jr	%r31	
 # print_float (32bit, byte -> byte)
 min_caml_print_float_byte:
 	fst	-1(%r29) %f0
 	ld	-1(%r29) %r8
+	addi	%r9 %r0 $24
+	srl	%r10 %r8 %r9
+	send8	%r10
+	addi	%r9 %r0 $16
+	srl	%r10 %r8 %r9
+	send8	%r10
 	addi	%r9 %r0 $8
-	send8	%r8
-	srl	%r8 %r9 %r9
-	send8	%r8
-	srl	%r8 %r9 %r9
-	send8	%r8
-	srl	%r8 %r8 %r9
+	srl	%r10 %r8 %r9
+	send8	%r10
 	send8	%r8
 	jr	%r31	
 # read_int (32bit, ASCII -> byte)
@@ -10951,22 +10822,16 @@ min_caml_float_of_int_big_positive:
 ## 加算を倍々に足すやつにすべき(あとでする)
 ##
 
-# truncate
-min_caml_truncate:
-	# int_of_float(x+0.5)
-	addi	%r8 %r0 min_caml_float_half
-	fld	0(%r8) %f1
-	fadd	%f0 %f0 %f1
-# int_of_float
+# int_of_float (a.k.a. truncate)
 min_caml_int_of_float:
+min_caml_truncate:
 	# FLAGを決めてabsをする
 	addi	%r9 %r0 min_caml_float_0
 	fld	0(%r9) %f1
 	fslt	%f0 %f1
 	bclt	min_caml_int_of_float_flag_negative
 	addi	%r8 %r0 $0
-	addi	%r9 %r0 min_caml_int_of_float_after_flag
-	jr	%r9
+	beq	%r0 %r0 min_caml_int_of_float_after_flag
 min_caml_int_of_float_flag_negative:
 	addi	%r8 %r0 $1
 	fneg	%f0 %f0
@@ -10976,14 +10841,14 @@ min_caml_int_of_float_after_flag:
 	fslt	%f0 %f1
 	bclf	min_caml_int_of_float_big
 	# |x| < 8388608.0
-	# r8: FLAG, r9: addr, r10: imm, r11: const for shift
+	# r2: answer, r8: FLAG, r9: addr, r10: imm, r11: const for shift
 	# f0: |x|, f1: 8388608.0
 	fadd	%f0 %f0 %f1
 	fst	-1(%r29) %f0
 	ld	-1(%r29) %r2
 	addiu32	%r10 %r0 $0x4b000000
-	sub	%r10 %r0 %r10
-	add	%r2 %r2 %r10 
+	sub	%r2 %r2 %r10
+	nop
 	# FLAGの調整
 	beq	%r8 %r0 min_caml_int_of_float_small_positive
 	sub	%r2 %r0 %r2
@@ -11109,30 +10974,21 @@ min_caml_floor_small:
 	addi	%r29 %r29 $2
 	fld	-1(%r29) %f1
 	# f0: float_of_int(int_of_float(x)), f1: x, f2: -1.0f, f3: 0.0f, f4: 1.0f
-	# x<0ならfloor(x)+1を求めているので-1する
+	# %f0-1 < x < %f0となっているときは-1する
 	addi	%r8 %r0 min_caml_float_minus_1
 	fld	0(%r8) %f2
+	fslt	%f1 %f0
+	bclf	min_caml_floor_sign
+	fadd	%f3 %f0 %f2
+	fslt	%f3 %f1
+	bclf	min_caml_floor_sign
+	fadd	%f0 %f0 %f2
+min_caml_floor_sign:
+	jr	%r31
+	# x<0ならfloor(x)+1を求めているので-1する
 	addi	%r8 %r0 min_caml_float_0
 	fld	0(%r8) %f3
 	fslt	%f1 %f3
-	bclf	min_caml_floor_positive
-	fadd	%f0 %f0 %f2
-min_caml_floor_negative:
-	# x < %f0 < x+1となっているときは+1する
-	fslt	%f1 %f0
-	bclf	min_caml_floor_exit
-	addi	%r8 %r0 min_caml_float_1
-	fld	0(%r8) %f4
-	fadd	%f1 %f1 %f4
-	fslt	%f0 %f1
-	bclf	min_caml_floor_exit
-	fadd	%f0 %f0 %f4
-min_caml_floor_positive:
-	# x-1 < %f0 < xとなっているときは-1する
-	fslt	%f0 %f1
-	bclf	min_caml_floor_exit
-	fadd	%f1 %f1 %f2
-	fslt	%f1 %f0
 	bclf	min_caml_floor_exit
 	fadd	%f0 %f0 %f2
 min_caml_floor_exit:
@@ -11141,7 +10997,7 @@ min_caml_floor_exit:
 min_caml_cos:
 	# 定義域を[0, 2pi)にする
 	# r8: FLAG, r9: addr
-	# f0: x, f1: pi, f2: 0.5, f3: temp(pi/2), f4: temp
+	# f0: x, f1: pi, f3: pi/2, f4: temp
 	fabs	%f0 %f0
 	addi	%r29 %r29 $-1
 	st	0(%r29) %r31
@@ -11154,38 +11010,35 @@ min_caml_cos:
 	fld	0(%r9) %f1
 	fslt	%f0 %f1
 	bclt	min_caml_cos_2
-	fneg	%f3 %f1
-	fadd	%f0 %f0 %f3
+	fneg	%f4 %f1
+	fadd	%f0 %f0 %f4
 	beq	%r8 %r0 min_caml_cos_1_0
 	addi	%r8 %r0 $0
-	addi	%r9 %r0 min_caml_cos_2
-	jr	%r9
+	beq	%r0 %r0 min_caml_cos_2
 min_caml_cos_1_0:
 	addi	%r8 %r0 $1
 min_caml_cos_2:
 	# x >= pi/2ならx := pi - x, FLAG reverse
-	addi	%r9 %r0 min_caml_float_half
-	fld	0(%r9) %f2
-	fmul	%f3 %f1 %f2
+	addi	%r9 %r0 min_caml_half_pi
+	fld	0(%r9) %f3
 	fslt	%f0 %f3
 	bclt	min_caml_cos_3
 	fneg	%f4 %f0
 	fadd	%f0 %f1 %f4
 	beq	%r8 %r0 min_caml_cos_2_0
 	addi	%r8 %r0 $0
-	addi	%r9 %r0 min_caml_cos_3
-	jr	%r9
+	beq	%r0 %r0 min_caml_cos_3
 min_caml_cos_2_0:
 	addi	%r8 %r0 $1
 min_caml_cos_3:
 	# x <= pi/4ならkernel_cos, そうでないならx := pi/2 - x, kernel_sinする
-	fmul	%f4 %f3 %f2
+	addi	%r9 %r0 min_caml_quarter_pi
+	fld	0(%r9) %f4
 	fslt	%f4 %f0
 	bclf	min_caml_kernel_cos
 	fneg	%f4 %f0
 	fadd	%f0 %f3 %f4
-	addi	%r9 %r0 min_caml_kernel_sin
-	jr	%r9
+	beq	%r0 %r0 min_caml_kernel_sin
 min_caml_kernel_cos:
 	# Tayler展開で計算する
 	# r8: flag, r9: addr
@@ -11196,12 +11049,12 @@ min_caml_kernel_cos:
 	fmul	%f0 %f3 %f1
 	addi	%r9 %r0 min_caml_kernel_cos_c2
 	fld	0(%r9) %f3
-	fadd	%f0 %f0 %f1
-	fmul	%f0 %f0 %f3
+	fadd	%f0 %f0 %f3
+	fmul	%f0 %f0 %f1
 	addi	%r9 %r0 min_caml_kernel_cos_c1
 	fld	0(%r9) %f3
-	fadd	%f0 %f0 %f1
-	fmul	%f0 %f0 %f3
+	fadd	%f0 %f0 %f3
+	fmul	%f0 %f0 %f1
 	addi	%r9 %r0 min_caml_float_1
 	fld	0(%r9) %f3
 	fadd	%f0 %f0 %f3
@@ -11216,18 +11069,17 @@ min_caml_kernel_cos_positive:
 min_caml_sin:
 	# 定義域を[0, 2pi)にする
 	# r8: FLAG, r9: addr
-	# f0: x, f1: pi, f2: 0.5, f3: temp(pi/2), f4: temp
+	# f0: x, f1: pi, f3: pi/2, f4: temp
 	addi	%r9 %r0 min_caml_float_0
 	fld	0(%r9) %f1
 	fslt	%f0 %f1
 	bclt	min_caml_sin_flag_negative
 	addi	%r8 %r0 $0
-	addi	%r9 %r0 min_caml_sin_after_flag
-	jr	%r9
+	beq	%r0 %r0 min_caml_sin_after_flag
 min_caml_sin_flag_negative:
 	addi	%r8 %r0 $1
-min_caml_sin_after_flag:
 	fabs	%f0 %f0
+min_caml_sin_after_flag:
 	st	-1(%r29) %r8
 	addi	%r29 %r29 $-2
 	st	0(%r29) %r31
@@ -11240,32 +11092,30 @@ min_caml_sin_after_flag:
 	fld	0(%r9) %f1
 	fslt	%f0 %f1
 	bclt	min_caml_sin_2
-	fneg	%f3 %f1
-	fadd	%f0 %f0 %f3
+	fneg	%f4 %f1
+	fadd	%f0 %f0 %f4
 	beq	%r8 %r0 min_caml_sin_1_0
 	addi	%r8 %r0 $0
-	addi	%r9 %r0 min_caml_sin_2
-	jr	%r9
+	beq	%r0 %r0 min_caml_sin_2
 min_caml_sin_1_0:
 	addi	%r8 %r0 $1
 min_caml_sin_2:
 	# x >= pi/2ならx := pi - x
-	addi	%r9 %r0 min_caml_float_half
-	fld	0(%r9) %f2
-	fmul	%f3 %f1 %f2
+	addi	%r9 %r0 min_caml_half_pi
+	fld	0(%r9) %f3
 	fslt	%f0 %f3
 	bclt	min_caml_sin_3
 	fneg	%f4 %f0
 	fadd	%f0 %f1 %f4
 min_caml_sin_3:
 	# x <= pi/4ならkernel_sin, そうでないならx := pi/2 - x, kernel_cosする
-	fmul	%f4 %f3 %f2
+	addi	%r9 %r0 min_caml_quarter_pi
+	fld	0(%r9) %f4
 	fslt	%f4 %f0
 	bclf	min_caml_kernel_sin
 	fneg	%f4 %f0
 	fadd	%f0 %f3 %f4
-	addi	%r9 %r0 min_caml_kernel_cos
-	jr	%r9
+	beq	%r0 %r0 min_caml_kernel_cos
 min_caml_kernel_sin:
 	# Tayler展開で計算する
 	# r8: flag, r9: addr
@@ -11294,21 +11144,19 @@ min_caml_kernel_sin_positive:
 # cos & sin
 min_caml_reduction_2pi:
 	# f0を[0, 2pi)にする
-	# f1: 2*pi, f2: 0.5, f3: p
-	addi	%r9 %r0 min_caml_pi
+	# f1: 2*pi, f2: 0.5, f3: p, f4: 2.0 or -p
+	addi	%r9 %r0 min_caml_2pi
 	fld	0(%r9) %f1
-	fadd	%f1 %f1 %f1
 	fmov	%f3 %f1
 	addi	%r9 %r0 min_caml_float_half
 	fld	0(%r9) %f2
-	addi	%r9 %r0 min_caml_reduction_2pi_while1
+	addi	%r9 %r0 min_caml_float_2
+	fld	0(%r9) %f4
 min_caml_reduction_2pi_while1:
 	fslt	%f0 %f3
-	bclt	min_caml_reduction_2pi_while1_exit
-	fadd	%f3 %f3 %f3
-	jr	%r9
-min_caml_reduction_2pi_while1_exit:
-	addi	%r9 %r0 min_caml_reduction_2pi_while2
+	bclt	min_caml_reduction_2pi_while2
+	fmul	%f3 %f3 %f4
+	beq	%r0 %r0 min_caml_reduction_2pi_while1
 min_caml_reduction_2pi_while2:
 	fslt	%f0 %f1
 	bclt	min_caml_reduction_2pi_while2_exit
@@ -11318,7 +11166,7 @@ min_caml_reduction_2pi_while2:
 	fadd	%f0 %f0 %f4
 min_caml_reduction_2pi_while2_after_if:
 	fmul	%f3 %f3 %f2
-	jr	%r9
+	beq	%r0 %r0 min_caml_reduction_2pi_while2
 min_caml_reduction_2pi_while2_exit:
 	jr	%r31
 # atan
